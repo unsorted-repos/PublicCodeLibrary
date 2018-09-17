@@ -21,13 +21,15 @@ It is not completely automated. To sync the calendars in the phone, a user has t
 
 Possible improvements:
 
-0. Automate pressing the "+"-symbol in Davdroid through keyboard commands from PC using AHK.
+0. Automating the downloading the source of webpage https://calendar.google.com/calendar/r?pli=1 from VBA (without entering your login data in Excel.)
+
+1. Automate pressing the "+"-symbol in Davdroid through keyboard commands from PC using AHK.
 
 Or:
 
-1. Finding the settings file of Davdroid
-1.1 Finding in that file, the storage location of the calendar base url, user name, password and calendar name.
-1.2 Simply writing that file directly from Excel.
-1.3 Automatically transferring that file to the right location on your phone. (E.g. Through mega or ftp).
+2. Finding the settings file of Davdroid
+2.1 Finding in that file, the storage location of the calendar base url, user name, password and calendar name.
+2.2 Simply writing that file directly from Excel.
+2.3 Automatically transferring that file to the right location on your phone. (E.g. Through mega or ftp).
 
 
