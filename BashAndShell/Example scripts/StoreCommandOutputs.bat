@@ -6,4 +6,9 @@
 ::(which is located in the same folder as file1).
 
 @echo off
+:: A single arrow like: 
 call SomeBatchFile.BAT >log.txt 2>&1
+:: Overwrites the content of the file with the new outputs.
+
+:: A double arrow before like:
+::call SomeBatchFile.BAT >>log.txt 2>&1 appends the new output to the file
