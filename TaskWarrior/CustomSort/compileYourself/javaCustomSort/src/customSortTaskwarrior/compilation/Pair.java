@@ -1,6 +1,5 @@
 //To compile as jar you need to comment out this package allocation. For testing you uncomment it:
 //package customSortTaskwarrior.compilation;
-//package test0;
 
 public class Pair implements Comparable<Pair> {
     public final int index;

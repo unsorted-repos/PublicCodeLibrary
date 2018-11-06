@@ -1,6 +1,6 @@
 //To compile as jar you need to comment out this package allocation. For testing you uncomment it:
 //package customSortTaskwarrior.compilation;
-
+//package customSortTaskwarrior.compilation;
 
 
 import java.io.BufferedWriter;
