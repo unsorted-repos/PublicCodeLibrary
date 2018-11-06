@@ -24,7 +24,8 @@ task nice0
 
 Compile yourself instructions (in Windows):
 ------------
-###Prerequisites:###
+### Prerequisites: ###
+
 0. Installed JDK (8+) or higher (not sure if JRE is also required)
 1. Link to JDK (8+ or higher:https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 0. Added Java Developement Kit (JDK (8+) to path.)
@@ -45,7 +46,7 @@ Compile yourself instructions (in Windows):
 	0.7 More accurate description/manual is found via duckduckgo/ecosia 
 	
 
-###Steps:###
+### Steps: ###
 
 0. open cmd
 
