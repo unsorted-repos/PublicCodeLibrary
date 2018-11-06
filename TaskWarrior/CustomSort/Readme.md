@@ -1,8 +1,10 @@
-#limitations:
+limitations:
+------------
 1. Currently a task where the dependency is set to 0 (Probably task id 0 which does not exist), is not processed and dangles on top of the list. 
 
 
-#Fast usage instructions:
+Fast usage instructions:
+------------
 0. Copy the following files to /home/<username>/customReport
 	0.1 customSortV6.sh
 	0.2 javaSort.jar
@@ -20,8 +22,9 @@ task nice0
 6. (You can use the AutoHotKey (AHK) scripts as given in this public repository, to map keys alt+arrow up/down to scroll in WSL Ubuntu 16.04 (and cmd) with the arrows.) 
 7. Create cronjob that runs customSortV6.sh every x minutes with:
 
-#Compile yourself instructions (in Windows):
-Prerequisites:
+Compile yourself instructions (in Windows):
+------------
+###Prerequisites:###
 0. Installed JDK (8+) or higher (not sure if JRE is also required)
 1. Link to JDK (8+ or higher:https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 0. Added Java Developement Kit (JDK (8+) to path.)
@@ -42,7 +45,8 @@ Prerequisites:
 	0.7 More accurate description/manual is found via duckduckgo/ecosia 
 	
 
-Steps:
+###Steps:###
+
 0. open cmd
 
 1. browse to "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/compilation
@@ -92,7 +96,8 @@ jar -cvmf manifest.mf javaSort.jar *.class
 interaction, see quick use.
 
 
-#Todo's:
+Todo's:
+------------
 0. Remove all verbosity to make it run in background
 
 1. Create a subfolder for the output that is created every run to keep it structured
