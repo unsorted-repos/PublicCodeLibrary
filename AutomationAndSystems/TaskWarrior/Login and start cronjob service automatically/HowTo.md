@@ -1,3 +1,5 @@
+### Functions of this manual:
+
 This manual explains how to make Taskwarrior automatically:
 
  0. Start/login upon opening Windows Subsystem for Linux (WSL) Ubuntu 16.04
@@ -5,7 +7,8 @@ This manual explains how to make Taskwarrior automatically:
  2. TODO: Automatically run sorting script to generate custom sorted reports created in the other folder in TaskWarrior in this repo.
 
 
-It consist of 5 steps:
+### Required steps for completion:
+
  0. Set your desired backup storage folder. (This is the folder where your taskwarrior data is backed up to).
  1. Copy the autoBackup.sh file in this repository to `/home/<yourUsername>/autoBackup`. (This script backs up your whole taskwarrior data {Except for the hooks} to a certain folder under the current time.)
  2. Create a cronjob (that is something that executes a list of commands(and scripts) every predetermined timeperiod. In this case it will execute the `autoBackup.sh` script, as well as the `customSortVx.sh`.
