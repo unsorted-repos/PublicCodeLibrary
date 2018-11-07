@@ -21,15 +21,21 @@ Fast usage instructions:
 `/customSortV6.sh` (or if your in for example `/home/` type `./<yourUsername>/cSort/customSortV6.sh`)
 
 3. Wait for 4 minutes, the tasks are now sorted top to bottom on: 
+	
 	3.a project if the urgency is below threshold 13.4, 
+	
 	3.b then on urgency: first tasks without project, 
+	
 	3.c then tasks with project.
+
 4. Get a structured overview of your tasks with command: 
 
 `task nice0`
 
 5. (start+arrow to right to make screen smaller and then larger again to get a compact overview)
+
 6. (You can use the AutoHotKey (AHK) scripts as given in this public repository, to map keys alt+arrow up/down to scroll in WSL Ubuntu 16.04 (and cmd) with the arrows.) 
+
 7. Create cronjob that runs customSortV6.sh every x minutes with:
 
 Compile yourself instructions (in Windows):
@@ -37,23 +43,24 @@ Compile yourself instructions (in Windows):
 ### Prerequisites: ###
 
 0. Installed JDK (8+) or higher (not sure if JRE is also required)
-1. Link to JDK (8+ or higher:https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-0. Added Java Developement Kit (JDK (8+) to path.)
 
-	0.1 Can be done by going to/finding <yourharddrive>:/programfiles/java/jdk-<versionnr>/bin
+1. Link to JDK (8+ or higher:https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
+2. Added Java Developement Kit (JDK (8+) to path.)
+
+	2.1 Can be done by going to/finding <yourharddrive>:/programfiles/java/jdk-<versionnr>/bin
 	
-	0.2 click on start>type "environment variables" 
+	2.2 click on start>type "environment variables" 
 	
-	0.3 then again click on environmentvariables or advanced/something like that=smt
+	2.3 then again click on environmentvariables or advanced/something like that=smt
 	
-	0.4 then there is a "path" variable for the user and again for the pc. 
+	2.4 then there is a "path" variable for the user and again for the pc. 
 	
-	0.5 open it/edit and "ADD" in top name jdk and in the bottom field the path you just found.
+	2.5 open it/edit and "ADD" in top name jdk and in the bottom field the path you just found.	
 	
+	2.6 (reboot?)
 	
-	0.6 (reboot?)
-	
-	0.7 More accurate description/manual is found via duckduckgo/ecosia 
+	2.7 More accurate description/manual is found via duckduckgo/ecosia 
 	
 
 ### Steps: ###
@@ -64,10 +71,10 @@ Compile yourself instructions (in Windows):
 
 Enter (for backwards compatibility since this script currently ensures highest JDK version 8. = 1.8 in Linux.):
 
+```
 del ClassFive.class
 
 del Pair.class
-
 
 del StringPair.class
 
@@ -80,6 +87,7 @@ javac Pair.java -target 1.8 -source 1.8
 javac StringPair.java -target 1.8 -source 1.8
 
 jar -cvmf manifest.mf javaSort.jar *.class
+```
 
 (You can run the java separately with: java -jar javaSort.jar (but that requires the output of the customSortV6.sh)
 
