@@ -136,13 +136,13 @@ unnecessary running of:
 
 6. Either:
 
-0.1 Convert jar to exe to make execution independent of java in Ubuntu 16.04
+	6.1 Convert jar to exe to make execution independent of java in Ubuntu 16.04
 
-0.2 Convert jar to different type that Ubuntu 16.04 can execute without requireing dependencies
+	6.2 Convert jar to different type that Ubuntu 16.04 can execute without requireing dependencies
 
-0.3 Write quick bash check to check version of jdk = 1.8 or higher so that the get-apt update can be ommitted to speed up bash
+	6.3 Write quick bash check to check version of jdk = 1.8 or higher so that the get-apt update can be ommitted to speed up bash
 
-0.4 Extend customSortV6.sh again to do the sorting as well, and then optimize to make it faster, and remove java dependency.
+	6.4 Extend customSortV6.sh again to do the sorting as well, and then optimize to make it faster, and remove java dependency.
 
 7. Refactor ClassFive.java to proper non-single-variable-name in class, test class, manifest, customsort.
 
