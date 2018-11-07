@@ -92,9 +92,6 @@ task sync
  8. Exit ubuntu 
  9. Now when you restart Ubuntu will log in Taskwarrior and start the cronjob service, but still prompt you for your Ubuntu password.
 
-[![An example command in .bashrc that is executed upon boot of WSL
-    ubuntu.][1]][1]
-
  **3. Removing prompt for password:**
 Using: https://askubuntu.com/questions/147241/execute-sudo-without-password
 
@@ -146,7 +143,6 @@ The code to prevent prompting for password at boot would for example look like (
 
 Working towards this solution, I learned cronjobs are intended for things to run periodically rather than at specific events such as startup. To run things at startup in WSL you can use the file  `/home/<username>/.bashrc`.
 
-  [1]: https://i.stack.imgur.com/7rn3J.png
 
  ###TODO:###
   0. Make backup storage location a parameter in stead of requiring it to be replaced in all the lines.
