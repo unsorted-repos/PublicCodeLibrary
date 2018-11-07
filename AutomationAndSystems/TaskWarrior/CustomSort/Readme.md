@@ -1,6 +1,6 @@
 limitations:
 ------------
-1. Currently a task where the dependency is set to 0 (Probably task id 0 which does not exist), is not processed and dangles on top of the list. 
+0. Currently a task where the dependency is set to 0 (Probably task id 0 which does not exist), is not processed and dangles on top of the list. 
 
 
 Fast usage instructions:
