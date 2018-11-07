@@ -145,6 +145,7 @@ Working towards this solution, I learned cronjobs are intended for things to run
 
 
  ###TODO:###
+  
   0. Make backup storage location a parameter in stead of requiring it to be replaced in all the lines.
   1. Add the location of the customsort and this script itself to the backup script autoBackup.sh to prevent requiring to execute this manual again if you re-install taskwarrior.
   2. Add customSort with 10 minute intervals to cronjob.
