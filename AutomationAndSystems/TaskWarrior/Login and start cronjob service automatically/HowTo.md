@@ -17,6 +17,7 @@ In reality your problem is already solved with just step 2 and 3, but since you 
 
 An example of the `crontab` file could look like (I only added the last line, the rest was already there in my setup): 
 
+```
 	# /etc/crontab: system-wide crontab
 	# Unlike any other crontab you don't have to run the `crontab'
 	# command to install the new version when you edit this file
@@ -27,7 +28,12 @@ An example of the `crontab` file could look like (I only added the last line, th
 	PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 	# m h dom mon dow user  command
-	*/2 * * * * root touch /var/www/myFile
+	# E.g. the following line would mean the command "touch /var/myFile" is executed every two minutes with root access:
+	#*/2 * * * * root touch /var/www/myFile
+
+	# Backing up .task file/folder:
+	*/1 * * * * root sh -v /home/a/autoBackup.sh
+```
 
 
 
