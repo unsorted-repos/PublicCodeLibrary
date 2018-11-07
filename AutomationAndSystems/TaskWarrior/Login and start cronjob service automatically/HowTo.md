@@ -12,7 +12,7 @@ It consist of 5 steps:
  3. Run/enable the cronjob service at startup, so that the cronjob of point 1 starts when you open the WSL Ubuntu.
  4. Remove prompting for password to start the cronjob service automatically, so you don't get bothered for input if you open WSL Ubuntu.
 
- **0. Set backup folder in autoBackup.sh:**
+  ### **0. Set backup folder in autoBackup.sh:**
  
  0.1 Download the autoBackup.sh from this repository. To for example folder `E:\somefolder\TaskWarrior\auto startup\`.
  
@@ -20,13 +20,13 @@ It consist of 5 steps:
  
  0.3 Right now it backs up everything to `C:/task backup`. If you want to change that: replace all the `c/task backup/` with whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
 
- **1. Copy autoBackup.sh:**
+ ###  **1. Copy autoBackup.sh:**
 
  1.1 Command (notice the change of `\` direction to `/`:
 
 `cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/autoStartup/"`
 
- **2. Creating a functioning cronjob:**
+  ### **2. Creating a functioning cronjob:**
 
  1. Browse to folder `/etc/` in your WSL Ubuntu.
  2. Then in folder `/etc/` enter:`sudo nano crontab`
@@ -55,7 +55,7 @@ An example of the `crontab` file could look like (I only added the last line, th
 
 
 
-**2. Enabling cronjob service**
+ ### **3. Enabling cronjob service**
 
 To run a command automatically at startup of WSL Ubuntu 16.04 you can:
 
@@ -92,7 +92,7 @@ task sync
  8. Exit ubuntu 
  9. Now when you restart Ubuntu will log in Taskwarrior and start the cronjob service, but still prompt you for your Ubuntu password.
 
- **3. Removing prompt for password:**
+ ### **4. Removing prompt for password:**
 Using: https://askubuntu.com/questions/147241/execute-sudo-without-password
 
  1. Open WSL ubuntu 16.04 (terminal)
@@ -143,8 +143,9 @@ The code to prevent prompting for password at boot would for example look like (
 
 Working towards this solution, I learned cronjobs are intended for things to run periodically rather than at specific events such as startup. To run things at startup in WSL you can use the file  `/home/<username>/.bashrc`.
 
+-------------------
 
- ###TODO:###
+ ###  ###TODO:###
   
   0. Make backup storage location a parameter in stead of requiring it to be replaced in all the lines.
   1. Add the location of the customsort and this script itself to the backup script autoBackup.sh to prevent requiring to execute this manual again if you re-install taskwarrior.
