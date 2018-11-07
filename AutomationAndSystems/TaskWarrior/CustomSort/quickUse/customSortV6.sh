@@ -372,8 +372,8 @@ fi
 # fi
 
 yes | task config report.nice0.description 'List of low priority tasks'
-yes | task config report.nice0.columns     'id,depends,secretSort,due,priority,urgency,duration,project,recur,tags,description,start'
-yes | task config report.nice0.labels      'id,dep,sSort,due,prio,urgy,dura,proj,again,tag, descr,start'
+yes | task config report.nice0.columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'
+yes | task config report.nice0.labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'
 yes | task config report.nice0.sort        'secretSort+/'
 yes | task config report.nice0.filter      'status:pending'
 
