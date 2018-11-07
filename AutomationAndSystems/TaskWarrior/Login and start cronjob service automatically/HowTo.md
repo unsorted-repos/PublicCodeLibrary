@@ -28,12 +28,12 @@ It consist of 5 steps:
 
  **2. Creating a functioning cronjob:**
 
- 1. Browse to folder `/etc/`
+ 1. Browse to folder `/etc/` in your WSL Ubuntu.
  2. Then in folder `/etc/` enter:`sudo nano crontab`
  3. In that file named crontab enter your command.
  4. E.g.: `*/1 * * * * root touch /var/www/myFile`
  5. To create a file named `myFile` in location `/var/www/` every minute.
- 6. For completeness: `1 * * * * root touch /var/www/myFile` would mean: create that file every 1st minute of the hour.
+ 6. For completeness: `*/2 * * * * root touch /var/www/myFile` means: the command "touch /var/myFile" is executed every two minutes with root access.
 
 An example of the `crontab` file could look like (I only added the last line, the rest was already there in my setup): 
 
@@ -48,9 +48,6 @@ An example of the `crontab` file could look like (I only added the last line, th
 	PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 	# m h dom mon dow user  command
-	# E.g. the following line would mean the command "touch /var/myFile" is executed every two minutes with root access:
-	#*/2 * * * * root touch /var/www/myFile
-
 	# Backing up .task file/folder:
 	*/1 * * * * root sh -v /home/a/autoBackup.sh
 ```
