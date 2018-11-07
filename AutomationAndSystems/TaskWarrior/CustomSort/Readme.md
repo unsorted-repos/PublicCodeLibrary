@@ -5,9 +5,17 @@ limitations:
 
 Fast usage instructions:
 ------------
-0. Copy the following files to /home/<username>/customReport
-	0.1 customSortV6.sh
-	0.2 javaSort.jar
+0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quicUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using commands:
+
+	0.1 Download the files to for example E:\somefolder\TaskWarrior\CustomSort\quickUse\
+
+	0.2 Create folder if it doesnt exist already:
+	
+	0.3 Copy the files:
+
+
+	
+	
 1. browse (WSL) Ubuntu (16.04) to /home/<username>/customReport
 2. type:
 ./customSortV6.sh
