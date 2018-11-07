@@ -13,12 +13,18 @@ It consist of 5 steps:
  4. Remove prompting for password to start the cronjob service automatically, so you don't get bothered for input if you open WSL Ubuntu.
 
  **0. Set backup folder in autoBackup.sh:**
-	0.1 Download the autoBackup.sh from this folder
-	0.1 Right Mouse Button (RMB) on `autoBackup.sh`>Open with notepad, or whatever text editor/bash editor you use. 
-	0.2 Right now it backs up everything to `C:/task backup`. If you want to change that: replace all the `c/task backup/` with whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
+ 
+ 0.1 Download the autoBackup.sh from this repository. To for example folder `E:\somefolder\TaskWarrior\auto startup\`.
+ 
+ 0.2 Right Mouse Button (RMB) on `autoBackup.sh`>Open with notepad, or whatever text editor/bash editor you use. 
+ 
+ 0.3 Right now it backs up everything to `C:/task backup`. If you want to change that: replace all the `c/task backup/` with whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
 
  **1. Copy autoBackup.sh:**
-	1.1 Command:
+
+ 1.1 Command (notice the change of `\` direction to `/`:
+
+`cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/autoStartup/"`
 
  **2. Creating a functioning cronjob:**
 
