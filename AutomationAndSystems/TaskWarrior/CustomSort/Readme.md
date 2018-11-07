@@ -126,9 +126,9 @@ Todo's:
 3. Write an efficient cronjob that detects whether taskwarrior has been changed by user w.r.t. previous state/minute, to prevent 
 unnecessary running of:
 
-3.1 customSortV6.sh cronjob
+	3.1 customSortV6.sh cronjob
 
-3.2 AutoBackup, (also saves discspace)
+	3.2 AutoBackup, (also saves discspace)
 
 4. Ensure the layout is only with empty lines only between projects and not between tasks.
 
