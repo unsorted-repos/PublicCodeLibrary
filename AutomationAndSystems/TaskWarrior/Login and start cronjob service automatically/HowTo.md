@@ -1,5 +1,12 @@
-This manual explains how to make Taskwarrior automatically start and login upon opening Windows Subsystem for Linux (WSL) Ubuntu 16.04. It consist of 3 steps:
+This manual explains how to make Taskwarrior automatically:
 
+ 0. start/login upon opening Windows Subsystem for Linux (WSL) Ubuntu 16.04
+ 1. Create periodic backups when Opening WSL Ubuntu 16.04
+ 2. TODO: Automatically run sorting script to generate custom sorted reports created in the other folder in TaskWarrior in this repo.
+
+
+It consist of 3 steps:
+ 0. TODO: Copy the autoSh to /home
  1. Create a cronjob
  2. Run/enable the cronjob service at startup
  3. Remove prompting for password to start the cronjob service automatically.
