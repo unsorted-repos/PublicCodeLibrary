@@ -25,7 +25,7 @@ This manual explains how to make Taskwarrior automatically:
 
  ###  **1. Copy autoBackup.sh:**
 
- 1.1 Command (notice the change of `\` direction to `/`:
+ 1.1 Command (notice the change of `\` direction to `/`):
 
 `cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/autoStartup/"`
 
