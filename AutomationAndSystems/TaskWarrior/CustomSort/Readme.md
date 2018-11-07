@@ -5,26 +5,28 @@ limitations:
 
 Fast usage instructions:
 ------------
-0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quicUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using commands:
+0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quicUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using steps:
 
-	0.1 Download the files to for example E:\somefolder\TaskWarrior\CustomSort\quickUse\
-
-	0.2 Create folder if it doesnt exist already:
+	0.1 Download the files to for example `E:\somefolder\TaskWarrior\CustomSort\quickUse\` Switch the slashes for Linux to: `E:/somefolder/TaskWarrior/CustomSort/quickUse/`.
 	
-	0.3 Copy the files:
-
+	0.2 Switch the windows style drive letter `E:/` to Linux style: `/mnt/e` and copy the files:
+		`cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourusername>/cSort`
 
 	
 	
-1. browse (WSL) Ubuntu (16.04) to /home/<username>/customReport
+1. browse (WSL) Ubuntu (16.04) to /home/<username>/cSort
+
 2. type:
-./customSortV6.sh
+	
+`/customSortV6.sh` (or if your in for example `/home/` type `./<your_username>/cSort/customSortV6.sh`)
+
 3. Wait for 4 minutes, the tasks are now sorted top to bottom on: 
 	3.a project if the urgency is below threshold 13.4, 
 	3.b then on urgency: first tasks without project, 
 	3.c then tasks with project.
 4. Get a structured overview of your tasks with command: 
-task nice0
+
+`task nice0`
 
 5. (start+arrow to right to make screen smaller and then larger again to get a compact overview)
 6. (You can use the AutoHotKey (AHK) scripts as given in this public repository, to map keys alt+arrow up/down to scroll in WSL Ubuntu 16.04 (and cmd) with the arrows.) 
