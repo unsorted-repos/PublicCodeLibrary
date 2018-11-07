@@ -1,19 +1,26 @@
 This manual explains how to make Taskwarrior automatically:
 
- 0. start/login upon opening Windows Subsystem for Linux (WSL) Ubuntu 16.04
+ 0. Start/login upon opening Windows Subsystem for Linux (WSL) Ubuntu 16.04
  1. Create periodic backups when Opening WSL Ubuntu 16.04
  2. TODO: Automatically run sorting script to generate custom sorted reports created in the other folder in TaskWarrior in this repo.
 
 
-It consist of 3 steps:
- 0. TODO: Copy the autoSh to /home
- 1. Create a cronjob
- 2. Run/enable the cronjob service at startup
- 3. Remove prompting for password to start the cronjob service automatically.
+It consist of 5 steps:
+ 0. Set your desired backup storage folder. (This is the folder where your taskwarrior data is backed up to).
+ 1. Copy the autoBackup.sh file in this repository to `/home/<yourUsername>/autoBackup`. (This script backs up your whole taskwarrior data {Except for the hooks} to a certain folder under the current time.)
+ 2. Create a cronjob (that is something that executes a list of commands(and scripts) every predetermined timeperiod. In this case it will execute the `autoBackup.sh` script, as well as the `customSortVx.sh`.
+ 3. Run/enable the cronjob service at startup, so that the cronjob of point 1 starts when you open the WSL Ubuntu.
+ 4. Remove prompting for password to start the cronjob service automatically, so you don't get bothered for input if you open WSL Ubuntu.
 
-In reality your problem is already solved with just step 2 and 3, but since you tried to do it with a cronjob, I also added that step for completeness.
+ **0. Set backup folder in autoBackup.sh:**
+	0.1 Download the autoBackup.sh from this folder
+	0.1 Right Mouse Button (RMB) on `autoBackup.sh`>Open with notepad, or whatever text editor/bash editor you use. 
+	0.2 Right now it backs up everything to `C:/task backup`. If you want to change that: replace all the `c/task backup/` with whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
 
- **1. Creating a functioning cronjob:**
+ **1. Copy autoBackup.sh:**
+	1.1 Command:
+
+ **2. Creating a functioning cronjob:**
 
  1. Browse to folder `/etc/`
  2. Then in folder `/etc/` enter:`sudo nano crontab`
@@ -178,3 +185,7 @@ The code to prevent prompting for password at boot would for example look like (
 Working towards this solution, I learned cronjobs are intended for things to run periodically rather than at specific events such as startup. To run things at startup in WSL you can use the file  `/home/<username>/.bashrc`.
 
   [1]: https://i.stack.imgur.com/7rn3J.png
+
+ ###TODO:###
+  0. Make backup storage location a parameter in stead of requiring it to be replaced in all the lines.
+  1. Add the location of the customsort and this script itself to prevent requiring to execute this manual again if you re-install taskwarrior.
