@@ -11,7 +11,7 @@ Fast usage instructions:
 	
 	0.2 Switch the windows style drive letter `E:/` to Linux style: `/mnt/e` and copy the files:
 		
-		`cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourUsername>/cSort`
+`cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourUsername>/cSort`
 
 	
 	
