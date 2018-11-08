@@ -11,15 +11,17 @@ Fast usage instructions:
 	
 	0.2 Switch the windows style drive letter `E:/` to Linux style: `/mnt/e` and copy the files:
 		
-`cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourUsername>/cSort`
+`cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourUsername>/maintenance/`
+	0.3 Make the bash script runnable (otherwise it says: "permission denied"):
+`chmod +x "/home/<yourUsername>/maintenance/customSort.sh"`
 
 	
 	
-1. browse (WSL) Ubuntu (16.04) to `/home/<yourUsername>/cSort`
+1. browse (WSL) Ubuntu (16.04) to `/home/<yourUsername>/maintenance`
 
 2. type:
 	
-`/customSortV6.sh` (or if your in for example `/home/` type `./<yourUsername>/cSort/customSortV6.sh`)
+`/customSort.sh` (or if your in for example `/home/` type `./<yourUsername>/maintenance/customSort.sh`)
 
 3. Wait for 4 minutes, the tasks are now sorted top to bottom on: 
 	

@@ -21,13 +21,15 @@ This manual explains how to make Taskwarrior automatically:
  
  0.2 Right Mouse Button (RMB) on `autoBackup.sh`>Open with notepad, or whatever text editor/bash editor you use. 
  
- 0.3 Right now it backs up everything to `C:/task backup`. If you want to change that: replace all the `c/task backup/` with whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
+ 0.3 Right now it backs up everything to `C:/task backup`. If you want to change that: Change the `/c/task backup` in line 9 of file `autoBackup.sh` to whatever you want it to be. Rembember to put the slashes to the right like `/` in stead of (iso) `\` for Linux.
 
  ###  **1. Copy autoBackup.sh:**
 
  1.1 Command (notice the change of `\` direction to `/`):
 
-`cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/autoStartup/"`
+`cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/maintenance/"`
+ 1.2 Make the bash file runnable in unix: (otherwise says "permission denied")
+`chmod +x "/home/<yourUsername>/maintenance/"`
 
   ### **2. Creating a functioning cronjob:**
 
@@ -52,7 +54,9 @@ An example of the `crontab` file could look like (I only added the last line, th
 
 	# m h dom mon dow user  command
 	# Backing up .task file/folder:
-	*/1 * * * * root sh -v /home/a/autoBackup.sh
+	*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
+	# The next line is for the custom sorting, leave it out if you don't use it:
+	*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
 ```
 
 
@@ -71,12 +75,12 @@ To run a command automatically at startup of WSL Ubuntu 16.04 you can:
 #get root
 if [ ! -f /home/a/getRootBool ]; then
     echo "Getting sudo rights now."
-    touch /home/a/getRootBool
+    touch /home/a/maintenance/getRootBool
     sudo -s
 fi
 
 # remove got root boolean for next time you boot up Unix
-sudo rm /home/a/getRootBool
+sudo rm /home/a/maintenance/getRootBool
 
 #Start cron service
 sudo -i service cron start
@@ -149,7 +153,4 @@ Working towards this solution, I learned cronjobs are intended for things to run
 -------------------
 
  ###  ###TODO:###
-  
-  0. Make backup storage location a parameter in stead of requiring it to be replaced in all the lines.
-  1. Add the location of the customsort and this script itself to the backup script autoBackup.sh to prevent requiring to execute this manual again if you re-install taskwarrior.
-  2. Add customSort with 10 minute intervals to cronjob.
+  0. Add the location of the customsort and this script itself to the backup script autoBackup.sh to prevent requiring to execute this manual again if you re-install taskwarrior.

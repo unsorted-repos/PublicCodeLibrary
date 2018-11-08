@@ -1,4 +1,6 @@
 #!/bin/bash
+# Version 6. 
+# Completely dynamic paths
 ################################################################################
 ##
 ## Copyright 2006 - 2017, Paul Beckingham, Federico Hernandez.
