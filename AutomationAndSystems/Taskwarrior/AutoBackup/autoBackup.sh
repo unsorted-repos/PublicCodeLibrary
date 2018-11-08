@@ -6,7 +6,16 @@
 START=$(date +%s)
 
 # TODO 0.: Change this to your own personal backup location! (In this linux bash script /mnt/c means the C:/ in windows, /mnt/e/ = E:/)
-backupPath="$/mnt/c/task backup/"
+backupPath="/mnt/c/taskBackup/"
+exampleStringOne="/mnt/c/exampleFolder"
+
+#sudo mkdir "$exampleString"
+#echo "$exampleString"
+#echo exampleStringOne
+#echo "$exampleStringOne"
+#sudo mkdir exampleStringOne
+#sudo mkdir "$exampleStringOne"
+
 
 for x in /home/*; do
   
@@ -17,8 +26,23 @@ done
 
 
 # Creating backup folders
+#sudo mkdir "/mnt/c/exampleMake"
+if [ ! -f "$backupPath" ]; then
+    echo "File found! Deleting it now. Creating folder:"
+    rm "$backupPath"
+fi
+
+#if [ -f "$backupPath" ]; then
+#    echo "File found, is file"
+#fi
+
+#if [ -d "$backupPath" ]; then
+#    echo "Directory found, is directory"
+#fi
+
+
 # Backing up .task file/folder:
-sudo mkdir -p "$backupPath"
+sudo mkdir "$backupPath"
 sudo mkdir -p "$backupPath"$(date +%Y%m%d%H%M)"/dotTask/"
 # Backing up .taskrc file/folder:
 mkdir -p "$backupPath"$(date +%Y%m%d%H%M)"/dotTaskrc/"
