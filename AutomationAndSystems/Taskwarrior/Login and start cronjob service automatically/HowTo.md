@@ -28,6 +28,7 @@ This manual explains how to make Taskwarrior automatically:
  1.1 Command (notice the change of `\` direction to `/`):
 
 `cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/maintenance/"`
+
  1.2 Make the bash file runnable in unix: (otherwise says "permission denied")
 `chmod +x "/home/<yourUsername>/maintenance/"`
 
