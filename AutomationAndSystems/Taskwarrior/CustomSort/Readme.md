@@ -39,7 +39,7 @@ Fast usage instructions:
 
 6. (You can use the AutoHotKey (AHK) scripts as given in this public repository, to map keys alt+arrow up/down to scroll in WSL Ubuntu 16.04 (and cmd) with the arrows.) 
 
-7. Create cronjob that runs customSortV6.sh every x minutes with:
+7. Create cronjob that runs customSort.sh every x minutes with:
 
 Compile yourself instructions (in Windows):
 ------------
@@ -92,12 +92,12 @@ javac StringPair.java -target 1.8 -source 1.8
 jar -cvmf manifest.mf javaSort.jar *.class
 ```
 
-(You can run the java separately with: java -jar javaSort.jar (but that requires the output of the customSortV6.sh)
+(You can run the java separately with: java -jar javaSort.jar (but that requires the output of the customSort.sh)
 
 2. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
 
 3. Enter: 
-./customSortV6.sh
+./customSort.sh
 
 4. Wait for 3+minutes
 
@@ -124,7 +124,7 @@ Todo's:
 
 1. Create a subfolder for the output that is created every run to keep it structured
 
-2. Add customSortV6.sh to cronjob every 10 minutes
+2. Add customSort.sh to cronjob every 10 minutes
 
 3. Write an efficient cronjob that detects whether taskwarrior has been changed by user w.r.t. previous state/minute, to prevent 
 unnecessary running of:
@@ -145,7 +145,7 @@ unnecessary running of:
 
 	6.3 Write quick bash check to check version of jdk = 1.8 or higher so that the get-apt update can be ommitted to speed up bash
 
-	6.4 Extend customSortV6.sh again to do the sorting as well, and then optimize to make it faster, and remove java dependency.
+	6.4 Extend customSort.sh again to do the sorting as well, and then optimize to make it faster, and remove java dependency.
 
 7. Refactor ClassFive.java to proper non-single-variable-name in class, test class, manifest, customsort.
 
