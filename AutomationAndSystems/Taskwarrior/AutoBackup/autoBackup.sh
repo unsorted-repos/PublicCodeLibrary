@@ -18,6 +18,7 @@ done
 
 # Creating backup folders
 # Backing up .task file/folder:
+sudo mkdir -p "$backupPath"
 sudo mkdir -p "$backupPath"$(date +%Y%m%d%H%M)"/dotTask/"
 # Backing up .taskrc file/folder:
 mkdir -p "$backupPath"$(date +%Y%m%d%H%M)"/dotTaskrc/"
