@@ -5,7 +5,7 @@ limitations:
 
 Fast usage instructions:
 ------------
-0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quicUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using steps:
+0. Copy `customSort.sh` and `javaSort.jar` from the folder `quickUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using steps:
 
 	0.1 Download the files to for example `E:\somefolder\TaskWarrior\CustomSort\quickUse\` Switch the slashes for Linux to: `E:/somefolder/TaskWarrior/CustomSort/quickUse/`.
 	
@@ -129,7 +129,7 @@ Todo's:
 3. Write an efficient cronjob that detects whether taskwarrior has been changed by user w.r.t. previous state/minute, to prevent 
 unnecessary running of:
 
-	3.1 customSortV6.sh cronjob
+	3.1 customSort.sh cronjob
 
 	3.2 AutoBackup, (also saves discspace)
 
