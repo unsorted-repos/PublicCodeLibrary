@@ -1,11 +1,11 @@
-limitations:
+Limitations:
 ------------
 0. Currently a task where the dependency is set to 0 (Probably task id 0 which does not exist), is not processed and dangles on top of the list. 
 
 
 Fast usage instructions:
 ------------
-0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quicUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using steps:
+0. Copy `customSortV6.sh` and `javaSort.jar` from the folder `quickUse` in this repository to the folder `/home/<username>/customReport` of your WSL Ubuntu 16.04 using steps:
 
 	0.1 Download the files to for example `E:\somefolder\TaskWarrior\CustomSort\quickUse\` Switch the slashes for Linux to: `E:/somefolder/TaskWarrior/CustomSort/quickUse/`.
 	
