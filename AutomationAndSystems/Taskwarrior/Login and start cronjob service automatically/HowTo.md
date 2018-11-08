@@ -149,8 +149,3 @@ The code to prevent prompting for password at boot would for example look like (
 	zq ALL=(ALL) NOPASSWD: ALL
 
 Working towards this solution, I learned cronjobs are intended for things to run periodically rather than at specific events such as startup. To run things at startup in WSL you can use the file  `/home/<username>/.bashrc`.
-
--------------------
-
- ###  ###TODO:###
-  0. Add the location of the customsort and this script itself to the backup script autoBackup.sh to prevent requiring to execute this manual again if you re-install taskwarrior.
