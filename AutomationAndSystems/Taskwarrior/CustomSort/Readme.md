@@ -12,6 +12,7 @@ Fast usage instructions:
 	0.2 Switch the windows style drive letter `E:/` to Linux style: `/mnt/e` and copy the files:
 		
 `cp -a /mnt/e/somefolder/TaskWarrior/CustomSort/quickUse/. /home/<yourUsername>/maintenance/`
+	
 	0.3 Make the bash script runnable (otherwise it says: "permission denied"):
 `chmod +x "/home/<yourUsername>/maintenance/customSort.sh"`
 
