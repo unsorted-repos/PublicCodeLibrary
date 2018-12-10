@@ -13,17 +13,12 @@ It is not completely automated. To sync the calendars in the phone, a user has t
 
   0. Download the webpage: https://calendar.google.com/calendar/r?pli=1 to (relative to this repository folder)/WebsiteSource
   1. rename that downloaded <some name>.html to "google.txt"
-  2. Open the excel and click the start button.
-  3. Then open the CommandPhone.ahk
-  4. Press alt+arrow to the right to engage the copy process.
-    4.1 Press a + symbol in the davdroid app for every calendar
-    4.2 Press "enter" on the pc after the "+" symbol has been pressed.
-
+  2. Open the excel and click the "0" button, followed by the "start" button.
+  3. Press alt+arrow to the right to engage the copy process.
+ 
 Possible improvements:
 
 0. Automating the downloading the source of webpage https://calendar.google.com/calendar/r?pli=1 from VBA (without entering your login data in Excel.)
-
-1. Automate pressing the "+"-symbol in Davdroid through keyboard commands from PC using AHK.
 
 Or:
 
@@ -31,5 +26,3 @@ Or:
 2.1 Finding in that file, the storage location of the calendar base url, user name, password and calendar name.
 2.2 Simply writing that file directly from Excel.
 2.3 Automatically transferring that file to the right location on your phone. (E.g. Through mega or ftp).
-
-
