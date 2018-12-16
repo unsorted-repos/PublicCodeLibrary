@@ -366,9 +366,15 @@ if [ -f javaSort.jar ]; then
 java -jar javaSort.jar
 fi
 if [ -f output/output.sh ]; then
-    echo "File found!"
-    ./output/output.sh
+    echo "File output.sh found!"
+    # Make it runnable before running it:
+    chmod +x ~/maintenance/output/output.sh
+    ~/maintenance/output/./output.sh
 fi
+
+# Create the User Defined Attribute (UDA) duration:
+yes | task config uda.duration.type numeric
+yes | task config uda.duration.label Dura
 # if [ -f /javaCustomSort/src/test0/output.txt ]; then
 #     echo "File found!"
 # fi
