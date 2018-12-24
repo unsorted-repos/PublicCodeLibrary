@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getAccountList();
-                removeAccounts();
+                removeAccounts(); //This should be sufficient to remove the accounts, but it does not do so.
                 writeToFile("hi");
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
@@ -215,14 +215,14 @@ public class MainActivity extends AppCompatActivity {
                 ,null);
     }
 
-    @Override
-    public Bundle getAccountRemovalAllowed(
-            AccountAuthenticatorResponse response, Account account)
-            throws NetworkErrorException {
-        final Bundle result = new Bundle();
-
-        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true);
-
-        return result;
-    }
+//    @Override
+//    public Bundle getAccountRemovalAllowed(
+//            AccountAuthenticatorResponse response, Account account)
+//            throws NetworkErrorException {
+//        final Bundle result = new Bundle();
+//
+//        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true);
+//
+//        return result;
+//    }
 }
