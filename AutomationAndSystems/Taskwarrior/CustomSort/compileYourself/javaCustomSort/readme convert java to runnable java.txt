@@ -1,3 +1,5 @@
+There is a clearer description in PublicCodeLibrary/AutomationAndSystems/Taskwarrior/CustomSort/ (2 folders up).
+
 0. Create a first.java file in folder C:/runnableJava named First.java with the following file content:
 
 import javax.swing.*;    
