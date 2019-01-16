@@ -69,6 +69,8 @@ Compile yourself instructions (in Windows):
 
 ### Steps: ###
 
+0. First, Ensure in Eclipse, open the project and remove/comment out all "package customSortTaskwarrior.compilation" lines  at the top of files: "ClassFive.java", "Pair.java" and "StringPair.java". (As indicated in the respective .java files). Ignore the warning/error symbol Eclipse shows when doing that.
+
 0. open cmd
 
 1. browse to "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/compilation
