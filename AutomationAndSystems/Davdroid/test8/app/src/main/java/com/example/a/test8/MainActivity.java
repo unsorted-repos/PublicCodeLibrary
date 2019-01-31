@@ -42,25 +42,23 @@ public class MainActivity extends AppCompatActivity {
      *  1. writeToFile() it is a method to allow for debugging, it returns pop up messenges during
      *     code execution.
      *
-     *  3. removeAccountA-D are called from getAccountLists to check if one of the getAccountLists has a
+     *  3. removeAccountA-D are separate methods that are called from getAccountLists 0 and 1
+     *  to check if one of the getAccountLists has authentication that does work.
      *
+     *  4. Additionally, removeAccounts 1-n are executed within the getAccountLists 0 and 1 to
+     *  directly call the remove.. methods of object AccountManager on the object AccountManager itself.
      *
-     *  2. getAccountList0() - it succesfully loops through all the accounts on the phone, has filter
+     *  5. getAccountList0() - it succesfully loops through all the accounts on the phone, has filter
      *  that only passes the davdroid accounts on to the removal methods. The following methods are
-     *  called as a function of an object (the AccountManager object) in getAccountList0():
-     *      2.a the remove attempts 2a
-     *      2.b remove attempt 2b
-     *      2.c remove attempt 2c
-     *  The following separate/independent methods are called in getAccountList0():
-     *      2.d
-     *      2.e
-     *      2.f
+     *  called as a function of an object (the AccountManager object) inside method getAccountList0():
+     *      5.1 remove attempts 5.1 removes acocunts with command removeAccountsExplicitly
+     *      5.2 remove attempt 5.2 removes accounts with the removeAccount method(API level <22)
+     *      5.3 remove attempt 5.3 removes accounts with the removeAccount method (API level>22)
+     *      Separate/independent methods A-D are called separately.
+     *      *
+     *  2. getAccountList2() is called by onCreate and just calls the removal methods A-D.
      *
-     *  2. getAccountList2() is called by onCreate and it contains 3 direct functions:
-     *      2.a method removeAccounts0() it removes acocunts with command removeAccountsExplicitly
-     *      2.b removeAccounts1(); it removes accounts with the removeAccount method(API level <22)
-     *      2.c. removeAccounts2(); it removes accounts with the removeAccount method (API level>22)
-     *  getaccountlist2 contains  2 methods which CALL the removal from the bojects itself
+     *  getaccountlist2 contains  2 methods which CALL the removal from the AccountManager objects itself
      *  //remove7 and remove8.
      *
      *  Problems:
@@ -141,24 +139,26 @@ public class MainActivity extends AppCompatActivity {
             writeToFile("Call removal method with: "+account.name+" and type = "+account.type); //System out calender name
 
             //Try removals from an object itself:
-            //Attempt 0.a:
+            //Attempt 5.1:
             AccountManager.get(this).removeAccountExplicitly(account);
-            // Attempt 0.b:
+            // Attempt 5.2:
             AccountManager.get(this).removeAccount(account,null, null, null);
-            //Attempt 0.c:
+            //Attempt 5.3:
             AccountManager.get(this).removeAccount(account,null, null);
 
-            //Attempt 6:
-
-            removeAccountd(account.name,account.type);
+            //Attempt A-D:
+            removeAccountA(AccountManager.get(this),account);
+            removeAccountB(AccountManager.get(this),account);
+            removeAccountC(AccountManager.get(this),account);
+            removeAccountD(account.name,account.type);
 
             //System.out.println which calendar has been removed.
-            writeToFile(account.name);
+            writeToFile("The following account is removed: "+account.name);
             possibleEmail += " --> "+account.name+" : "+account.type+" , \n";
             possibleEmail += " \n\n";
-
         }
     }
+
 
     /**
      * Source:
@@ -178,8 +178,6 @@ public class MainActivity extends AppCompatActivity {
         for (int index = 0; index < Temp; index++) {
             writeToFile(accounts[index].name);
             if (accounts[index].type.intern() == AUTHORITY) {
-
-
                 removeAccountA(accountManager, accounts[index]);
                 removeAccountB(accountManager, accounts[index]);
                 removeAccountC(accountManager, accounts[index]);
