@@ -42,6 +42,9 @@ if [ ! -d output/ ]; then
   mkdir -p output/;
 fi
 
+# Sync tasks before sorting:
+echo 'Syncing tasks with taskserver'
+task sync
 
 # Warn that this is not a quick report.
 echo 'Finding most urgent tasks in each project...'
@@ -385,4 +388,10 @@ yes | task config report.nice0.labels      'id,dep,due,prio,urgy,dura,proj,again
 yes | task config report.nice0.sort        'secretSort+/'
 yes | task config report.nice0.filter      'status:pending'
 
-echo "done"
+
+
+# Sync tasks after sorting:
+echo 'Syncing tasks with taskserver after sorting'
+task sync
+
+echo "done Sorting"
