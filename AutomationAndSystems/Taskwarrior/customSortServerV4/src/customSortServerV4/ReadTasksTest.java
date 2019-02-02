@@ -38,8 +38,8 @@ class ReadTasksTest {
 	/**
 	 * This test checks if there is no file found, if no file found & throws the IO exception its green
 	 */
-	@Test
-	void testExpectedException() {
+	@Test 
+	void testReadJson() {
 		Assertions.assertThrows(IOException.class, () -> {
 		FileReader reader = new FileReader("nonExistant.data");
 		reader.read();
