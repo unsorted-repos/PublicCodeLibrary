@@ -36,12 +36,15 @@ class TaskTest {
 
 	@Test
 	void testGetProject() {
-		fail("Not yet implemented");
+		assertEquals(null, taskOne.getProject());
 	}
 
 	@Test
 	void testSetProject() {
-		fail("Not yet implemented");
+		String project="a";
+		taskOne.setProject(project);
+		assertEquals("a",taskOne.getProject());
+		assertNotEquals("b",taskOne.getProject());
 	}
 
 	@Test

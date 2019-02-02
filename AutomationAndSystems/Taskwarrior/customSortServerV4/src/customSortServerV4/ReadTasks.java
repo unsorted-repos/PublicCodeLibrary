@@ -8,6 +8,9 @@ private String unixUsername=null;
 private String JSONLocation=null;
 private LinkedList<Task> allTasks = new LinkedList<Task>();	
 
+boolean windows=true;
+
+
 
 	/**
 	 * 0. This function gets the Unix username based on the current path of this code.
@@ -136,5 +139,13 @@ private LinkedList<Task> allTasks = new LinkedList<Task>();
 	public double askMaxPercentageOfNrOfUrgentTasks() {
 		return 0;
 	}
-	
+
+	public boolean isWindows() {
+		return windows;
+	}
+
+	public void setWindows(boolean windows) {
+		this.windows = windows;
+	}
+
 }
