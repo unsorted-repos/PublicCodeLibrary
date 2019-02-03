@@ -37,14 +37,15 @@ public class Task {
 	//TODO: determine how that would be implemented maintaining their paired relation
 	ArrayList<String> udaNames =new ArrayList();
 	ArrayList<String> udaProperties =new ArrayList();
+	ArrayList<String[]> userDefinedAttributes =new ArrayList(); //first String dimension=UDA name, 2nd string dimension =UDA value.
 	
 	/**
 	 * constructor for the task objects of type task.
 	 */
 	public void Task() {
-
+		//fill user defined attributes
 	}
-
+	
 	public String getDepends() {
 		return depends;
 	}
