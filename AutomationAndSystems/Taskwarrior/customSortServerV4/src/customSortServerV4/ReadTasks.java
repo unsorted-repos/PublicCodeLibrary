@@ -133,28 +133,86 @@ public class ReadTasks {
 			readPerLine(lines.get(i));
 		}
 	}
-	
+
 	/**
-	 * Reads the taskwarrior tasks from the JSON file given in readJSONLocation() per line 
-	 * and puts the property-name and -values into an array passes the array to 
+	 * Not tested.
+	 * Per incoming line it will create and return 1 task object.
+	 * 
+	 * 0. gets all the attributes and uda's from the Task object 
+	 * from method generateTaskAttributeList.
+	 * 1. gets all the attribute and uda setters (methods)
+	 * from method getTaskAttributeGetMethods.
+	 * 2. for each attribute it will call method readAttribute which will check if the
+	 * attribute is in the line/task. 
+	 * 2.b if readAttribute does not return null, it will pass the attribute value
+	 * to the corrosponding setmethod to set the task attribute.
+	 * 
+	 * and puts the attribute-name and -values into an array passes the array to 
 	 * createTasksPerLine().
 	 */
 	public static void readPerLine(String line) {
-		System.out.println(line);
-		String propertyName= "description:";
-
+		Task task = new Task();
+		ArrayList<String> attributes=generateTaskAttributeList();
+		ArrayList<Method> attributeSetMethods=getTaskAttributeGetMethods();
+		String[] attribute = new String[2];
+		
+		for (int i=0;i<attributes.size();i++) {
+			if ((attribute=readAttributeValue(line,attributes.get(i)))!=null) {
+				if (findMatchingSetMethod(attribute[0],attributeSetMethods)!=null) {
+					//call method that executes method.
+				}
+			}
+		}
+		String attributeName= "description:";
+	}
+	
+	/**
+	 * creates a task object
+	 * Executes the method set<attribute name> on the task object
+	 * passes the propertyValue parsed as the method argument.
+	 *  
+	 * @param method
+	 * @param propertyValue
+	 */
+	public static void setTaskAttribute(Method method,String propertyValue) {
+		
+	}
+	
+	/**
+	 * Tested
+	 * Iterates through ArrayList<Method> with all the set methods
+	 * and if it finds a method that matches the attribute name it will
+	 * return the method else it will return null;
+	 * @param attributeName
+	 * @param setMethods
+	 * @return
+	 */
+	public static Method findMatchingSetMethod(String attributeName,ArrayList<Method> setMethods) {
+		if (attributeName==null || attributeName.length()==0) {
+			return null;
+		}
+		//set first letter to capital
+		attributeName = attributeName.substring(0, 1).toUpperCase()+attributeName.substring(1, attributeName.length());
+		System.out.println("attribute starting with captial:"+attributeName);
+		for (int i=0;i<setMethods.size();i++) {
+			if (setMethods.get(i).getName().equals("set"+attributeName)) {
+				return setMethods.get(i);
+			}
+		}		
+		return null;
 	}
 
 	/**
+	 * Tested
 	 * Iterates through all the names of the fields of object Task.
 	 * these fields have the same name as the Task
 	 * @param line
 	 */
-	public static ArrayList<String> generateTaskPropertyList() {
+	public static ArrayList<String> generateTaskAttributeList() {
 		Task emptyTask = new Task();
 		Field[] fields = emptyTask.getClass().getDeclaredFields();
 		ArrayList<String> taskProperties = new ArrayList<>();
-		
+
 		//Field[] fields = emptyTask.class.getFields();
 		for(Field f : fields){
 			taskProperties.add(f.getName());
@@ -164,88 +222,106 @@ public class ReadTasks {
 	}
 
 	/**
+	 * Tested
 	 * Iterates through all the methods of object Task.
+	 * It will return an ArrayList<Object> containing all the
+	 * set.. methods of object task.
 	 * If these methods start with "set" and are equal to a fieldname, 
-	 * it will set the property of that task
+	 * it will set the attribute of that task
 	 * @param line
 	 */
-	public static void getTaskPropertyGetters() {
-		String testTemp="PropertyValue"; //TODO: REMOVE
+	public static ArrayList<Method> getTaskAttributeGetMethods() {
+		String testTemp="AttributeValue"; //TODO: REMOVE
 		Task emptyTask = new Task();
 		java.lang.reflect.Method methodCalling = null;
-
+		ArrayList<Method> setMethods = new ArrayList<>();
+		
 		Method[] methods = emptyTask.getClass().getDeclaredMethods();
 		//Field[] fields = emptyTask.class.getFields();
 		for(Method m : methods){
-			System.out.println("method:"+m.getName());//or do other stuff with it
-			try {
-				methodCalling = emptyTask.getClass().getMethod(m.getName(), Parameter.class);
-			} catch (SecurityException e) {}
-			catch (NoSuchMethodException e) {}
-			try {
-				methodCalling.invoke(emptyTask, testTemp);
-			} catch (IllegalArgumentException e) {}
-			catch (IllegalAccessException e) {  }
-			catch (InvocationTargetException e) { }
+			System.out.println("method 3 char="+m.getName().substring(0, 3));
+			if (m.getName().substring(0, 3).equals("set")) {
+				System.out.println("method:"+m.getName());//or do other stuff with it
+				setMethods.add(m);
+//				try {
+//					methodCalling = emptyTask.getClass().getMethod(m.getName(), Parameter.class);
+//				} catch (SecurityException e) {}
+//				catch (NoSuchMethodException e) {}
+//				try {
+//					methodCalling.invoke(emptyTask, testTemp);
+//				} catch (IllegalArgumentException e) {}
+//				catch (IllegalAccessException e) {  }
+//				catch (InvocationTargetException e) { }
+			}
+
 		}
+		return setMethods;
 	}
-
-
-	public static String[] readProperty(String line,String propertyName) {
-		String propertyValue = null;		
+	
+	/**
+	 * 
+	 * @param line
+	 * @param attributeName
+	 * @return
+	 */
+	public static String[] readAttributeValue(String line,String attributeName) {
+		String attributeValue = null;		
 		String lineRemainder;
-		int endPropertyValue;
+		int endAttributeValue;
 
-		//If the property name is found
-		if (line.indexOf(propertyName) != -1) {
-			//Remove the name of the property of the remaining string:
-			lineRemainder=eatPropertyName(line,propertyName);
+		//If the attribute name is found
+		if (line.indexOf(attributeName) != -1) {
+			//Remove the name of the attribute of the remaining string:
+			lineRemainder=eatAttributeName(line,attributeName);
 
-			//Find the next " to close the property.value
-			endPropertyValue=lineRemainder.indexOf("\"");
-			checkPropertyLength(endPropertyValue);		
+			//Find the next " to close the attribute.value
+			endAttributeValue=lineRemainder.indexOf("\"");
+			checkAttributeLength(endAttributeValue);		
 
 			//Get propvalue:
-			propertyValue=lineRemainder.substring(0, endPropertyValue);
+			attributeValue=lineRemainder.substring(0, endAttributeValue);
 			System.out.println(lineRemainder);
-			System.out.println(propertyValue);
+			System.out.println(attributeValue);
+		}else {
+			System.out.println("attribute not found:"+attributeName);
+			return null;
 		}
 
-		//return the property name and the property value
+		//return the attribute name and the attribute value
 		String returnString[]=new String[1];
-		returnString[0]=propertyName.substring(0, propertyName.length()-1);
-		returnString[1]=propertyValue;
+		returnString[0]=attributeName.substring(0, attributeName.length()-1);
+		returnString[1]=attributeValue;
 		return returnString;
 	}
 
 	/**
-	 * This method eats the name of the property, e.g. for property "description"
+	 * This method eats the name of the attribute, e.g. for attribute "description"
 	 * it will remove the substring description:" from the incoming line and return
 	 * the right hand side remainder of that line.
 	 * @param line is a line from the pending.data and contains 1 task in JSON format
-	 * @param propertyName the name of the property that is being absorbed
+	 * @param attributeName the name of the attribute that is being absorbed
 	 * @return
 	 */
-	public static String eatPropertyName(String line,String propertyName) {
-		int startPropertyName;
-		int startPropertyValue;
-		startPropertyName = line.indexOf(propertyName);
-		startPropertyValue=startPropertyName+propertyName.length()+1;
-		return line.substring(startPropertyValue, line.length());
+	public static String eatAttributeName(String line,String attributeName) {
+		int startAttributeName;
+		int startAttributeValue;
+		startAttributeName = line.indexOf(attributeName);
+		startAttributeValue=startAttributeName+attributeName.length()+1;
+		return line.substring(startAttributeValue, line.length());
 	}
 
 	/**
-	 * This method checks whether the property length is larger than 0. 
+	 * This method checks whether the attribute length is larger than 0. 
 	 * If it is not, it should throw an error since the closing " of the
-	 * property value is not found.
+	 * attribute value is not found.
 	 * @param endPropValue
 	 */
-	public static void checkPropertyLength(int endPropValue) {
+	public static void checkAttributeLength(int endPropValue) {
 		//throw exception if endprop value =<startPropValue
 		if (endPropValue<=0) {
 			try {
-				throw new PropertyValueNotFoundException("Did not find the property");
-			} catch (PropertyValueNotFoundException e) {
+				throw new AttributeValueNotFoundException("Did not find the attribute");
+			} catch (AttributeValueNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -332,8 +408,8 @@ public class ReadTasks {
 
 
 }
-class PropertyValueNotFoundException extends Exception{  
-	PropertyValueNotFoundException(String s){  
+class AttributeValueNotFoundException extends Exception{  
+	AttributeValueNotFoundException(String s){  
 		super(s);  
 	}  
 }  

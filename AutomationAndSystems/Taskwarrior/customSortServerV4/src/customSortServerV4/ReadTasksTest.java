@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -119,14 +120,14 @@ class ReadTasksTest {
 	 * Assumes the f.getName method loops through the fields of 
 	 * object task in the same order as they are typed in the
 	 * Javacode. It tests whether the fields returned by method
-	 * generateTaskPropertyList equals the list of attributes
+	 * generateTaskAttributeList equals the list of attributes
 	 * which are defined as fields in Task.
 	 * This method will fail if new UDA's are added to method task.
 	 */
 	@Test
-	void testGenerateTaskPropertyList() {
+	void testGenerateTaskAttributeList() {
 		ArrayList<String> taskAttributes =new ArrayList<>();
-		ArrayList<String> returnedAttributes =ReadTasks.generateTaskPropertyList();
+		ArrayList<String> returnedAttributes =ReadTasks.generateTaskAttributeList();
 		taskAttributes.add("depends");
 		taskAttributes.add("description"); 
 		taskAttributes.add("due"); //date
@@ -149,45 +150,82 @@ class ReadTasksTest {
 		taskAttributes.add("tracsummary"); 
 		taskAttributes.add("tracurl"); 
 		taskAttributes.add("until"); //date
-		taskAttributes.add("urgency ");;
+		taskAttributes.add("urgency");;
 		taskAttributes.add("uuid"); 
 		taskAttributes.add("wait"); //date
+		taskAttributes.add("customSort"); //date
+
 		assertEquals(taskAttributes,returnedAttributes );
 		//Excessive test: iterate through the ArrayLists to compare whether all their elements are equal.
 		for (int i=0;i<taskAttributes.size();i++) {
-			assertTrue(taskAttributes.get(i).equals(returnedAttributes .get(i)));
+			assertTrue(taskAttributes.get(i).equals(returnedAttributes.get(i)));
 		}
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#getTaskPropertyGetters()}.
+	 * Checks if all set methods are returned of an object.
 	 */
 	@Test
-	void testGetTaskPropertyGetters() {
+	void testGetTaskAttributeGetMethods() {
+		ArrayList<String> taskAttributeSetMethods =new ArrayList<>();
+		ArrayList<Method> returnedAttributeSetMethods =ReadTasks.getTaskAttributeGetMethods();
+		ArrayList<String> returnedAttributeSetMethodNames =new ArrayList<>();
+		for(int i=0;i<returnedAttributeSetMethods.size();i++) {
+			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
+		}
+
+		taskAttributeSetMethods.add("setDepends");
+		taskAttributeSetMethods.add("setDescription"); 
+		taskAttributeSetMethods.add("setDue"); //date
+		taskAttributeSetMethods.add("setEnd"); //date
+		taskAttributeSetMethods.add("setEntry"); //date
+		taskAttributeSetMethods.add("setEstimate"); 
+		taskAttributeSetMethods.add("setId");;
+		taskAttributeSetMethods.add("setImask");; 
+		taskAttributeSetMethods.add("setMask"); 
+		taskAttributeSetMethods.add("setModified"); //date
+		taskAttributeSetMethods.add("setParent"); 
+		taskAttributeSetMethods.add("setPriority"); 
+		taskAttributeSetMethods.add("setProject"); 
+		taskAttributeSetMethods.add("setRecur"); 
+		taskAttributeSetMethods.add("setScheduled"); //date
+		taskAttributeSetMethods.add("setStart"); //date
+		taskAttributeSetMethods.add("setStatus"); 
+		taskAttributeSetMethods.add("setTags"); 
+		taskAttributeSetMethods.add("setTracnumber");; 
+		taskAttributeSetMethods.add("setTracsummary"); 
+		taskAttributeSetMethods.add("setTracurl"); 
+		taskAttributeSetMethods.add("setUntil"); //date
+		taskAttributeSetMethods.add("setUrgency");;
+		taskAttributeSetMethods.add("setUuid"); 
+		taskAttributeSetMethods.add("setWait"); //date
+		taskAttributeSetMethods.add("setCustomSort"); //date
+
+		assertTrue(taskAttributeSetMethods.containsAll(returnedAttributeSetMethodNames));
+		assertTrue(returnedAttributeSetMethodNames.containsAll(taskAttributeSetMethods));
+	}
+
+	/**
+	 * Test method for {@link customSortServerV4.ReadTasks#readAttribute(java.lang.String, java.lang.String)}.
+	 */
+	@Test
+	void testReadAttribute() {
 		fail("Not yet implemented");
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readProperty(java.lang.String, java.lang.String)}.
+	 * Test method for {@link customSortServerV4.ReadTasks#eatAttributeName(java.lang.String, java.lang.String)}.
 	 */
 	@Test
-	void testReadProperty() {
+	void testEatAttributeName() {
 		fail("Not yet implemented");
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#eatPropertyName(java.lang.String, java.lang.String)}.
+	 * Test method for {@link customSortServerV4.ReadTasks#checkAttributeLength(int)}.
 	 */
 	@Test
-	void testEatPropertyName() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#checkPropertyLength(int)}.
-	 */
-	@Test
-	void testCheckPropertyLength() {
+	void testCheckAttributeLength() {
 		fail("Not yet implemented");
 	}
 
@@ -268,4 +306,112 @@ class ReadTasksTest {
 		throw new RuntimeException("not yet implemented");
 	}
 
+	@Test
+	public void testReadAttributeValue() throws Exception {
+		throw new RuntimeException("not yet implemented");
+	}
+
+	/**
+	 * Checks if findMatchingSetMethod indeed correctly detects/matches
+	 * the attribute name in the ArrayList of methods.
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindMatchingSetMethod() throws Exception {
+		//Get methods in an ArrayList
+		ArrayList<Method> returnedAttributeSetMethods =ReadTasks.getTaskAttributeGetMethods();
+		ArrayList<String> returnedAttributeSetMethodNames =new ArrayList<>();
+		for(int i=0;i<returnedAttributeSetMethods.size();i++) {
+			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
+		}
+
+		//put all attribute names into an array.
+		ArrayList<String> taskAttributes =new ArrayList<>();
+		taskAttributes.add("depends");
+		taskAttributes.add("description"); 
+		taskAttributes.add("due"); //date
+		taskAttributes.add("end"); //date
+		taskAttributes.add("entry"); //date
+		taskAttributes.add("estimate"); 
+		taskAttributes.add("id");;
+		taskAttributes.add("imask");; 
+		taskAttributes.add("mask"); 
+		taskAttributes.add("modified"); //date
+		taskAttributes.add("parent"); 
+		taskAttributes.add("priority"); 
+		taskAttributes.add("project"); 
+		taskAttributes.add("recur"); 
+		taskAttributes.add("scheduled"); //date
+		taskAttributes.add("start"); //date
+		taskAttributes.add("status"); 
+		taskAttributes.add("tags"); 
+		taskAttributes.add("tracnumber");; 
+		taskAttributes.add("tracsummary"); 
+		taskAttributes.add("tracurl"); 
+		taskAttributes.add("until"); //date
+		taskAttributes.add("urgency");;
+		taskAttributes.add("uuid"); 
+		taskAttributes.add("wait"); //date
+		taskAttributes.add("customSort"); //date
+
+		//check for all attribute names if it finds them in the method array
+		for (int i=0;i<taskAttributes.size();i++) {
+			assertTrue(returnedAttributeSetMethods.contains(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
+		}
+	}
+
+	/**
+	 * tests if it returns false for a non-existent property.
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindMatchingSetMethodNonExistantAttributeName() throws Exception {
+		//Get methods in an ArrayList
+		ArrayList<Method> returnedAttributeSetMethods =ReadTasks.getTaskAttributeGetMethods();
+		ArrayList<String> returnedAttributeSetMethodNames =new ArrayList<>();
+		for(int i=0;i<returnedAttributeSetMethods.size();i++) {
+			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
+		}
+
+		//put all attribute names into an array.
+		ArrayList<String> taskAttributes =new ArrayList<>();
+		taskAttributes.add("nonExistantAttribute");
+
+		//check for all attribute names if it finds them in the method array
+		for (int i=0;i<taskAttributes.size();i++) {
+			assertFalse(returnedAttributeSetMethods.contains(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
+		}
+		for (int i=0;i<taskAttributes.size();i++) {
+			assertEquals(null,(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
+		}
+
+	}
+
+	/**
+	 * Tests if findMatchingSetMethod returns false for an empty
+	 * or null attribute name.
+	 * @throws Exception
+	 */
+	@Test
+	public void testFindMatchingSetMethodEmpty() throws Exception {
+		//Get methods in an ArrayList
+		ArrayList<Method> returnedAttributeSetMethods =ReadTasks.getTaskAttributeGetMethods();
+		ArrayList<String> returnedAttributeSetMethodNames =new ArrayList<>();
+		for(int i=0;i<returnedAttributeSetMethods.size();i++) {
+			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
+		}
+
+		//put all attribute names into an array.
+		ArrayList<String> taskAttributes =new ArrayList<>();
+		taskAttributes.add("");
+		taskAttributes.add(null);
+		//check for all attribute names if it finds them in the method array
+		for (int i=0;i<taskAttributes.size();i++) {
+			assertFalse(returnedAttributeSetMethods.contains(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
+		}
+		for (int i=0;i<taskAttributes.size();i++) {
+			assertEquals(null,(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
+		}
+
+	}
 }

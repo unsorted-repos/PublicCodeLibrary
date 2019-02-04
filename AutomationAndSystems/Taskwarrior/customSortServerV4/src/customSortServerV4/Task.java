@@ -33,11 +33,6 @@ public class Task {
 	//User defined attributes (UDA's)
 	int customSort =-1;
 	
-	//Suggested to convert the combination of these ArrayLists into a hashmap.
-	//TODO: determine how that would be implemented maintaining their paired relation
-	ArrayList<String> udaNames =new ArrayList();
-	ArrayList<String> udaProperties =new ArrayList();
-	ArrayList<String[]> userDefinedAttributes =new ArrayList(); //first String dimension=UDA name, 2nd string dimension =UDA value.
 	
 	/**
 	 * constructor for the task objects of type task.
@@ -252,23 +247,6 @@ public class Task {
 
 	public void setCustomSort(int customSort) {
 		this.customSort = customSort;
-	}
-
-	public ArrayList<String> getUdaNames() {
-		return udaNames;
-	}
-
-	public void setUdaNames(ArrayList<String> udaNames) {
-		this.udaNames = udaNames;
-	}
-
-	public ArrayList<String> getUdaProperties() {
-		return udaProperties;
-	}
-
-	public void setUdaProperties(ArrayList<String> udaProperties) {
-		this.udaProperties = udaProperties;
-	}
-	
+	}	
 	
 }
