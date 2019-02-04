@@ -74,6 +74,15 @@ public class ReadTasks {
 		return null;
 	}
 
+	/**
+	 * Tested in Eclipse.
+	 * Method returns the hardcoded filepath for testing in Eclips if incoming parameter
+	 * testing is true. If testing is false, it asks the location to pending.data(hardcoded)
+	 * in Ubuntu using readJSONLocation. 
+	 * @param testing boolean indicating whether it is testing in eclipse or compiled to jar
+	 * and functioning in Ubuntu.
+	 * @return the string containing the path to an input file. 
+	 */
 	public static String getFilePath(boolean testing) {
 		if (testing) {
 			String filepath=hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName();
@@ -85,18 +94,23 @@ public class ReadTasks {
 	}
 
 	/**
+	 * Tested.
+	 * To test it could return a string array of lines. Or one could test
+	 * the sequence of methods to check if tasks are made after readPerLine.
+	 * 
 	 * This method read the task file from the windows location when you're in Eclipse
 	 * and uses readJSONLocation() if it is compiled and in Ubuntu.
 	 */
-	public void readFile(String filename) {
+	public static ArrayList<String> readFile(String filename) {
 		FileReader reader;
 		BufferedReader br;
 		String line = null;
+		ArrayList<String> lines = new ArrayList<>();
 		try {		
 			br = new BufferedReader(new FileReader(filename));
 
 			while ((line = br.readLine()) != null) {
-				readPerLine(line);
+				lines.add(line);
 			}  
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -106,9 +120,20 @@ public class ReadTasks {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return lines;
 	}
 
-
+	/**
+	 * This method takes in the arraylist of lines of a text file
+	 * and passes each line separately to method readPerLine.
+	 * @param lines contains the lines of the text file that is read in.
+	 */
+	public static void separarateLines(ArrayList<String> lines) {
+		for (int i = 0; i<lines.size();i++) {
+			readPerLine(lines.get(i));
+		}
+	}
+	
 	/**
 	 * Reads the taskwarrior tasks from the JSON file given in readJSONLocation() per line 
 	 * and puts the property-name and -values into an array passes the array to 
@@ -125,14 +150,17 @@ public class ReadTasks {
 	 * these fields have the same name as the Task
 	 * @param line
 	 */
-	public static void generateTaskPropertyList(String line) {
+	public static ArrayList<String> generateTaskPropertyList() {
 		Task emptyTask = new Task();
 		Field[] fields = emptyTask.getClass().getDeclaredFields();
+		ArrayList<String> taskProperties = new ArrayList<>();
+		
 		//Field[] fields = emptyTask.class.getFields();
 		for(Field f : fields){
-			System.out.println(f.getName());//or do other stuff with it
-			readProperty(line,f.getName());
+			taskProperties.add(f.getName());
+			System.out.println("field:"+f.getName());//or do other stuff with it			
 		}
+		return taskProperties;
 	}
 
 	/**
@@ -142,15 +170,14 @@ public class ReadTasks {
 	 * @param line
 	 */
 	public static void getTaskPropertyGetters() {
-		String testTemp="PropertyValue";
+		String testTemp="PropertyValue"; //TODO: REMOVE
 		Task emptyTask = new Task();
 		java.lang.reflect.Method methodCalling = null;
-
 
 		Method[] methods = emptyTask.getClass().getDeclaredMethods();
 		//Field[] fields = emptyTask.class.getFields();
 		for(Method m : methods){
-			System.out.println(m.getName());//or do other stuff with it
+			System.out.println("method:"+m.getName());//or do other stuff with it
 			try {
 				methodCalling = emptyTask.getClass().getMethod(m.getName(), Parameter.class);
 			} catch (SecurityException e) {}
@@ -161,7 +188,6 @@ public class ReadTasks {
 			catch (IllegalAccessException e) {  }
 			catch (InvocationTargetException e) { }
 		}
-		
 	}
 
 
