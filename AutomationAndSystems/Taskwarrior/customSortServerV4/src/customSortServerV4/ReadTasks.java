@@ -154,13 +154,12 @@ public class ReadTasks {
 		ArrayList<String> attributes=generateTaskAttributeList();
 		ArrayList<Method> attributeSetMethods=getTaskAttributeGetMethods();
 		String[] attribute = new String[2];
-		
 
 		//Loop through all attributes of a task=fields of Object Task
 		for (int i=0;i<attributes.size();i++) {
 			//if line contains attribute:
 			if ((attribute=readAttributeValue(line,attributes.get(i)))!=null) {
-				System.out.println("Found attribute:"+attribute[0]);
+				//System.out.println("Found attribute:"+attribute[0]);
 				//Find accompanying method 
 				Method method = findMatchingSetMethod(attribute[0],attributeSetMethods);
 				if (method!=null) {
@@ -169,7 +168,6 @@ public class ReadTasks {
 				}
 			}
 		}
-		String attributeName= "description:";
 		return task;
 	}
 	
@@ -186,6 +184,7 @@ public class ReadTasks {
 	public static Task setTaskAttribute(Task task, Method method,String attributeValue) {
 		
 		try {
+			System.out.println("method="+method.getName()+" AttributeValue="+attributeValue);
 			method.invoke(task, attributeValue);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -251,23 +250,13 @@ public class ReadTasks {
 		Task emptyTask = new Task();
 		java.lang.reflect.Method methodCalling = null;
 		ArrayList<Method> setMethods = new ArrayList<>();
-		
 		Method[] methods = emptyTask.getClass().getDeclaredMethods();
-		//Field[] fields = emptyTask.class.getFields();
+
 		for(Method m : methods){
 			//System.out.println("method 3 char="+m.getName().substring(0, 3));
 			if (m.getName().substring(0, 3).equals("set")) {
 				//System.out.println("method:"+m.getName());//or do other stuff with it
 				setMethods.add(m);
-//				try {
-//					methodCalling = emptyTask.getClass().getMethod(m.getName(), Parameter.class);
-//				} catch (SecurityException e) {}
-//				catch (NoSuchMethodException e) {}
-//				try {
-//					methodCalling.invoke(emptyTask, testTemp);
-//				} catch (IllegalArgumentException e) {}
-//				catch (IllegalAccessException e) {  }
-//				catch (InvocationTargetException e) { }
 			}
 
 		}
@@ -275,7 +264,8 @@ public class ReadTasks {
 	}
 	
 	/**
-	 * 
+	 * This method get a task line and an attribute name and returns a String array
+	 * with element 0 the attributeName, and element 1 the attribute value.
 	 * @param line
 	 * @param attributeName
 	 * @return
@@ -284,34 +274,52 @@ public class ReadTasks {
 		String attributeValue = null;		
 		String lineRemainder;
 		int endAttributeValue;
-		
-		System.out.println("attribute name ="+attributeName);
+		String returnString[]=new String[2];
+		//System.out.println("attribute name ="+attributeName);
 		
 		//If the attribute name is found
-		if (line.indexOf(attributeName+":\"") != -1) {
+		if (getAttributeNameIndex(line,attributeName) != -1) {
 
 			//Remove the name of the attribute of the remaining string:
 			lineRemainder=eatAttributeName(line,attributeName);
-			System.out.println("Found attribute name:"+attributeName+ " with remainder = "+lineRemainder);
+			//System.out.println("Found attribute name:"+attributeName+ " with remainder = "+lineRemainder);
+			
 			//Find the next " to close the attribute.value,
 			endAttributeValue=lineRemainder.indexOf("\"");
 			checkAttributeLength(endAttributeValue);		
 
 			//Get propvalue:
 			attributeValue=lineRemainder.substring(0, endAttributeValue);
-			System.out.println("Attribute value found ="+attributeValue);
+			//System.out.println("Attribute value found ="+attributeValue);
 		}else {
 			//System.out.println("attribute not found:"+attributeName);
 			return null;
 		}
 
 		//return the attribute name and the attribute value
-		String returnString[]=new String[2];
 		returnString[0]=attributeName;
 		returnString[1]=attributeValue;
 		return returnString;
 	}
 
+	/**
+	 * This gets the index of the start character of the attribute name.
+	 * Convention, do not include the [ or " " preceding an attribute name,
+	 * just use it for detection but return index of the first character of
+	 * the attribute name.
+	 * @param line
+	 * @param attributeName
+	 * @return
+	 */
+	public static int getAttributeNameIndex(String line,String attributeName) {
+		if (line.indexOf(" "+attributeName+":\"") != -1) {
+			return line.indexOf(attributeName+":\"");
+		}else if (line.indexOf("["+attributeName+":\"") != -1) {
+			return line.indexOf(attributeName+":\"");
+		}
+		return -1;
+	}
+	
 	/**
 	 * This method eats the name of the attribute, e.g. for attribute "description"
 	 * it will remove the substring description:" from the incoming line and return
@@ -323,6 +331,13 @@ public class ReadTasks {
 	public static String eatAttributeName(String line,String attributeName) {
 		int startAttributeName;
 		int startAttributeValue;
+		
+		if (line.indexOf(" "+attributeName+":\"") != -1) {
+			startAttributeName = line.indexOf(" "+attributeName+":\"")+1;
+		}else if (line.indexOf("["+attributeName+":\"") != -1) {
+			startAttributeName = line.indexOf("["+attributeName+":\"")+1;
+		}
+		
 		startAttributeName = line.indexOf(attributeName+":\"");
 		startAttributeValue=startAttributeName+attributeName.length()+1;
 		return line.substring(startAttributeValue+1, line.length());
@@ -344,14 +359,6 @@ public class ReadTasks {
 				//e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * Receives a line containing a task from readTasksFromJSON() and creates
-	 * a task object from it. Then passes the task object to addTaskToList.
-	 */
-	public void createTasksPerLine() {
-
 	}
 
 	/**
