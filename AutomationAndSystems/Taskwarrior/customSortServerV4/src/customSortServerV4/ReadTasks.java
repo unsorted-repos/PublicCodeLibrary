@@ -86,7 +86,6 @@ public class ReadTasks {
 	public static String getFilePath(boolean testing) {
 		if (testing) {
 			String filepath=hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName();
-			System.out.println("filepathJsonLocation="+filepath);
 			return filepath;
 		}else {
 			return readJSONLocation();
@@ -161,6 +160,7 @@ public class ReadTasks {
 		for (int i=0;i<attributes.size();i++) {
 			//if line contains attribute:
 			if ((attribute=readAttributeValue(line,attributes.get(i)))!=null) {
+				System.out.println("Found attribute:"+attribute[0]);
 				//Find accompanying method 
 				Method method = findMatchingSetMethod(attribute[0],attributeSetMethods);
 				if (method!=null) {
@@ -209,7 +209,7 @@ public class ReadTasks {
 		}
 		//set first letter to capital
 		attributeName = attributeName.substring(0, 1).toUpperCase()+attributeName.substring(1, attributeName.length());
-		System.out.println("attribute starting with captial:"+attributeName);
+		//System.out.println("attribute starting with captial:"+attributeName);
 		for (int i=0;i<setMethods.size();i++) {
 			if (setMethods.get(i).getName().equals("set"+attributeName)) {
 				return setMethods.get(i);
@@ -232,7 +232,7 @@ public class ReadTasks {
 		//Field[] fields = emptyTask.class.getFields();
 		for(Field f : fields){
 			taskProperties.add(f.getName());
-			System.out.println("field:"+f.getName());//or do other stuff with it			
+			//System.out.println("field:"+f.getName());//or do other stuff with it			
 		}
 		return taskProperties;
 	}
@@ -255,9 +255,9 @@ public class ReadTasks {
 		Method[] methods = emptyTask.getClass().getDeclaredMethods();
 		//Field[] fields = emptyTask.class.getFields();
 		for(Method m : methods){
-			System.out.println("method 3 char="+m.getName().substring(0, 3));
+			//System.out.println("method 3 char="+m.getName().substring(0, 3));
 			if (m.getName().substring(0, 3).equals("set")) {
-				System.out.println("method:"+m.getName());//or do other stuff with it
+				//System.out.println("method:"+m.getName());//or do other stuff with it
 				setMethods.add(m);
 //				try {
 //					methodCalling = emptyTask.getClass().getMethod(m.getName(), Parameter.class);
@@ -284,28 +284,30 @@ public class ReadTasks {
 		String attributeValue = null;		
 		String lineRemainder;
 		int endAttributeValue;
-
+		
+		System.out.println("attribute name ="+attributeName);
+		
 		//If the attribute name is found
-		if (line.indexOf(attributeName) != -1) {
+		if (line.indexOf(attributeName+":\"") != -1) {
+
 			//Remove the name of the attribute of the remaining string:
 			lineRemainder=eatAttributeName(line,attributeName);
-
-			//Find the next " to close the attribute.value
+			System.out.println("Found attribute name:"+attributeName+ " with remainder = "+lineRemainder);
+			//Find the next " to close the attribute.value,
 			endAttributeValue=lineRemainder.indexOf("\"");
 			checkAttributeLength(endAttributeValue);		
 
 			//Get propvalue:
 			attributeValue=lineRemainder.substring(0, endAttributeValue);
-			System.out.println(lineRemainder);
-			System.out.println(attributeValue);
+			System.out.println("Attribute value found ="+attributeValue);
 		}else {
-			System.out.println("attribute not found:"+attributeName);
+			//System.out.println("attribute not found:"+attributeName);
 			return null;
 		}
 
 		//return the attribute name and the attribute value
-		String returnString[]=new String[1];
-		returnString[0]=attributeName.substring(0, attributeName.length()-1);
+		String returnString[]=new String[2];
+		returnString[0]=attributeName;
 		returnString[1]=attributeValue;
 		return returnString;
 	}
@@ -321,9 +323,9 @@ public class ReadTasks {
 	public static String eatAttributeName(String line,String attributeName) {
 		int startAttributeName;
 		int startAttributeValue;
-		startAttributeName = line.indexOf(attributeName);
+		startAttributeName = line.indexOf(attributeName+":\"");
 		startAttributeValue=startAttributeName+attributeName.length()+1;
-		return line.substring(startAttributeValue, line.length());
+		return line.substring(startAttributeValue+1, line.length());
 	}
 
 	/**
@@ -339,7 +341,7 @@ public class ReadTasks {
 				throw new AttributeValueNotFoundException("Did not find the attribute");
 			} catch (AttributeValueNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}

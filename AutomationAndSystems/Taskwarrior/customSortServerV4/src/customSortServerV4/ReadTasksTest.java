@@ -197,8 +197,13 @@ class ReadTasksTest {
 		String status = "\"pending\"";
 		String uuid = "\"457f69f5-ff3b-46bf-b7c3-6461ddffaaa2\"";
 
+		//Assign description
 		expectedTask.setDescription(description);
 		testTask=ReadTasks.readPerLine(fakeInputLine);
+		
+		System.out.println("DescriptionKeyword="+testTask.getDescription());
+		assertTrue(expectedTask.getDescription().equals(testTask.getDescription()));
+		assertTrue(description.equals(testTask.getDescription()));
 	}
 
 	/**

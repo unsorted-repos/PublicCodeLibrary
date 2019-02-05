@@ -45,208 +45,208 @@ public class Task {
 		return depends;
 	}
 
-	public void setDepends(String depends) {
-		this.depends = depends;
+	public void setDepends(Object depends) {
+		this.depends = (String) depends;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(Object description) {
+		this.description = (String) description;
 	}
 
 	public String getDue() {
 		return due;
 	}
 
-	public void setDue(String due) {
-		this.due = due;
+	public void setDue(Object due) {
+		this.due = (String) due;
 	}
 
 	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setEnd(Object end) {
+		this.end = (String) end;
 	}
 
 	public String getEntry() {
 		return entry;
 	}
 
-	public void setEntry(String entry) {
-		this.entry = entry;
+	public void setEntry(Object entry) {
+		this.entry = (String) entry;
 	}
 
 	public String getEstimate() {
 		return estimate;
 	}
 
-	public void setEstimate(String estimate) {
-		this.estimate = estimate;
+	public void setEstimate(Object estimate) {
+		this.estimate = (String) estimate;
 	}
 
 	public double getId() {
 		return id;
 	}
 
-	public void setId(double id) {
-		this.id = id;
+	public void setId(Object id) {
+		this.id = (double) id;
 	}
 
 	public double getImask() {
 		return imask;
 	}
 
-	public void setImask(double imask) {
-		this.imask = imask;
+	public void setImask(Object imask) {
+		this.imask = (double) imask;
 	}
 
 	public String getMask() {
 		return mask;
 	}
 
-	public void setMask(String mask) {
-		this.mask = mask;
+	public void setMask(Object mask) {
+		this.mask = (String) mask;
 	}
 
 	public String getModified() {
 		return modified;
 	}
 
-	public void setModified(String modified) {
-		this.modified = modified;
+	public void setModified(Object modified) {
+		this.modified = (String) modified;
 	}
 
 	public String getParent() {
 		return parent;
 	}
 
-	public void setParent(String parent) {
-		this.parent = parent;
+	public void setParent(Object parent) {
+		this.parent = (String) parent;
 	}
 
 	public String getPriority() {
 		return priority;
 	}
 
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setPriority(Object priority) {
+		this.priority = (String) priority;
 	}
 
 	public String getProject() {
 		return project;
 	}
 
-	public void setProject(String project) {
-		this.project = project;
+	public void setProject(Object project) {
+		this.project = (String) project;
 	}
 
 	public String getRecur() {
 		return recur;
 	}
 
-	public void setRecur(String recur) {
-		this.recur = recur;
+	public void setRecur(Object recur) {
+		this.recur = (String) recur;
 	}
 
 	public String getScheduled() {
 		return scheduled;
 	}
 
-	public void setScheduled(String scheduled) {
-		this.scheduled = scheduled;
+	public void setScheduled(Object scheduled) {
+		this.scheduled = (String) scheduled;
 	}
 
 	public String getStart() {
 		return start;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
+	public void setStart(Object start) {
+		this.start = (String) start;
 	}
 
 	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(Object status) {
+		this.status = (String) status;
 	}
 
 	public String getTags() {
 		return tags;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setTags(Object tags) {
+		this.tags = (String) tags;
 	}
 
 	public double getTracnumber() {
 		return tracnumber;
 	}
 
-	public void setTracnumber(double tracnumber) {
-		this.tracnumber = tracnumber;
+	public void setTracnumber(Object tracnumber) {
+		this.tracnumber = (double) tracnumber;
 	}
 
 	public String getTracsummary() {
 		return tracsummary;
 	}
 
-	public void setTracsummary(String tracsummary) {
-		this.tracsummary = tracsummary;
+	public void setTracsummary(Object tracsummary) {
+		this.tracsummary = (String) tracsummary;
 	}
 
 	public String getTracurl() {
 		return tracurl;
 	}
 
-	public void setTracurl(String tracurl) {
-		this.tracurl = tracurl;
+	public void setTracurl(Object tracurl) {
+		this.tracurl = (String) tracurl;
 	}
 
 	public String getUntil() {
 		return until;
 	}
 
-	public void setUntil(String until) {
-		this.until = until;
+	public void setUntil(Object until) {
+		this.until = (String) until;
 	}
 
 	public double getUrgency() {
 		return urgency;
 	}
 
-	public void setUrgency(double urgency) {
-		this.urgency = urgency;
+	public void setUrgency(Object urgency) {
+		this.urgency = (double) urgency;
 	}
 
 	public String getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setUuid(Object uuid) {
+		this.uuid = (String) uuid;
 	}
 
 	public String getWait() {
 		return wait;
 	}
 
-	public void setWait(String wait) {
-		this.wait = wait;
+	public void setWait(Object wait) {
+		this.wait = (String) wait;
 	}
 
 	public int getCustomSort() {
 		return customSort;
 	}
 
-	public void setCustomSort(int customSort) {
-		this.customSort = customSort;
+	public void setCustomSort(Object customSort) {
+		this.customSort = (int) customSort;
 	}	
 	
 }
