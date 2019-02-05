@@ -150,32 +150,48 @@ public class ReadTasks {
 	 * and puts the attribute-name and -values into an array passes the array to 
 	 * createTasksPerLine().
 	 */
-	public static void readPerLine(String line) {
+	public static Task readPerLine(String line) {
 		Task task = new Task();
 		ArrayList<String> attributes=generateTaskAttributeList();
 		ArrayList<Method> attributeSetMethods=getTaskAttributeGetMethods();
 		String[] attribute = new String[2];
 		
+
+		//Loop through all attributes of a task=fields of Object Task
 		for (int i=0;i<attributes.size();i++) {
+			//if line contains attribute:
 			if ((attribute=readAttributeValue(line,attributes.get(i)))!=null) {
-				if (findMatchingSetMethod(attribute[0],attributeSetMethods)!=null) {
-					//call method that executes method.
+				//Find accompanying method 
+				Method method = findMatchingSetMethod(attribute[0],attributeSetMethods);
+				if (method!=null) {
+					//call method that executes method and pass the attribute value.
+					task=setTaskAttribute(task,method,attribute[1]);
 				}
 			}
 		}
 		String attributeName= "description:";
+		return task;
 	}
 	
 	/**
+	 * Tested with Task attribute: description. 
+	 * TODO: test for all fields/attributes of Task.
 	 * creates a task object
 	 * Executes the method set<attribute name> on the task object
 	 * passes the propertyValue parsed as the method argument.
 	 *  
 	 * @param method
-	 * @param propertyValue
+	 * @param attributeValue
 	 */
-	public static void setTaskAttribute(Method method,String propertyValue) {
+	public static Task setTaskAttribute(Task task, Method method,String attributeValue) {
 		
+		try {
+			method.invoke(task, attributeValue);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return task;
 	}
 	
 	/**

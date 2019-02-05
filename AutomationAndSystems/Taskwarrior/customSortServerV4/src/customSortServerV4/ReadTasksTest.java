@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -21,7 +22,79 @@ class ReadTasksTest {
 	private String testTxtLine0= "[description:\"backup system\" entry:\"1535050397\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"33\" status:\"pending\" uuid:\"457f69f5-ff3b-46bf-b7c3-6461ddffaaa2\"]";
 	private String testTxtLine1= "[description:\"Backup emulators\" entry:\"1535050398\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"32\" status:\"pending\" uuid:\"931b463b-a130-44fe-96c0-ad60e88aaa0e\"]";
 	private String testTxtLine2= "[description:\"Automate emulator controller installation\" entry:\"1535050399\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"31\" status:\"pending\" uuid:\"5d0e0cbb-173f-4ef4-a603-0dffd4caaa97\"]";
+	private ArrayList<String> taskAttributes =new ArrayList<>();
+	private ArrayList<String> taskAttributeSetMethods =new ArrayList<>();
 
+	/**
+	 * This fills an ArrayList of strings with the names of the Task Attributes.
+	 * the names of the Task Attributes are the names of the fields of object Task.
+	 * If you create a new UDA in taskwarrior, 
+	 * 0. go to object Task
+	 * 1. add the uda as a field (exact same uda name as in JSON format of pending.data)
+	 * 2. generate setters and getters for the new UDA
+	 * 3. add the field to the list in this method
+	 *   
+	 */
+	@BeforeEach
+	private void generateAttributeNames() {
+		taskAttributes.add("depends");
+		taskAttributes.add("description"); 
+		taskAttributes.add("due"); //date
+		taskAttributes.add("end"); //date
+		taskAttributes.add("entry"); //date
+		taskAttributes.add("estimate"); 
+		taskAttributes.add("id");;
+		taskAttributes.add("imask");; 
+		taskAttributes.add("mask"); 
+		taskAttributes.add("modified"); //date
+		taskAttributes.add("parent"); 
+		taskAttributes.add("priority"); 
+		taskAttributes.add("project"); 
+		taskAttributes.add("recur"); 
+		taskAttributes.add("scheduled"); //date
+		taskAttributes.add("start"); //date
+		taskAttributes.add("status"); 
+		taskAttributes.add("tags"); 
+		taskAttributes.add("tracnumber");; 
+		taskAttributes.add("tracsummary"); 
+		taskAttributes.add("tracurl"); 
+		taskAttributes.add("until"); //date
+		taskAttributes.add("urgency");;
+		taskAttributes.add("uuid"); 
+		taskAttributes.add("wait"); //date
+		taskAttributes.add("customSort"); //date	
+	}
+	
+	@BeforeEach
+	private void generateAttributeSetMethods() {
+		taskAttributeSetMethods.add("setDepends");
+		taskAttributeSetMethods.add("setDescription"); 
+		taskAttributeSetMethods.add("setDue"); //date
+		taskAttributeSetMethods.add("setEnd"); //date
+		taskAttributeSetMethods.add("setEntry"); //date
+		taskAttributeSetMethods.add("setEstimate"); 
+		taskAttributeSetMethods.add("setId");;
+		taskAttributeSetMethods.add("setImask");; 
+		taskAttributeSetMethods.add("setMask"); 
+		taskAttributeSetMethods.add("setModified"); //date
+		taskAttributeSetMethods.add("setParent"); 
+		taskAttributeSetMethods.add("setPriority"); 
+		taskAttributeSetMethods.add("setProject"); 
+		taskAttributeSetMethods.add("setRecur"); 
+		taskAttributeSetMethods.add("setScheduled"); //date
+		taskAttributeSetMethods.add("setStart"); //date
+		taskAttributeSetMethods.add("setStatus"); 
+		taskAttributeSetMethods.add("setTags"); 
+		taskAttributeSetMethods.add("setTracnumber");; 
+		taskAttributeSetMethods.add("setTracsummary"); 
+		taskAttributeSetMethods.add("setTracurl"); 
+		taskAttributeSetMethods.add("setUntil"); //date
+		taskAttributeSetMethods.add("setUrgency");;
+		taskAttributeSetMethods.add("setUuid"); 
+		taskAttributeSetMethods.add("setWait"); //date
+		taskAttributeSetMethods.add("setCustomSort"); //date
+	}
+	
 	/**
 	 * This test does not test any actual code in method readTasks.
 	 * This test checks if there is no file found, if no file found & throws the IO
@@ -112,8 +185,20 @@ class ReadTasksTest {
 	@Test
 	void testReadPerLine() {
 		//String fakeInputLine="[description:"+ Char(34) +"backup system"+ Chr(34) +" entry:"+ Chr(34) +"1535050397"+ Chr(34) +" modified:"+ Chr(34) +"1548757876"+ Chr(34) +" priority:"+ Chr(34) +"L"+ Chr(34) +" project:"+ Chr(34) +"Automation"+ Chr(34) +" secretSort:"+ Chr(34) +"33"+ Chr(34) +" status:"+ Chr(34) +"pending"+ Chr(34) +" uuid:"+ Chr(34) +"457f69f5-ff3b-46bf-b7c3-6461ddffaaa2"+ Chr(34) +"]"
+		Task testTask = new Task();
 		String fakeInputLine= "[description:\"backup system\" entry:\"1535050397\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"33\" status:\"pending\" uuid:\"457f69f5-ff3b-46bf-b7c3-6461ddffaaa2\"]";
-		ReadTasks.readPerLine(fakeInputLine);
+		Task expectedTask = new Task();
+		String description = "\"backup system\"";
+		String entry="\"1535050397\"";
+		String modified = "\"1548757876\"";
+		String priority = "\"L\"";
+		String project = "\"Automation\"";
+		String secretSort = "\"33\"";
+		String status = "\"pending\"";
+		String uuid = "\"457f69f5-ff3b-46bf-b7c3-6461ddffaaa2\"";
+
+		expectedTask.setDescription(description);
+		testTask=ReadTasks.readPerLine(fakeInputLine);
 	}
 
 	/**
@@ -126,35 +211,8 @@ class ReadTasksTest {
 	 */
 	@Test
 	void testGenerateTaskAttributeList() {
-		ArrayList<String> taskAttributes =new ArrayList<>();
 		ArrayList<String> returnedAttributes =ReadTasks.generateTaskAttributeList();
-		taskAttributes.add("depends");
-		taskAttributes.add("description"); 
-		taskAttributes.add("due"); //date
-		taskAttributes.add("end"); //date
-		taskAttributes.add("entry"); //date
-		taskAttributes.add("estimate"); 
-		taskAttributes.add("id");;
-		taskAttributes.add("imask");; 
-		taskAttributes.add("mask"); 
-		taskAttributes.add("modified"); //date
-		taskAttributes.add("parent"); 
-		taskAttributes.add("priority"); 
-		taskAttributes.add("project"); 
-		taskAttributes.add("recur"); 
-		taskAttributes.add("scheduled"); //date
-		taskAttributes.add("start"); //date
-		taskAttributes.add("status"); 
-		taskAttributes.add("tags"); 
-		taskAttributes.add("tracnumber");; 
-		taskAttributes.add("tracsummary"); 
-		taskAttributes.add("tracurl"); 
-		taskAttributes.add("until"); //date
-		taskAttributes.add("urgency");;
-		taskAttributes.add("uuid"); 
-		taskAttributes.add("wait"); //date
-		taskAttributes.add("customSort"); //date
-
+		
 		assertEquals(taskAttributes,returnedAttributes );
 		//Excessive test: iterate through the ArrayLists to compare whether all their elements are equal.
 		for (int i=0;i<taskAttributes.size();i++) {
@@ -167,39 +225,14 @@ class ReadTasksTest {
 	 */
 	@Test
 	void testGetTaskAttributeGetMethods() {
-		ArrayList<String> taskAttributeSetMethods =new ArrayList<>();
+		
 		ArrayList<Method> returnedAttributeSetMethods =ReadTasks.getTaskAttributeGetMethods();
 		ArrayList<String> returnedAttributeSetMethodNames =new ArrayList<>();
 		for(int i=0;i<returnedAttributeSetMethods.size();i++) {
 			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
 		}
 
-		taskAttributeSetMethods.add("setDepends");
-		taskAttributeSetMethods.add("setDescription"); 
-		taskAttributeSetMethods.add("setDue"); //date
-		taskAttributeSetMethods.add("setEnd"); //date
-		taskAttributeSetMethods.add("setEntry"); //date
-		taskAttributeSetMethods.add("setEstimate"); 
-		taskAttributeSetMethods.add("setId");;
-		taskAttributeSetMethods.add("setImask");; 
-		taskAttributeSetMethods.add("setMask"); 
-		taskAttributeSetMethods.add("setModified"); //date
-		taskAttributeSetMethods.add("setParent"); 
-		taskAttributeSetMethods.add("setPriority"); 
-		taskAttributeSetMethods.add("setProject"); 
-		taskAttributeSetMethods.add("setRecur"); 
-		taskAttributeSetMethods.add("setScheduled"); //date
-		taskAttributeSetMethods.add("setStart"); //date
-		taskAttributeSetMethods.add("setStatus"); 
-		taskAttributeSetMethods.add("setTags"); 
-		taskAttributeSetMethods.add("setTracnumber");; 
-		taskAttributeSetMethods.add("setTracsummary"); 
-		taskAttributeSetMethods.add("setTracurl"); 
-		taskAttributeSetMethods.add("setUntil"); //date
-		taskAttributeSetMethods.add("setUrgency");;
-		taskAttributeSetMethods.add("setUuid"); 
-		taskAttributeSetMethods.add("setWait"); //date
-		taskAttributeSetMethods.add("setCustomSort"); //date
+		
 
 		assertTrue(taskAttributeSetMethods.containsAll(returnedAttributeSetMethodNames));
 		assertTrue(returnedAttributeSetMethodNames.containsAll(taskAttributeSetMethods));
@@ -325,35 +358,6 @@ class ReadTasksTest {
 			returnedAttributeSetMethodNames.add(returnedAttributeSetMethods.get(i).getName());
 		}
 
-		//put all attribute names into an array.
-		ArrayList<String> taskAttributes =new ArrayList<>();
-		taskAttributes.add("depends");
-		taskAttributes.add("description"); 
-		taskAttributes.add("due"); //date
-		taskAttributes.add("end"); //date
-		taskAttributes.add("entry"); //date
-		taskAttributes.add("estimate"); 
-		taskAttributes.add("id");;
-		taskAttributes.add("imask");; 
-		taskAttributes.add("mask"); 
-		taskAttributes.add("modified"); //date
-		taskAttributes.add("parent"); 
-		taskAttributes.add("priority"); 
-		taskAttributes.add("project"); 
-		taskAttributes.add("recur"); 
-		taskAttributes.add("scheduled"); //date
-		taskAttributes.add("start"); //date
-		taskAttributes.add("status"); 
-		taskAttributes.add("tags"); 
-		taskAttributes.add("tracnumber");; 
-		taskAttributes.add("tracsummary"); 
-		taskAttributes.add("tracurl"); 
-		taskAttributes.add("until"); //date
-		taskAttributes.add("urgency");;
-		taskAttributes.add("uuid"); 
-		taskAttributes.add("wait"); //date
-		taskAttributes.add("customSort"); //date
-
 		//check for all attribute names if it finds them in the method array
 		for (int i=0;i<taskAttributes.size();i++) {
 			assertTrue(returnedAttributeSetMethods.contains(ReadTasks.findMatchingSetMethod(taskAttributes.get(i),returnedAttributeSetMethods)));
@@ -414,4 +418,61 @@ class ReadTasksTest {
 		}
 
 	}
+
+	/**
+	 * Tests whether the method setTaskAttribute correctly sets the task
+	 * attribute "description" if it is given the correct method.
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetTaskAttribute() throws Exception {
+		//setTaskAttribute(task,method,propertyValue)
+		Task expected = new Task();
+		Task testTask = new Task();
+		Method method=null;
+		String methodName = "setDescription";
+		String description = "test";
+		expected.setDescription(description);
+
+		//get method setDescription:
+		try {
+			method = testTask.getClass().getMethod(methodName, String.class);
+		} catch (SecurityException e) {}
+		catch (NoSuchMethodException e) {}
+		
+		
+		testTask=ReadTasks.setTaskAttribute(testTask,method,description);
+		assertTrue(expected.getDescription().equals(testTask.getDescription()));
+		assertTrue(description.equals(testTask.getDescription()));
+	}
+	
+	/**
+	 * Tests whether the string.equals of testSetTaskAttribute does
+	 * not return a positive if the description is not set for the
+	 * testTask object.
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetTaskAttributeNotExecuted() throws Exception {
+		//setTaskAttribute(task,method,propertyValue)
+		Task expected = new Task();
+		Task testTask = new Task();
+		Method method=null;
+		String methodName = "setDescription";
+		String description = "test";
+		expected.setDescription(description);
+
+		//get method setDescription:
+		try {
+			method = testTask.getClass().getMethod(methodName, String.class);
+		} catch (SecurityException e) {}
+		catch (NoSuchMethodException e) {}
+		
+		//testTask=ReadTasks.setTaskAttribute(testTask,method,description);
+		
+		assertFalse(expected.getDescription().equals(testTask.getDescription()));
+		assertFalse(description.equals(testTask.getDescription()));
+	}
+	
+	
 }
