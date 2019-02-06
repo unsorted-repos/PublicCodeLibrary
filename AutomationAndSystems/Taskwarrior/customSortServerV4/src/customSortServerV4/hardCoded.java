@@ -10,7 +10,22 @@ public class hardCoded {
 	private static String eclipseFilePath="input/";
 	private static String eclipseFileName="pendingPublic.data";
 	private static String ubuntuFileName="pending.data";
+	private static double urgencyThreshold = 11.2;
 	
+	/**
+	 * @return the urgencyThreshold
+	 */
+	public static double getUrgencyThreshold() {
+		return urgencyThreshold;
+	}
+
+	/**
+	 * @param urgencyThreshold the urgencyThreshold to set
+	 */
+	public static void setUrgencyThreshold(double urgencyThreshold) {
+		hardCoded.urgencyThreshold = urgencyThreshold;
+	}
+
 	public static String getUbuntuFileName() {
 		return ubuntuFileName;
 	}

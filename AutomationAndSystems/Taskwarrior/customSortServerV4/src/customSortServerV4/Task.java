@@ -94,7 +94,8 @@ public class Task {
 	}
 
 	public void setId(Object id) {
-		this.id = (double) id;
+		//this.id = (double) id;
+		this.id = Double.parseDouble((String) id);
 	}
 
 	public double getImask() {
@@ -102,7 +103,8 @@ public class Task {
 	}
 
 	public void setImask(Object imask) {
-		this.imask = (double) imask;
+		//this.imask = (double) imask;
+		this.imask = Double.parseDouble((String) imask);
 	}
 
 	public String getMask() {
@@ -190,7 +192,8 @@ public class Task {
 	}
 
 	public void setTracnumber(Object tracnumber) {
-		this.tracnumber = (double) tracnumber;
+		//this.tracnumber = (double) tracnumber;
+		this.tracnumber = Double.parseDouble((String) tracnumber);
 	}
 
 	public String getTracsummary() {
@@ -222,7 +225,8 @@ public class Task {
 	}
 
 	public void setUrgency(Object urgency) {
-		this.urgency = (double) urgency;
+		//this.urgency = (double) urgency;
+		this.urgency = Double.parseDouble((String) urgency);
 	}
 
 	public String getUuid() {

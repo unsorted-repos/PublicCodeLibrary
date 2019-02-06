@@ -24,5 +24,9 @@ public class Main {
 	public static void setTestingInWindows(boolean testingInWindows) {
 		Main.testingInWindows = testingInWindows;
 	}
+	
+	public static ArrayList<Task> createSortingCommands(ArrayList<Task> unsorted){
+		return null;
+	}
 
 }
