@@ -49,9 +49,17 @@ public class CreateSorts{
 	//	};
 
 	public static ArrayList<Task> mainSort(ArrayList<Task> taskList) {
-
 		//A normal sort on Project:
-		Comparator<Task> projectComparator = (object1, object2) -> String.join("", object1.getProject()).compareTo(String.join("", object2.getProject()));
+		Comparator<Task> projectComparator = (object1, object2) -> {
+			if (object1.getProject()==null && object2.getProject()!=null){
+				return 1; // non-urgent projects should be located below non-urgent tasks without a project
+			} else if (object1.getProject()!=null && object2.getProject()==null){
+				return -1; // non-urgent projects should be located below non-urgent tasks without a project
+			}else if (object1.getProject()!=null && object2.getProject()!=null){
+				return String.join("", object1.getProject()).compareTo(String.join("", object2.getProject()));
+			}
+			return Double.compare(object1.getUrgency(), object2.getUrgency());
+		};
 
 		//sorts urgency
 		Comparator<Task> urgencyComparator = (object1,object2) -> Double.compare(object1.getUrgency(), object2.getUrgency());
@@ -73,7 +81,6 @@ public class CreateSorts{
 		Comparator<Task> mainComparator = new ConditionalComparator<Task>(task -> task.getUrgency() < hardCoded.getUrgencyThreshold(), projectComparator, urgencyComparator);
 
 		//Call the actual mainComparator with a tasklist:
-		System.out.println("hi");
 		Collections.sort(taskList, mainComparator);
 		return taskList;
 	}

@@ -186,7 +186,7 @@ public class ReadTasks {
 	public static Task setTaskAttribute(Task task, Method method,String attributeValue) {
 		
 		try {
-			System.out.println("method="+method.getName()+" AttributeValue="+attributeValue);
+			//System.out.println("method="+method.getName()+" AttributeValue="+attributeValue);
 			method.invoke(task, attributeValue);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block

@@ -39,11 +39,11 @@ public class ConditionalComparator<T> implements Comparator<T> {
 		// TODO Auto-generated method stub
 		if (thresholdCondition.check(object1) && thresholdCondition.check(object2) ) {
 			return sortProject.compare(object1, object2);
-		}else if(thresholdCondition.check(object1) && !thresholdCondition.check(object1)){
+		}else if(thresholdCondition.check(object1) && !thresholdCondition.check(object2)){
 			return -1;
-		}else if(!thresholdCondition.check(object1) && thresholdCondition.check(object1)){
+		}else if(!thresholdCondition.check(object1) && thresholdCondition.check(object2)){
 			return 1;
-		}else if(!thresholdCondition.check(object1) && !thresholdCondition.check(object1)){
+		}else if(!thresholdCondition.check(object1) && !thresholdCondition.check(object2)){
 			return sortUrgency.compare(object1, object2);
 		}
 		return 0;
