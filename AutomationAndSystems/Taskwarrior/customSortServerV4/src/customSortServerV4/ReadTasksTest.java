@@ -142,10 +142,10 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readJSONLocation()}.
+	 * Test method for {@link customSortServerV4.ReadTasks#readJsonLocation()}.
 	 */
 	@Test
-	void testReadJSONLocation() {
+	void testReadJsonLocation() {
 		fail("Not yet implemented");
 	}
 

@@ -64,7 +64,7 @@ public class ReadTasks {
 	 * This method reads the location of the JSON file that contains all the pending taskdata.
 	 * @return contains the string of the path to the JSON file including the JSON file.
 	 */
-	public static String readJSONLocation() {
+	public static String readJsonLocation() {
 		//check if files exist
 		if (findTwFiles(readTwPath(),hardCoded.getUbuntuFileName())) {
 			return readTwPath()+hardCoded.getUbuntuFileName();
@@ -88,7 +88,7 @@ public class ReadTasks {
 			String filepath=hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName();
 			return filepath;
 		}else {
-			return readJSONLocation();
+			return readJsonLocation();
 		}
 	}
 
@@ -127,10 +127,12 @@ public class ReadTasks {
 	 * and passes each line separately to method readPerLine.
 	 * @param lines contains the lines of the text file that is read in.
 	 */
-	public static void separarateLines(ArrayList<String> lines) {
+	public static ArrayList<Task> separarateLines(ArrayList<String> lines) {
+		ArrayList<Task> taskList = new ArrayList<Task>();
 		for (int i = 0; i<lines.size();i++) {
-			readPerLine(lines.get(i));
+			taskList.add(readPerLine(lines.get(i)));
 		}
+		return taskList;
 	}
 
 	/**
