@@ -10,10 +10,20 @@ public class Main {
 
 		String filepath=ReadTasks.getFilePath(testingInWindows);
 		ArrayList<String> lines=ReadTasks.readFile(filepath);
-		ArrayList<Task> taskList = ReadTasks.separarateLines(lines);
-		
-		for (int i=0;i<taskList.size();i++) {
-			System.out.println(taskList.get(i).getDescription()+" and task uuid = "+taskList.get(i).getUuid());
+		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
+		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
+
+		//Print description and uuids of unsorted tasklist:
+		for (int i=0;i<unSortedTaskList.size();i++) {
+			System.out.println(unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
+		}
+
+		//Sort taskList:
+		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+
+		//Print description and uuids of unsorted tasklist:
+		for (int i=0;i<sortedTaskList.size();i++) {
+			System.out.println(sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
 	}
 
@@ -24,7 +34,7 @@ public class Main {
 	public static void setTestingInWindows(boolean testingInWindows) {
 		Main.testingInWindows = testingInWindows;
 	}
-	
+
 	public static ArrayList<Task> createSortingCommands(ArrayList<Task> unsorted){
 		return null;
 	}
