@@ -1,18 +1,94 @@
 package customSortServerV4;
 
 public class hardCoded {
-	
+
 	//Assumptions: 
 	//0. Method generatePropertyList assumes the (user defined) attributes of
 	//a task have the exact same name in the JSON pending.data file as they
 	//have as fields of Object Task.
-	
+
 	private static String eclipseFilePath="input/";
 	private static String eclipseFileName="pendingPublic.data";
 	private static String ubuntuFileName="pending.data";
+	private static String ubuntuFilePath="/home/a/.task/";
+	private static String nameOfCustomSortParameterLabel="cSort";
+	private static String customSortDataType="numeric";
+	private static String customReportName="nice0";
+
+	private static String nameOfCustomSortParameter="customSort";
+	/**
+	 * @return the nameOfCustomSortParameter
+	 */
+	public static String getNameOfCustomSortParameter() {
+		return nameOfCustomSortParameter;
+	}
+
+	/**
+	 * @param nameOfCustomSortParameter the nameOfCustomSortParameter to set
+	 */
+	public static void setNameOfCustomSortParameter(String nameOfCustomSortParameter) {
+		hardCoded.nameOfCustomSortParameter = nameOfCustomSortParameter;
+	}
+
+	/**
+	 * @return the nameOfCustomSortParameterLabel
+	 */
+	public static String getNameOfCustomSortParameterLabel() {
+		return nameOfCustomSortParameterLabel;
+	}
+
+	/**
+	 * @param nameOfCustomSortParameterLabel the nameOfCustomSortParameterLabel to set
+	 */
+	public static void setNameOfCustomSortParameterLabel(String nameOfCustomSortParameterLabel) {
+		hardCoded.nameOfCustomSortParameterLabel = nameOfCustomSortParameterLabel;
+	}
+
+	/**
+	 * @return the customSortDataType
+	 */
+	public static String getCustomSortDataType() {
+		return customSortDataType;
+	}
+
+	/**
+	 * @param customSortDataType the customSortDataType to set
+	 */
+	public static void setCustomSortDataType(String customSortDataType) {
+		hardCoded.customSortDataType = customSortDataType;
+	}
+
+	/**
+	 * @return the customReportName
+	 */
+	public static String getCustomReportName() {
+		return customReportName;
+	}
+
+	/**
+	 * @param customReportName the customReportName to set
+	 */
+	public static void setCustomReportName(String customReportName) {
+		hardCoded.customReportName = customReportName;
+	}
+	
+	/**
+	 * @return the ubuntuFilePath
+	 */
+	public static String getUbuntuFilePath() {
+		return ubuntuFilePath;
+	}
+
+	/**
+	 * @param ubuntuFilePath the ubuntuFilePath to set
+	 */
+	public static void setUbuntuFilePath(String ubuntuFilePath) {
+		hardCoded.ubuntuFilePath = ubuntuFilePath;
+	}
+
 	private static double urgencyThreshold = 11.2;
 	private static String sudo = "sudo ";
-	
+
 	/**
 	 * @return the sudo
 	 */

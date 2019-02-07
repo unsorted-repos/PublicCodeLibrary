@@ -1,6 +1,7 @@
 package customSortServerV4;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,8 +17,6 @@ public class ReadTasks {
 	private String unixUsername=null;
 	private String JSONLocation=null;
 	private LinkedList<Task> allTasks = new LinkedList<Task>();	
-
-
 
 	/**
 	 * Constructor.
@@ -47,7 +46,7 @@ public class ReadTasks {
 	 * @return
 	 */
 	public static String readTwPath() {
-		return null;
+		return hardCoded.getUbuntuFilePath();
 	}
 
 	/**
@@ -57,7 +56,10 @@ public class ReadTasks {
 	 * false if not all files listed in "hardCoded" are found in the location predicted by getTwPath().
 	 */
 	public static boolean findTwFiles(String twPath,String pendingFilename) {
-		return false;
+		
+		System.out.println("Checking filepath:"+twPath+pendingFilename);
+		System.out.println("returning the file is found:"+new File(twPath+pendingFilename).isFile());
+		return new File(twPath+pendingFilename).isFile();
 	}
 
 	/**

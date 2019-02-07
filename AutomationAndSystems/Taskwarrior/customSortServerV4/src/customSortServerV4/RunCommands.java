@@ -32,13 +32,12 @@ public class RunCommands {
 					InputStreamReader(p.getErrorStream()));
 
 			// get output
-			System.out.println("Good output:\n");
 			while ((s = brGood.readLine()) != null) {
+				System.out.println("Adding:"+s);
 				goodExecutionOutput.add(s);
 			}
 
 			// get the error message
-			System.out.println("Error output:\n");
 			while ((s = brError.readLine()) != null) {
 				errorExecutionOutput.add(s);
 			}
@@ -54,7 +53,6 @@ public class RunCommands {
 		//Merge outputLists and return
 		returnLists.add(goodExecutionOutput);
 		returnLists.add(errorExecutionOutput);
-		System.out.println("Returning something!!!!!!");
 		return returnLists;
 	}
 }

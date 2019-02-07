@@ -143,7 +143,9 @@ class ReadTasksTest {
 	 */
 	@Test
 	void testReadJsonLocation() {
-		fail("Not yet implemented");
+		String expectedPath="/home/a/.task/pending.data";
+		System.out.println("returning:"+ReadTasks.readJsonLocation());
+		assertTrue(expectedPath.equals(ReadTasks.readJsonLocation()));
 	}
 
 	/**

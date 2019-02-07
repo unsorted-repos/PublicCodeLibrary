@@ -24,7 +24,6 @@ public class ReadCommandOutput {
 				if (line.length()>7) {
 					//System.out.println(outputLines.substring(0,7));
 					if (line.substring(0, 7).equals("Urgency")) {
-						System.out.println("THIS IS THE URGENCY LINE!"+line);
 						return getUrgency(line);
 					}
 				}
@@ -44,17 +43,23 @@ public class ReadCommandOutput {
 			//System.out.println(outputLines.substring(0,7));
 			if (line.substring(0, 7).equals("Urgency")) {
 				
-				
 				//Get index of first nr.
 				urgency = line.substring(numberIndex(line),line.length());
-				System.out.println("Urgency"+line);
-				System.out.println("Urgency"+line);
 				return Double.parseDouble(urgency);
 			}
 		}	
 		return -1;
 	}
 	
+	/**
+	 * Returns the index of the first digit occurring in the string.
+	 * returns -1 if there is no digit in the string, that way 
+	 * method getUrgency throws an error when stores the substring
+	 * with begin index -1.
+	 * TODO: Throw error direct instead of returning -1
+	 * @param s
+	 * @return
+	 */
 	public static int numberIndex(String s) {
 	    int len = s.length();
 	    char temp;
