@@ -74,25 +74,121 @@ Compile yourself instructions (in Windows):
 
 Enter (for backwards compatibility since this script currently ensures highest JDK version 8. = 1.8 in Linux.):
 
+
+First clear up the old compiled files
 ```
-del ClassFive.class
+del ConditionalComparator.class
 
-del Pair.class
+del CreateSorts.class
 
-del StringPair.class
+del CreateSortsTest.class
 
-del javaSort.jar
+del ExportCommands.class
 
-javac ClassFive.java -target 1.8 -source 1.8
+del hardCoded.class
 
-javac Pair.java -target 1.8 -source 1.8
+del ICheckThresholdCondition.class
 
-javac StringPair.java -target 1.8 -source 1.8
+del Main.class
 
-jar -cvmf manifest.mf javaSort.jar *.class
+del ReadTasks.class
+
+del ReadTasksTest.class
+
+del Task.class
+
+del TaskDataSet.class
+
+del TaskList.class
+
+del TaskTest.class
+
+del Write.class
+
+del JavaServerSort.jar
+```
+Then generate the new compiled files:
+```
+javac ConditionalComparator.java -target 1.8 -source 1.8
+
+javac CreateSorts.java -target 1.8 -source 1.8
+
+javac CreateSortsTest.java -target 1.8 -source 1.8
+
+javac ExportCommands.java -target 1.8 -source 1.8
+
+javac hardCoded.java -target 1.8 -source 1.8
+
+javac ICheckThresholdCondition.java -target 1.8 -source 1.8
+
+javac Main.java -target 1.8 -source 1.8
+
+javac ReadTasks.java -target 1.8 -source 1.8
+
+javac ReadTasksTest.java -target 1.8 -source 1.8
+
+javac Task.java -target 1.8 -source 1.8
+
+javac TaskDataSet.java -target 1.8 -source 1.8
+
+javac TaskList.java -target 1.8 -source 1.8
+
+javac TaskTest.java -target 1.8 -source 1.8
+
+javac Write.java -target 1.8 -source 1.8
+```
+That will yield a warning saying bootstrap class path not set in conjunction with -source 8. Furthermore it will not compile the test classes.
+
+Next create a txt file named `manifest` that indicates what the main class of this project is, by entering the following line in it:
+`Main-Class: Main`
+Then rename the file extentions from `manifest.txt` to `manifest.mf`
+
+And then compile the .jar file that will run the combined compiled files:
+```
+jar -cvmf manifest.mf JavaServerSort.jar *.class
 ```
 
-(You can run the java separately with: java -jar javaSort.jar (but that requires the output of the customSort.sh)
+Make it runnable:
+
+
+That's it. (You can run the java separately with: java -jar JavaServerSort.jar) 
+
+# User interface instructions:
+0. Source: https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-33.htm 
+
+Or you can create the .jar file with eclipse by:
+1. enabling package (uncomment line one stating: `package customSortServerV4`) in:
+```
+Main.java
+ReadTasks.java
+hardCoded.java
+Task.java
+CreateSorts.java
+ConditionalComparator.java
+```
+2. Try enabling package customSortServerV4 in `IcheckTresholdCondition.java` as well.
+
+3. In package explorer of eclipse, select those 7 files.
+
+4. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
+
+5. At Launch configuration select: `Main - customSortServerV4`
+
+6. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
+
+7. select: "Package required libraries into generated Jar"
+
+8. Press finish.
+
+9. That's it. (You can run the java separately by:
+
+10. Open command prompt (cmd)
+
+11. In cmd browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
+
+12. Type: java -jar JavaServerSort.jar
+## Ubuntu
+
 
 2. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
 

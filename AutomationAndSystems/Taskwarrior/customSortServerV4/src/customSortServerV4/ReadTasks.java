@@ -1,4 +1,4 @@
-//package customSortServerV4;
+package customSortServerV4;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
