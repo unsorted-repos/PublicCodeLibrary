@@ -11,7 +11,22 @@ public class hardCoded {
 	private static String eclipseFileName="pendingPublic.data";
 	private static String ubuntuFileName="pending.data";
 	private static double urgencyThreshold = 11.2;
+	private static String sudo = "sudo ";
 	
+	/**
+	 * @return the sudo
+	 */
+	public static String getSudo() {
+		return sudo;
+	}
+
+	/**
+	 * @param sudo the sudo to set
+	 */
+	public static void setSudo(String sudo) {
+		hardCoded.sudo = sudo;
+	}
+
 	/**
 	 * @return the urgencyThreshold
 	 */

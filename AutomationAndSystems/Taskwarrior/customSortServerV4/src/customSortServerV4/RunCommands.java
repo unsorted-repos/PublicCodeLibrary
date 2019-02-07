@@ -3,6 +3,7 @@
  */
 package customSortServerV4;
 import java.io.*;
+import java.util.ArrayList;
 /**
  * @author a
  *
@@ -12,14 +13,18 @@ public class RunCommands {
 	/**
 	 * Source: https://github.com/AlvinFDK/FDK/blob/18d61bcc2121b13ae1b02345930f6f2264feb813/src/main/java/blackflames/alvin/bar/io/TerminalUnix.java
 	 */
-	public static void runCommands() {
+	public static ArrayList<ArrayList<String>> runCommands(String command) {
 
 		String s = null;
-
+		String outputLines=null;
+		ArrayList<String> goodExecutionOutput=new ArrayList<String>();
+		ArrayList<String> errorExecutionOutput=new ArrayList<String>();
+		ArrayList<ArrayList<String>> returnLists = new ArrayList<ArrayList<String>>();
+		
 		try {
 
 			// run the Unix "task nice0" command
-			Process p = Runtime.getRuntime().exec("sudo task nice0");
+			Process p = Runtime.getRuntime().exec(command);
 
 			BufferedReader brGood = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
@@ -29,21 +34,27 @@ public class RunCommands {
 			// get output
 			System.out.println("Good output:\n");
 			while ((s = brGood.readLine()) != null) {
-				System.out.println(s);
+				goodExecutionOutput.add(s);
 			}
 
 			// get the error message
 			System.out.println("Error output:\n");
 			while ((s = brError.readLine()) != null) {
-				System.out.println(s);
+				errorExecutionOutput.add(s);
 			}
 
-			System.exit(0);
+			//System.exit(0);
 		}
 		catch (IOException e) {
 			System.out.println("Error: ");
 			e.printStackTrace();
 			System.exit(-1);
 		}
+		
+		//Merge outputLists and return
+		returnLists.add(goodExecutionOutput);
+		returnLists.add(errorExecutionOutput);
+		System.out.println("Returning something!!!!!!");
+		return returnLists;
 	}
 }

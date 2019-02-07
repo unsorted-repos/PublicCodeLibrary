@@ -225,8 +225,7 @@ public class Task {
 	}
 
 	public void setUrgency(Object urgency) {
-		//this.urgency = (double) urgency;
-		this.urgency = Double.parseDouble((String) urgency);
+		this.urgency=(double) urgency;
 	}
 
 	public String getUuid() {
