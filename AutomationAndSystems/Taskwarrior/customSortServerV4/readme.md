@@ -182,9 +182,9 @@ ConditionalComparator.java
 
 9. That's it. (You can run the java separately by:
 
-10. Open command prompt (cmd)
+10. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
 
-11. In cmd browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
+11. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
 
 12. Type: java -jar JavaServerSort.jar
 ## Ubuntu

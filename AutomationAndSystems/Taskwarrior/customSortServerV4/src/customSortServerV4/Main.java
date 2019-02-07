@@ -25,6 +25,9 @@ public class Main {
 		for (int i=0;i<sortedTaskList.size();i++) {
 			System.out.println(sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
+		
+		//Run a command:
+		RunCommands.runCommands(); 
 	}
 
 	public static boolean isTestingInWindows() {
