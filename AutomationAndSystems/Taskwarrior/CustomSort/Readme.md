@@ -52,7 +52,7 @@ Compile yourself instructions (in Windows):
 
 2. Added Java Developement Kit (JDK (8+) to path.)
 
-	2.1 Can be done by going to/finding <yourharddrive>:/programfiles/java/jdk-<versionnr>/bin
+	2.1 Can be done by going to/finding the following path on your pc: <yourharddrive>:/programfiles/java/jdk-<versionnr>/bin
 	
 	2.2 click on start>type "environment variables" 
 	
