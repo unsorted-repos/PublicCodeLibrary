@@ -7,13 +7,17 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 		String filepath=ReadTasks.getFilePath(testingInWindows);
 		ArrayList<String> lines=ReadTasks.readFile(filepath);
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
 
+		
+		//Test create a custom UDA
+		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		createCustomReport("nice2");
 
+		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
 			System.out.println(unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
@@ -66,7 +70,7 @@ public class Main {
 			//create command
 			command = hardCoded.getSudo()+"task "+uuid;
 			//run command
-			commandOutput=RunCommands.runCommands(command);
+			commandOutput=RunCommands.runCommands(command,false);
 			//print output and get urgency:
 			urgency=ReadCommandOutput.splitOutput(commandOutput,true);	
 			//store urgency in task
@@ -85,7 +89,7 @@ public class Main {
 	 * 6. Stores the urgency to that task.
 	 * @param unSortedTaskList
 	 */
-	private static void setCustomSort(ArrayList<Task> taskList) {
+	private static void writeCustomSort(ArrayList<Task> taskList) {
 		String uuid=null;
 		String command=null;
 		double urgency;
@@ -99,7 +103,7 @@ public class Main {
 			command = hardCoded.getSudo()+"task "+uuid;
 			System.out.println("Running command:"+command);
 			//run command
-			commandOutput=RunCommands.runCommands(command);
+			commandOutput=RunCommands.runCommands(command,false);
 			//print output and get urgency:
 			urgency=ReadCommandOutput.splitOutput(commandOutput,true);
 			System.out.println("Urgency="+urgency);			
@@ -117,11 +121,56 @@ public class Main {
 	 * @param type
 	 */
 	private static void createUDA(String udaName, String label,String type) {
+		char c = (char)124;
 		if (type.equals("numeric") || type.equals("string") || type.equals("date") || type.equals("duration")){
 //			RunCommands.runCommands(hardCoded.getSudo()+"yes | task config uda."+udaName+".type "+type);
 //			RunCommands.runCommands(hardCoded.getSudo()+"yes | task config uda."+udaName+".label"+ label);
-			RunCommands.runCommands(hardCoded.getSudo()+"task config uda."+udaName+".type "+type);
-			RunCommands.runCommands(hardCoded.getSudo()+"task config uda."+udaName+".label"+ label);
+
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".type "+type);
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".label"+ label);
+			
+//			RunCommands.runCommands(hardCoded.getSudo()+"task config uda."+udaName+".type "+type);
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes");
+//			RunCommands.runCommands(hardCoded.getSudo()+"task config uda."+udaName+".label"+ label);
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes");
+
+//			RunCommands.runCommands("sudo task config uda."+udaName+".type "+type);
+//			RunCommands.runCommands("y");
+//			RunCommands.runCommands("sudo task config uda."+udaName+".label"+ label);
+//			RunCommands.runCommands("y");
+
+			
+//			RunCommands.runCommands("task config uda."+udaName+".type "+type);
+//			RunCommands.runCommands("y");
+//			RunCommands.runCommands("task config uda."+udaName+".label"+ label);
+//			RunCommands.runCommands("yes");
+
+//			RunCommands.runCommands("sudo yes "+c+" task config uda."+udaName+".type "+type);
+//			RunCommands.runCommands("y");
+//			RunCommands.runCommands("sudo "+c+" task config uda."+udaName+".label"+ label);
+//			RunCommands.runCommands("y");
+
+//			RunCommands.runCommands("sudo y "+c+" task config uda."+udaName+".type "+type);
+//			//RunCommands.runCommands("y");
+//			RunCommands.runCommands("sudo y "+c+" task config uda."+udaName+".label "+ label);
+//			//RunCommands.runCommands("y");			
+
+			//WOrking:
+//			RunCommands.runCommands("sudo yes "+c+" task config uda."+udaName+".type "+type,true);
+//			//RunCommands.runCommands("y");
+//			RunCommands.runCommands("sudo yes "+c+" task config uda."+udaName+".label "+ label,true);
+//			//RunCommands.runCommands("y");			
+//			
+			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".type "+type,true);
+			//RunCommands.runCommands("y");
+			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".label "+ label,true);
+			//RunCommands.runCommands("y");			
+
+			
+			System.out.println("Ran:"+"sudo y "+c+" task config uda."+udaName+".type "+type);
+			System.out.println("Ran:"+"sudo y "+c+" task config uda."+udaName+".label "+ label);
+			
+		
 		}else {
 			try {
 				throw new Exception();
@@ -133,25 +182,32 @@ public class Main {
 	}
 
 
+	/**
+	 * Should create a custom report with the name reportName
+	 * TODO: make it work.
+	 * TODO: Verify with task show nice0
+	 * @param reportName
+	 */
 	private static void createCustomReport(String reportName) {
-		int commandDimensions=6;
+		int commandDimensions=5;
 		String[] commands =new String[commandDimensions];
-
+		char c = (char)124;
 //		commands[0]=hardCoded.getSudo()+"yes | task config report."+reportName+".description 'Custom sorted list of all tasks.'";
 //		commands[1]=hardCoded.getSudo()+"yes | task config report."+reportName+".columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'";
 //		commands[2]=hardCoded.getSudo()+"yes | task config report."+reportName+".labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'";
 //		commands[3]=hardCoded.getSudo()+"yes | task config report."+reportName+".sort        'customSort+'";
 //		commands[4]=hardCoded.getSudo()+"yes | task config report."+reportName+".filter      'status:pending";
-		commands[0]=hardCoded.getSudo()+"task config report."+reportName+".description 'Custom sorted list of all tasks.'";
-		commands[1]=hardCoded.getSudo()+"task config report."+reportName+".columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'";
-		commands[2]=hardCoded.getSudo()+"task config report."+reportName+".labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'";
-		commands[3]=hardCoded.getSudo()+"task config report."+reportName+".sort        'customSort+'";
-		commands[4]=hardCoded.getSudo()+"task config report."+reportName+".filter      'status:pending";
+		commands[0]=hardCoded.getSudo()+"yes "+c+" task config report."+reportName+".description 'Custom sorted list of all tasks.'";
+		commands[1]=hardCoded.getSudo()+"yes "+c+" task config report."+reportName+".columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'";
+		commands[2]=hardCoded.getSudo()+"yes "+c+" task config report."+reportName+".labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'";
+		commands[3]=hardCoded.getSudo()+"yes "+c+" task config report."+reportName+".sort        'customSort+'";
+		commands[4]=hardCoded.getSudo()+"yes "+c+" task config report."+reportName+".filter      'status:pending'";
 
 		//run commands if the reportname is not empty:
 		if (reportName!=null && reportName.length()>0) {
 			for (int i=0;i<commandDimensions;i++) {
-				RunCommands.runCommands(commands[i]);
+				System.out.println("Running:"+commands[i]);
+				RunCommands.runCommands(commands[i],true);
 			}
 		}
 	}

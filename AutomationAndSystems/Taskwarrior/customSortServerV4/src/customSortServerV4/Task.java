@@ -249,7 +249,8 @@ public class Task {
 	}
 
 	public void setCustomSort(Object customSort) {
-		this.customSort = (int) customSort;
+		//this.customSort = (int) customSort;
+		this.customSort = Integer.parseInt((String) customSort);
 	}	
 	
 }

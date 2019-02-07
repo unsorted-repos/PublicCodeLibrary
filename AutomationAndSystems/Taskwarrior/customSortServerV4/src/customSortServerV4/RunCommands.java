@@ -13,7 +13,7 @@ public class RunCommands {
 	/**
 	 * Source: https://github.com/AlvinFDK/FDK/blob/18d61bcc2121b13ae1b02345930f6f2264feb813/src/main/java/blackflames/alvin/bar/io/TerminalUnix.java
 	 */
-	public static ArrayList<ArrayList<String>> runCommands(String command) {
+	public static ArrayList<ArrayList<String>> runCommands(String command,boolean ignoreOutput) {
 
 		String s = null;
 		String outputLines=null;
@@ -32,16 +32,18 @@ public class RunCommands {
 					InputStreamReader(p.getErrorStream()));
 
 			// get output
-			while ((s = brGood.readLine()) != null) {
-				System.out.println("Adding:"+s);
-				goodExecutionOutput.add(s);
-			}
+			if (!ignoreOutput) {
+				while ((s = brGood.readLine()) != null) {
+					System.out.println("Adding:"+s);
+					goodExecutionOutput.add(s);
+				}
 
-			// get the error message
-			while ((s = brError.readLine()) != null) {
-				errorExecutionOutput.add(s);
+				// get the error message
+				while ((s = brError.readLine()) != null) {
+					errorExecutionOutput.add(s);
+				}	
 			}
-
+			
 			//System.exit(0);
 		}
 		catch (IOException e) {

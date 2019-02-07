@@ -14,7 +14,8 @@ public class hardCoded {
 	private static String nameOfCustomSortParameterLabel="cSort";
 	private static String customSortDataType="numeric";
 	private static String customReportName="nice0";
-
+	private static double urgencyThreshold = 11.2;
+	private static String sudo = "sudo ";
 	private static String nameOfCustomSortParameter="customSort";
 	/**
 	 * @return the nameOfCustomSortParameter
@@ -85,9 +86,6 @@ public class hardCoded {
 	public static void setUbuntuFilePath(String ubuntuFilePath) {
 		hardCoded.ubuntuFilePath = ubuntuFilePath;
 	}
-
-	private static double urgencyThreshold = 11.2;
-	private static String sudo = "sudo ";
 
 	/**
 	 * @return the sudo
