@@ -1,7 +1,4 @@
-/**
- * 
- */
-package customSortServerV4;
+//package customSortServerV4;
 
 /**
  * Question 0.: Why does the conditional comparator constructor require an interface for this?
