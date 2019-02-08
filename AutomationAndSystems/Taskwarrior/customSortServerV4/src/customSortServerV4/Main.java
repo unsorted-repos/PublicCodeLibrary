@@ -14,9 +14,12 @@ public class Main {
 
 		
 		//Test create a custom UDA
-		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		//createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		createUDA("abstractSort","aSort",hardCoded.getCustomSortDataType());
 		createCustomReport("nice2");
 
+		System.exit(0);
+		
 		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
@@ -122,6 +125,9 @@ public class Main {
 	 */
 	private static void createUDA(String udaName, String label,String type) {
 		char c = (char)124;
+		char bs = (char)92;
+		
+		String[] commands = new String[2];
 		if (type.equals("numeric") || type.equals("string") || type.equals("date") || type.equals("duration")){
 //			RunCommands.runCommands(hardCoded.getSudo()+"yes | task config uda."+udaName+".type "+type);
 //			RunCommands.runCommands(hardCoded.getSudo()+"yes | task config uda."+udaName+".label"+ label);
@@ -155,22 +161,48 @@ public class Main {
 //			RunCommands.runCommands("sudo y "+c+" task config uda."+udaName+".label "+ label);
 //			//RunCommands.runCommands("y");			
 
-			//WOrking:
+			//Did not get stuck in infinite loop:
 //			RunCommands.runCommands("sudo yes "+c+" task config uda."+udaName+".type "+type,true);
 //			//RunCommands.runCommands("y");
 //			RunCommands.runCommands("sudo yes "+c+" task config uda."+udaName+".label "+ label,true);
 //			//RunCommands.runCommands("y");			
-//			
-			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".type "+type,true);
-			//RunCommands.runCommands("y");
-			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".label "+ label,true);
-			//RunCommands.runCommands("y");			
 
+			//Did not get stuck in infinite loop:
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".type "+type,true);
+//			RunCommands.runCommands(hardCoded.getSudo()+"yes "+c+" task config uda."+udaName+".label "+ label,true);
+
+			//Did not work:
+			//commands[0]="printf 'y\n' "+c+" task config uda."+udaName+".type "+type;
+			//commands[1]="printf 'y\n' "+c+" task config uda."+udaName+".label "+ label;
 			
-			System.out.println("Ran:"+"sudo y "+c+" task config uda."+udaName+".type "+type);
-			System.out.println("Ran:"+"sudo y "+c+" task config uda."+udaName+".label "+ label);
+			//Did not work:
+//			commands[0]="printf 'y"+bs+"n' "+c+" task config uda."+udaName+".type "+type;
+//			commands[1]="printf 'y"+bs+"n' "+c+" task config uda."+udaName+".label "+ label;			
 			
-		
+			//did not work:
+//			commands[0]="sudo printf 'y"+bs+"n' "+c+" task config uda."+udaName+".type "+type;
+//			commands[1]="sudo printf 'y"+bs+"n' "+c+" task config uda."+udaName+".label "+ label;			
+			
+			//did not work:
+//			commands[0]="sudo printf 'y"+bs+"n' "+c+" sudo task config uda."+udaName+".type "+type;
+//			commands[1]="sudo printf 'y"+bs+"n' "+c+" sudo task config uda."+udaName+".label "+ label;			
+			
+			commands[0]="printf 'y"+bs+"n' "+c+" sudo task config uda."+udaName+".type "+type;
+			commands[1]="printf 'y"+bs+"n' "+c+" sudo task config uda."+udaName+".label "+ label;			
+			
+			RunCommands.runCommands(commands[0],true);
+			RunCommands.runCommands(commands[1], true);
+					
+			System.out.println("Ran:"+commands[0]);
+			System.out.println("Ran:"+commands[1]);
+
+			//Verify that the commands do actually work:
+			//printf 'y\n' | sudo task config uda.newTestSort.type numeric
+			//printf 'y\n' | sudo task config uda.newTestSort.label nTSort
+			//sudo task 2 modify newTestSort:29
+			//inspect task 2 whether the modify command changed the description or the new uda newTestSort:
+			//sudo task 2
+			
 		}else {
 			try {
 				throw new Exception();
