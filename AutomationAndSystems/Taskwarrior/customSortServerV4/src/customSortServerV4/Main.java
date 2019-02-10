@@ -13,8 +13,10 @@ public class Main {
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
 
 		
-		//Test create a custom UDA
+		
+		//Create customSortUDA in tw:
 		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		//create customReport
 		createCustomReport(hardCoded.getCustomReportName());
 
 		
@@ -33,12 +35,6 @@ public class Main {
 		for (int i=0;i<sortedTaskList.size();i++) {
 			System.out.println(sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
-
-		//Create customSortUDA in tw:
-		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
-		
-		//create customReport
-		createCustomReport(hardCoded.getCustomReportName());
 		
 		//Run a command and store the output:
 		//commandOutput=RunCommands.runCommands();

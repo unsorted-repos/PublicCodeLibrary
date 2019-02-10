@@ -95,7 +95,9 @@ public class Task {
 
 	public void setId(Object id) {
 		//this.id = (double) id;
-		this.id = Double.parseDouble((String) id);
+		System.out.println("String value of ="+String.valueOf(id));
+		//this.id = Double.parseDouble((String) id);
+		this.id = Double.parseDouble(String.valueOf(id));
 	}
 
 	public double getImask() {
@@ -253,4 +255,45 @@ public class Task {
 		this.customSort = Integer.parseInt((String) customSort);
 	}	
 	
+	/**
+	 * Checks if the object can be parsed to string, and if yes, whether it
+	 * contains a dot followed by any nr of zeros as decimals. If it has only
+	 * zero decimals it returns the nr as a string integer without the dot,
+	 * else it returns the original object as String.
+	 * @param stringInteger
+	 * @return
+	 */
+	public String removeZeroDecimals(Object stringInteger) {
+		if (stringInteger==null) {
+			String returnString=null;
+			return returnString;
+		}
+		String removeZeros=(String) stringInteger;
+		Character tempFindDot;
+		Character dot =new Character('.');
+		Character tempFindZero;
+		Character zero = new Character('0');
+		boolean containsNonZero=false;
+		//find dot in String sequence
+		
+		for (int i = 0;i<removeZeros.length();i++) {
+			tempFindDot = new Character(removeZeros.charAt(i));
+			if (tempFindDot.equals(dot)) {
+				//If the string ends with a dot, return string without dot.
+				
+				//Check if remainder sequence are zeros:
+				for (int j=i+1; j<removeZeros.length();j++) {
+					tempFindZero=new Character(removeZeros.charAt(j));
+					//if non-zero character found, do do not return string without decimals
+					if(!tempFindZero.equals(zero)) {	
+						containsNonZero=true;
+					}
+				}
+				if(!containsNonZero) {
+					return removeZeros.substring(0, i);
+				}
+			}
+		}
+		return removeZeros;
+	}
 }
