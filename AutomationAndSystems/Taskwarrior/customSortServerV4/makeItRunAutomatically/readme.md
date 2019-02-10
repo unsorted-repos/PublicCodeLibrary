@@ -1,4 +1,5 @@
 #Instructions:
+
 1. How this works is: a crontab is a file/list that contains a schedule for commands/programs to run periodically. the crontab/cronjob is executed by the cron service. The cron service you can automatically run at startup with a .bashrc file. a .bashrc file is a file that contains a list of commands that are executed automatically when you start up WSL Ubuntu. This way you don't have to do anything for your sort script to run in the background. That's also how the automatic periodic backups of your taskwarrior instance are created.
 
 2. Copy the JavaServerSort.jar file to your taskwarrior installation first with:
@@ -31,8 +32,8 @@ sudo nano .bashrc
 	sudo rm /home/a/maintenance/getRootBool
 
 	#Start cron service
-	sudo -i service cron start #The -i starts the root cronjob
-	#sudo service cron start
+	#sudo -i service cron start #The -i starts the root cronjob
+	sudo service cron start
 
 	#Startup taskwarrior
 	export TASKDDATA=/var/taskd
@@ -50,7 +51,7 @@ sudo nano .bashrc
     3. Substitute the following data in it:
 	```
 	##Check if it works:
-	#*/1 * * * * touch /home/a/maintenance/nonSudoCronjobIsRunning
+	*/1 * * * * touch /home/a/maintenance/nonSudoCronjobIsRunning
 	### m h dom mon dow user command
 
 	# Backing up .task file/folder:
@@ -100,7 +101,7 @@ sudo nano .bashrc
 	4. Hence modify the crontab -e of the raised permission profile as well by setting it to:
 	```
 	##Check if it works:
-	#*/1 * * * * touch /home/a/maintenance/sudoCronjobIsRunning
+	*/1 * * * * touch /home/a/maintenance/sudoCronjobIsRunning
 	### m h dom mon dow user command
 
 	# Backing up .task file/folder:
