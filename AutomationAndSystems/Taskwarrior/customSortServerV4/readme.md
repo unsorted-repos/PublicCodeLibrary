@@ -42,14 +42,74 @@ Compile yourself instructions (in Windows):
 	
 	2.7 More accurate description/manual is found via duckduckgo/ecosia 
 	
+## Clickable instructions:
+0. Source: https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-33.htm 
 
-### Steps: ###
+Or you can create the .jar file with eclipse by:
+1. enabling package (uncomment line one stating: `package customSortServerV4`) in:
+```
+Main.java
+ReadTasks.java
+hardCoded.java
+Task.java
+CreateSorts.java
+ConditionalComparator.java
+```
+2. Try enabling package customSortServerV4 in `IcheckTresholdCondition.java` as well.
+
+3. In package explorer of eclipse, select those 7 files.
+
+4. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
+
+5. At Launch configuration select: `Main - customSortServerV4`
+
+6. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
+
+7. select: "Package required libraries into generated Jar"
+
+8. Press finish.
+
+9. That's it. (You can run the java separately by:
+
+10. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
+
+11. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
+
+12. Type: java -jar JavaServerSort.jar
+### In Ubuntu
+
+
+2. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
+
+3. Enter: 
+./customSort.sh
+
+4. Wait for 3+minutes
+
+5. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
+	 	If below threshold:(currently hardcoded threshold of 11.2) 
+			If has project: 
+				on project
+			Else:
+				On urgency (low to high)
+		Else:
+			On urgency (low to high)
+
+6. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
+
+7. You can now view your tasks in an overview using command: task nice0
+
+8. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
+interaction, see quick use.
+
+
+## Terminal/command/written instructions
 
 0. First, Ensure in Eclipse, open the project and remove/comment out all "package customSortServerV4" lines  at the top of all the `.java` files in that package. (As indicated in the respective .java files). Ignore the warning/error symbol Eclipse shows when doing that.
 
-0. open cmd
+1. open cmd
 
-1. browse to "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/compilation
+2. browse to "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/compilation
 
 Enter (for backwards compatibility since this script currently ensures highest JDK version 8. = 1.8 in Linux.):
 
@@ -127,67 +187,9 @@ And then compile the .jar file that will run the combined compiled files:
 jar -cvmf manifest.mf JavaServerSort.jar *.class
 ```
 
-Make it runnable:
-
-
-That's it. (You can run the java separately with: java -jar JavaServerSort.jar) 
-
-# User interface instructions:
-0. Source: https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-33.htm 
-
-Or you can create the .jar file with eclipse by:
-1. enabling package (uncomment line one stating: `package customSortServerV4`) in:
+3. Make it runnable:
 ```
-Main.java
-ReadTasks.java
-hardCoded.java
-Task.java
-CreateSorts.java
-ConditionalComparator.java
+sudo chmod +x JavaServerSort.jar
 ```
-2. Try enabling package customSortServerV4 in `IcheckTresholdCondition.java` as well.
 
-3. In package explorer of eclipse, select those 7 files.
-
-4. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
-
-5. At Launch configuration select: `Main - customSortServerV4`
-
-6. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
-
-7. select: "Package required libraries into generated Jar"
-
-8. Press finish.
-
-9. That's it. (You can run the java separately by:
-
-10. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
-
-11. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
-
-12. Type: java -jar JavaServerSort.jar
-## Ubuntu
-
-
-2. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
-
-3. Enter: 
-./customSort.sh
-
-4. Wait for 3+minutes
-
-5. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
-	 	If below threshold:(currently hardcoded threshold of 11.2) 
-			If has project: 
-				on project
-			Else:
-				On urgency (low to high)
-		Else:
-			On urgency (low to high)
-
-6. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
-
-7. You can now view your tasks in an overview using command: task nice0
-
-8. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
-interaction, see quick use.
+That's it. (You can run the java separately with: `java -jar JavaServerSort.jar`) 
