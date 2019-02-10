@@ -13,7 +13,7 @@ public class hardCoded {
 	private static String ubuntuFilePath="/home/a/.task/";
 	private static String nameOfCustomSortParameterLabel="cSort";
 	private static String customSortDataType="numeric";
-	private static String customReportName="nice1";
+	private static String customReportName="nice0";
 	private static double urgencyThreshold = 11.2;
 	private static String sudo = "sudo ";
 	private static String nameOfCustomSortParameter="customSort";

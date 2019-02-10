@@ -159,6 +159,31 @@ public class Main {
 
 	/**
 	 * Should create a custom report with the name reportName
+	 * 
+	 * Extra info, show all (UD)A's with
+	 * task columns
+	 * 
+	 * Extra info, remove UDA's with:
+	 * task config uda.<UDA name>.label
+	 * task config uda.<UDA name>.type
+	 * task config uda.<UDA name>.values
+	 * 
+	 * Show reports with:
+	 * task show report.<reportname>.description
+	 * task show report.<reportname>.columns
+	 * task show report.<reportname>.labels
+	 * task show report.<reportname>.sort
+	 * task show report.<reportname>.filter
+	 * 
+	 * Extra info, remove custom reports with:
+	 * task config report.<report name>.description
+	 * task config report.<report name>.columns
+	 * task config report.<report name>.label
+	 * task config report.<report name>.sort
+	 * task config report.<report name>.filter
+	 * 
+	 * Extra info, Show a report with:
+	 * task show report.<report name>
 	 * TODO: make it work.
 	 * TODO: Verify with task show nice0
 	 * @param reportName
@@ -194,6 +219,8 @@ public class Main {
 		}
 	}
 
+	
+	
 	public static boolean isTestingInWindows() {
 		return testingInWindows;
 	}
