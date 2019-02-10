@@ -184,8 +184,8 @@ public class Main {
 	 * 
 	 * Extra info, Show a report with:
 	 * task show report.<report name>
-	 * TODO: make it work.
-	 * TODO: Verify with task show nice0
+	 * TODO: Verify with: task show report.nice0
+	 * 
 	 * @param reportName
 	 */
 	private static void createCustomReport(String reportName) {
