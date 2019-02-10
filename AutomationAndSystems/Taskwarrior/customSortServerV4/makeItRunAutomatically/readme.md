@@ -69,45 +69,49 @@ sudo nano .bashrc
 7. Option II: run crontab -e so you don't have to type sudo su every time:
 
 	1. put the following into .bashrc
-```
-#get root
-if [ ! -f /home/a/maintenance/getRootBool ]; then
-   echo "Getting sudo rights now."
-   touch /home/a/maintenance/getRootBool
-   sudo -s
-fi
+	```
+	#get root
+	if [ ! -f /home/a/maintenance/getRootBool ]; then
+	   echo "Getting sudo rights now."
+	   touch /home/a/maintenance/getRootBool
+	   sudo -s
+	fi
 
-# remove got root boolean for next time you boot up Unix
-sudo rm /home/a/maintenance/getRootBool
+	# remove got root boolean for next time you boot up Unix
+	sudo rm /home/a/maintenance/getRootBool
 
-#Start cron service
-#sudo -i service cron start #The -i starts the root cronjob
-sudo service cron start
+	#Start cron service
+	#sudo -i service cron start #The -i starts the root cronjob
+	sudo service cron start
 
-#Startup taskwarrior
-export TASKDDATA=/var/taskd
-cd $TASKDDATA
-sudo taskd config --data $TASKDDATA
+	#Startup taskwarrior
+	export TASKDDATA=/var/taskd
+	cd $TASKDDATA
+	sudo taskd config --data $TASKDDATA
 
-taskdctl start
-sudo task sync
-```	
+	taskdctl start
+	sudo task sync
+	```	
+	
 	2. Restart WSL Ubuntu
 	    
-	3.    Now when you type crontab -e command automatically refers to the crontab that was called with "sudo crontab -e" in the non-raised/normal permission profile.
+	3. Now when you type crontab -e command automatically refers to the crontab that was called with "sudo crontab -e" in the non-raised/normal permission profile.
 
 	4. Hence modify the crontab -e of the raised permission profile as well by setting it to:
-```
-##Check if it works:
-#*/1 * * * * touch /home/a/maintenance/sudoCronjobIsRunning
-### m h dom mon dow user command
+	```
+	##Check if it works:
+	#*/1 * * * * touch /home/a/maintenance/sudoCronjobIsRunning
+	### m h dom mon dow user command
 
-# Backing up .task file/folder:
-*/3 * * * * sh -v /home/a/maintenance/autoBackup.sh
+	# Backing up .task file/folder:
+	*/3 * * * * sh -v /home/a/maintenance/autoBackup.sh
 
-### The next line is for the custom sorting, leave it out if you don’t use it:
-*/5 * * * * sudo java -jar ~/maintenance/JavaServerSort.jar
-``` 
+	### The next line is for the custom sorting, leave it out if you don’t use it:
+	*/5 * * * * sudo java -jar ~/maintenance/JavaServerSort.jar
+	``` 
+
 	5. ctrl+x to quit, yes to save.
+	
 	6. restart WSL Ubuntu.
+	
 	7. Now if you remove ~/maintenance/sudoCronjobIsRunning it should re-appear after a minute. If it does not, it tells you the sudo cron service is not running correctly.
