@@ -78,15 +78,14 @@ ConditionalComparator.java
 12. Type: java -jar JavaServerSort.jar
 ### In Ubuntu
 
+13. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
 
-2. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
-
-3. Enter: 
+14. Enter: 
 ./customSort.sh
 
-4. Wait for 3+minutes
+15. Wait for 3+minutes
 
-5. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
+16. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
 	 	If below threshold:(currently hardcoded threshold of 11.2) 
 			If has project: 
 				on project
@@ -95,11 +94,11 @@ ConditionalComparator.java
 		Else:
 			On urgency (low to high)
 
-6. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
+17. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
 
-7. You can now view your tasks in an overview using command: task nice0
+18. You can now view your tasks in an overview using command: task nice0
 
-8. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
+19. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
 interaction, see quick use.
 
 
@@ -114,7 +113,7 @@ interaction, see quick use.
 Enter (for backwards compatibility since this script currently ensures highest JDK version 8. = 1.8 in Linux.):
 
 
-First clear up the old compiled files
+3. First clear up the old compiled files
 ```
 del ConditionalComparator.class
 
@@ -146,7 +145,7 @@ del Write.class
 
 del JavaServerSort.jar
 ```
-Then generate the new compiled files:
+4. Then generate the new compiled files:
 ```
 javac ConditionalComparator.java -target 1.8 -source 1.8
 
@@ -178,18 +177,18 @@ javac Write.java -target 1.8 -source 1.8
 ```
 That will yield a warning saying bootstrap class path not set in conjunction with -source 8. Furthermore it will not compile the test classes.
 
-Next create a txt file named `manifest` that indicates what the main class of this project is, by entering the following line in it:
+4. Next create a txt file named `manifest` that indicates what the main class of this project is, by entering the following line in it:
 `Main-Class: Main`
-Then rename the file extentions from `manifest.txt` to `manifest.mf`
 
-And then compile the .jar file that will run the combined compiled files:
+6. Then rename the file extentions from `manifest.txt` to `manifest.mf`
+
+7. And then compile the .jar file that will run the combined compiled files:
 ```
 jar -cvmf manifest.mf JavaServerSort.jar *.class
 ```
 
-3. Make it runnable:
+8. Make it runnable:
 ```
 sudo chmod +x JavaServerSort.jar
 ```
-
-That's it. (You can run the java separately with: `java -jar JavaServerSort.jar`) 
+9. That's it. (You can run the java separately with: `java -jar JavaServerSort.jar`) 
