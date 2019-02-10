@@ -15,5 +15,7 @@ Hi, this part of the repo customizes your taskwarrior setup. You can:
     3. All tasks below the urgency threshold without project are placed between the tasks sorted on project,
     and the tasks above the urgency threshold. That way you can see quite fast which tasks you have not yet
     allocated to a proper project. 
+    4. (Setup the `.bashrc`, `crontab` and) Look into folder: customSortServerV4.
 5. Automatically scan your `pending.data` tasks for `JSON` formatting errors. If you're learning to use
-taskwarrior and do some funky stuff, generate a "taskwarrior file format,
+taskwarrior and do some funky stuff, generate a `"500 Unrecognized taskwarrior file format`-error, this script will automatically tell you in which task and even character the error occurs. 
+    1. You can look into the troubleShootingTool folder for that.
