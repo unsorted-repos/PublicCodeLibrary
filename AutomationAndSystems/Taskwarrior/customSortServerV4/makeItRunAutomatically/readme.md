@@ -18,6 +18,8 @@ sudo nano .bashrc
 ```
 5. Then you have 2 choices. Either you get sudo rights automatically when you startup, this is appaerently bad security protocol, cause that is like always doing everything as administrator, instead of knowing when and where you should do what with which rights. Practically, if all you do with WSL is run taskwarrior/timewarrior, currently the choice is: Do you wanna type "sudo task.." everytime you type a command, or just "task.."? 
 
+##Important: Make sure you chose Either of the methods, do not create both crontabs because then there's a chance the Option I crontab interferes with the Option II crontab! So comment out all the commands of the crontab you're not using with `#`.
+
 6. Option I:
     1. If you choose to adhere to best practice and not raise everything automatically to sudo, but just the commands that require, (so typing sudo task...) you put the following into .bashrc
 	```
