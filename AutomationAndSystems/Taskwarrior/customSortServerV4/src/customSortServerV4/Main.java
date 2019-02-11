@@ -36,6 +36,7 @@ public class Main {
 			System.out.println(sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
 		
+		
 		//Run a command and store the output:
 		//commandOutput=RunCommands.runCommands();
 		
@@ -189,37 +190,47 @@ public class Main {
 	 * @param reportName
 	 */
 	private static void createCustomReport(String reportName) {
-		int commandDimensions=5;
-		String[] commands =new String[commandDimensions];
-		char c = (char)124;
-//		commands[0]=hardCoded.getSudo()+"yes | task config report."+reportName+".description 'Custom sorted list of all tasks.'";
-//		commands[1]=hardCoded.getSudo()+"yes | task config report."+reportName+".columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'";
-//		commands[2]=hardCoded.getSudo()+"yes | task config report."+reportName+".labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'";
-//		commands[3]=hardCoded.getSudo()+"yes | task config report."+reportName+".sort        'customSort+'";
-//		commands[4]=hardCoded.getSudo()+"yes | task config report."+reportName+".filter      'status:pending";
-//		commands[0]="task config report."+reportName+".description 'Custom sorted list of all tasks.'";
-//		commands[1]="task config report."+reportName+".columns     'id,depends,due,priority,urgency,duration,project,recur,tags,description,start'";
-//		commands[2]="task config report."+reportName+".labels      'id,dep,due,prio,urgy,dura,proj,again,tag, descr,start'";
-//		commands[3]="task config report."+reportName+".sort        'customSort+'";
-//		commands[4]="task config report."+reportName+".filter      'status:pending'";
-
-		commands[0]="task config report."+reportName+".description Custom sorted list of all tasks.";
-		commands[1]="task config report."+reportName+".columns     id,depends,due,priority,urgency,duration,project,recur,tags,description,start";
-		commands[2]="task config report."+reportName+".labels      id,dep,due,prio,urgy,dura,proj,again,tag, descr,start";
-		commands[3]="task config report."+reportName+".sort        customSort+";
-		commands[4]="task config report."+reportName+".filter      status:pending";
+		ArrayList<String> commands=new ArrayList<>();
+		commands.add("task config report."+reportName+".description Custom sorted list of all tasks 1.");
+		commands.add("task config report."+reportName+".columns     id,depends,due,priority,urgency,duration,project,recur,tags,description,start");
+		commands.add("task config report."+reportName+".labels      id,dep,due,prio,urgy,dura,proj,again,tag, descr,start");
+		commands.add("task config report."+reportName+".sort        customSort+");
+		commands.add("task config report."+reportName+".filter      status:pending");
 
 		
 		//run commands if the reportname is not empty:
 		if (reportName!=null && reportName.length()>0) {
-			for (int i=0;i<commandDimensions;i++) {
-				System.out.println("Running:"+commands[i]);
-				RunCommandsExpectYes.runCommands(commands[i]);
-			}
+			removeCustomReport(reportName); //reset the current report if it exists
+			runMultipleCommandsExpectYes(commands); //fill in the new report
 		}
 	}
 
 	
+	private static void removeCustomReport(String reportName) {
+		ArrayList<String> commands=new ArrayList<>();
+		
+		commands.add("task config report."+reportName+".description");
+		commands.add("task config report."+reportName+".columns");
+		commands.add("task config report."+reportName+".label");
+		commands.add("task config report."+reportName+".type");
+		commands.add("task config report."+reportName+".values");
+		
+		//run commands if the reportname is not empty:
+		if (reportName!=null && reportName.length()>0) {
+			runMultipleCommandsExpectYes(commands);
+		}
+	}
+	
+	/**
+	 * Runs the commands given in an arrayList
+	 * @param commands
+	 */
+	private static void runMultipleCommandsExpectYes(ArrayList<String> commands) {
+		for (int i = 0; i <commands.size();i++) {
+			System.out.println("Running:"+commands.get(i));
+			RunCommandsExpectYes.runCommands(commands.get(i));
+		}
+	}
 	
 	public static boolean isTestingInWindows() {
 		return testingInWindows;

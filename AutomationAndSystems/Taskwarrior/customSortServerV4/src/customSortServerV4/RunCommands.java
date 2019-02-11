@@ -31,7 +31,7 @@ public class RunCommands {
 			// get output
 			if (!ignoreOutput) {
 				while ((s = brGood.readLine()) != null) {
-					System.out.println("Adding:"+s);
+					//System.out.println("Adding:"+s);
 					goodExecutionOutput.add(s);
 				}
 
