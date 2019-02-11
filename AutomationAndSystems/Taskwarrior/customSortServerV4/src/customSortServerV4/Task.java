@@ -252,7 +252,7 @@ public class Task {
 
 	public void setCustomSort(Object customSort) {
 		//this.customSort = (int) customSort;
-		this.customSort = Integer.parseInt((String) customSort);
+		this.customSort = Integer.parseInt((String) removeZeroDecimals(customSort));
 	}	
 	
 	/**
