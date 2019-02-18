@@ -203,6 +203,17 @@ public class Main {
 		}
 	}
 
+	/**
+	*
+	*TODO: Create extra report to sort purely on due date:
+	*TODO: Determine why some results without due date are still shown in this filter
+	*Extra info, remove custom reports with:
+	*task config report.sortDue.description Sort on nearing due date earliest due date last
+	*task config report.sortDue.columns id,depends,due,duration,priority,urgency,project,recur,tags,description,start;
+	*task config report.sortDue.label sortDue
+	*task config report.sortDue.sort due-
+	*task config report.sortDue.filter status:pending -due:
+	*/
 	
 	private static void removeCustomReport(String reportName) {
 		ArrayList<String> commands=new ArrayList<>();
