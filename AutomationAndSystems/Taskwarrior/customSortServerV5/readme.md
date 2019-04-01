@@ -64,9 +64,9 @@ Task.java
 
 3. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
 
-4. At Launch configuration select: `Main - customSortServerV4`
+4. At Launch configuration select: `Main - customSortServerV5`
 
-5. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
+5. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV5/`) and name the file `JavaServerSort`. 
 
 6. select: "Package required libraries into generated Jar"
 
@@ -76,9 +76,11 @@ Task.java
 
 9. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
 
-10. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
+10. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV5/` 
 
 11. Type: java -jar JavaServerSort.jar
+
+12. Eclipse compile shortcut pattern: First select the 7 files>`alt+f>o>enter>enter`
 ### In Ubuntu
 
 12. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
