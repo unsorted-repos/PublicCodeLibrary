@@ -1,4 +1,4 @@
-package customSortServerV4;
+package customSortServerV5;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -107,7 +107,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readTasks()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readTasks()}.
 	 */
 	@Test
 	void testReadTasks() {
@@ -115,7 +115,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readUnixUsername()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readUnixUsername()}.
 	 */
 	@Test
 	void testReadUnixUsername() {
@@ -123,7 +123,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readTwPath()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readTwPath()}.
 	 */
 	@Test
 	void testReadTwPath() {
@@ -131,7 +131,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#findTwFiles(java.lang.String, java.lang.String)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#findTwFiles(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	void testFindTwFiles() {
@@ -139,7 +139,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readJsonLocation()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readJsonLocation()}.
 	 */
 	@Test
 	void testReadJsonLocation() {
@@ -160,7 +160,7 @@ class ReadTasksTest {
 	/**
 	 * Checks whether the read method returns an arraylist that contains the strings
 	 * of the lines that are in the file test.data.
-	 * Test method for {@link customSortServerV4.ReadTasks#readFile(java.lang.String)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readFile(java.lang.String)}.
 	 */
 	@Test
 	void testReadFile() {
@@ -251,7 +251,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readAttribute(java.lang.String, java.lang.String)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readAttribute(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	void testReadAttribute() {
@@ -259,7 +259,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#eatAttributeName(java.lang.String, java.lang.String)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#eatAttributeName(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	void testEatAttributeName() {
@@ -267,7 +267,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#checkAttributeLength(int)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#checkAttributeLength(int)}.
 	 */
 	@Test
 	void testCheckAttributeLength() {
@@ -275,7 +275,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#addTaskToList(customSortServerV4.Task)}.
+	 * Test method for {@link customSortServerV5.ReadTasks#addTaskToList(customSortServerV5.Task)}.
 	 */
 	@Test
 	void testAddTaskToList() {
@@ -283,7 +283,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#getUrgThresholdLocation()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#getUrgThresholdLocation()}.
 	 */
 	@Test
 	void testGetUrgThresholdLocation() {
@@ -291,7 +291,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#getMaxNrOfUrgentTasksLocation()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#getMaxNrOfUrgentTasksLocation()}.
 	 */
 	@Test
 	void testGetMaxNrOfUrgentTasksLocation() {
@@ -299,7 +299,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#getMaxPercentageOfNrOfUrgentLocation()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#getMaxPercentageOfNrOfUrgentLocation()}.
 	 */
 	@Test
 	void testGetMaxPercentageOfNrOfUrgentLocation() {
@@ -307,7 +307,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#readUrgThreshold()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#readUrgThreshold()}.
 	 */
 	@Test
 	void testReadUrgThreshold() {
@@ -315,7 +315,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#askUrgThreshold()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#askUrgThreshold()}.
 	 */
 	@Test
 	void testAskUrgThreshold() {
@@ -323,7 +323,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#askMaxNrOfUrgentTasks()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#askMaxNrOfUrgentTasks()}.
 	 */
 	@Test
 	void testAskMaxNrOfUrgentTasks() {
@@ -331,7 +331,7 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV4.ReadTasks#askMaxPercentageOfNrOfUrgentTasks()}.
+	 * Test method for {@link customSortServerV5.ReadTasks#askMaxPercentageOfNrOfUrgentTasks()}.
 	 */
 	@Test
 	void testAskMaxPercentageOfNrOfUrgentTasks() {
