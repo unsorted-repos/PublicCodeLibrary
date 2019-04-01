@@ -10,6 +10,10 @@ TaskList contains Tasks
 But neither have mutliple variants with different properties, hence I thought it would not be a correct
 application of abstract classes and implements.
 
+1. Recurrent tasks lead to a too large dataset that can't be set, because the custom sort ID is set/changed multiple times per second per recurrent task. All those modifications are stored increasing some file size to over 21800 lines. 
+
+	1.b The attempted solution is to not set the customSort value of the recurrent parent/template tasks.
+
 2. Testing the "task.setId()" using "task.getId()" seems like it is not thorough testing, the methods could individually still 
 be faulty, but compensate eachothers faults. I have not yet been creative enough to test them individually.
 
@@ -48,44 +52,43 @@ Compile yourself instructions (in Windows):
 Or you can create the .jar file with eclipse by:
 1. enabling package (uncomment line one stating: `package customSortServerV4`) in:
 ```
+ConditionalComparator.java
+CreateSorts.java
+hardCoded.java
+IcheckTresholdCondition.java
 Main.java
 ReadTasks.java
-hardCoded.java
 Task.java
-CreateSorts.java
-ConditionalComparator.java
 ```
-2. Try enabling package customSortServerV4 in `IcheckTresholdCondition.java` as well.
+2. In package explorer of eclipse, select those 7 files.
 
-3. In package explorer of eclipse, select those 7 files.
+3. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
 
-4. Click top left: file>Export>expand node/folder "java">Select: Runnable JAR file>Click Next.
+4. At Launch configuration select: `Main - customSortServerV4`
 
-5. At Launch configuration select: `Main - customSortServerV4`
+5. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
 
-6. Chose an export destination (e.g. `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/`) and name the file `JavaServerSort`. 
+6. select: "Package required libraries into generated Jar"
 
-7. select: "Package required libraries into generated Jar"
+7. Press finish.
 
-8. Press finish.
+8. That's it. (You can run the java separately by:
 
-9. That's it. (You can run the java separately by:
+9. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
 
-10. Open command prompt (cmd) or WSL Ubuntu 16.04 (terminal):
+10. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
 
-11. In cmd/terminal browse to `...<yourcomputerpath>/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV4/` 
-
-12. Type: java -jar JavaServerSort.jar
+11. Type: java -jar JavaServerSort.jar
 ### In Ubuntu
 
-13. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
+12. Open (WSL) Ubuntu (16.04) and browse in terminal(=command prompt for Linux) to: "the folder this Readme.md is in"/compileYourself/javaCustomSort/src/customSortTaskwarrior/
 
-14. Enter: 
+13. Enter: 
 ./customSort.sh
 
-15. Wait for 3+minutes
+14. Wait for 3+minutes
 
-16. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
+15. If it's done it has sorted all tasks (excluding messed up dependency tasks) from top to bottom on: 
 	 	If below threshold:(currently hardcoded threshold of 11.2) 
 			If has project: 
 				on project
@@ -94,11 +97,11 @@ ConditionalComparator.java
 		Else:
 			On urgency (low to high)
 
-17. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
+16. And it has made a new custom report type with User Defined Attribute (UDA) secretSort to store the customSorted Order.
 
-18. You can now view your tasks in an overview using command: task nice0
+17. You can now view your tasks in an overview using command: task nice0
 
-19. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
+18. To see how, after compilation you can put the sorting in a cron job to run the sorting code in the background without user 
 interaction, see quick use.
 
 
