@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 /**
  * To run tests, set hardcoded threshold to 3.5
  * 
- * V5 will set the customSort of a parent/template recurrent task to 0, and set it's children as whatever
- * they are computed at.
- * 
  * 
  * The sorting procedure should output in the following order:
  * tasks that are: (with a project AND below the urgency threshold):  sorted on project a-z

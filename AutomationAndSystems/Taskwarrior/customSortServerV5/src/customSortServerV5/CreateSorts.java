@@ -87,6 +87,7 @@ public class CreateSorts{
 
 		//Call the actual mainComparator with a tasklist:
 		Collections.sort(taskList, mainComparator);
+		
 		return taskList;
 	}
 }

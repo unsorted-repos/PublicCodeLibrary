@@ -5,6 +5,10 @@ import java.util.ArrayList;
 /**
  * You can not run this main in eclipse in windows directly. You can only test the methods in windows.
  * You can run the main in Linux, once it's compiled.
+ * 
+ * V5 will set the customSort of a parent/template recurrent task to 0, and set it's children as whatever
+ * they are computed at. This check is performed in method assignCustomSortToTw of this main.
+ * 
  * @author a
  *
  */
@@ -26,7 +30,7 @@ public class Main {
 		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
-			System.out.println(unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
+			System.out.println(sortedTaskList.get(i).getId()+" and cSort="+sortedTaskList.get(i).getCustomSort()+" "+unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
 		}
 
 		//Get urgency and add it to tasks
@@ -37,26 +41,44 @@ public class Main {
 
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<sortedTaskList.size();i++) {
-			System.out.println(sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
+			System.out.println(sortedTaskList.get(i).getId()+" and cSort="+sortedTaskList.get(i).getCustomSort()+" "+sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
 		assignCustomSortToTw(sortedTaskList);
 
+		// Set the customSort values of the recurring parent/template tasks to 0:
+		
 		//Print command output and return urgency
 		RunCommands.runCommands("task sync", true);
 	}
 
 	/**
 	 * This method assigns the customSortValue
+	 * 
+	 * TODO: ensure the customSort is not set for the recurrent template.parent tasks
+	 * 
 	 * @param sortedTaskList
 	 */
 	private static void assignCustomSortToTw(ArrayList<Task> sortedTaskList) {
 		// TODO Auto-generated method stub
 		String uuid = null;
 		String command = null;
+		String status = "recurring";
+		
 		for (int i =0;i<sortedTaskList.size();i++) {
 			uuid=sortedTaskList.get(i).getUuid();
-			command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameter()+":"+i;
-			RunCommandsExpectYes.runCommands(command);
+			
+			// if the status is recurrent it is a recurrent template/parent task
+			if (status.equals(sortedTaskList.get(i).getStatus())) {
+				
+				// clear the customSort UDA of the recurrent parent/template task 
+				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameter()+":";
+				RunCommandsExpectYes.runCommands(command);
+			}else {
+				
+				// assign the customSort UDA of the recurrent child/actual task
+				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameter()+":"+i;
+				RunCommandsExpectYes.runCommands(command);
+			}
 		}
 	}
 
