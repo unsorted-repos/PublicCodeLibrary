@@ -1,0 +1,7 @@
+BITS=4096
+EXPIRATION_DAYS=365
+ORGANIZATION="Göteborg Bit Factory"
+CN=eai.ddns.net:53589
+COUNTRY=SE
+STATE="+quotation+"Västra Götaland"
+LOCALITY="Göteborg"
