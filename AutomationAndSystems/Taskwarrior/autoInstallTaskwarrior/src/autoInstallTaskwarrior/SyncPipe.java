@@ -1,4 +1,4 @@
-package learnToSayYesToLinux;
+package autoInstallTaskwarrior;
 
 import java.io.InputStream;
 import java.io.OutputStream;

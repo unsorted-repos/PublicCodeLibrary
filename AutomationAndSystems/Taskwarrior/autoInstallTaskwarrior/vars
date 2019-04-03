@@ -3,5 +3,5 @@ EXPIRATION_DAYS=365
 ORGANIZATION="Göteborg Bit Factory"
 CN=eai.ddns.net:53589
 COUNTRY=SE
-STATE="+quotation+"Västra Götaland"
+STATE="Västra Götaland"
 LOCALITY="Göteborg"

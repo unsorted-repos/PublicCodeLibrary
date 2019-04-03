@@ -1,4 +1,4 @@
-package learnToSayYesToLinux;
+package autoInstallTaskwarrior;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,13 +14,14 @@ import java.util.ArrayList;
  * @author a
  *
  */
-public class CommandLinux {
+public class Main {
 
 	public static void main(String[] args) {
-		boolean testRun = true;
+		boolean testRun = false;
 		String vars = "vars";
+		char quotation = (char)34; // quotation mark "
 		
-		String[] storeUserInput =askUserInput.getUserInput();
+		String[] storeUserInput =AskUserInput.getUserInput();
 		for (int i = 1; i <= 50; i++) {
 			System.out.println('\n');
 		}
@@ -30,14 +31,19 @@ public class CommandLinux {
 		String serverName = "CN=eai.ddns.net:53589";
 		
 		//get the path of this file
-		String thisPath = getThisPath.getJarLocation()+"/";
-		System.out.println("Path ="+thisPath);
+		String windowsPath = GetThisPath.getJarLocation()[0];
+		//when it's run in linux it automatically returns linux path. (No need for conversion)
+		//String linuxPath = getThisPath.getJarLocation()[1]; 
+		String linuxPath = windowsPath;
+		
+		System.out.println("Path ="+windowsPath);
+		System.out.println("Path ="+linuxPath);
 		
 		// create the vars file
-		createFiles.createVars(serverName);
+		CreateFiles.createVars(vars,serverName);
 		
 		// execute commands
-		createUDA(testRun);
+		createUDA(testRun,linuxPath,vars);
 
 		System.exit(0);
 	}
@@ -50,51 +56,64 @@ public class CommandLinux {
 	 * @param label
 	 * @param type
 	 */
-	private static void createUDA(boolean testRun) {
-		//commands[1]="task config uda."+udaName+".label "+ label;
-
-		// get file path of this script
-		
+	private static void createUDA(boolean testRun,String linuxPath,String vars) {
 		
 		//get commands
-		String[] commands = generateCommands.generateCommands(testRun);
-		
-		System.out.print("Command length="+commands.length);
+		String[][] commands = GenerateCommands.generateCommands(testRun,linuxPath,vars);
 		
 		// run commands
 		if (!testRun) {
-			for (int i = 0; i == commands.length; i++) {
-				runUnixCommands.runCommands(commands[i],true);
-				System.out.println("Ran:"+commands[i]);
-			}
-			
+			for (int i = 0; i <= commands.length; i++) {
+				
+				//check if command contains "yes | " and store result:
+				Boolean hasYes =  startsWithYes(commands[i][0]);
+				
+				// remove the "yes | " of a command
+				String[] preprocessedCommands = new String[commands[i].length];
+				preprocessedCommands =removeYes(commands[i]);
+				
+				// run commands if it does not start with null
+				if (commands[i][0]!=null) { 
+					RunCommandsWithArgs.runCommands(preprocessedCommands,hasYes);
+					for (int j =0;j<commands[i].length;j++) {
+						System.out.println("Ran:"+commands[i][j]);
+					}
+				}
+			}			
 		}
-		
-		runUnixCommands.runCommands(commands[8], true);
-		System.out.println("Ran:"+commands[8]);
-		runUnixCommands.runCommands(commands[9], true);
-		System.out.println("Ran:"+commands[9]);
-		
-//		System.out.println("Ran:"+commands[1]);
-//		System.out.println("Ran:"+commands[2]);
-//		System.out.println("Ran:"+commands[3]);
-		
-		
-		// Throw exception example
-//		try {
-//			throw new Exception();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 	}
 
-	
-	
+	/**
+	 * Checks whether the command starts with "yes | ".
+	 * If it does it returns true, else false
+	 * @param string
+	 * @return
+	 */
+	private static Boolean startsWithYes(String command) {
+		if (command!=null && command.length()>5) {
+			if (command.substring(0, 6).contentEquals("yes | ")) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-	
-	
-	
+
+	/**
+	 * Checks whether the command starts with "yes | ".
+	 * If it does it removes the "yes | " from the command, 
+	 * else it returns the full comand as it is. 
+	 * @param string
+	 * @return
+	 */
+	private static String[] removeYes(String[] commands) {
+		if (commands[0]!=null && commands[0].length()>5) {
+			if (commands[0].substring(0, 6).contentEquals("yes | ")) {
+				commands[0] = commands[0].substring(6, commands[0].length());
+				return commands;
+			}
+		}
+		return commands;
+	}
 }
-
-
 

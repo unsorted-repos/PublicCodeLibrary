@@ -1,7 +1,7 @@
-package learnToSayYesToLinux;
+package autoInstallTaskwarrior;
 import java.util.Scanner;
 
-public class askUserInput {
+public class AskUserInput {
 	public static String[] getUserInput() { 
 		String[] userInput = new String[5];
 		Scanner reader = new Scanner(System.in);  // Reading from System.in
