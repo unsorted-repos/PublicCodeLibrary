@@ -38,6 +38,8 @@ public class GenerateCommands {
 			commands[3][2] = "install";
 			commands[3][3] = "taskd";
 			
+			//TODO: rewrite the original cd commands such that they just use direct path rather than cd.
+			
 //			commands[3][0] = "cd ..";
 			commands[4] = new String[2];
 			commands[4][0] = "cd";
@@ -47,6 +49,15 @@ public class GenerateCommands {
 			commands[5] = new String[2];
 			commands[5][0] = "cd";
 			commands[5][1] = "..";
+			
+		
+			
+			/**
+			 * Probable problem: the script is not added to working path, so when you try to add the export environment
+			 * variable, it does that to the wrong path, or in path it looks for this script and it is not there.
+			 * Probable solution:
+			 * Source: https://stackoverflow.com/questions/11787479/java-io-ioexception-cannot-run-program-error-2-no-such-file-or-directory
+			 */
 			
 //			commands[5][0] = "export TASKDDATA=/var/taskd";
 			commands[6] = new String[2];
