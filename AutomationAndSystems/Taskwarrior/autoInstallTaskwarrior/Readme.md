@@ -12,5 +12,5 @@ Then compile or download the .jar file in this repo.
 Put it for example in `c:/path with space/` and in WSL ubuntu run it with:
 `java -jar <the path to your file>autoInstallTaskwarrior.jar`
 
-E.g
-`java -jar "/mnt/c:/path with space/autoInstallTaskwarrior.jar"`
+E.g.
+`sudo java -jar "/mnt/c:/path with space/autoInstallTaskwarrior.jar"`
