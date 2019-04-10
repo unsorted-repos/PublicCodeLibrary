@@ -10,6 +10,10 @@ import java.util.ArrayList;
  * So if you store this script on your Windows disc c:/copyToUbuntu you enter:
  * cp /mnt/c/copyToUbuntu/commandLinux.jar ~/
  * 
+ * Before you run it: 
+ * yes | sudo apt install default-jre --fix-missing
+ * 
+ * 
  * This script executes a series of commands to install taskwarrior on WSL Ubuntu.
  * @author a
  *
@@ -59,7 +63,7 @@ public class Main {
 	private static void createUDA(boolean testRun,String linuxPath,String vars) {
 		
 		//get commands
-		String[][] commands = GenerateCommands.generateCommands(testRun,linuxPath,vars);
+		String[][] commands = GenerateCommandsV1.generateCommands(testRun,linuxPath,vars);
 		
 		// run commands
 		if (!testRun) {
