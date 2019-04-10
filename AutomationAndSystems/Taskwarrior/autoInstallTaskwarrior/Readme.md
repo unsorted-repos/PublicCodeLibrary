@@ -6,7 +6,7 @@ Open the ubuntu app you just installed
 wait 5 minutes till it's done, enter a username and pwd.
 
 Then run:
-`sudo apt install default-jre`
+`yes | sudo apt install default-jre --fix-missing`
 
 Then compile or download the .jar file in this repo.
 Put it for example in `c:/path with space/` and in WSL ubuntu run it with:
