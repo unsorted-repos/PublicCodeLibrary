@@ -13,7 +13,7 @@ public class CreateFiles {
 	 * This creates the Vars file required in command 8
 	 * @param serverName
 	 */
-	public static void createVars(String fileName, String serverName) {
+	public static void createVars(String fileName, String serverName, String serverPort) {
 		char quotation = (char)34; // quotation mark "
 		
 		deleteFile(fileName);
@@ -23,7 +23,7 @@ public class CreateFiles {
 			writer.println("BITS=4096");
 			writer.println("EXPIRATION_DAYS=365");
 			writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
-			writer.println(serverName);
+			writer.println("CN="+serverName+":"+serverPort);
 			writer.println("COUNTRY=SE");
 			writer.println("STATE="+quotation+"Västra Götaland"+quotation);
 			writer.println("LOCALITY="+quotation+"Göteborg"+quotation);

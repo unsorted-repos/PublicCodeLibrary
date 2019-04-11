@@ -1,6 +1,10 @@
 package autoInstallTaskwarrior;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -28,10 +32,13 @@ public class Main {
 			System.out.println('\n');
 		}
 		
+		//hardcoded
 		String unixUserName = storeUserInput[0];
 		String unixPw = storeUserInput[1];
-		String serverName = "CN=eai.ddns.net:53589";
-		
+		String serverName = "eai.ddns.net:53589";
+		String serverPort = "53589";
+		storeUserInput[2]="Public";
+		storeUserInput[3]="First";
 		//get the path of this file
 		String windowsPath = GetThisPath.getJarLocation()[0];
 		//when it's run in linux it automatically returns linux path. (No need for conversion)
@@ -42,10 +49,19 @@ public class Main {
 		System.out.println("Path ="+linuxPath);
 		
 		// create the vars file
-		CreateFiles.createVars(vars,serverName);
+		CreateFiles.createVars(vars,serverName,serverPort);
+
+		//get commands
+		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars,storeUserInput);
 		
-		// execute commands
-		createUDA(testRun,linuxPath,vars);
+		// execute installation commands
+		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands);
+		
+		//get second list of commands after taskwarrior uuid has been determined:
+		commands = GenerateCommandsV2.generateSecondCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);
+		
+		// execute second list of installation commands
+		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands);
 		
 		System.exit(0);
 	}
@@ -58,12 +74,7 @@ public class Main {
 	 * @param label
 	 * @param type
 	 */
-	private static void createUDA(boolean testRun,String linuxPath,String vars) {
-		
-		//get commands
-		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars);
-		
-		// run commands
+	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands) {
 		if (!testRun) {
 			for (int i = 0; i < commands.length; i++) {
 				
@@ -78,9 +89,6 @@ public class Main {
 				if (commands[i][0]!=null) { 
 					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
 					RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
-					for (int j =0;j<commands[i].length;j++) {
-						System.out.println("Ran:"+commands[i][j]);
-					}
 				}
 			}			
 		}
@@ -118,5 +126,64 @@ public class Main {
 		}
 		return commands;
 	}
+	
+	/**
+	 * Get the uuid of the taskwarrior user from:
+	 * cd $TASKDDATA/orgs/<your tw organization>/users/
+	 * @param folder
+	 */
+	private static void listFilesForFolder(final File folder) {
+		System.out.println("Finding folders in:"+folder.getPath());
+	    for (final File fileEntry : folder.listFiles()) {
+	        if (fileEntry.isDirectory()) {
+	            listFilesForFolder(fileEntry);
+	        } else {
+	            System.out.println(fileEntry.getName());
+	        }
+	    }
+	}
+
+	/**
+	 * Get the uuid of the taskwarrior user from:
+	 * cd $TASKDDATA/orgs/<your tw organization>/users/
+	 * @param folder
+	 */	
+//	private static void getFolderList() {
+//	File file = new File("/path/to/directory");
+//	String[] directories = file.list(new FilenameFilter() {
+//	  @Override
+//	  public boolean accept(File current, String name) {
+//	    return new File(current, name).isDirectory();
+//	  }
+//	});
+//	System.out.println(Arrays.toString(directories));
+//	}
+//	public File[] listFiles(FileFilter filter) {
+//		return null;
+//	}
+	
+	
+	public static List<String> findFoldersInDirectory(String directoryPath) {
+	    File directory = new File(directoryPath);
+		
+	    System.out.println("Incoming file = "+directory.getAbsolutePath());
+	    
+	    FileFilter directoryFileFilter = new FileFilter() {
+	        public boolean accept(File file) {
+	            return file.isDirectory();
+	        }
+	    };
+			
+	    File[] directoryListAsFile = directory.listFiles(directoryFileFilter);
+	    System.out.println("file = "+directoryListAsFile.toString());
+	    List<String> foldersInDirectory = new ArrayList<String>(directoryListAsFile.length);
+	    for (File directoryAsFile : directoryListAsFile) {
+	        foldersInDirectory.add(directoryAsFile.getName());
+	    }
+
+	    return foldersInDirectory;
+	}
+//	final File folder = new File("/home/you/Desktop");
+//	listFilesForFolder(folder);
 }
 
