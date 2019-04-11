@@ -12,7 +12,7 @@ package autoInstallTaskwarrior;
  */
 public class GenerateCommandsV2 {
 	public static String[][] generateCommands(boolean testRun,String linuxPath,String vars) {
-		String[][] commands = new String[25][1];
+		String[][] commands = new String[50][1];
 //		char vd = (char)124; //vertical dash: |
 //		char bs = (char)92; //backslash: \		
 //		char and = (char)38; // and $
@@ -183,10 +183,133 @@ public class GenerateCommandsV2 {
 		commands[16][3] = "/var/taskd";
 		commands[16][4] = "/usr/share/taskd/pki/";
 		
-		commands[17] = new String[3];
-		commands[17][0] = "echo";
-		commands[17][1] = "command16";
-		commands[17][2] = "/usr/share/taskd/pki/";
+//		sudo taskd config --force client.cert $TASKDDATA/client.cert.pem --data $TASKDDATA
+//		sudo taskd config --force client.cert /var/taskd/client.cert.pem --data /var/taskd		
+		commands[17] = new String[9];
+		commands[17][0] = "sudo";
+		commands[17][1] = "taskd"; 
+		commands[17][2] = "config";
+		commands[17][3] = "--force";
+		commands[17][4] = "client.cert";
+		commands[17][5] = "/var/taskd/client.cert.pem";
+		commands[17][6] = "--data";
+		commands[17][7] = "/var/taskd";
+		commands[17][8] = "/usr/share/taskd/pki/";
+		
+//		sudo taskd config --force client.key $TASKDDATA/client.key.pem --data $TASKDDATA
+//		sudo taskd config --force client.key /var/taskd/client.key.pem --data /var/taskd		
+		commands[18] = new String[9];
+		commands[18][0] = "sudo";
+		commands[18][1] = "taskd"; 
+		commands[18][2] = "config";
+		commands[18][3] = "--force";
+		commands[18][4] = "client.cert";
+		commands[18][5] = "/var/taskd/client.key.pem";
+		commands[18][6] = "--data";
+		commands[18][7] = "/var/taskd";
+		commands[18][8] = "/usr/share/taskd/pki/";
+		
+		
+//		sudo taskd config --force server.cert $TASKDDATA/server.cert.pem --data $TASKDDATA
+//		sudo taskd config --force server.cert /var/taskd/server.cert.pem --data /var/taskd		
+		commands[19] = new String[9];
+		commands[19][0] = "sudo";
+		commands[19][1] = "taskd"; 
+		commands[19][2] = "config";
+		commands[19][3] = "--force";
+		commands[19][4] = "client.cert";
+		commands[19][5] = "/var/taskd/server.cert.pem";
+		commands[19][6] = "--data";
+		commands[19][7] = "/var/taskd";
+		commands[19][8] = "/usr/share/taskd/pki/";
+		
+//		sudo taskd config --force server.key $TASKDDATA/server.key.pem --data $TASKDDATA
+//		sudo taskd config --force server.key /var/taskd/server.key.pem --data /var/taskd		
+		commands[20] = new String[9];
+		commands[20][0] = "sudo";
+		commands[20][1] = "taskd"; 
+		commands[20][2] = "config";
+		commands[20][3] = "--force";
+		commands[20][4] = "client.cert";
+		commands[20][5] = "/var/taskd/server.key.pem";
+		commands[20][6] = "--data";
+		commands[20][7] = "/var/taskd";
+		commands[20][8] = "/usr/share/taskd/pki/";
+		
+//		sudo taskd config --force server.crl $TASKDDATA/server.crl.pem --data $TASKDDATA
+//		sudo taskd config --force server.crl /var/taskd/server.crl.pem --data /var/taskd		
+		commands[21] = new String[9];
+		commands[21][0] = "sudo";
+		commands[21][1] = "taskd"; 
+		commands[21][2] = "config";
+		commands[21][3] = "--force";
+		commands[21][4] = "client.cert";
+		commands[21][5] = "/var/taskd/server.crl.pem";
+		commands[21][6] = "--data";
+		commands[21][7] = "/var/taskd";
+		commands[21][8] = "/usr/share/taskd/pki/";
+		
+//		sudo taskd config --force ca.cert $TASKDDATA/ca.cert.pem --data $TASKDDATA
+//		sudo taskd config --force ca.cert /var/taskd/ca.cert.pem --data /var/taskd		
+		commands[22] = new String[9];
+		commands[22][0] = "sudo";
+		commands[22][1] = "taskd"; 
+		commands[22][2] = "config";
+		commands[22][3] = "--force";
+		commands[22][4] = "client.cert";
+		commands[22][5] = "/var/taskd/ca.cert.pem";
+		commands[22][6] = "--data";
+		commands[22][7] = "/var/taskd";
+		commands[22][8] = "/usr/share/taskd/pki/";
+		
+		
+		
+//		sudo taskd config --force log $PWD/taskd.log --data $TASKDDATA
+//		sudo taskd config --force log $PWD/taskd.log --data /var/taskd
+		commands[23] = new String[9];
+		commands[23][0] = "sudo";
+		commands[23][1] = "taskd"; 
+		commands[23][2] = "config";
+		commands[23][3] = "--force";
+		commands[23][4] = "log";
+		commands[23][5] = "$PWD/taskd.log";
+		commands[23][6] = "--data";
+		commands[23][7] = "/var/taskd";
+		commands[23][8] = "/var/taskd/";
+		
+//		sudo taskd config --force pid.file $PWD/taskd.pid --data /var/taskd
+//		sudo taskd config --force pid.file $PWD/taskd.pid --data /var/taskd
+		commands[24] = new String[9];
+		commands[24][0] = "sudo";
+		commands[24][1] = "taskd"; 
+		commands[24][2] = "config";
+		commands[24][3] = "--force";
+		commands[24][4] = "pid.file";
+		commands[24][5] = "$PWD/taskd.pid";
+		commands[24][6] = "--data";
+		commands[24][7] = "/var/taskd";
+		commands[24][8] = "/var/taskd/";
+		
+//		sudo taskd config --force server 0.0.0.0:53589 --data /var/taskd
+//		sudo taskd config --force server 0.0.0.0:53589 --data /var/taskd
+		commands[25] = new String[9];
+		commands[25][0] = "sudo";
+		commands[25][1] = "taskd"; 
+		commands[25][2] = "config";
+		commands[25][3] = "--force";
+		commands[25][4] = "server";
+		commands[25][5] = "0.0.0.0:53589";
+		commands[25][6] = "--data";
+		commands[25][7] = "/var/taskd";
+		commands[25][8] = "/var/taskd";
+		
+		//task add testtask description 1
+		commands[26] = new String[5];
+		commands[26][0] = "yes | task";
+		commands[26][1] = "add";
+		commands[26][2] = "testtask";
+		commands[26][3] = "description";
+		commands[26][4] = "1";
 		
 		return commands;
 	}

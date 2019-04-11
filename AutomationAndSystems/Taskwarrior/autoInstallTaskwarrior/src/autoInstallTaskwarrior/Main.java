@@ -1,9 +1,6 @@
 package autoInstallTaskwarrior;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -25,7 +22,6 @@ public class Main {
 	public static void main(String[] args) {
 		boolean testRun = false;
 		String vars = "vars";
-		char quotation = (char)34; // quotation mark "
 		
 		String[] storeUserInput =AskUserInput.getUserInput();
 		for (int i = 1; i <= 50; i++) {
