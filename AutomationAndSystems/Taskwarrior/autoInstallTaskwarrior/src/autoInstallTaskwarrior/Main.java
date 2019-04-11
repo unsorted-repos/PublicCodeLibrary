@@ -3,6 +3,7 @@ package autoInstallTaskwarrior;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -49,7 +50,7 @@ public class Main {
 		
 		// execute commands
 		createUDA(testRun,linuxPath,vars);
-
+		
 		System.exit(0);
 	}
 
@@ -64,7 +65,7 @@ public class Main {
 	private static void createUDA(boolean testRun,String linuxPath,String vars) {
 		
 		//get commands
-		String[][] commands = GenerateCommandsV1.generateCommands(testRun,linuxPath,vars);
+		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars);
 		
 		// run commands
 		if (!testRun) {
@@ -80,7 +81,7 @@ public class Main {
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
 					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
-					RunCommandsWithArgs.runCommands(preprocessedCommands,hasYes);
+					RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 					for (int j =0;j<commands[i].length;j++) {
 						System.out.println("Ran:"+commands[i][j]);
 					}
