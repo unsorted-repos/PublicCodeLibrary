@@ -2,6 +2,7 @@ package autoInstallTaskwarrior;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -78,6 +79,7 @@ public class Main {
 				
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
+					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
 					RunCommandsWithArgs.runCommands(preprocessedCommands,hasYes);
 					for (int j =0;j<commands[i].length;j++) {
 						System.out.println("Ran:"+commands[i][j]);
