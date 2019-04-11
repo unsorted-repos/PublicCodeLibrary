@@ -309,7 +309,7 @@ public class GenerateCommandsV2 {
 		commands[26][1] = "add";
 		commands[26][2] = "testtask";
 		commands[26][3] = "description";
-		commands[26][4] = "1";
+		commands[26][4] = "/var/taskd";
 		
 		return commands;
 	}

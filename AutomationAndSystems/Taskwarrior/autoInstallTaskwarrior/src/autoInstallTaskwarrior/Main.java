@@ -65,7 +65,7 @@ public class Main {
 		
 		// run commands
 		if (!testRun) {
-			for (int i = 0; i <= commands.length; i++) {
+			for (int i = 0; i < commands.length; i++) {
 				
 				//check if command contains "yes | " and store result:
 				Boolean hasYes =  startsWithYes(commands[i][0]);
