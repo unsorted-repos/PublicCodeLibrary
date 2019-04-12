@@ -35,7 +35,7 @@ public class Main {
 		//hardcoded
 		String unixUserName = storeUserInput[0];
 		String unixPw = storeUserInput[1];
-		String serverName = "eai.ddns.net";
+		String serverName = "0.0.0.0";
 		String serverPort = "53589";
 		storeUserInput[2]="Public";
 		storeUserInput[3]="First";
