@@ -1,10 +1,14 @@
 package autoInstallTaskwarrior;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RunCommandsWithArgsV1 {
 	/**
@@ -76,4 +80,49 @@ public class RunCommandsWithArgsV1 {
 			e1.printStackTrace();
 		}		
 	}
+	
+	/**
+	 * set environment variable: by extracting the env variable from last entry of commandData
+	 * Then extract the working path from the second to last entry of commandData
+	 */
+	public static void commandAndSetPath(String[] commandData,Boolean ansYes) throws InterruptedException {
+		// store the commands (last entry of commandData contains working path)
+		String[] commands = new String[commandData.length-2];
+		for (int i = 0; i < commandData.length-2; i++) {commands[i] = commandData[i];}    
+
+		// extract the environment variable TASKDDATA(Last entry)
+		String envPath = commandData[commandData.length-1];
+		
+		// store the working path (stored in second last entry of commandData)
+		File workingDirectory = new File(commandData[commandData.length-2]);
+
+		// create a ProcessBuilder to execute the commands in
+		ProcessBuilder pb = new ProcessBuilder(commands);
+		pb.directory(workingDirectory);
+		try {
+			
+			 Map<String, String> env = pb.environment();
+			 env.put("TASKDDATA", envPath);
+			 Process process = pb.start();
+			
+			 new Thread(new SyncPipe(process.getErrorStream(), System.err)).start();
+			 new Thread(new SyncPipe(process.getInputStream(), System.out)).start();
+			PrintWriter stdin = new PrintWriter(process.getOutputStream());
+			
+			//This is not necessary but can be used to answer yes to being prompted
+			if (ansYes) {
+				System.out.println("WITH YES!");
+				stdin.println("yes");
+			}
+			
+			// write any other commands you want here
+			stdin.close();
+			int returnCode = process.waitFor();
+			System.out.println("Return code = " + returnCode);
+			 
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    }
 }

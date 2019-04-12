@@ -1,5 +1,8 @@
 package autoInstallTaskwarrior;
 
+import java.io.IOException;
+import java.util.Map;
+
 /**
  * This rewrites the commands so that they capture the intent 
  * without using environment variables but just the direct
@@ -11,7 +14,7 @@ package autoInstallTaskwarrior;
  *
  */
 public class GenerateCommandsV2 {
-	public static String[][] generateCommands(boolean testRun,String linuxPath,String vars,String[] storeUserInput) {
+	public static String[][] generateCommands(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		String[][] commands = new String[50][1];
 //		char vd = (char)124; //vertical dash: |
 //		char bs = (char)92; //backslash: \		
@@ -298,7 +301,7 @@ public class GenerateCommandsV2 {
 		commands[25][2] = "config";
 		commands[25][3] = "--force";
 		commands[25][4] = "server";
-		commands[25][5] = "0.0.0.0:53589";
+		commands[25][5] = serverName+":"+serverPort;
 		commands[25][6] = "--data";
 		commands[25][7] = "/var/taskd";
 		commands[25][8] = "/var/taskd";
@@ -410,7 +413,7 @@ public class GenerateCommandsV2 {
 			// to: sudo task config taskd.certificate -- /home/<Ubuntu username>/.task/<taskwarrior username>.cert.pem
 			//working directory: /usr/share/taskd/pki/
 			commands[4] = new String[7];
-			commands[4][0] = "sudo";
+			commands[4][0] = "yes | sudo";
 			commands[4][1] = "task"; 
 			commands[4][2] = "config";
 			commands[4][3] = "taskd.certificate";
@@ -422,7 +425,7 @@ public class GenerateCommandsV2 {
 			// to: sudo task config taskd.key -- /home/<Ubuntu username>/.task/<taskwarrior username>.key.pem
 			//working directory: /usr/share/taskd/pki/
 			commands[5] = new String[7];
-			commands[5][0] = "sudo";
+			commands[5][0] = "yes | sudo";
 			commands[5][1] = "task"; 
 			commands[5][2] = "config";
 			commands[5][3] = "taskd.key";
@@ -433,118 +436,38 @@ public class GenerateCommandsV2 {
 			// sudo task config taskd.ca -- /home/a/.task/ca.cert.pem
 			// to: sudo task config taskd.ca -- /home/<Ubuntu username>/.task/ca.cert.pem
 			//working directory: /usr/share/taskd/pki/
-			commands[5] = new String[7];
-			commands[5][0] = "sudo";
-			commands[5][1] = "task"; 
-			commands[5][2] = "config";
-			commands[5][3] = "taskd.ca";
-			commands[5][4] = "--";
-			commands[5][5] = "/home/"+storeUserInput[0]+"/.task/ca.key.pem";
-			commands[5][6] = "/usr/share/taskd/pki/";
-			
+			commands[6] = new String[7];
+			commands[6][0] = "yes | sudo";
+			commands[6][1] = "task"; 
+			commands[6][2] = "config";
+			commands[6][3] = "taskd.ca";
+			commands[6][4] = "--";
+			commands[6][5] = "/home/"+storeUserInput[0]+"/.task/ca.key.pem";
+			commands[6][6] = "/usr/share/taskd/pki/";
 			
 			// sudo task config taskd.server -- 0.0.0.0:53589
 			// to: sudo task config taskd.server -- 0.0.0.0:53589
 			//working directory: /usr/share/taskd/pki/
-			commands[5] = new String[7];
-			commands[5][0] = "sudo";
-			commands[5][1] = "task"; 
-			commands[5][2] = "config";
-			commands[5][3] = "taskd.server";
-			commands[5][4] = "--";
-			commands[5][5] = serverName+":"+serverPort;
-			commands[5][6] = "/usr/share/taskd/pki/";
-			
+			commands[7] = new String[7];
+			commands[7][0] = "yes | sudo";
+			commands[7][1] = "task"; 
+			commands[7][2] = "config";
+			commands[7][3] = "taskd.server";
+			commands[7][4] = "--";
+			commands[7][5] = serverName+":"+serverPort;
+			commands[7][6] = "/usr/share/taskd/pki/";
 			
 			// sudo task config taskd.credentials -- Public/First/b6634b72-04a3-4220-8d49-6d56as4tefb
 			// to: sudo task config taskd.credentials -- <taskwarrior organisation>/<taskwarrior username>/<taskwarrior uuid>
 			//working directory: /usr/share/taskd/pki/
-			commands[6] = new String[7];
-			commands[6][0] = "sudo";
-			commands[6][1] = "task"; 
-			commands[6][2] = "config";
-			commands[6][3] = "taskd.credentials";
-			commands[6][4] = "--";
-			commands[6][5] = storeUserInput[2]+"/"+storeUserInput[3]+"/"+twUuid;
-			commands[6][6] = "/usr/share/taskd/pki/";
-			
-			
-			// taskdctl start
-			// to: 
-			//working directory: /usr/share/taskd/pki/
-			commands[7] = new String[3];
-			commands[7][0] = "taskdctl";
-			commands[7][1] = "start"; 
-			commands[7][2] = "/usr/share/taskd/pki/";
-			
-			// sudo task sync init 
-			// to: 
-			//working directory: /usr/share/taskd/pki/
-			commands[8] = new String[5];
-			commands[8][0] = "sudo";
+			commands[8] = new String[7];
+			commands[8][0] = "yes | sudo";
 			commands[8][1] = "task"; 
-			commands[8][2] = "sync";
-			commands[8][3] = "init";
-			commands[8][4] = "/usr/share/taskd/pki/";
-			
-			// sudo task config taskd.trust -- ignore hostname
-			// to: 
-			//working directory: /usr/share/taskd/pki/
-			commands[9] = new String[8];
-			commands[9][0] = "sudo";
-			commands[9][1] = "task"; 
-			commands[9][2] = "config";
-			commands[9][3] = "taskd.trust";
-			commands[9][4] = "--";
-			commands[9][5] = "ignore";
-			commands[9][6] = "hostname";
-			commands[9][7] = "/usr/share/taskd/pki/";
-			
-			// taskdctl stop
-			// to: 
-			//working directory: /usr/share/taskd/pki/
-			commands[10] = new String[5];
-			commands[10][0] = "taskdctl";
-			commands[10][1] = "stop"; 
-			commands[10][2] = "";
-			commands[10][3] = "";
-			commands[10][4] = "/usr/share/taskd/pki/";
-
-			//sudo taskd config --data $TASKDDATA
-			// to: sudo taskd config --data /var/taskd 
-			//working directory: /var/taskd/
-			commands[11] = new String[6];
-			commands[11][0] = "sudo";
-			commands[11][1] = "taskd"; 
-			commands[11][2] = "config";
-			commands[11][3] = "--data";
-			commands[11][4] = "/var/taskd/";
-			commands[11][5] = "/var/taskd/";
-			
-
-			
-			
-			// sudo -s
-			// export TASKDDATA=/var/taskd
-			// taskdctl start
-			// to: 
-			//working directory: /var/taskd/
-			commands[12] = new String[5];
-			commands[12][0] = "sudo";
-			commands[12][1] = "-s"; 
-			commands[12][2] = "taskdctl";
-			commands[12][3] = "start";
-			commands[12][4] = "/usr/share/taskd/pki/";
-			
-			// sudo task sync init
-			// to: 
-			//working directory: /var/taskd/
-			commands[13] = new String[5];
-			commands[13][0] = "yes | sudo";
-			commands[13][1] = "task"; 
-			commands[13][2] = "sync";
-			commands[13][3] = "init";
-			commands[13][4] = "/var/taskd/";
+			commands[8][2] = "config";
+			commands[8][3] = "taskd.credentials";
+			commands[8][4] = "--";
+			commands[8][5] = storeUserInput[2]+"/"+storeUserInput[3]+"/"+twUuid;
+			commands[8][6] = "/usr/share/taskd/pki/";
 			
 //			// 
 //			// to: 
@@ -555,6 +478,110 @@ public class GenerateCommandsV2 {
 //			commands[][2] = "";
 //			commands[][3] = "";
 //			commands[][4] = "/usr/share/taskd/pki/";
+		}
+		return commands;
+	}
+	
+	/**
+	 * Set the environment path with the command.
+	 * @param testRun
+	 * @param linuxPath
+	 * @param vars
+	 * @param storeUserInput
+	 * @param serverName
+	 * @param serverPort
+	 * @return
+	 */
+	public static String[][] generateThirdCommands(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
+		String[][] commands = new String[50][1];
+		String twUuid;
+		String directoryPath = new String("/var/taskd/orgs/"+storeUserInput[2]+"/users/");
+		
+		if (!testRun) {
+			// taskdctl start
+			// to: 
+			//working directory: /usr/share/taskd/pki/
+			//Environment variable: TASKDDATA=/var/taskd
+			commands[1] = new String[4];
+			commands[1][0] = "taskdctl";
+			commands[1][1] = "start"; 
+			commands[1][2] = "/usr/share/taskd/pki/";
+			commands[1][3] = "/var/taskd";
+			
+			// sudo task sync init 
+			// to: 
+			//working directory: /usr/share/taskd/pki/
+			commands[2] = new String[6];
+			commands[2][0] = "yes | sudo";
+			commands[2][1] = "task"; 
+			commands[2][2] = "sync";
+			commands[2][3] = "init";
+			commands[2][4] = "/usr/share/taskd/pki/";
+			commands[2][5] = "/var/taskd";
+			
+			// sudo task config taskd.trust -- ignore hostname
+			// to: 
+			//working directory: /usr/share/taskd/pki/
+			commands[3] = new String[9];
+			commands[3][0] = "sudo";
+			commands[3][1] = "task"; 
+			commands[3][2] = "config";
+			commands[3][3] = "taskd.trust";
+			commands[3][4] = "--";
+			commands[3][5] = "ignore";
+			commands[3][6] = "hostname";
+			commands[3][7] = "/usr/share/taskd/pki/";
+			commands[3][8] = "/var/taskd";
+			
+			// taskdctl stop
+			// to: 
+			//working directory: /usr/share/taskd/pki/
+			commands[4] = new String[6];
+			commands[4][0] = "taskdctl";
+			commands[4][1] = "stop"; 
+			commands[4][2] = "";
+			commands[4][3] = "";
+			commands[4][4] = "/usr/share/taskd/pki/";
+			commands[4][5] = "/var/taskd";
+
+			//sudo taskd config --data $TASKDDATA
+			// to: sudo taskd config --data /var/taskd 
+			//working directory: /var/taskd/
+			commands[5] = new String[7];
+			commands[5][0] = "sudo";
+			commands[5][1] = "taskd"; 
+			commands[5][2] = "config";
+			commands[5][3] = "--data";
+			commands[5][4] = "/var/taskd/";
+			commands[5][5] = "/var/taskd/";
+			commands[5][6] = "/var/taskd";
+			
+
+			
+			
+			// sudo -s
+			// export TASKDDATA=/var/taskd
+			// taskdctl start
+			// to: 
+			//working directory: /var/taskd/
+			commands[6] = new String[6];
+			commands[6][0] = "sudo";
+			commands[6][1] = "-s"; 
+			commands[6][2] = "taskdctl";
+			commands[6][3] = "start";
+			commands[6][4] = "/usr/share/taskd/pki/";
+			commands[6][5] = "/var/taskd";
+			
+			// sudo task sync init
+			// to: 
+			//working directory: /var/taskd/
+			commands[7] = new String[6];
+			commands[7][0] = "yes | sudo";
+			commands[7][1] = "task"; 
+			commands[7][2] = "sync";
+			commands[7][3] = "init";
+			commands[7][4] = "/var/taskd/";
+			commands[7][5] = "/var/taskd";
 		}
 		return commands;
 	}

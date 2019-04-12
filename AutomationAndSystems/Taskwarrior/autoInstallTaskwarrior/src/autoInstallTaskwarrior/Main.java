@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		boolean testRun = false;
 		String vars = "vars";
 		
@@ -35,7 +35,7 @@ public class Main {
 		//hardcoded
 		String unixUserName = storeUserInput[0];
 		String unixPw = storeUserInput[1];
-		String serverName = "eai.ddns.net:53589";
+		String serverName = "eai.ddns.net";
 		String serverPort = "53589";
 		storeUserInput[2]="Public";
 		storeUserInput[3]="First";
@@ -52,16 +52,24 @@ public class Main {
 		CreateFiles.createVars(vars,serverName,serverPort);
 
 		//get commands
-		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars,storeUserInput);
+		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars,storeUserInput,serverName,serverPort);
 		
 		// execute installation commands
-		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands);
+		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,2);
 		
 		//get second list of commands after taskwarrior uuid has been determined:
 		commands = GenerateCommandsV2.generateSecondCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);
 		
 		// execute second list of installation commands
-		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands);
+		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,2);
+		
+		
+		//get second list of commands after taskwarrior uuid has been determined:
+		commands = GenerateCommandsV2.generateThirdCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);
+		
+		// execute second list of installation commands
+		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,3);
+		
 		
 		System.exit(0);
 	}
@@ -73,8 +81,9 @@ public class Main {
 	 * @param udaName
 	 * @param label
 	 * @param type
+	 * @throws InterruptedException 
 	 */
-	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands) {
+	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands,int execType) throws InterruptedException {
 		if (!testRun) {
 			for (int i = 0; i < commands.length; i++) {
 				
@@ -88,7 +97,11 @@ public class Main {
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
 					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
-					RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
+					if (execType ==2) {
+						RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
+					}else if (execType == 3) {
+						RunCommandsWithArgsV1.commandAndSetPath(preprocessedCommands,hasYes);
+					}
 				}
 			}			
 		}
