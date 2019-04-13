@@ -22,4 +22,4 @@ Put it for example in `c:/path with space/` and in WSL ubuntu run it with:
 
 E.g. if you stored it in folder `C:/path with space/` the command becomes:
 
-`sudo java -jar "/mnt/c:/path with space/autoInstallTaskwarrior.jar"`
+`sudo java -jar "/mnt/c/path with space/autoInstallTaskwarrior.jar"`
