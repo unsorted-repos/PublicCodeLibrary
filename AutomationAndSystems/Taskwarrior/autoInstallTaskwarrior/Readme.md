@@ -5,7 +5,7 @@ start>store>search ubuntu>install WSL ubuntu 16.04.
 Open the ubuntu app you just installed
 wait 5 minutes till it's done, enter a username and pwd.
 
-Then run: (1st command takes+-: 30 mins, 2nd command: 2 mins)
+Then run: (1st command takes+-: 30 mins, 2nd command: 4 mins)
 
 `yes | sudo apt update && sudo apt upgrade`
 
