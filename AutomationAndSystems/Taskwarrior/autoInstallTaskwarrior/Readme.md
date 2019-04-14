@@ -7,7 +7,7 @@ wait 5 minutes till it's done, enter a username and pwd.
 
 Then run: (1st command takes+-: 30 mins, 2nd command: 4 mins)
 
-`yes | sudo apt update && sudo apt upgrade`
+`yes | sudo apt update`
 
 `yes | sudo apt install default-jre` 
 
