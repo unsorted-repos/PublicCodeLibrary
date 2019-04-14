@@ -5,7 +5,7 @@ start>store>search ubuntu>install WSL ubuntu 16.04.
 Open the ubuntu app you just installed
 wait 5 minutes till it's done, enter a username and pwd.
 
-Then run:
+Then run: (1st command takes+-: 30 mins, 2nd command: 4 mins)
 
 `yes | sudo apt update && sudo apt upgrade`
 
@@ -20,6 +20,6 @@ Put it for example in `c:/path with space/` and in WSL ubuntu run it with:
 
 `java -jar <the path to your file>autoInstallTaskwarrior.jar`
 
-E.g.
+E.g. if you stored it in folder `C:/path with space/` the command becomes:
 
-`sudo java -jar "/mnt/c:/path with space/autoInstallTaskwarrior.jar"`
+`sudo java -jar "/mnt/c/path with space/autoInstallTaskwarrior.jar"`
