@@ -206,7 +206,7 @@ public class GenerateCommandsV2 {
 		commands[18][1] = "taskd"; 
 		commands[18][2] = "config";
 		commands[18][3] = "--force";
-		commands[18][4] = "client.cert";
+		commands[18][4] = "client.key";
 		commands[18][5] = "/var/taskd/client.key.pem";
 		commands[18][6] = "--data";
 		commands[18][7] = "/var/taskd";
@@ -220,7 +220,7 @@ public class GenerateCommandsV2 {
 		commands[19][1] = "taskd"; 
 		commands[19][2] = "config";
 		commands[19][3] = "--force";
-		commands[19][4] = "client.cert";
+		commands[19][4] = "server.cert";
 		commands[19][5] = "/var/taskd/server.cert.pem";
 		commands[19][6] = "--data";
 		commands[19][7] = "/var/taskd";
@@ -233,7 +233,7 @@ public class GenerateCommandsV2 {
 		commands[20][1] = "taskd"; 
 		commands[20][2] = "config";
 		commands[20][3] = "--force";
-		commands[20][4] = "client.cert";
+		commands[20][4] = "server.key";
 		commands[20][5] = "/var/taskd/server.key.pem";
 		commands[20][6] = "--data";
 		commands[20][7] = "/var/taskd";
@@ -246,7 +246,7 @@ public class GenerateCommandsV2 {
 		commands[21][1] = "taskd"; 
 		commands[21][2] = "config";
 		commands[21][3] = "--force";
-		commands[21][4] = "client.cert";
+		commands[21][4] = "server.crl";
 		commands[21][5] = "/var/taskd/server.crl.pem";
 		commands[21][6] = "--data";
 		commands[21][7] = "/var/taskd";
@@ -259,7 +259,7 @@ public class GenerateCommandsV2 {
 		commands[22][1] = "taskd"; 
 		commands[22][2] = "config";
 		commands[22][3] = "--force";
-		commands[22][4] = "client.cert";
+		commands[22][4] = "ca.cert";
 		commands[22][5] = "/var/taskd/ca.cert.pem";
 		commands[22][6] = "--data";
 		commands[22][7] = "/var/taskd";
@@ -275,7 +275,7 @@ public class GenerateCommandsV2 {
 		commands[23][2] = "config";
 		commands[23][3] = "--force";
 		commands[23][4] = "log";
-		commands[23][5] = "$PWD/taskd.log";
+		commands[23][5] = "/var/taskd/taskd.log";
 		commands[23][6] = "--data";
 		commands[23][7] = "/var/taskd";
 		commands[23][8] = "/var/taskd/";
@@ -288,7 +288,7 @@ public class GenerateCommandsV2 {
 		commands[24][2] = "config";
 		commands[24][3] = "--force";
 		commands[24][4] = "pid.file";
-		commands[24][5] = "$PWD/taskd.pid";
+		commands[24][5] = "/var/taskd/taskd.pid";
 		commands[24][6] = "--data";
 		commands[24][7] = "/var/taskd";
 		commands[24][8] = "/var/taskd/";
@@ -307,12 +307,13 @@ public class GenerateCommandsV2 {
 		commands[25][8] = "/var/taskd";
 		
 		//task add testtask description 1
-		commands[26] = new String[5];
-		commands[26][0] = "yes | task";
-		commands[26][1] = "add";
-		commands[26][2] = "testtask";
-		commands[26][3] = "description";
-		commands[26][4] = "/var/taskd";
+		commands[26] = new String[6];
+		commands[26][0] = "yes | sudo";
+		commands[26][1] = "task";
+		commands[26][2] = "add";
+		commands[26][3] = "testtask";
+		commands[26][4] = "description";
+		commands[26][5] = "/var/taskd";
 		
 		
 //		sudo taskd add org Public --data $TASKDDATA
@@ -536,13 +537,11 @@ public class GenerateCommandsV2 {
 			// taskdctl stop
 			// to: 
 			//working directory: /usr/share/taskd/pki/
-			commands[4] = new String[6];
+			commands[4] = new String[4];
 			commands[4][0] = "taskdctl";
 			commands[4][1] = "stop"; 
-			commands[4][2] = "";
-			commands[4][3] = "";
-			commands[4][4] = "/usr/share/taskd/pki/";
-			commands[4][5] = "/var/taskd";
+			commands[4][2] = "/usr/share/taskd/pki/";
+			commands[4][3] = "/var/taskd";
 
 			//sudo taskd config --data $TASKDDATA
 			// to: sudo taskd config --data /var/taskd 
@@ -564,24 +563,28 @@ public class GenerateCommandsV2 {
 			// taskdctl start
 			// to: 
 			//working directory: /var/taskd/
-			commands[6] = new String[6];
+			commands[6] = new String[4];
 			commands[6][0] = "sudo";
 			commands[6][1] = "-s"; 
-			commands[6][2] = "taskdctl";
-			commands[6][3] = "start";
-			commands[6][4] = "/usr/share/taskd/pki/";
-			commands[6][5] = "/var/taskd";
+			commands[6][2] = "/var/taskd";
+			commands[6][3] = "/var/taskd";
+			
+			commands[7] = new String[4];
+			commands[7][0] = "taskdctl";
+			commands[7][1] = "start";
+			commands[7][2] = "/usr/share/taskd/pki/";
+			commands[7][3] = "/var/taskd";
 			
 			// sudo task sync init
 			// to: 
 			//working directory: /var/taskd/
-			commands[7] = new String[6];
-			commands[7][0] = "yes | sudo";
-			commands[7][1] = "task"; 
-			commands[7][2] = "sync";
-			commands[7][3] = "init";
-			commands[7][4] = "/var/taskd/";
-			commands[7][5] = "/var/taskd";
+			commands[8] = new String[6];
+			commands[8][0] = "yes | sudo";
+			commands[8][1] = "task"; 
+			commands[8][2] = "sync";
+			commands[8][3] = "init";
+			commands[8][4] = "/var/taskd/";
+			commands[8][5] = "/var/taskd";
 		}
 		return commands;
 	}

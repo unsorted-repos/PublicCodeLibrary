@@ -87,6 +87,7 @@ public class RunCommandsWithArgsV1 {
 	 */
 	public static void commandAndSetPath(String[] commandData,Boolean ansYes) throws InterruptedException {
 		// store the commands (last entry of commandData contains working path)
+		String envVarName ="TASKDDATA";
 		String[] commands = new String[commandData.length-2];
 		for (int i = 0; i < commandData.length-2; i++) {commands[i] = commandData[i];}    
 
@@ -102,7 +103,10 @@ public class RunCommandsWithArgsV1 {
 		try {
 			
 			 Map<String, String> env = pb.environment();
-			 env.put("TASKDDATA", envPath);
+			 System.out.println("Setting environment variable "+envVarName+"="+envPath);
+			 env.put(envVarName, envPath);
+			 //source: https://stackoverflow.com/questions/7369664/using-export-in-java
+			 pb.environment().put(envVarName, envPath);
 			 Process process = pb.start();
 			
 			 new Thread(new SyncPipe(process.getErrorStream(), System.err)).start();

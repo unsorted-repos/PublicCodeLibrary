@@ -2,6 +2,7 @@ package autoInstallTaskwarrior;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean testRun = false;
 		String vars = "vars";
 		
@@ -49,8 +50,9 @@ public class Main {
 		System.out.println("Path ="+linuxPath);
 		
 		// create the vars file
-		CreateFiles.createVars(vars,serverName,serverPort);
-
+		CreateFiles.createVars(linuxPath,vars,serverName,serverPort);
+		System.out.println("Should have just printed vars");
+		
 		//get commands
 		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars,storeUserInput,serverName,serverPort);
 		

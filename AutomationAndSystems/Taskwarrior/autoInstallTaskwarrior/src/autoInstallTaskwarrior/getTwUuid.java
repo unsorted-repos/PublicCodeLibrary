@@ -5,6 +5,14 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gets the directory path based on the taskwarrior organisation
+ * and the taskwarrior user name that the user entered. 
+ * Then verifies the path exists, then gets the name of the
+ * first folder in that path. (That first folder is the tw uuid).
+ * @author a
+ *
+ */
 public class getTwUuid {
 	public static List<String> findFoldersInDirectory(String directoryPath) {
 	    List<String> foldersInDirectory = null; 
@@ -26,6 +34,7 @@ public class getTwUuid {
 		        foldersInDirectory.add(directoryAsFile.getName());
 		    }
 	    }
+	    System.out.println("the found directory = "+foldersInDirectory);
 	    return foldersInDirectory;
 	}
 }
