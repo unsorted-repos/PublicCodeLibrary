@@ -31,11 +31,13 @@ public class GenerateCommandsV2 {
 			commands[0][3] = linuxPath;
 					
 			
-			commands[1] = new String[4];
-			commands[1][0] = "yes | sudo";
-			commands[1][1] = "apt";
-			commands[1][2] = "upgrade";
-			commands[1][3] = linuxPath;
+			commands[1] = new String[2];
+			commands[1][0] = "echo";
+			commands[1][1] = "filler";
+//			commands[1][0] = "yes | sudo";
+//			commands[1][1] = "apt";
+//			commands[1][2] = "upgrade";
+//			commands[1][3] = linuxPath;
 			
 			//			commands[2][0] = "sudo apt install task";
 			commands[2] = new String[5];
@@ -56,17 +58,17 @@ public class GenerateCommandsV2 {
 			// write fillers for commands that are replaced:
 			commands[4] = new String[3];
 			commands[4][0] = "echo";
-			commands[4][1] = "command";
+			commands[4][1] = "filler";
 			commands[4][2] = linuxPath;
 			
 			commands[5] = new String[3];
 			commands[5][0] = "echo";
-			commands[5][1] = "command";
+			commands[5][1] = "filler";
 			commands[5][2] = linuxPath;
 			
 			commands[6] = new String[3];
 			commands[6][0] = "echo";
-			commands[6][1] = "command";
+			commands[6][1] = "filler";
 			commands[6][2] = linuxPath;
 			
 			//			commands[7][0] = "sudo mkdir -p $TASKDDATA";
@@ -307,13 +309,12 @@ public class GenerateCommandsV2 {
 		commands[25][8] = "/var/taskd";
 		
 		//task add testtask description 1
-		commands[26] = new String[6];
-		commands[26][0] = "yes | sudo";
-		commands[26][1] = "task";
-		commands[26][2] = "add";
-		commands[26][3] = "testtask";
-		commands[26][4] = "description";
-		commands[26][5] = "/var/taskd";
+		commands[26] = new String[5];
+		commands[26][0] = "yes | task";
+		commands[26][1] = "add";
+		commands[26][2] = "testtask";
+		commands[26][3] = "description";
+		commands[26][4] = "/var/taskd";
 		
 		
 //		sudo taskd add org Public --data $TASKDDATA
@@ -401,12 +402,12 @@ public class GenerateCommandsV2 {
 			commands[2][4] = "/usr/share/taskd/pki/";
 			
 			//sudo cp ca.cert.pem /home/a/.task
-			// to: sudo cp ca.key.pem /home/<Ubuntu username>/.task
+			// to: sudo cp ca.cert.pem /home/<Ubuntu username>/.task
 			//working directory: /usr/share/taskd/pki/
 			commands[3] = new String[5];
 			commands[3][0] = "sudo";
 			commands[3][1] = "cp"; 
-			commands[3][2] = "ca.key.pem";
+			commands[3][2] = "ca.cert.pem";
 			commands[3][3] = "/home/"+storeUserInput[0]+"/.task/";
 			commands[3][4] = "/usr/share/taskd/pki/";
 			
@@ -443,7 +444,7 @@ public class GenerateCommandsV2 {
 			commands[6][2] = "config";
 			commands[6][3] = "taskd.ca";
 			commands[6][4] = "--";
-			commands[6][5] = "/home/"+storeUserInput[0]+"/.task/ca.key.pem";
+			commands[6][5] = "/home/"+storeUserInput[0]+"/.task/ca.cert.pem";
 			commands[6][6] = "/usr/share/taskd/pki/";
 			
 			// sudo task config taskd.server -- 0.0.0.0:53589
