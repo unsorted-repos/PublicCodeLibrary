@@ -1,0 +1,631 @@
+Hi, 
+
+while working to automate the taskwarrior installation process for the taskwarrior server on a Windows 10 Windows Subsystems for Linux Ubuntu 16.04 system, I am running into a problem with the certificates; a handshake failed error. So I evaluated all the steps in the troublehsooting guide for taskserver and identified the problem in sections: Slide:HANDSHAKE ERRORS Part III and IV. To ensure the output of these two sections is problematic I compared them with a succesfull manual sync (that is installed using the same manual commands as the automated version implements).
+
+Furthermore, the output of the task diagnostics and taskd diagnostics are located in sections:
+Slide:Diagnostics Part I and II.
+
+The log files of the successfull manual installation is located at:
+
+
+
+Source of troubleshooting strategy: https://gitpitch.com/pitchme/print/github/GothenburgBitFactory/taskserver-troubleshooting/master/white/PITCHME.pdf
+
+Slide: Verify GNUTLS Support:
+	a@DESKTOP-desktopNameAuto:~/.task$ task diagnostics | grep libgnutls
+	Taskwarrior does not have the correct permissions for '/home/a/.task/pending.data'.
+	a@DESKTOP-desktopNameAuto:~/.task$ sudo task diagnostics | grep libgnutls
+	[sudo] password for a:
+	  libgnutls: 3.4.9
+	a@DESKTOP-desktopNameAuto:~/.task$
+
+
+Slide: NODENAMENORSERVNAMEPROVIDED
+Verified with manual installations.
+
+
+Slide: COULDNOTCONNECT
+	a@DESKTOP-desktopNameAuto:~/.task$ ps -leaf | grep taskd
+	0 S root      5680     1  0  80   0 -  4324      - 19:45 ?        00:00:00 taskd server --data /var/taskd --daemon
+	0 S a         5693     4  0  80   0 -  3223      - 20:00 tty1     00:00:00 grep --color=auto taskd
+
+
+Slide: UNABLETOUSEPORT
+Verified with manual installations
+
+
+Slide: HANDSHAKE FAILED
+	a@DESKTOP-desktopNameAuto:~/.task$ openssl s_client -CAfile .task/ca.cert.pem -host 0.0.0.0 -port 53589
+	139902983472792:error:02001002:system library:fopen:No such file or directory:bss_file.c:175:fopen('.task/ca.cert.pem','r')
+	139902983472792:error:2006D080:BIO routines:BIO_new_file:no such file:bss_file.c:178:
+	139902983472792:error:0B084002:x509 certificate routines:X509_load_cert_crl_file:system lib:by_file.c:253:
+	CONNECTED(00000003)
+	depth=0 CN = 0.0.0.0:53589, O = G\C3\B6teborg Bit Factory
+	verify error:num=20:unable to get local issuer certificate
+	verify return:1
+	depth=0 CN = 0.0.0.0:53589, O = G\C3\B6teborg Bit Factory
+	verify error:num=21:unable to verify the first certificate
+	verify return:1
+	139902983472792:error:140790E5:SSL routines:ssl23_write:ssl handshake failure:s23_lib.c:177:
+	---
+	Certificate chain
+	 0 s:/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory
+	   i:/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+	---
+	Server certificate
+	-----BEGIN CERTIFICATE-----
+	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
+	XQ69j9k5mvHV4q2QFQ==
+	-----END CERTIFICATE-----
+	subject=/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory
+	issuer=/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+	---
+	Acceptable client certificate CA names
+	/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+	Client Certificate Types: RSA sign, DSA sign, ECDSA sign
+	Requested Signature Algorithms: RSA+SHA256:ECDSA+SHA256:RSA+SHA384:ECDSA+SHA384:RSA+SHA512:ECDSA+SHA512:RSA+SHA224:ECDSA+SHA224:RSA+SHA1:ECDSA+SHA1
+	Shared Requested Signature Algorithms: RSA+SHA256:ECDSA+SHA256:RSA+SHA384:ECDSA+SHA384:RSA+SHA512:ECDSA+SHA512:RSA+SHA224:ECDSA+SHA224:RSA+SHA1:ECDSA+SHA1
+	Peer signing digest: SHA512
+	Server Temp Key: ECDH, P-256, 256 bits
+	---
+	SSL handshake has read 2321 bytes and written 138 bytes
+	---
+	New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+	Server public key is 4096 bit
+	Secure Renegotiation IS supported
+	Compression: NONE
+	Expansion: NONE
+	No ALPN negotiated
+	SSL-Session:
+	    Protocol  : TLSv1.2
+	    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+	    Session-ID: ADE78875FF77EA9A1AFEC56962D3B941558D44D1E8B46C418400D0AC03D1F5CA
+	    Session-ID-ctx:
+	    Master-Key: 63E9D9B88A05C3686CCBE6A4E41652093B980CD3521CC31AAE1B20C896C2DB1C22C6904463329F37A7C87A2928919294
+	    Key-Arg   : None
+	    PSK identity: None
+	    PSK identity hint: None
+	    SRP username: None
+	    Start Time: 1555351473
+	    Timeout   : 300 (sec)
+	    Verify return code: 21 (unable to verify the first certificate)
+	---
+
+
+Slide:HANDSHAKE ERRORS Part I
+First inspect vars file generated:
+	BITS=4096
+	EXPIRATION_DAYS=365
+	ORGANIZATION="Göteborg Bit Factory"
+	CN=0.0.0.0:53589
+	COUNTRY=SE
+	STATE="Västra Götaland"
+	LOCALITY="Göteborg"
+Then inspect vars file in WSL Ubuntu 16.04 with:
+	a@DESKTOP-desktopNameAuto:~/.task$ sudo nano /usr/share/taskd/pki/vars
+	BITS=4096
+	EXPIRATION_DAYS=365
+	ORGANIZATION="Göteborg Bit Factory"
+	CN=0.0.0.0:53589
+	COUNTRY=SE
+	STATE="Västra Götaland"
+	LOCALITY="Göteborg"
+So vars file content is as intended.
+
+Slide:HANDSHAKE ERRORS Part II
+Additional requirement:the CN=<name> setting must match the output of command:hostname -f
+	a@DESKTOP-desktopNameAuto:~/.task$ hostname -f
+	DESKTOP-desktopNameAuto.localdomain
+	Hence requirement not satisfied, but comparing with the manual installation with a successfull sync:
+	root@DESKTOP-desktopName:/usr/share/taskd/pki# sudo task sync init
+	Please confirm that you wish to upload all your pending tasks to the Taskserver (yes/no) y
+	Syncing with 0.0.0.0:53589
+
+	Sync successful.  2 changes uploaded.
+	root@DESKTOP-desktopName:/usr/share/taskd/pki# hostname -f
+	DESKTOP-desktopName.localdomain
+	root@DESKTOP-desktopName:/usr/share/taskd/pki#
+
+Indicates that this requirement is not necessary to obtain goal of a succesfull synchronization. Hence it is ignored. 
+(Conflict solved in Slide: Naming Part II requirement 0.1)
+
+Slide:HANDSHAKE ERRORS Part III
+Two commands are given, their respective outputs are:
+	a@DESKTOP-desktopNameAuto:~/.task$ cd /var/taskd
+	a@DESKTOP-desktopNameAuto:/var/taskd$ dir
+	ca.cert.pem      client.key.pem  orgs             server.crl.pem  taskd.log
+	client.cert.pem  config          server.cert.pem  server.key.pem  taskd.pid
+	a@DESKTOP-desktopNameAuto:/var/taskd$ certtool -i < server.cert.pem | grep Subject:
+	-bash: server.cert.pem: Permission denied
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo certtool -i < server.cert.pem | grep Subject:
+	-bash: server.cert.pem: Permission denied
+	a@DESKTOP-desktopNameAuto:/var/taskd$
+Comparing this to the successfull manual installation one can find:
+	root@DESKTOP-desktopNamemManual:/usr/share/taskd/pki# certtool -i < server.cert.pem | grep Subject:
+        Subject: CN=0.0.0.0:53589,O=Göteborg Bit Factory
+This appears to be a problem.
+
+Slide:HANDSHAKE ERRORS Part IV
+Two commands are given, their respective outputs are:
+	a@DESKTOP-desktopNameAuto:/var/taskd$ openssl x509 -noout -in server.cert.pem -subject
+	Error opening Certificate server.cert.pem
+	140249455789720:error:0200100D:system library:fopen:Permission denied:bss_file.c:398:fopen('server.cert.pem','r')
+	140249455789720:error:20074002:BIO routines:FILE_CTRL:system lib:bss_file.c:400:
+	unable to load certificate
+Comparing this to the successfull manual installation one can find:
+	root@DESKTOP-desktopNamemManual:/usr/share/taskd/pki# openssl x509 -noout -in server.cert.pem -subject
+	subject= /CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory
+This also appears to be a problem.
+
+
+Slide:NAMING Part I
+requirement 0: "that name" must also be used in the taskd.server=<host>:<port> setting for Taskwarrior. Assuming "that name" refers back to the hostname. This leads to a conflict again with what is required for a successfull sync and the indicated requirements since the hostname deviates from the used <host>:<port>.
+(Conflict solved in Slide: Naming Part II requirement 0.1)
+requirement 0: Assumption: It can be verified by inspecting the taskd -diagnostics --data /var/taskd setting. at entry: taskd.server
+
+Slide:Naming Part II
+requirement 0.1: If you use `taskd.trust=ignore hostname` then 
+	Slide:Naming Part I requirement 0 decays,
+	Slide:HANDSHAKE ERRORS Part III requirement 0 decays as well
+
+Slide:Naming Part III
+requirement 1: if you are using a self-signed certificate, did you specify it using the taskd.ca setting?
+requirement 1: Verified with inspecting the taskd -diagnostics --data /var/taskd setting. at entry: taskd.server
+requirement 1: Presumably done with command 6 in Java project, command 20.b in pdf:
+	// sudo task config taskd.ca -- /home/a/.task/ca.cert.pem
+	// to: sudo task config taskd.ca -- /home/<Ubuntu username>/.task/ca.cert.pem
+	//working directory: /usr/share/taskd/pki/
+	commands[6] = new String[7];
+	commands[6][0] = "yes | sudo";
+	commands[6][1] = "task"; 
+	commands[6][2] = "config";
+	commands[6][3] = "taskd.ca";
+	commands[6][4] = "--";
+	commands[6][5] = "/home/"+storeUserInput[0]+"/.task/ca.cert.pem";
+	commands[6][6] = "/usr/share/taskd/pki/";
+
+
+Slide:CIPHERS
+Todo: understand how one can compare the list of ciphers for the client and for the server. (Find which cipher is for the client and which cipher is for the server). In the meantime, this is the output of the suggested command listing the ciphers for the automated installation:
+
+	gnutls-cli --list
+	Cipher suites:
+	TLS_RSA_NULL_MD5                                        0x00, 0x01      SSL3.0
+	TLS_RSA_NULL_SHA1                                       0x00, 0x02      SSL3.0
+	TLS_RSA_NULL_SHA256                                     0x00, 0x3b      TLS1.2
+	TLS_RSA_ARCFOUR_128_SHA1                                0x00, 0x05      SSL3.0
+	TLS_RSA_ARCFOUR_128_MD5                                 0x00, 0x04      SSL3.0
+	TLS_RSA_3DES_EDE_CBC_SHA1                               0x00, 0x0a      SSL3.0
+	TLS_RSA_AES_128_CBC_SHA1                                0x00, 0x2f      SSL3.0
+	TLS_RSA_AES_256_CBC_SHA1                                0x00, 0x35      SSL3.0
+	TLS_RSA_CAMELLIA_128_CBC_SHA256                         0x00, 0xba      TLS1.2
+	TLS_RSA_CAMELLIA_256_CBC_SHA256                         0x00, 0xc0      TLS1.2
+	TLS_RSA_CAMELLIA_128_CBC_SHA1                           0x00, 0x41      SSL3.0
+	TLS_RSA_CAMELLIA_256_CBC_SHA1                           0x00, 0x84      SSL3.0
+	TLS_RSA_AES_128_CBC_SHA256                              0x00, 0x3c      TLS1.2
+	TLS_RSA_AES_256_CBC_SHA256                              0x00, 0x3d      TLS1.2
+	TLS_RSA_AES_128_GCM_SHA256                              0x00, 0x9c      TLS1.2
+	TLS_RSA_AES_256_GCM_SHA384                              0x00, 0x9d      TLS1.2
+	TLS_RSA_CAMELLIA_128_GCM_SHA256                         0xc0, 0x7a      TLS1.2
+	TLS_RSA_CAMELLIA_256_GCM_SHA384                         0xc0, 0x7b      TLS1.2
+	TLS_RSA_AES_128_CCM                                     0xc0, 0x9c      TLS1.2
+	TLS_RSA_AES_256_CCM                                     0xc0, 0x9d      TLS1.2
+	TLS_RSA_AES_128_CCM_8                                   0xc0, 0xa0      TLS1.2
+	TLS_RSA_AES_256_CCM_8                                   0xc0, 0xa1      TLS1.2
+	TLS_DHE_DSS_ARCFOUR_128_SHA1                            0x00, 0x66      SSL3.0
+	TLS_DHE_DSS_3DES_EDE_CBC_SHA1                           0x00, 0x13      SSL3.0
+	TLS_DHE_DSS_AES_128_CBC_SHA1                            0x00, 0x32      SSL3.0
+	TLS_DHE_DSS_AES_256_CBC_SHA1                            0x00, 0x38      SSL3.0
+	TLS_DHE_DSS_CAMELLIA_128_CBC_SHA256                     0x00, 0xbd      TLS1.2
+	TLS_DHE_DSS_CAMELLIA_256_CBC_SHA256                     0x00, 0xc3      TLS1.2
+	TLS_DHE_DSS_CAMELLIA_128_CBC_SHA1                       0x00, 0x44      SSL3.0
+	TLS_DHE_DSS_CAMELLIA_256_CBC_SHA1                       0x00, 0x87      SSL3.0
+	TLS_DHE_DSS_AES_128_CBC_SHA256                          0x00, 0x40      TLS1.2
+	TLS_DHE_DSS_AES_256_CBC_SHA256                          0x00, 0x6a      TLS1.2
+	TLS_DHE_DSS_AES_128_GCM_SHA256                          0x00, 0xa2      TLS1.2
+	TLS_DHE_DSS_AES_256_GCM_SHA384                          0x00, 0xa3      TLS1.2
+	TLS_DHE_DSS_CAMELLIA_128_GCM_SHA256                     0xc0, 0x80      TLS1.2
+	TLS_DHE_DSS_CAMELLIA_256_GCM_SHA384                     0xc0, 0x81      TLS1.2
+	TLS_DHE_RSA_3DES_EDE_CBC_SHA1                           0x00, 0x16      SSL3.0
+	TLS_DHE_RSA_AES_128_CBC_SHA1                            0x00, 0x33      SSL3.0
+	TLS_DHE_RSA_AES_256_CBC_SHA1                            0x00, 0x39      SSL3.0
+	TLS_DHE_RSA_CAMELLIA_128_CBC_SHA256                     0x00, 0xbe      TLS1.2
+	TLS_DHE_RSA_CAMELLIA_256_CBC_SHA256                     0x00, 0xc4      TLS1.2
+	TLS_DHE_RSA_CAMELLIA_128_CBC_SHA1                       0x00, 0x45      SSL3.0
+	TLS_DHE_RSA_CAMELLIA_256_CBC_SHA1                       0x00, 0x88      SSL3.0
+	TLS_DHE_RSA_AES_128_CBC_SHA256                          0x00, 0x67      TLS1.2
+	TLS_DHE_RSA_AES_256_CBC_SHA256                          0x00, 0x6b      TLS1.2
+	TLS_DHE_RSA_AES_128_GCM_SHA256                          0x00, 0x9e      TLS1.2
+	TLS_DHE_RSA_AES_256_GCM_SHA384                          0x00, 0x9f      TLS1.2
+	TLS_DHE_RSA_CAMELLIA_128_GCM_SHA256                     0xc0, 0x7c      TLS1.2
+	TLS_DHE_RSA_CAMELLIA_256_GCM_SHA384                     0xc0, 0x7d      TLS1.2
+	TLS_DHE_RSA_CHACHA20_POLY1305                           0xcc, 0xaa      TLS1.2
+	TLS_DHE_RSA_AES_128_CCM                                 0xc0, 0x9e      TLS1.2
+	TLS_DHE_RSA_AES_256_CCM                                 0xc0, 0x9f      TLS1.2
+	TLS_DHE_RSA_AES_128_CCM_8                               0xc0, 0xa2      TLS1.2
+	TLS_DHE_RSA_AES_256_CCM_8                               0xc0, 0xa3      TLS1.2
+	TLS_ECDHE_RSA_NULL_SHA1                                 0xc0, 0x10      SSL3.0
+	TLS_ECDHE_RSA_3DES_EDE_CBC_SHA1                         0xc0, 0x12      SSL3.0
+	TLS_ECDHE_RSA_AES_128_CBC_SHA1                          0xc0, 0x13      SSL3.0
+	TLS_ECDHE_RSA_AES_256_CBC_SHA1                          0xc0, 0x14      SSL3.0
+	TLS_ECDHE_RSA_AES_256_CBC_SHA384                        0xc0, 0x28      TLS1.2
+	TLS_ECDHE_RSA_ARCFOUR_128_SHA1                          0xc0, 0x11      SSL3.0
+	TLS_ECDHE_RSA_CAMELLIA_128_CBC_SHA256                   0xc0, 0x76      TLS1.2
+	TLS_ECDHE_RSA_CAMELLIA_256_CBC_SHA384                   0xc0, 0x77      TLS1.2
+	TLS_ECDHE_ECDSA_NULL_SHA1                               0xc0, 0x06      SSL3.0
+	TLS_ECDHE_ECDSA_3DES_EDE_CBC_SHA1                       0xc0, 0x08      SSL3.0
+	TLS_ECDHE_ECDSA_AES_128_CBC_SHA1                        0xc0, 0x09      SSL3.0
+	TLS_ECDHE_ECDSA_AES_256_CBC_SHA1                        0xc0, 0x0a      SSL3.0
+	TLS_ECDHE_ECDSA_ARCFOUR_128_SHA1                        0xc0, 0x07      SSL3.0
+	TLS_ECDHE_ECDSA_CAMELLIA_128_CBC_SHA256                 0xc0, 0x72      TLS1.2
+	TLS_ECDHE_ECDSA_CAMELLIA_256_CBC_SHA384                 0xc0, 0x73      TLS1.2
+	TLS_ECDHE_ECDSA_AES_128_CBC_SHA256                      0xc0, 0x23      TLS1.2
+	TLS_ECDHE_RSA_AES_128_CBC_SHA256                        0xc0, 0x27      TLS1.2
+	TLS_ECDHE_ECDSA_CAMELLIA_128_GCM_SHA256                 0xc0, 0x86      TLS1.2
+	TLS_ECDHE_ECDSA_CAMELLIA_256_GCM_SHA384                 0xc0, 0x87      TLS1.2
+	TLS_ECDHE_ECDSA_AES_128_GCM_SHA256                      0xc0, 0x2b      TLS1.2
+	TLS_ECDHE_ECDSA_AES_256_GCM_SHA384                      0xc0, 0x2c      TLS1.2
+	TLS_ECDHE_RSA_AES_128_GCM_SHA256                        0xc0, 0x2f      TLS1.2
+	TLS_ECDHE_RSA_AES_256_GCM_SHA384                        0xc0, 0x30      TLS1.2
+	TLS_ECDHE_ECDSA_AES_256_CBC_SHA384                      0xc0, 0x24      TLS1.2
+	TLS_ECDHE_RSA_CAMELLIA_128_GCM_SHA256                   0xc0, 0x8a      TLS1.2
+	TLS_ECDHE_RSA_CAMELLIA_256_GCM_SHA384                   0xc0, 0x8b      TLS1.2
+	TLS_ECDHE_RSA_CHACHA20_POLY1305                         0xcc, 0xa8      TLS1.2
+	TLS_ECDHE_ECDSA_CHACHA20_POLY1305                       0xcc, 0xa9      TLS1.2
+	TLS_ECDHE_ECDSA_AES_128_CCM                             0xc0, 0xac      TLS1.2
+	TLS_ECDHE_ECDSA_AES_256_CCM                             0xc0, 0xad      TLS1.2
+	TLS_ECDHE_ECDSA_AES_128_CCM_8                           0xc0, 0xae      TLS1.2
+	TLS_ECDHE_ECDSA_AES_256_CCM_8                           0xc0, 0xaf      TLS1.2
+	TLS_ECDHE_PSK_3DES_EDE_CBC_SHA1                         0xc0, 0x34      SSL3.0
+	TLS_ECDHE_PSK_AES_128_CBC_SHA1                          0xc0, 0x35      SSL3.0
+	TLS_ECDHE_PSK_AES_256_CBC_SHA1                          0xc0, 0x36      SSL3.0
+	TLS_ECDHE_PSK_AES_128_CBC_SHA256                        0xc0, 0x37      TLS1.2
+	TLS_ECDHE_PSK_AES_256_CBC_SHA384                        0xc0, 0x38      TLS1.2
+	TLS_ECDHE_PSK_ARCFOUR_128_SHA1                          0xc0, 0x33      SSL3.0
+	TLS_ECDHE_PSK_NULL_SHA1                                 0xc0, 0x39      SSL3.0
+	TLS_ECDHE_PSK_NULL_SHA256                               0xc0, 0x3a      TLS1.2
+	TLS_ECDHE_PSK_NULL_SHA384                               0xc0, 0x3b      TLS1.0
+	TLS_ECDHE_PSK_CAMELLIA_128_CBC_SHA256                   0xc0, 0x9a      TLS1.2
+	TLS_ECDHE_PSK_CAMELLIA_256_CBC_SHA384                   0xc0, 0x9b      TLS1.2
+	TLS_PSK_ARCFOUR_128_SHA1                                0x00, 0x8a      SSL3.0
+	TLS_PSK_3DES_EDE_CBC_SHA1                               0x00, 0x8b      SSL3.0
+	TLS_PSK_AES_128_CBC_SHA1                                0x00, 0x8c      SSL3.0
+	TLS_PSK_AES_256_CBC_SHA1                                0x00, 0x8d      SSL3.0
+	TLS_PSK_AES_128_CBC_SHA256                              0x00, 0xae      TLS1.2
+	TLS_PSK_AES_256_GCM_SHA384                              0x00, 0xa9      TLS1.2
+	TLS_PSK_CAMELLIA_128_GCM_SHA256                         0xc0, 0x8e      TLS1.2
+	TLS_PSK_CAMELLIA_256_GCM_SHA384                         0xc0, 0x8f      TLS1.2
+	TLS_PSK_AES_128_GCM_SHA256                              0x00, 0xa8      TLS1.2
+	TLS_PSK_NULL_SHA1                                       0x00, 0x2c      SSL3.0
+	TLS_PSK_NULL_SHA256                                     0x00, 0xb0      TLS1.2
+	TLS_PSK_CAMELLIA_128_CBC_SHA256                         0xc0, 0x94      TLS1.2
+	TLS_PSK_CAMELLIA_256_CBC_SHA384                         0xc0, 0x95      TLS1.2
+	TLS_PSK_AES_256_CBC_SHA384                              0x00, 0xaf      TLS1.2
+	TLS_PSK_NULL_SHA384                                     0x00, 0xb1      TLS1.2
+	TLS_RSA_PSK_ARCFOUR_128_SHA1                            0x00, 0x92      TLS1.0
+	TLS_RSA_PSK_3DES_EDE_CBC_SHA1                           0x00, 0x93      TLS1.0
+	TLS_RSA_PSK_AES_128_CBC_SHA1                            0x00, 0x94      TLS1.0
+	TLS_RSA_PSK_AES_256_CBC_SHA1                            0x00, 0x95      TLS1.0
+	TLS_RSA_PSK_CAMELLIA_128_GCM_SHA256                     0xc0, 0x92      TLS1.2
+	TLS_RSA_PSK_CAMELLIA_256_GCM_SHA384                     0xc0, 0x93      TLS1.2
+	TLS_RSA_PSK_AES_128_GCM_SHA256                          0x00, 0xac      TLS1.2
+	TLS_RSA_PSK_AES_128_CBC_SHA256                          0x00, 0xb6      TLS1.2
+	TLS_RSA_PSK_NULL_SHA1                                   0x00, 0x2e      TLS1.0
+	TLS_RSA_PSK_NULL_SHA256                                 0x00, 0xb8      TLS1.2
+	TLS_RSA_PSK_AES_256_GCM_SHA384                          0x00, 0xad      TLS1.2
+	TLS_RSA_PSK_AES_256_CBC_SHA384                          0x00, 0xb7      TLS1.2
+	TLS_RSA_PSK_NULL_SHA384                                 0x00, 0xb9      TLS1.2
+	TLS_RSA_PSK_CAMELLIA_128_CBC_SHA256                     0xc0, 0x98      TLS1.2
+	TLS_RSA_PSK_CAMELLIA_256_CBC_SHA384                     0xc0, 0x99      TLS1.2
+	TLS_DHE_PSK_ARCFOUR_128_SHA1                            0x00, 0x8e      SSL3.0
+	TLS_DHE_PSK_3DES_EDE_CBC_SHA1                           0x00, 0x8f      SSL3.0
+	TLS_DHE_PSK_AES_128_CBC_SHA1                            0x00, 0x90      SSL3.0
+	TLS_DHE_PSK_AES_256_CBC_SHA1                            0x00, 0x91      SSL3.0
+	TLS_DHE_PSK_AES_128_CBC_SHA256                          0x00, 0xb2      TLS1.2
+	TLS_DHE_PSK_AES_128_GCM_SHA256                          0x00, 0xaa      TLS1.2
+	TLS_DHE_PSK_NULL_SHA1                                   0x00, 0x2d      SSL3.0
+	TLS_DHE_PSK_NULL_SHA256                                 0x00, 0xb4      TLS1.2
+	TLS_DHE_PSK_NULL_SHA384                                 0x00, 0xb5      TLS1.2
+	TLS_DHE_PSK_AES_256_CBC_SHA384                          0x00, 0xb3      TLS1.2
+	TLS_DHE_PSK_AES_256_GCM_SHA384                          0x00, 0xab      TLS1.2
+	TLS_DHE_PSK_CAMELLIA_128_CBC_SHA256                     0xc0, 0x96      TLS1.2
+	TLS_DHE_PSK_CAMELLIA_256_CBC_SHA384                     0xc0, 0x97      TLS1.2
+	TLS_DHE_PSK_CAMELLIA_128_GCM_SHA256                     0xc0, 0x90      TLS1.2
+	TLS_DHE_PSK_CAMELLIA_256_GCM_SHA384                     0xc0, 0x91      TLS1.2
+	TLS_PSK_AES_128_CCM                                     0xc0, 0xa4      TLS1.2
+	TLS_PSK_AES_256_CCM                                     0xc0, 0xa5      TLS1.2
+	TLS_DHE_PSK_AES_128_CCM                                 0xc0, 0xa6      TLS1.2
+	TLS_DHE_PSK_AES_256_CCM                                 0xc0, 0xa7      TLS1.2
+	TLS_PSK_AES_128_CCM_8                                   0xc0, 0xa8      TLS1.2
+	TLS_PSK_AES_256_CCM_8                                   0xc0, 0xa9      TLS1.2
+	TLS_DHE_PSK_AES_128_CCM_8                               0xc0, 0xaa      TLS1.2
+	TLS_DHE_PSK_AES_256_CCM_8                               0xc0, 0xab      TLS1.2
+	TLS_DHE_PSK_CHACHA20_POLY1305                           0xcc, 0xad      TLS1.2
+	TLS_ECDHE_PSK_CHACHA20_POLY1305                         0xcc, 0xac      TLS1.2
+	TLS_RSA_PSK_CHACHA20_POLY1305                           0xcc, 0xae      TLS1.2
+	TLS_PSK_CHACHA20_POLY1305                               0xcc, 0xab      TLS1.2
+	TLS_DH_ANON_ARCFOUR_128_MD5                             0x00, 0x18      SSL3.0
+	TLS_DH_ANON_3DES_EDE_CBC_SHA1                           0x00, 0x1b      SSL3.0
+	TLS_DH_ANON_AES_128_CBC_SHA1                            0x00, 0x34      SSL3.0
+	TLS_DH_ANON_AES_256_CBC_SHA1                            0x00, 0x3a      SSL3.0
+	TLS_DH_ANON_CAMELLIA_128_CBC_SHA256                     0x00, 0xbf      TLS1.2
+	TLS_DH_ANON_CAMELLIA_256_CBC_SHA256                     0x00, 0xc5      TLS1.2
+	TLS_DH_ANON_CAMELLIA_128_CBC_SHA1                       0x00, 0x46      SSL3.0
+	TLS_DH_ANON_CAMELLIA_256_CBC_SHA1                       0x00, 0x89      SSL3.0
+	TLS_DH_ANON_AES_128_CBC_SHA256                          0x00, 0x6c      TLS1.2
+	TLS_DH_ANON_AES_256_CBC_SHA256                          0x00, 0x6d      TLS1.2
+	TLS_DH_ANON_AES_128_GCM_SHA256                          0x00, 0xa6      TLS1.2
+	TLS_DH_ANON_AES_256_GCM_SHA384                          0x00, 0xa7      TLS1.2
+	TLS_DH_ANON_CAMELLIA_128_GCM_SHA256                     0xc0, 0x84      TLS1.2
+	TLS_DH_ANON_CAMELLIA_256_GCM_SHA384                     0xc0, 0x85      TLS1.2
+	TLS_ECDH_ANON_NULL_SHA1                                 0xc0, 0x15      SSL3.0
+	TLS_ECDH_ANON_3DES_EDE_CBC_SHA1                         0xc0, 0x17      SSL3.0
+	TLS_ECDH_ANON_AES_128_CBC_SHA1                          0xc0, 0x18      SSL3.0
+	TLS_ECDH_ANON_AES_256_CBC_SHA1                          0xc0, 0x19      SSL3.0
+	TLS_ECDH_ANON_ARCFOUR_128_SHA1                          0xc0, 0x16      SSL3.0
+	TLS_SRP_SHA_3DES_EDE_CBC_SHA1                           0xc0, 0x1a      SSL3.0
+	TLS_SRP_SHA_AES_128_CBC_SHA1                            0xc0, 0x1d      SSL3.0
+	TLS_SRP_SHA_AES_256_CBC_SHA1                            0xc0, 0x20      SSL3.0
+	TLS_SRP_SHA_DSS_3DES_EDE_CBC_SHA1                       0xc0, 0x1c      SSL3.0
+	TLS_SRP_SHA_RSA_3DES_EDE_CBC_SHA1                       0xc0, 0x1b      SSL3.0
+	TLS_SRP_SHA_DSS_AES_128_CBC_SHA1                        0xc0, 0x1f      SSL3.0
+	TLS_SRP_SHA_RSA_AES_128_CBC_SHA1                        0xc0, 0x1e      SSL3.0
+	TLS_SRP_SHA_DSS_AES_256_CBC_SHA1                        0xc0, 0x22      SSL3.0
+	TLS_SRP_SHA_RSA_AES_256_CBC_SHA1                        0xc0, 0x21      SSL3.0
+
+	Certificate types: CTYPE-X.509, CTYPE-OPENPGP
+	Protocols: VERS-SSL3.0, VERS-TLS1.0, VERS-TLS1.1, VERS-TLS1.2, VERS-DTLS0.9, VERS-DTLS1.0, VERS-DTLS1.2
+	Ciphers: AES-256-CBC, AES-192-CBC, AES-128-CBC, AES-128-GCM, AES-256-GCM, AES-128-CCM, AES-256-CCM, AES-128-CCM-8, AES-256-CCM-8, ARCFOUR-128, ESTREAM-SALSA20-256, SALSA20-256, CAMELLIA-256-CBC, CAMELLIA-192-CBC, CAMELLIA-128-CBC, CHACHA20-POLY1305, CAMELLIA-128-GCM, CAMELLIA-256-GCM, 3DES-CBC, DES-CBC, RC2-40, NULL
+	MACs: SHA1, MD5, SHA256, SHA384, SHA512, SHA224, UMAC-96, UMAC-128, AEAD
+	Digests: SHA1, MD5, SHA256, SHA384, SHA512, SHA224
+	Key exchange algorithms: ANON-DH, ANON-ECDH, RSA, DHE-RSA, DHE-DSS, ECDHE-RSA, ECDHE-ECDSA, SRP-DSS, SRP-RSA, SRP, PSK, RSA-PSK, DHE-PSK, ECDHE-PSK, RSA-EXPORT
+	Compression: COMP-DEFLATE, COMP-NULL
+	Elliptic curves: CURVE-SECP192R1, CURVE-SECP224R1, CURVE-SECP256R1, CURVE-SECP384R1, CURVE-SECP521R1
+	Public Key Systems: RSA, DSA, EC
+	PK-signatures: SIGN-RSA-SHA1, SIGN-RSA-SHA1, SIGN-RSA-SHA224, SIGN-RSA-SHA256, SIGN-RSA-SHA384, SIGN-RSA-SHA512, SIGN-RSA-RMD160, SIGN-DSA-SHA1, SIGN-DSA-SHA1, SIGN-DSA-SHA224, SIGN-DSA-SHA256, SIGN-RSA-MD5, SIGN-RSA-MD5, SIGN-RSA-MD2, SIGN-ECDSA-SHA1, SIGN-ECDSA-SHA224, SIGN-ECDSA-SHA256, SIGN-ECDSA-SHA384, SIGN-ECDSA-SHA512
+
+
+Slide:CERTIFICATES STILL VALID?
+Usually valid at least one year, this is a fresh installation so it is skipped.
+
+
+Slide:HOSTNAME AND IP ADDRESS
+Noted, no actual IP adress is used throughout the installation, the 0.0.0.0 implies any ip adress should function, moreover, the 0.0.0.0:53589 has been verified in a successfull manual installation multiple times.
+
+
+Slide:Diagnostics
+Include the task diagnostics output:
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo task diagnostics
+	[sudo] password for a:
+
+	task 2.5.0
+	   Platform: Linux
+
+	Compiler
+	    Version: 5.3.1 20160216
+	       Caps: +stdc +stdc_hosted +LP64 +c8 +i32 +l64 +vp64 +time_t64
+	 Compliance: C++11
+
+	Build Features
+	      CMake: 3.2.2
+	    libuuid: libuuid + uuid_unparse_lower
+	  libgnutls: 3.4.9
+	 Build type: None
+
+	Configuration
+	       File: /home/a/.taskrc (found), 1610 bytes, mode 100644
+	       Data: /home/a/.task (found), dir, mode 40755
+	    Locking: Enabled
+	         GC: Enabled
+	     Server: 0.0.0.0:53589
+	         CA: /home/a/.task/ca.cert.pem, readable, 3765 bytes
+	      Trust: strict
+	Certificate: /home/a/.task/First.cert.pem, readable, 3751 bytes
+	        Key: /home/a/.task/First.key.pem, readable, 25122 bytes
+	    Ciphers: NORMAL
+	      Creds: Public/First/************************************
+
+	Hooks
+	    Scripts: Enabled
+	             (-none-)
+
+	Tests
+	      $TERM: xterm-256color (146x75)
+	       Dups: Scanned 1 tasks for duplicate UUIDs:
+	             No duplicates found
+
+Slide:Diagnostics Part II
+Include the taskd diagnostics output:
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo taskd diagnostics --data /var/taskd
+
+	taskd 1.1.0
+	    Platform: Linux
+	    Hostname: DESKTOP-desktopNameAuto
+
+	Compiler
+	     Version: 5.3.1 20160216
+	        Caps: +stdc +stdc_hosted +200809 +LP64 +c8 +i32 +l64 +vp64 +time_t64
+	  Compliance: C++11
+
+	Build Features
+	       CMake: 3.2.2
+	     libuuid: libuuid + uuid_unparse_lower
+	   libgnutls: 3.4.9
+	  Build type: None
+
+	Configuration
+	   TASKDDATA:
+	        root: /var/taskd (readable)
+	      config: /var/taskd/config (readable)
+	          CA: /var/taskd/ca.cert.pem (readable)
+	 Certificate: /var/taskd/server.cert.pem (readable)
+	         Key: /var/taskd/server.key.pem (readable)
+	         CRL: /var/taskd/server.crl.pem (readable)
+	         Log: /var/taskd/taskd.log (found)
+	    PID File: /var/taskd/taskd.pid (found)
+	      Server: 0.0.0.0:53589
+	 Max Request: 1048576 bytes
+	     Ciphers:
+	       Trust: strict
+
+
+Slide:TASKSERVER DEBUG MODE Part I
+	a@DESKTOP-desktopNameAuto:/var/taskd$ taskdctl stop
+	The TASKDDATA variable must be set.
+	a@DESKTOP-desktopNameAuto:/var/taskd$ task server
+	[task next ( server )]
+	Taskwarrior does not have the correct permissions for '/home/a/.task/pending.data'.
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo task server
+	[task next ( server )]
+	No matches.
+	a@DESKTOP-desktopNameAuto:/var/taskd$ export TASKDDATA=/var/taskd
+	a@DESKTOP-desktopNameAuto:/var/taskd$ taskdctl stop
+	/usr/bin/taskdctl stop: daemon (no pid file) not running
+	a@DESKTOP-desktopNameAuto:/var/taskd$ task server
+	[task next ( server )]
+	Taskwarrior does not have the correct permissions for '/home/a/.task/pending.data'.
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo task server
+	[task next ( server )]
+	No matches.
+	a@DESKTOP-desktopNameAuto:/var/taskd$
+
+Analysis: The TASKDDATA variable is not set at the end of the automated installation. Since this is done for every command with:
+	Map<String, String> env = pb.environment();
+	 System.out.println("Setting environment variable "+envVarName+"="+envPath);
+	 env.put(envVarName, envPath);
+	 //source: https://stackoverflow.com/questions/7369664/using-export-in-java
+	 pb.environment().put(envVarName, envPath);
+	 Process process = pb.start();
+
+One can imagine several problems:
+	0. either the double methods to set the environment separately are leading to incorrect setting of the environment variable during execution of the
+	commands.
+		0.1 TODO: First use method 1 with the env.put.. separately
+		0.2 TODO: Next use method 2 with pb.environ... separately
+		
+	1. The environment variable is not set correctly by either of the methods, if so, more research is required.
+	2. The environment variable is currently not set for all commmands, which might lead to failures in execution of the commands.
+		2.1 TODO: Set that environment variable TASKDDATA for every command that is executed and not just for the last few commands
+		0.2 TODO: Find out how to set the environment variable "permanently" or at least such, that it is still set after the auto installation is finished.
+		0.2.1 (Note, the export command does not work from Java.)
+
+Slide:TASKSERVER DEBUG MODE: Part II
+	a@DESKTOP-desktopNameAuto:/var/taskd$ taskd server --debug --debug.tls=2
+does not yield any output.
+
+Slide:TASKSERVER DEBUG MODE: Part III
+	a@DESKTOP-desktopNameAuto:/var/taskd$ task rc.debug=1 rc.debug.tls=2 sync
+	Timer Config::load (/home/a/.taskrc) 0.001078 sec
+	Parse Tree (before command-specifіc processing)
+	  _original_args
+	    task rc.debug=1 rc.debug.tls=2 sync
+	  _args
+	    word basename='task' raw='task' BINARY
+	    pair modifier='debug' name='rc' raw='rc.debug=1' separator='=' value='1' CONFIG ORIGINAL
+	    pair modifier='debug.tls' name='rc' raw='rc.debug.tls=2' separator='=' value='2' CONFIG ORIGINAL
+	    identifier canonical='synchronize' raw='sync' ORIGINAL CMD ALLOWSMISC
+
+	Configuration override rc.debug:1
+	Configuration override rc.debug.tls:2
+	Taskwarrior does not have the correct permissions for '/home/a/.task/backlog.data'.
+
+Slide:TASKSERVER DEBUG MODE: Part IV
+	a@DESKTOP-desktopNameAuto:/var/taskd$ sudo task rc.debug=1 rc.debug.tls=2 sync
+	c: INFO Server certificate will be verified.
+	c: INFO The certificate is NOT trusted. The name in the certificate does not match the expected.
+	Timer Config::load (/home/a/.taskrc) 0.001742 sec
+	Parse Tree (before command-specifіc processing)
+	  _original_args
+	    task rc.debug=1 rc.debug.tls=2 sync
+	  _args
+	    word basename='task' raw='task' BINARY
+	    pair modifier='debug' name='rc' raw='rc.debug=1' separator='=' value='1' CONFIG ORIGINAL
+	    pair modifier='debug.tls' name='rc' raw='rc.debug.tls=2' separator='=' value='2' CONFIG ORIGINAL
+	    identifier canonical='synchronize' raw='sync' ORIGINAL CMD ALLOWSMISC
+
+	  pending.data rw - T0000+000~000 L0000+000
+	completed.data rw - T0000+000~000 L0000+000
+	     undo.data rw - T0000+000~000 L0000+000
+	  backlog.data rw - T0000+000~000 L0000+000
+
+	Perf task 2.5.0 - 20190415T185522Z init:5055 load:0 gc:0 filter:0 commit:7 sort:0 render:0 hooks:5 other:39777 total:44844
+
+	Syncing with 0.0.0.0:53589
+
+	Configuration override rc.debug:1
+	Configuration override rc.debug.tls:2
+	Handshake failed.  Error in the certificate.
+	Sync failed.  Could not connect to the Taskserver.
+		a@DESKTOP-desktopNameAuto:/var/taskd$
+
+
+Slide:IP ADDRESS
+	a@DESKTOP-desktopNameAuto:/var/taskd$ ifconfig -a
+	eth0      Link encap:Ethernet  HWaddr d8:cb:8a:7c:0a:f4
+	          inet addr:88.202.160.125  Bcast:88.202.160.255  Mask:255.255.255.0
+	          inet6 addr: fe80::2c27:203a:b20c:9900/64 Scope:Global
+	          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+	          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+	          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+	          collisions:0
+	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+	lo        Link encap:Local Loopback
+	          inet addr:127.0.0.1  Mask:255.0.0.0
+	          inet6 addr: ::1/128 Scope:Global
+	          UP LOOPBACK RUNNING  MTU:1500  Metric:1
+	          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+	          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+	          collisions:0
+	          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+
+Slide:PORT
+	a@DESKTOP-desktopNameAuto:/var/taskd$ lsof -i TCP:53589 -s TCP:LISTEN
+(no output)
+
+
+Slide:CERTIFICATE PART I
+	a@DESKTOP-desktopNameAuto:/var/taskd$ openssl x509 -noout -in server.cert.pem -subject
+	Error opening Certificate server.cert.pem
+	139716453795480:error:0200100D:system library:fopen:Permission denied:bss_file.c:398:fopen('server.cert.pem','r')
+	139716453795480:error:20074002:BIO routines:FILE_CTRL:system lib:bss_file.c:400:
+	unable to load certificate
+
+(This yields an error)
+
+Slide:CERTIFICATE PART II
+	a@DESKTOP-desktopNameAuto:/var/taskd$ certtool -i --infile=server.cert.pem | grep Subject:
+	server.cert.pem
+
+
+also weasel for old guide.
