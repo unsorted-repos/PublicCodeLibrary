@@ -1,18 +1,35 @@
 Hi, 
 
+A. Problem description
 while working to automate the taskwarrior installation process for the taskwarrior server on a Windows 10 Windows Subsystems for Linux Ubuntu 16.04 system, I am running into a problem with the certificates; a handshake failed error. So I evaluated all the steps in the troublehsooting guide for taskserver and identified the problem in sections: Slide:HANDSHAKE ERRORS Part III and IV. To ensure the output of these two sections is problematic I compared them with a succesfull manual sync (that is installed using the same manual commands as the automated version implements).
 
-Furthermore, the output of the task diagnostics and taskd diagnostics are located in sections:
-Slide:Diagnostics Part I and II.
 
+B. Question(s):
+0. Does anyone see why the certificate error is generated? (in either: the log file of the automated installation or the "GenerateCommandsV2.java")
+1.a I pinpointed the error the the in sections Slide:HANDSHAKE ERRORS Part III and IV of the troubleshooting guide, but I currently have difficulties understanding the implications of those errors. What do they mean? 
+1.b How can I resolve those errors?
+2. Is there a reason that I am missing which leads to the certificate error? Because as far as I have been able to compare, the automated installation executes the exact same commands as the manual installation which is succesfull.
+3. Do you know any way of verifying whether the environment variable TASKDDATA is set correctly? Because when I run the command "echo $TASKDDATA" from java, it returns "$TASKDDATA" in stead of the value that that env. var. is supposed to contain.
+
+Any feedback or partial answers to any of the questions or different topics is greatly appreciated!
+
+
+C. data reflecting my actions:
 The log files of the successfull manual installation is located at:
 https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/troubleshooting/manualInstallationV3.txt
 The log files of the erroneous automated installation is located at:
 https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/troubleshooting/installationLogV3.txt
+The list of automated commands are generated with:
+https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/src/autoInstallTaskwarrior/GenerateCommandsV2.java
+The commands (and environment generation) is executed with:
+https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/src/autoInstallTaskwarrior/RunCommandsWithArgsV1.java
+The full project with instructions is located at:
+https://github.com/a-t-0/PublicCodeLibrary/tree/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior
+Furthermore, the output of the task diagnostics and taskd diagnostics are located in sections:
+Slide:Diagnostics Part I and II.
 
 
-
-
+D. Evaluation of the troubleshooting guide:
 Source of troubleshooting strategy: https://gitpitch.com/pitchme/print/github/GothenburgBitFactory/taskserver-troubleshooting/master/white/PITCHME.pdf
 
 Slide: Verify GNUTLS Support:
@@ -630,6 +647,5 @@ Slide:CERTIFICATE PART I
 Slide:CERTIFICATE PART II
 	a@DESKTOP-desktopNameAuto:/var/taskd$ certtool -i --infile=server.cert.pem | grep Subject:
 	server.cert.pem
-
 
 also weasel for old guide.
