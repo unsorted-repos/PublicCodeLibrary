@@ -1,0 +1,662 @@
+
+
+
+
+
+
+
+
+
+
+
+
+Path =/mnt/c/twInstall/
+Path =/mnt/c/twInstall/
+Incoming path inc. filename:/mnt/c/twInstall/vars
+Creating new file0:/mnt/c/twInstall/vars
+File already exists.
+Creating new file1:/mnt/c/twInstall/vars
+JUST WROTE CONTENT VARS FILE!
+Should have just printed vars
+RUNNING COMMAND:[sudo, apt, update, /mnt/c/twInstall/]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://archive.ubuntu.com/ubuntu bionic InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+177 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[sudo, apt, install, task, /mnt/c/twInstall/]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package task
+Return code = 100
+RUNNING COMMAND:[sudo, apt, install, taskd, /mnt/c/twInstall/]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  gnutls-bin libgnutls-dane0 libopts25 libunbound2
+Suggested packages:
+  taskwarrior
+The following NEW packages will be installed:
+  gnutls-bin libgnutls-dane0 libopts25 libunbound2 taskd
+0 upgraded, 5 newly installed, 0 to remove and 177 not upgraded.
+Need to get 777 kB of archives.
+After this operation, 2790 kB of additional disk space will be used.
+Do you want to continue? [Y/n] Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libunbound2 amd64 1.6.7-1ubuntu2.2 [266 kB]
+Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgnutls-dane0 amd64 3.5.18-1ubuntu1 [21.0 kB]
+Get:3 http://archive.ubuntu.com/ubuntu bionic/universe amd64 libopts25 amd64 1:5.18.12-4 [58.2 kB]
+Get:4 http://archive.ubuntu.com/ubuntu bionic/universe amd64 gnutls-bin amd64 3.5.18-1ubuntu1 [247 kB]
+Get:5 http://archive.ubuntu.com/ubuntu bionic/universe amd64 taskd amd64 1.1.0+dfsg-3 [184 kB]
+Fetched 777 kB in 0s (2955 kB/s)
+Selecting previously unselected package libunbound2:amd64.
+(Reading database ... 43146 files and directories currently installed.)
+Preparing to unpack .../libunbound2_1.6.7-1ubuntu2.2_amd64.deb ...
+Unpacking libunbound2:amd64 (1.6.7-1ubuntu2.2) ...
+Selecting previously unselected package libgnutls-dane0:amd64.
+Preparing to unpack .../libgnutls-dane0_3.5.18-1ubuntu1_amd64.deb ...
+Unpacking libgnutls-dane0:amd64 (3.5.18-1ubuntu1) ...
+Selecting previously unselected package libopts25:amd64.
+Preparing to unpack .../libopts25_1%3a5.18.12-4_amd64.deb ...
+Unpacking libopts25:amd64 (1:5.18.12-4) ...
+Selecting previously unselected package gnutls-bin.
+Preparing to unpack .../gnutls-bin_3.5.18-1ubuntu1_amd64.deb ...
+Unpacking gnutls-bin (3.5.18-1ubuntu1) ...
+Selecting previously unselected package taskd.
+Preparing to unpack .../taskd_1.1.0+dfsg-3_amd64.deb ...
+Unpacking taskd (1.1.0+dfsg-3) ...
+Setting up libunbound2:amd64 (1.6.7-1ubuntu2.2) ...
+Processing triggers for ureadahead (0.100.0-20) ...
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Setting up libgnutls-dane0:amd64 (3.5.18-1ubuntu1) ...
+Processing triggers for systemd (237-3ubuntu10.3) ...
+Setting up libopts25:amd64 (1:5.18.12-4) ...
+Processing triggers for man-db (2.8.3-2) ...
+Setting up gnutls-bin (3.5.18-1ubuntu1) ...
+Setting up taskd (1.1.0+dfsg-3) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/taskd.service → /lib/systemd/system/taskd.service.
+invoke-rc.d: could not determine current runlevel
+Processing triggers for libc-bin (2.27-3ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-20) ...
+Processing triggers for systemd (237-3ubuntu10.3) ...
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, init, --data, /var/taskd, /mnt/c/twInstall/]
+You must specify the 'server' variable before attempting a server start, for example:
+  taskd config server localhost:53589
+
+Created /var/taskd/config
+Return code = 0
+RUNNING COMMAND:[cp, /mnt/c/twInstall/vars, /usr/share/taskd/pki/, /mnt/c/twInstall/]
+Return code = 0
+RUNNING COMMAND:[sudo, /usr/share/taskd/pki/generate, /usr/share/taskd/pki/]
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a self signed certificate...
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb4b06501ff1d50c9d16a0a
+        Validity:
+                Not Before: Mon Apr 15 16:25:09 UTC 2019
+                Not After: Tue Apr 14 16:25:09 UTC 2020
+        Subject: C=SE,ST=Västra Götaland,L=Göteborg,O=Göteborg Bit Factory,CN=0.0.0.0:53589
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:c2:d9:a7:68:8c:c7:0a:9e:3a:f3:1f:14:cd:3a:9a
+                        90:69:cb:5a:7e:a4:6a:f5:ff:36:38:04:96:56:51:32
+                        23:ef:eb:d4:df:89:53:c7:6d:34:dc:39:ed:44:1b:35
+                        a0:56:e5:70:24:b1:64:c3:f9:f2:2d:3a:44:8d:77:ff
+                        ba:1d:6e:9b:a2:ee:14:56:76:57:5b:39:7d:f4:35:ab
+                        91:12:77:0f:c9:63:13:35:0f:f5:e7:de:04:4c:3d:2b
+                        6a:ea:f7:6a:c5:85:d8:92:98:dc:76:6d:b4:ea:05:7f
+                        61:47:ac:c2:1c:c3:28:b8:42:6c:aa:02:00:25:33:0e
+                        45:6d:34:d5:c7:0e:61:8c:ee:7f:dc:57:19:ca:46:aa
+                        52:aa:1f:06:02:aa:fa:46:ee:bd:32:0d:2a:72:c5:c6
+                        db:9e:62:49:91:5c:36:8e:56:81:da:e1:93:78:af:b5
+                        8a:d8:58:bf:94:a6:7d:6d:ab:7e:0c:be:0b:ec:54:fe
+                        6b:89:38:4a:76:98:f8:96:d8:f1:92:5a:70:03:69:75
+                        bc:30:b0:5c:e6:f6:7a:4c:88:89:39:b4:cb:2c:00:06
+                        84:ca:8e:dd:5f:8c:8c:41:41:d0:ac:b8:8f:f4:e6:39
+                        72:a4:41:d2:f1:fd:00:21:77:56:3d:42:6b:a1:2a:85
+                        b8:41:ac:62:a6:44:76:12:47:31:9f:6f:6e:48:b3:39
+                        51:c6:0e:c5:07:81:1c:14:76:7e:00:37:46:90:a7:83
+                        04:bb:fa:23:e9:d5:a3:4b:be:af:1c:3e:0e:7c:a4:36
+                        79:05:10:b1:20:85:8a:26:02:56:4c:9c:df:d5:e3:63
+                        6f:0f:22:16:8b:90:b8:0f:32:87:62:40:c8:97:6b:93
+                        30:c5:1d:97:7f:85:b7:2b:9f:a6:d4:4b:f4:fa:69:be
+                        58:a4:16:bc:1e:50:5d:4f:ee:76:e4:13:af:cd:c3:45
+                        b2:2b:32:ed:6e:ae:f0:95:f9:e8:35:aa:71:3c:81:57
+                        e1:37:9b:ae:0e:69:1e:c7:70:b2:1b:6f:b0:68:b5:59
+                        0a:ca:1d:d0:33:b6:5d:cf:a2:da:ba:33:98:c4:0e:49
+                        9c:73:f0:f9:bd:0d:a5:aa:08:c0:f2:89:03:1c:d3:5d
+                        e3:fe:78:79:d8:1c:fa:7c:40:bc:86:c9:3c:df:5d:cb
+                        cc:bc:5f:01:13:d6:7e:df:c8:f1:fd:47:8b:9e:d8:eb
+                        31:4c:c2:15:7d:3f:f1:f6:33:67:28:d4:d8:7f:07:14
+                        41:66:3a:cc:ff:18:c1:03:fd:79:99:47:a8:47:08:58
+                        87:32:9a:77:38:96:5f:39:92:22:1d:41:8b:fd:95:c9
+                        b9
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): TRUE
+                Key Usage (critical):
+                        Certificate signing.
+                Subject Key Identifier (not critical):
+                        1d02de3d203f564f9111e610e61b3777aa3c6121
+Other Information:
+        Public Key ID:
+                sha1:1d02de3d203f564f9111e610e61b3777aa3c6121
+                sha256:e21031ced735365fcc29358dc1101a95ad4239f6c990bf22ad23f584dd975f39
+        Public Key PIN:
+                pin-sha256:4hAxztc1Nl/MKTWNwRAala1COfbJkL8irSP1hN2XXzk=
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |      o . =.*=   |
+                |     . = * *.    |
+                |      . * E * . .|
+                |       . + B + o |
+                |        S o o .  |
+                |           o o   |
+                |            +    |
+                |             .   |
+                |                 |
+                +-----------------+
+
+
+
+Signing certificate...
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Tue Apr 14 18:25:10 2020
+CA expiration time: Tue Apr 14 18:25:09 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb4b0662636a24ccc046373
+        Validity:
+                Not Before: Mon Apr 15 16:25:10 UTC 2019
+                Not After: Tue Apr 14 16:25:10 UTC 2020
+        Subject: O=Göteborg Bit Factory,CN=0.0.0.0:53589
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:c1:5e:4c:c4:3d:2d:ae:05:70:b8:c8:94:30:61:17
+                        b2:36:05:3d:16:ca:fd:78:99:f7:4f:78:3c:75:f7:a5
+                        a2:fe:ed:d3:5a:7d:94:af:62:ee:7e:50:83:cd:00:a0
+                        12:75:58:b9:55:31:60:15:20:d6:4e:53:e2:1a:fb:4e
+                        21:69:c1:bb:aa:c2:5c:dc:b4:11:b9:f0:3e:52:64:f0
+                        1b:b4:bd:fa:e0:b0:33:a2:4c:bc:1f:a1:7a:2f:5d:3e
+                        21:3d:a7:e6:5a:dc:da:4b:85:e8:4f:b2:c8:7e:ba:3d
+                        8f:16:a0:49:84:5c:7d:73:22:c1:d0:25:41:21:e6:7b
+                        10:f5:f6:68:d3:c9:4d:01:1e:83:97:12:43:4e:d7:cf
+                        c3:05:05:bc:39:b1:77:06:3f:15:9c:c2:ae:7f:83:f4
+                        13:8d:fc:a6:1a:46:1e:3e:63:2a:cd:a2:d8:7c:5b:8a
+                        c1:44:94:30:30:a9:89:83:01:9c:5d:a4:3e:ca:c7:9f
+                        1b:a0:34:27:71:c9:74:27:b1:94:4c:7d:b9:dd:43:59
+                        91:ac:99:3e:62:e1:27:6d:a5:5e:85:24:07:46:0a:cd
+                        64:f2:88:5f:bc:eb:68:97:2b:ac:a0:71:3e:45:7d:cd
+                        ba:0f:59:6a:eb:fc:44:85:2b:34:fc:4c:fe:f3:da:4d
+                        83:e7:12:e8:f0:e2:ac:c4:92:09:a6:6f:04:c7:ef:50
+                        1c:1c:1f:d3:79:46:c1:c9:72:56:3f:d1:57:fb:83:1b
+                        bd:c1:50:78:c6:fb:37:8b:f0:99:73:76:25:4f:fa:6d
+                        29:24:ae:aa:96:0b:73:28:40:61:90:b9:79:9f:17:c8
+                        ad:b0:e1:fb:8c:e4:7a:0b:0e:30:2b:6e:93:33:a1:63
+                        59:1a:31:5a:07:79:d9:56:53:94:f6:c7:6b:11:75:d0
+                        cb:8e:77:60:77:c6:b5:62:d4:40:1b:4d:31:16:ab:fb
+                        71:2d:19:d8:02:d9:48:60:cb:2e:2b:54:13:76:d0:3e
+                        35:c5:b5:1d:89:32:ab:d0:ea:8a:62:25:c1:8f:f1:b5
+                        a4:c8:1c:a2:e2:26:15:b9:71:10:ea:4f:da:30:76:c1
+                        39:5d:94:a7:2f:c4:26:26:05:91:ca:87:03:80:59:d6
+                        fe:d2:91:57:f2:9c:c4:36:c6:87:c2:83:ce:b8:91:82
+                        e0:2d:47:6a:26:aa:62:e0:61:2d:09:ce:00:ea:b7:2a
+                        83:60:74:e7:a1:ab:3b:3a:93:73:20:55:2c:5c:dc:ad
+                        60:70:91:fa:35:25:78:94:4f:a3:27:f9:26:6e:00:75
+                        2f:27:29:42:ad:05:64:65:d2:9a:8e:31:3e:f3:71:00
+                        bb
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Server.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        a7f373629919a4b826df54959f29eed1578ff447
+                Authority Key Identifier (not critical):
+                        1d02de3d203f564f9111e610e61b3777aa3c6121
+Other Information:
+        Public Key ID:
+                sha1:a7f373629919a4b826df54959f29eed1578ff447
+                sha256:2c1616754ff8091c45f195d71fb19ec673563d944ff69aa7239060b59daec323
+        Public Key PIN:
+                pin-sha256:LBYWdU/4CRxF8ZXXH7GexnNWPZRP9pqnI5BgtZ2uwyM=
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |                 |
+                |             .   |
+                |            o    |
+                |          .. . o |
+                |       .Soo . = E|
+                |      . .+.. + +o|
+                |       .+  =o o =|
+                |    . oo oB... ..|
+                |     +. ...+.    |
+                +-----------------+
+
+
+
+Signing certificate...
+Generating a signed CRL...
+Update times.
+
+X.509 Certificate Revocation List Information:
+        Version: 2
+        Issuer: C=SE,ST=Västra Götaland,L=Göteborg,O=Göteborg Bit Factory,CN=0.0.0.0:53589
+        Update dates:
+                Issued: Mon Apr 15 16:25:11 UTC 2019
+                Next at: Tue Apr 14 16:25:11 UTC 2020
+        Extensions:
+                Authority Key Identifier (not critical):
+                        1d02de3d203f564f9111e610e61b3777aa3c6121
+                CRL Number (not critical): 5cb4b0670fd623c48c47ae25
+        No revoked certificates.
+        Signature Algorithm: RSA-SHA256
+        Signature:
+                ae:62:ef:1d:e0:ff:7c:dc:93:22:03:9c:5f:1e:16:87
+                ac:5a:77:c1:2c:df:6a:61:3e:74:51:d0:8d:4f:72:37
+                c1:62:84:26:1e:80:74:bc:92:b8:37:b3:1a:13:75:10
+                61:53:05:94:d0:91:f9:04:a2:21:fe:03:bc:94:f0:82
+                85:2c:f8:81:53:ae:b1:cb:5e:e9:1f:b2:99:33:c8:77
+                2d:c4:0a:57:39:be:f0:40:b1:a1:dc:55:a5:c2:26:b4
+                ff:76:79:d0:76:d5:e6:e5:42:99:0e:8e:21:e1:e2:c1
+                ef:ba:07:c9:bf:c8:10:b4:20:4b:83:39:45:29:22:1c
+                23:b6:cb:43:f7:29:8c:6b:1f:b3:e2:c3:64:d3:ff:10
+                33:92:ec:94:52:96:dd:05:c6:d7:ff:ed:d7:47:d9:e3
+                ea:c7:31:7e:d9:70:f3:63:3f:10:7c:d4:8e:e9:a7:3c
+                a7:e9:6f:35:7d:fb:61:80:14:f7:e9:f8:8b:33:0e:b6
+                fa:ec:1b:5f:53:39:24:4a:cb:c7:59:d7:af:93:58:cd
+                81:25:21:de:42:8c:f3:85:1d:09:df:fb:d9:2f:ef:f6
+                89:de:cf:48:2f:0c:81:9a:7e:2f:31:7a:c9:b4:22:d3
+                9e:09:7e:70:db:77:52:36:8d:b4:44:9c:2d:f6:1a:c6
+                e2:6d:6c:8d:e5:e7:d4:36:51:a8:60:c0:30:0b:d1:77
+                1a:43:97:e5:b0:79:ad:1d:2c:a6:1b:f1:00:b7:59:ab
+                fa:e2:f3:cb:19:62:f1:6e:8e:0a:fa:71:f4:5c:f8:05
+                07:35:99:03:b0:31:ee:27:c1:61:03:a6:be:b6:db:c0
+                2a:88:c7:9e:2f:f2:05:47:50:d2:41:5f:0f:61:4b:65
+                93:48:62:db:09:dd:51:51:e9:45:16:f8:f9:ad:2b:98
+                c4:23:5e:a2:ac:f3:95:dd:5e:5a:8a:80:33:1f:c1:5b
+                fb:77:10:7f:98:bc:ec:db:05:50:ad:49:98:f0:20:80
+                e7:b8:fd:80:3f:c7:02:7e:88:9e:b9:94:80:cc:d9:53
+                cf:46:0a:3f:e1:ec:39:88:0d:67:45:56:26:27:25:79
+                53:fd:52:2c:3e:d3:7b:36:a5:15:27:20:a2:fd:66:3e
+                66:cd:54:82:20:f0:65:2c:35:e7:74:89:d0:97:56:41
+                d8:85:fb:81:28:02:cb:bd:42:27:b0:6c:4c:cf:b1:46
+                14:21:d8:db:e6:a9:59:dc:c7:a4:ea:7b:75:ae:d1:70
+                38:f1:66:ab:07:3d:d5:e9:c1:b5:24:30:96:04:15:45
+                57:8c:5f:cd:f9:06:36:c6:c1:c7:43:f0:78:15:a3:8b
+
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Tue Apr 14 18:25:12 2020
+CA expiration time: Tue Apr 14 18:25:09 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb4b0680d7e2e5047477dbe
+        Validity:
+                Not Before: Mon Apr 15 16:25:12 UTC 2019
+                Not After: Tue Apr 14 16:25:12 UTC 2020
+        Subject: O=Göteborg Bit Factory,CN=0.0.0.0:53589
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:da:0f:0b:34:86:d1:e0:3a:65:40:66:3c:f8:b3:88
+                        d6:b6:21:4f:25:31:7e:2e:cc:0e:76:27:3e:9a:6b:92
+                        33:a1:5d:5b:fb:43:9e:0c:53:aa:28:f7:55:f4:21:5e
+                        cb:b7:93:d8:1c:cd:17:55:86:08:ef:76:df:a7:eb:3d
+                        08:54:3a:e5:77:51:64:6c:e9:31:0b:b2:89:0b:46:66
+                        62:c0:11:93:95:54:b6:13:04:79:cd:b1:22:28:53:d9
+                        a0:ba:66:a7:47:55:1e:25:a9:51:7f:8b:3e:9f:4f:6e
+                        c2:14:42:73:dd:13:9d:44:7a:d6:66:5f:99:50:cc:68
+                        f9:75:98:bc:27:ae:5c:da:dc:af:58:87:f0:8c:f5:7d
+                        05:7a:7b:b5:79:5d:06:28:55:d0:62:a9:ba:64:8e:cf
+                        ab:e0:15:ba:59:f5:1e:4e:b1:00:97:d5:70:53:90:19
+                        c7:5e:36:d2:b7:4d:3d:b8:c0:45:53:48:32:f5:21:de
+                        00:26:e0:5a:ec:a8:cc:a2:15:6f:03:44:35:82:0f:8f
+                        d6:b4:cc:bb:3d:94:de:66:58:54:44:71:35:7b:72:0d
+                        84:a1:52:c4:fa:4f:f7:8b:3b:ab:3e:53:f6:e0:84:a7
+                        ba:50:3a:0e:6a:48:45:ff:27:af:33:d6:9a:e4:61:2b
+                        d3:8b:ee:74:04:fb:da:04:95:4f:ab:95:ec:2a:70:5a
+                        50:2d:78:5b:79:1c:ff:8a:8c:90:60:d8:77:62:7a:75
+                        31:d8:d6:e9:d1:48:57:09:67:bf:68:e7:e4:bd:70:1a
+                        f3:18:3c:ef:24:4e:bc:bd:77:39:65:75:cc:96:cd:22
+                        a3:65:8a:5a:c6:35:91:65:09:d9:37:01:6a:74:f2:44
+                        f8:a5:e8:3a:16:51:57:3e:5f:dc:c7:bd:9d:3d:76:85
+                        51:34:cc:ad:68:38:8b:b2:31:b1:ee:b2:a9:e8:4f:15
+                        a6:e1:cd:37:2a:a2:38:ed:f9:57:d5:70:65:3a:57:2d
+                        cb:1f:a1:21:81:5b:08:fe:69:0f:64:9c:94:3c:f8:18
+                        9f:3b:bc:b5:bb:2b:f0:df:03:97:81:73:84:f0:b7:19
+                        4d:e9:42:81:ee:28:71:a8:8f:b9:bc:65:e3:e9:27:81
+                        22:5a:93:4d:95:4c:4e:ab:32:17:03:a5:10:37:01:5e
+                        b6:e1:c1:4f:60:69:9e:0b:f7:2c:3f:90:9f:84:d7:cb
+                        59:62:09:6f:cc:48:40:ec:bd:f3:5c:bf:0e:1e:c6:94
+                        85:32:36:96:b2:bf:a8:5b:a4:d7:7d:2e:af:ce:71:5a
+                        60:07:06:ef:79:bb:41:02:78:2c:25:bc:ba:79:68:60
+                        6b
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Client.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        4509713b83f283bd683dcbc5be894e6ad37de1e3
+                Authority Key Identifier (not critical):
+                        1d02de3d203f564f9111e610e61b3777aa3c6121
+Other Information:
+        Public Key ID:
+                sha1:4509713b83f283bd683dcbc5be894e6ad37de1e3
+                sha256:1e320b3929bfa7e3fb57d41792a3da87b44e83032cef3f0af837de74d488713d
+        Public Key PIN:
+                pin-sha256:HjILOSm/p+P7V9QXkqPah7ROgwMs7z8K+DfedNSIcT0=
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |        ooo.     |
+                |         +..     |
+                |      . . =      |
+                |       = . o     |
+                |      . S        |
+                |       o +  .    |
+                |      o.=.o. .   |
+                |     .o+.*..+    |
+                |     ..o= ++E.   |
+                +-----------------+
+
+
+
+Signing certificate...
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/client.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/client.key.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.key.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.crl.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/ca.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, client.cert, /var/taskd/client.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, client.key, /var/taskd/client.key.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.cert, /var/taskd/server.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.key, /var/taskd/server.key.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.crl, /var/taskd/server.crl.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, ca.cert, /var/taskd/ca.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, log, /var/taskd/taskd.log, --data, /var/taskd, /var/taskd/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, pid.file, /var/taskd/taskd.pid, --data, /var/taskd, /var/taskd/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server, 0.0.0.0:53589, --data, /var/taskd, /var/taskd]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[task, add, testtask, description, /var/taskd]
+java.io.IOException: Cannot run program "task" (in directory "/var/taskd"): error=2, No such file or directory
+        at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+        at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+        at autoInstallTaskwarrior.RunCommandsWithArgsV1.processBuilder(RunCommandsWithArgsV1.java:63)
+        at autoInstallTaskwarrior.Main.manageCommandGeneration(Main.java:112)
+        at autoInstallTaskwarrior.Main.main(Main.java:66)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+        at org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader.main(JarRsrcLoader.java:61)
+Caused by: java.io.IOException: error=2, No such file or directory
+        at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+        at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:339)
+        at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:270)
+        at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+        ... 9 more
+RUNNING COMMAND:[sudo, taskd, add, org, Public, --data, /var/taskd, /var/taskd]
+Created organization 'Public'
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, add, user, Public, First, --data, /var/taskd, /var/taskd/]
+New user key: ad1044e3-c7f5-4144-89e5-ff2b85510e38
+Created user 'First' for organization 'Public'
+Return code = 0
+Incoming file = /var/taskd/orgs/Public/users
+file = [Ljava.io.File;@4fe3c938
+the found directory = [ad1044e3-c7f5-4144-89e5-ff2b85510e38]
+Incoming file = /var/taskd/orgs/Public/users
+file = [Ljava.io.File;@5383967b
+the found directory = [ad1044e3-c7f5-4144-89e5-ff2b85510e38]
+The TW uuid = ad1044e3-c7f5-4144-89e5-ff2b85510e38
+RUNNING COMMAND:[sudo, /usr/share/taskd/pki/generate.client, First, /usr/share/taskd/pki/]
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Tue Apr 14 18:25:16 2020
+CA expiration time: Tue Apr 14 18:25:09 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb4b06c01ed8e0061e09406
+        Validity:
+                Not Before: Mon Apr 15 16:25:16 UTC 2019
+                Not After: Tue Apr 14 16:25:16 UTC 2020
+        Subject: O=Göteborg Bit Factory,CN=0.0.0.0:53589
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:b5:11:39:5c:84:ce:0a:c4:2c:06:84:e0:7f:fd:26
+                        23:0a:99:a1:2c:d0:16:9f:9e:d8:25:b8:50:ea:b4:62
+                        d8:07:e2:8a:40:31:8f:f6:7b:f3:69:69:76:6d:97:bc
+                        a6:83:af:99:75:69:43:5b:2e:72:41:62:cc:6a:3e:10
+                        3f:53:67:a4:54:00:02:2e:12:4a:c2:6e:9a:c6:d9:b4
+                        66:0c:db:ec:77:90:6e:ca:e3:ee:ab:de:46:75:d1:04
+                        55:33:4b:f9:35:95:6c:c2:79:35:f5:49:ff:39:0e:a0
+                        44:7d:05:11:84:d4:b3:20:f3:aa:81:fe:fe:f2:2b:48
+                        69:f6:e1:f4:fb:52:a2:ae:f1:69:0b:2d:eb:fe:2c:a0
+                        2b:47:16:b8:9d:f8:f0:77:c6:34:03:53:ec:4c:90:13
+                        c9:e1:20:44:dc:11:ef:7c:6d:9f:de:2d:46:65:2f:b5
+                        6e:2b:45:91:e3:d5:18:0a:03:55:65:2f:f8:82:35:42
+                        f0:39:03:6e:a4:3c:88:d5:96:73:e0:c2:cf:c8:92:da
+                        34:2d:31:0f:78:d8:c6:65:40:9c:2d:8e:f3:b0:23:99
+                        99:22:43:9c:d1:61:05:2c:15:1b:a9:dd:0d:44:46:c7
+                        cd:c6:88:fe:ae:ad:c4:bb:d9:2d:4e:0d:08:db:76:c9
+                        e0:83:25:a8:17:c8:00:70:36:fc:a5:25:fb:91:a1:b2
+                        b0:cd:e9:73:69:90:fd:a6:b7:e8:0f:fe:4c:c6:b4:85
+                        5d:16:01:92:b7:72:2c:9d:a8:a5:1a:ca:4b:4d:50:19
+                        87:43:65:04:60:00:a7:4d:cc:ce:84:f3:fb:72:36:c6
+                        5d:a7:76:b2:cc:d6:56:1d:f4:ae:32:b3:82:d3:7f:5a
+                        2b:d4:fa:37:4a:12:8e:6f:e5:38:a0:fc:9b:f9:e6:eb
+                        37:62:1b:cd:64:a2:62:c4:34:22:64:04:8e:80:fc:ad
+                        47:54:67:6a:bb:d5:04:75:63:8b:c0:37:f8:ae:be:7d
+                        f3:5b:03:62:04:51:75:3c:81:0a:9f:60:11:08:c1:bc
+                        cd:7b:59:dc:e5:5b:bb:42:57:34:3b:2b:f1:95:a0:44
+                        6c:5e:6c:6f:ee:a6:86:16:16:73:d8:63:e8:52:28:5c
+                        cd:05:8b:bb:6d:dc:29:53:6f:03:5f:e0:d1:68:e5:75
+                        f0:9d:87:87:35:84:2b:c5:77:43:0b:e6:25:26:73:f5
+                        16:70:71:3c:ae:90:fb:4d:fd:eb:db:ee:31:a4:ba:b0
+                        72:77:b0:25:d3:a8:d1:d2:d7:fe:ca:e9:b5:99:c0:5f
+                        c6:7c:6a:8a:00:d7:02:4d:fd:91:ed:ef:35:eb:70:33
+                        59
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Client.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        ad3982108474ce16cd15cf8309b56b8ba3334ddc
+                Authority Key Identifier (not critical):
+                        1d02de3d203f564f9111e610e61b3777aa3c6121
+Other Information:
+        Public Key ID:
+                sha1:ad3982108474ce16cd15cf8309b56b8ba3334ddc
+                sha256:df97e15798c7216d1ff2b8420fbf343db083df6e1e199c77293939bd6efcdb38
+        Public Key PIN:
+                pin-sha256:35fhV5jHIW0f8rhCD780PbCD324eGZx3KTk5vW782zg=
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |.o.oo.o+.        |
+                |..+ .o. *        |
+                |  .+   + +       |
+                |  ..    ...      |
+                |  . . .oS .      |
+                |   . +oE.o       |
+                |    +o..+        |
+                |   o.... .       |
+                |   .o            |
+                +-----------------+
+
+
+
+Signing certificate...
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/First.cert.pem, /home/a/.task/, /usr/share/taskd/pki/]
+cp: cannot create regular file '/home/a/.task/': Not a directory
+Return code = 1
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/First.key.pem, /home/a/.task/, /usr/share/taskd/pki/]
+cp: cannot create regular file '/home/a/.task/': Not a directory
+Return code = 1
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/ca.cert.pem, /home/a/.task/, /usr/share/taskd/pki/]
+cp: cannot create regular file '/home/a/.task/': Not a directory
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.certificate, --, /home/a/.task/First.cert.pem, /usr/share/taskd/pki/]
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.key, --, /home/a/.task/First.key.pem, /usr/share/taskd/pki/]
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.ca, --, /home/a/.task/ca.cert.pem, /usr/share/taskd/pki/]
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.server, --, 0.0.0.0:53589, /usr/share/taskd/pki/]
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.credentials, --, Public/First/ad1044e3-c7f5-4144-89e5-ff2b85510e38, /usr/share/taskd/pki/]
+sudo: task: command not found
+Return code = 1
+ERROR!! The file:/home/a/.task/[Ljava.lang.String;@2ac273d3 does NOT exist
+ERROR!! The file:/home/a/.task/[Ljava.lang.String;@2ac273d3 does NOT exist
+ERROR!! The file:/home/a/.task/[Ljava.lang.String;@2ac273d3 does NOT exist
+RUNNING COMMAND:[taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl start: daemon started
+Return code = 0
+RUNNING COMMAND:[sudo, task, sync, init, /usr/share/taskd/pki/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+WITH YES!
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.trust, --, ignore, hostname, /usr/share/taskd/pki/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+sudo: task: command not found
+Return code = 1
+RUNNING COMMAND:[taskdctl, stop, /usr/share/taskd/pki/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl stop: daemon stopped
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --data, /var/taskd/, /var/taskd/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+
+Configuration read from /var/taskd//config
+
+Variable       Value
+-------------  --------------------------
+ca.cert        /var/taskd/ca.cert.pem
+client.cert    /var/taskd/client.cert.pem
+client.key     /var/taskd/client.key.pem
+confirmation   1
+extensions     /usr/libexec/taskd
+ip.log         on
+log            /var/taskd/taskd.log
+pid.file       /var/taskd/taskd.pid
+queue.size     10
+request.limit  1048576
+root           /var/taskd/
+server         0.0.0.0:53589
+server.cert    /var/taskd/server.cert.pem
+server.crl     /var/taskd/server.crl.pem
+server.key     /var/taskd/server.key.pem
+trust          strict
+verbose        1
+
+Return code = 0
+RUNNING COMMAND:[sudo, -s, /var/taskd, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+Return code = 0
+RUNNING COMMAND:[taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl start: daemon started
+Return code = 0
+RUNNING COMMAND:[sudo, task, sync, init, /var/taskd/, /var/taskd]
+Setting environment variable TASKDDATA=/var/taskd
+WITH YES!
+sudo: task: command not found
+Return code = 1
+a@DESKTOP-RV082N2:~$

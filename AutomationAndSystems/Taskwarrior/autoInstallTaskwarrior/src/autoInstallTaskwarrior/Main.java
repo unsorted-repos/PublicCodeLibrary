@@ -1,4 +1,4 @@
-package autoInstallTaskwarrior;
+package autoInstallTaskwarrior; 	
 
 import java.io.File;
 import java.io.FileFilter;
@@ -15,8 +15,8 @@ import java.util.List;
  * cp /mnt/c/copyToUbuntu/commandLinux.jar ~/
  * 
  * Before you run it: 
- * yes | sudo apt install default-jre --fix-missing
- * 
+ * yes | sudo apt update
+ * yes | sudo apt install default-jre
  * 
  * This script executes a series of commands to install taskwarrior on WSL Ubuntu.
  * @author a
@@ -46,6 +46,12 @@ public class Main {
 		//String linuxPath = getThisPath.getJarLocation()[1]; 
 		String linuxPath = windowsPath;
 		
+		//hardcoded copy verifications file names
+		String[] copyVerification19 = new String[3]; 		
+		copyVerification19[0] = storeUserInput[3]+".cert.pem";
+		copyVerification19[1] = storeUserInput[3]+".key.pem";
+		copyVerification19[2] = "ca.cert.pem";
+		
 		System.out.println("Path ="+windowsPath);
 		System.out.println("Path ="+linuxPath);
 		
@@ -65,6 +71,9 @@ public class Main {
 		// execute second list of installation commands
 		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,2);
 		
+		//check and print whether the copied certs of command 19 exist in /<ubuntu username>/.task/
+		System.out.println("VERIFYING COPYING OF FILES");
+		CreateFiles.checkIfFileExist(unixUserName,copyVerification19);
 		
 		//get second list of commands after taskwarrior uuid has been determined:
 		commands = GenerateCommandsV2.generateThirdCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);

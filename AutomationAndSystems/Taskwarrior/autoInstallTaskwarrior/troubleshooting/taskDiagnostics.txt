@@ -1,0 +1,42 @@
+a@DESKTOP-:/var/taskd$ task diagnostics
+Taskwarrior does not have the correct permissions for '/home/a/.task/pending.data'.
+a@DESKTOP-:/var/taskd$ sudo task diagnostics
+[sudo] password for a:
+
+task 2.5.0
+   Platform: Linux
+
+Compiler
+    Version: 5.3.1 20160216
+       Caps: +stdc +stdc_hosted +LP64 +c8 +i32 +l64 +vp64 +time_t64
+ Compliance: C++11
+
+Build Features
+      CMake: 3.2.2
+    libuuid: libuuid + uuid_unparse_lower
+  libgnutls: 3.4.9
+ Build type: None
+
+Configuration
+       File: /home/a/.taskrc (found), 1610 bytes, mode 100644
+       Data: /home/a/.task (found), dir, mode 40755
+    Locking: Enabled
+         GC: Enabled
+     Server: 0.0.0.0:53589
+         CA: /home/a/.task/ca.cert.pem, readable, 3765 bytes
+      Trust: strict
+Certificate: /home/a/.task/First.cert.pem, readable, 3751 bytes
+        Key: /home/a/.task/First.key.pem, readable, 25125 bytes
+    Ciphers: NORMAL
+      Creds: Public/First/************************************
+
+Hooks
+    Scripts: Enabled
+             (-none-)
+
+Tests
+      $TERM: xterm-256color (132x60)
+       Dups: Scanned 1 tasks for duplicate UUIDs:
+             No duplicates found
+
+a@DESKTOP-:/var/taskd$

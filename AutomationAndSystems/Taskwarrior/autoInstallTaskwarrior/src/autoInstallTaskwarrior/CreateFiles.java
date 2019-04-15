@@ -109,4 +109,16 @@ public class CreateFiles {
             e.printStackTrace();
         }
 	}
+	
+	public static void checkIfFileExist(String ubuntuUsername,String[] filename) {
+		for (int i = 0; i<filename.length;i++) {
+			String absFilePath = "/home/"+ubuntuUsername+"/.task/"+filename[i];
+			File f = new File(absFilePath);
+			if(f.exists() && !f.isDirectory()) { 
+			    System.out.println("File:"+absFilePath+" exists");
+			}else {
+				System.out.println("ERROR!! The file:"+absFilePath+" does NOT exist");
+			}
+		}
+	}
 }
