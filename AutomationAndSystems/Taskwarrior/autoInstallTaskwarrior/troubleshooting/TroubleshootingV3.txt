@@ -6,6 +6,10 @@ Furthermore, the output of the task diagnostics and taskd diagnostics are locate
 Slide:Diagnostics Part I and II.
 
 The log files of the successfull manual installation is located at:
+https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/troubleshooting/manualInstallationV3.txt
+The log files of the erroneous automated installation is located at:
+https://github.com/a-t-0/PublicCodeLibrary/blob/master/AutomationAndSystems/Taskwarrior/autoInstallTaskwarrior/troubleshooting/installationLogV3.txt
+
 
 
 

@@ -191,7 +191,6 @@ a@DESKTOP-:~$ sudo java -jar "/mnt/c/twInstall/autoInstallTaskwarrior.jar"
 Please re-enter your Unix username:
 a
 Please re-enter your Unix password:
-hoihoi
 Please enter the name of your taskwarrior organization (it can be named:Public if you don't have any):
 c
 Please enter the name of this taskwarrior installation:
