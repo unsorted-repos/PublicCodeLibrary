@@ -24,9 +24,11 @@ import java.util.List;
  */
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+	public static void main(String[] args) throws Exception {
 		boolean testRun = false;
 		String vars = "vars";
+		
+		//SetEnvVar.setEnvVar();
 		
 		String[] storeUserInput =AskUserInput.getUserInput();
 		for (int i = 1; i <= 50; i++) {

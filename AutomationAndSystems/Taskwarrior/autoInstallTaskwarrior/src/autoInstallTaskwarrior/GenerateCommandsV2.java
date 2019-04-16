@@ -38,7 +38,7 @@ public class GenerateCommandsV2 {
 			commands[2][1] = "apt";
 			commands[2][2] = "install";
 			commands[2][3] = "task";
-			commands[2][4] = linuxPath;
+			commands[2][4] = "/home/"+storeUserInput[0];
 			
 			// commands[3][0] = "sudo apt install taskd";
 			commands[3] = new String[5];
