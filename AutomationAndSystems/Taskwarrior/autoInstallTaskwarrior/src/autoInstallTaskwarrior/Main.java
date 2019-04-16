@@ -25,64 +25,37 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		boolean testRun = false;
-		String vars = "vars";
-		
+		InstallData installData = HardCoded.hardCoded();		
 		//SetEnvVar.setEnvVar();
 		
-		String[] storeUserInput =AskUserInput.getUserInput();
-		for (int i = 1; i <= 50; i++) {
-			System.out.println('\n');
-		}
-		
-		//hardcoded
-		String unixUserName = storeUserInput[0];
-		String unixPw = storeUserInput[1];
-		String serverName = "0.0.0.0";
-		String serverPort = "53589";
-		storeUserInput[2]="Public";
-		storeUserInput[3]="First";
-		//get the path of this file
-		String windowsPath = GetThisPath.getJarLocation()[0];
-		//when it's run in linux it automatically returns linux path. (No need for conversion)
-		//String linuxPath = getThisPath.getJarLocation()[1]; 
-		String linuxPath = windowsPath;
-		
-		//hardcoded copy verifications file names
-		String[] copyVerification19 = new String[3]; 		
-		copyVerification19[0] = storeUserInput[3]+".cert.pem";
-		copyVerification19[1] = storeUserInput[3]+".key.pem";
-		copyVerification19[2] = "ca.cert.pem";
-		
-		System.out.println("Path ="+windowsPath);
-		System.out.println("Path ="+linuxPath);
+		// move pw out of screen
+		skipToNewPage();
 		
 		// create the vars file
-		CreateFiles.createVars(linuxPath,vars,serverName,serverPort);
+		CreateFiles.createVars(installData.getLinuxPath(),installData.getVars(),installData.getServerName(),installData.getServerPort());
 		System.out.println("Should have just printed vars");
 		
 		//get commands
-		String[][] commands = GenerateCommandsV2.generateCommands(testRun,linuxPath,vars,storeUserInput,serverName,serverPort);
+		String[][] commands = GenerateCommandsV2.generateCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(),installData.getServerPort());
 		
 		// execute installation commands
-		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,2);
+		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);
 		
 		//get second list of commands after taskwarrior uuid has been determined:
-		commands = GenerateCommandsV2.generateSecondCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);
+		commands = GenerateCommandsV2.generateSecondCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
-		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,2);
+		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);
 		
 		//check and print whether the copied certs of command 19 exist in /<ubuntu username>/.task/
 		System.out.println("VERIFYING COPYING OF FILES");
-		CreateFiles.checkIfFileExist(unixUserName,copyVerification19);
+		CreateFiles.checkIfFileExist(installData.getLinuxUserName(),installData.getCopyVerifications19());	
 		
 		//get second list of commands after taskwarrior uuid has been determined:
-		commands = GenerateCommandsV2.generateThirdCommands(testRun,linuxPath,vars,storeUserInput,serverName, serverPort);
+		commands = GenerateCommandsV2.generateThirdCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
-		manageCommandGeneration(testRun,linuxPath,vars,storeUserInput,commands,3);
-		
+		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,3);
 		
 		System.exit(0);
 	}
@@ -98,7 +71,7 @@ public class Main {
 	 */
 	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands,int execType) throws InterruptedException {
 		if (!testRun) {
-			for (int i = 0; i < commands.length; i++) {
+			for (int i = 0; i < commands.length; i++) {    
 				
 				//check if command contains "yes | " and store result:
 				Boolean hasYes =  startsWithYes(commands[i][0]);
@@ -106,6 +79,9 @@ public class Main {
 				// remove the "yes | " of a command
 				String[] preprocessedCommands = new String[commands[i].length];
 				preprocessedCommands =removeYes(commands[i]);
+				
+				// verify system condition before command execution
+				Verifications.beforeCommand(i,commands[i]);
 				
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
@@ -116,6 +92,9 @@ public class Main {
 						RunCommandsWithArgsV1.commandAndSetPath(preprocessedCommands,hasYes);
 					}
 				}
+				
+				// verify system condition after command execution
+				Verifications.afterCommand(i,commands[i]);
 			}			
 		}
 	}
@@ -208,6 +187,15 @@ public class Main {
 	    }
 
 	    return foldersInDirectory;
+	}
+	
+	/**
+	 * Todo: change such that the password is hidden when typed and remove skipping 50 lines.
+	 */
+	private static void skipToNewPage() { 
+		for (int i = 1; i <= 50; i++) {
+			System.out.println('\n');
+		}
 	}
 //	final File folder = new File("/home/you/Desktop");
 //	listFilesForFolder(folder);

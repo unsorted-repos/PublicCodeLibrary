@@ -15,7 +15,7 @@ import java.util.Map;
 public class GenerateCommandsV2 {
 	public static String[][] generateCommands(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		String[][] commands = new String[50][1];
-
+		
 		//In combination with Attempt 1:
 		if (!testRun) {
 			commands[0] = new String[4];

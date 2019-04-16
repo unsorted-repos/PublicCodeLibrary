@@ -31,11 +31,14 @@ public class CreateFiles {
 			writer = new PrintWriter(linuxPath+fileName, "UTF-8");
 			writer.println("BITS=4096");
 			writer.println("EXPIRATION_DAYS=365");
-			writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
+			//writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
+			writer.println("ORGANIZATION="+quotation+"Goteborg Bit Factory"+quotation);
 			writer.println("CN="+serverName+":"+serverPort);
 			writer.println("COUNTRY=SE");
-			writer.println("STATE="+quotation+"Västra Götaland"+quotation);
-			writer.println("LOCALITY="+quotation+"Göteborg"+quotation);
+			//writer.println("STATE="+quotation+"Västra Götaland"+quotation);
+			writer.println("STATE="+quotation+"Vastra Gotaland"+quotation);
+			//writer.println("LOCALITY="+quotation+"Göteborg"+quotation);
+			writer.println("LOCALITY="+quotation+"Goteborg"+quotation);
 			writer.close();
 			System.out.println("JUST WROTE CONTENT VARS FILE!");
 		} catch (FileNotFoundException e) {

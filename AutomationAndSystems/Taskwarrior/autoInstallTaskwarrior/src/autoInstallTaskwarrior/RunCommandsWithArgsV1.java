@@ -89,8 +89,7 @@ public class RunCommandsWithArgsV1 {
 		// store the commands (last entry of commandData contains working path)
 		String envVarName ="TASKDDATA";
 		String[] commands = new String[commandData.length-2];
-		for (int i = 0; i < commandData.length-2; i++) {commands[i] = commandData[i];}    
-
+		
 		// extract the environment variable TASKDDATA(Last entry)
 		String envPath = commandData[commandData.length-1];
 		
