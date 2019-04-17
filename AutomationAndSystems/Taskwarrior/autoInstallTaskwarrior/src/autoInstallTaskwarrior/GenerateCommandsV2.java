@@ -107,11 +107,12 @@ public class GenerateCommandsV2 {
 		// sudo nano vars
 		// working directory: /usr/share/taskd/pki
 		// environment variable:TASKDDATA=/var/taskd
-		commands[9] = new String[4];
-		commands[9][0] = "cp";
-		commands[9][1] = linuxPath+vars; 
-		commands[9][2] = "/usr/share/taskd/pki/";
-		commands[9][3] = linuxPath;
+		commands[9] = new String[5];
+		commands[9][0] = "sudo";
+		commands[9][1] = "cp";
+		commands[9][2] = linuxPath+vars; 
+		commands[9][3] = "/usr/share/taskd/pki/";
+		commands[9][4] = linuxPath;
 		
 		/**
 		 * dir contains:

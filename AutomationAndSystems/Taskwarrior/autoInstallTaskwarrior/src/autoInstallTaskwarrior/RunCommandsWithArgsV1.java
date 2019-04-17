@@ -3,6 +3,7 @@ package autoInstallTaskwarrior;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class RunCommandsWithArgsV1 {
 	/**
@@ -24,9 +26,17 @@ public class RunCommandsWithArgsV1 {
 		Process p;
 		try {
 			p = Runtime.getRuntime().exec(commandPart);
+			System.out.println("The output of first runCommands = "+printCommandOutput(p));
 			new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
 			new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
 			PrintWriter stdin = new PrintWriter(p.getOutputStream());
+			
+			 final BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+		        StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
+		        reader.lines().iterator().forEachRemaining(sj::add);
+		        String result = sj.toString();
+		        System.out.println("The output of this command first = "+result);
 			
 			//This is not necessary but can be used to answer yes to being prompted
 			if (ansYes) {
@@ -35,8 +45,10 @@ public class RunCommandsWithArgsV1 {
 			
 			// write any other commands you want here
 			stdin.close();
+
 			int returnCode = p.waitFor();
 			System.out.println("Return code = " + returnCode);
+			System.out.println("The output of first runCommands = "+printCommandOutput(p));
 
 		} catch (IOException | InterruptedException e1) {
 			// TODO Auto-generated catch block
@@ -62,8 +74,19 @@ public class RunCommandsWithArgsV1 {
 		pb.directory(workingDirectory);
 		try {
 			Process p = pb.start();
+			
+			//capture output 
+			String line;
+		    BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		    while ((line = r.readLine()) != null) {
+		        System.out.println("THE OUTPUT ="+line); //<--this works
+		    }
+		    //r.close(); IMPORTANTE IF YOU CLOSE THE STREAM YOu'll close the other input stream as well!
+			
+		    //continue
 			new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
-			new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
+			new Thread(new SyncPipe(p.getInputStream(), System.out)).start();		        
+			
 			PrintWriter stdin = new PrintWriter(p.getOutputStream());
 			
 			//This is not necessary but can be used to answer yes to being prompted
@@ -74,6 +97,7 @@ public class RunCommandsWithArgsV1 {
 			// write any other commands you want here
 			stdin.close();
 			int returnCode = p.waitFor();
+			System.out.println("The output of second runCommands = "+printCommandOutput(p));
 			System.out.println("Return code = " + returnCode);
 
 		} catch (IOException | InterruptedException e1) {
@@ -128,6 +152,7 @@ public class RunCommandsWithArgsV1 {
 			// write any other commands you want here
 			stdin.close();
 			int returnCode = process.waitFor();
+			System.out.println("The output of third runCommands = "+printCommandOutput(process));
 			System.out.println("Return code = " + returnCode);
 			 
 		} catch (IOException e1) {
@@ -135,4 +160,31 @@ public class RunCommandsWithArgsV1 {
 			e1.printStackTrace();
 		}
     }
+	
+	/**
+	 * Source:https://stackoverflow.com/questions/16714127/how-to-redirect-process-builders-output-to-a-string
+	 * Reads the output of a command
+	 * @param process
+	 * @return
+	 */
+	public static String printCommandOutput(Process process) {
+		BufferedReader reader = 
+                new BufferedReader(new InputStreamReader(process.getInputStream()));
+		StringBuilder builder = new StringBuilder();
+		String line = null;
+		try {
+			while ( (line = reader.readLine()) != null) {
+				System.out.println("OUTPUT CONTAINS!" +line);
+			   builder.append(line);
+			   builder.append(System.getProperty("line.separator"));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String result = builder.toString();
+		return result;
+	}
+	
+	
 }

@@ -14,9 +14,13 @@ public class Verifications {
 		}
 	}
 	
-	public static void afterCommand(int commandIndex, String[] command) {
-		
+	public static void afterCommand(int commandIndex, String[] command) throws FileNotFoundException {
+		switch (commandIndex) {
+			case 7: after7(command);
+		}
 	}
+	
+	
 	/**
 	 * verification 7 checks whether command
 	 * 
@@ -26,12 +30,37 @@ public class Verifications {
 	 *		commands[7][2] = "-p";
 	 *		commands[7][3] = "/var/taskd";
 	 *		commands[7][4] = linuxPath;
+	 * exists, and whether the file path does not exist before the command is executed
 	 * @throws FileNotFoundException 
 	 */
 	public static void before7(String[] command) throws FileNotFoundException {
 		Path path = Paths.get("/var/taskd");
 		
-		System.out.println("Incoming array command 7="+Arrays.toString(command));
+		System.out.println("Incoming array command 7 before="+Arrays.toString(command));
+		//=[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
+		if (command[0].equals("sudo") && command[1].equals("mkdir") && command[2].equals("-p") && command[3].equals("/var/taskd")) {
+			if (Files.exists(path)) {
+				throw new FileNotFoundException("The folder already exists, so this is not a clean install!");
+			}
+		}
+	}
+
+	/**
+	 * verification 7 checks whether command
+	 * 
+	 *  	commands[7] = new String[5];
+	 *		commands[7][0] = "sudo";
+	 *		commands[7][1] = "mkdir";
+	 *		commands[7][2] = "-p";
+	 *		commands[7][3] = "/var/taskd";
+	 *		commands[7][4] = linuxPath;
+	 * exists, and whether the file path exists after the command is executed
+	 * @throws FileNotFoundException 
+	 */
+	public static void after7(String[] command) throws FileNotFoundException {
+		Path path = Paths.get("/var/taskd");
+		
+		System.out.println("Incoming array command 7 after="+Arrays.toString(command));
 		//=[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
 		if (command[0].equals("sudo") && command[1].equals("mkdir") && command[2].equals("-p") && command[3].equals("/var/taskd")) {
 			if (!Files.exists(path)) {
