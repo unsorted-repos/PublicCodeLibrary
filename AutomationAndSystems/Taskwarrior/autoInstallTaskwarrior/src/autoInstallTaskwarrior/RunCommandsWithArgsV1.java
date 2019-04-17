@@ -14,54 +14,18 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public class RunCommandsWithArgsV1 {
-	/**
-	 * This method actually executes the command in WSL Ubuntu 16.04 if you run the 
-	 * compiled .JAR file.
-	 * You can automatically answers yes to any input the command requires with the
-	 * stdin.println("yes"); line
-	 * @param command
-	 * @return
-	 */
-	public static void runCommands(String[] commandPart,Boolean ansYes) {
-		Process p;
-		try {
-			p = Runtime.getRuntime().exec(commandPart);
-			System.out.println("The output of first runCommands = "+printCommandOutput(p));
-			new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
-			new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
-			PrintWriter stdin = new PrintWriter(p.getOutputStream());
-			
-			 final BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-		        StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
-		        reader.lines().iterator().forEachRemaining(sj::add);
-		        String result = sj.toString();
-		        System.out.println("The output of this command first = "+result);
-			
-			//This is not necessary but can be used to answer yes to being prompted
-			if (ansYes) {
-				stdin.println("yes");
-			}
-			
-			// write any other commands you want here
-			stdin.close();
-
-			int returnCode = p.waitFor();
-			System.out.println("Return code = " + returnCode);
-			System.out.println("The output of first runCommands = "+printCommandOutput(p));
-
-		} catch (IOException | InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
-	}
 	
 	/**
 	 * Suggestion: you should generally use ProcessBuilder instead of Runtime.exec()
 	 * ProcessBuilder allows you to change the working directory of the script while running the script.
 	 * Source: https://askubuntu.com/questions/1132950/pass-set-current-directory-to-for-a-shell-script-from-java-in-ubuntu-16-04
 	 */
-	public static void processBuilder(String[] commandData,Boolean ansYes) {
+	public static String processBuilder(String[] commandData,Boolean ansYes) {
+		String outputLine;
+		StringBuilder lines = new StringBuilder();
+		String commandOutput = null;
+		
+		
 		// store the commands (last entry of commandData contains working path)
 		String[] commands = new String[commandData.length-1]; 	
 		for (int i = 0; i < commandData.length-1; i++) {commands[i] = commandData[i];}    
@@ -76,12 +40,13 @@ public class RunCommandsWithArgsV1 {
 			Process p = pb.start();
 			
 			//capture output 
-			String line;
 		    BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		    while ((line = r.readLine()) != null) {
-		        System.out.println("THE OUTPUT ="+line); //<--this works
+		    while ((outputLine = r.readLine()) != null) {
+		        //System.out.println("THE OUTPUT ="+outputLine); //<--this works
+		        lines.append(outputLine);
 		    }
-		    //r.close(); IMPORTANTE IF YOU CLOSE THE STREAM YOu'll close the other input stream as well!
+		    commandOutput = lines.toString();
+		    
 			
 		    //continue
 			new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
@@ -97,6 +62,7 @@ public class RunCommandsWithArgsV1 {
 			// write any other commands you want here
 			
 			stdin.close();
+			r.close(); // also close the buffered reader
 			int returnCode = p.waitFor();
 			
 			System.out.println("Return code = " + returnCode); // 0=good, 1/else=error.
@@ -105,19 +71,23 @@ public class RunCommandsWithArgsV1 {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
+		return commandOutput;
 	}
 	
 	/**
 	 * set environment variable: by extracting the env variable from last entry of commandData
 	 * Then extract the working path from the second to last entry of commandData
 	 */
-	public static void commandAndSetPath(String[] commandData,Boolean ansYes) throws InterruptedException {
-		System.out.println("Incoming commandData = "+Arrays.deepToString(commandData));
-		
+	public static String commandAndSetPath(String[] commandData,Boolean ansYes) throws InterruptedException {
+		String outputLine;
+		StringBuilder lines = null;
+		String commandOutput = null;
 		// store the commands (last entry of commandData contains working path)
 		String envVarName ="TASKDDATA";
 		String[] commands = new String[commandData.length-2];
 		
+		//System.out.println("Incoming commandData = "+Arrays.deepToString(commandData));
+	
 		// extract the environment variable TASKDDATA(Last entry)
 		String envPath = commandData[commandData.length-1];
 		
@@ -129,7 +99,7 @@ public class RunCommandsWithArgsV1 {
 		
 		// create a ProcessBuilder to execute the commands in
 		ProcessBuilder pb = new ProcessBuilder(commands);
-		System.out.println("The final list of commands before execution = "+Arrays.toString(commands));
+		//System.out.println("The final list of commands before execution = "+Arrays.toString(commands));
 		pb.directory(workingDirectory);
 		try {
 			
@@ -139,53 +109,34 @@ public class RunCommandsWithArgsV1 {
 			 //source: https://stackoverflow.com/questions/7369664/using-export-in-java
 			 pb.environment().put(envVarName, envPath);
 			 Process process = pb.start();
-			
+	
+			//capture output 
+		    BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		    while ((outputLine = r.readLine()) != null) {
+		        //System.out.println("THE OUTPUT ="+outputLine); //<--this works
+		        lines.append(outputLine);
+		    }
+		    commandOutput = lines.toString();
+			 
 			 new Thread(new SyncPipe(process.getErrorStream(), System.err)).start();
 			 new Thread(new SyncPipe(process.getInputStream(), System.out)).start();
 			PrintWriter stdin = new PrintWriter(process.getOutputStream());
 			
 			//This is not necessary but can be used to answer yes to being prompted
 			if (ansYes) {
-				System.out.println("WITH YES!");
+				//System.out.println("WITH YES!");
 				stdin.println("yes");
 			}
 			
 			// write any other commands you want here
 			stdin.close();
 			int returnCode = process.waitFor();
-			System.out.println("The output of third runCommands = "+printCommandOutput(process));
 			System.out.println("Return code = " + returnCode);
 			 
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    }
-	
-	/**
-	 * Source:https://stackoverflow.com/questions/16714127/how-to-redirect-process-builders-output-to-a-string
-	 * Reads the output of a command
-	 * @param process
-	 * @return
-	 */
-	public static String printCommandOutput(Process process) {
-		BufferedReader reader = 
-                new BufferedReader(new InputStreamReader(process.getInputStream()));
-		StringBuilder builder = new StringBuilder();
-		String line = null;
-		try {
-			while ( (line = reader.readLine()) != null) {
-				System.out.println("OUTPUT CONTAINS!" +line);
-			   builder.append(line);
-			   builder.append(System.getProperty("line.separator"));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String result = builder.toString();
-		return result;
-	}
-	
-	
+		return commandOutput;
+    }	
 }

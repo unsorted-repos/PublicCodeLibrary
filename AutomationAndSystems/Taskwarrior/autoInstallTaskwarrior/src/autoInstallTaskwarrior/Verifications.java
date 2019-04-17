@@ -8,19 +8,32 @@ import java.util.Arrays;
 
 public class Verifications {
 
-	public static void beforeCommand(int commandIndex, String[] command) throws FileNotFoundException {
+	public static void preCommandProcess(int commandIndex, String[] command) throws FileNotFoundException {
 		switch (commandIndex) {
 			case 7: before7(command);
 		}
 	}
 	
-	public static void afterCommand(int commandIndex, String[] command) throws FileNotFoundException {
+	public static void postCommandProcess(int commandIndex, String[] command, String commandOutput) throws FileNotFoundException {
 		switch (commandIndex) {
 			case 7: after7(command);
+			case 30: after30(commandOutput);
 		}
 	}
 	
 	
+	/**
+	 * Gets the output of the command that adds a new user to the setup
+	 * Then reads the taskwarrior uuid
+	 * and sets the taskwarrior uuid in object installData
+	 * @param commandOutput
+	 */
+	private static void after30(String commandOutput) {
+		String twUuid = commandOutput.substring("New user key: ".length(), "New user key: ".length()+36);
+		System.out.println("The output of command 30="+commandOutput);
+		System.out.println("The tw uuid ="+twUuid);
+	}
+
 	/**
 	 * verification 7 checks whether command
 	 * 

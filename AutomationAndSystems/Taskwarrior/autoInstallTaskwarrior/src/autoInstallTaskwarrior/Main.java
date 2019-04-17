@@ -40,19 +40,19 @@ public class Main {
 		String[][] commands = GenerateCommandsV2.generateCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(),installData.getServerPort());
 		
 		// execute installation commands
-		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);
+		manageCommandGeneration(installData, commands,2);
 		
 		//get second list of commands after taskwarrior uuid has been determined:
 		commands = GenerateCommandsV2.generateSecondCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
-		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);	
+		manageCommandGeneration(installData, commands,2);	
 		
 		//get second list of commands after taskwarrior uuid has been determined:
 		commands = GenerateCommandsV2.generateThirdCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
-		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,3);
+		manageCommandGeneration(installData,commands,3);
 		
 		System.exit(0);
 	}
@@ -67,8 +67,9 @@ public class Main {
 	 * @throws InterruptedException 
 	 * @throws FileNotFoundException 
 	 */
-	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands,int execType) throws InterruptedException, FileNotFoundException {
-		if (!testRun) {
+	private static void manageCommandGeneration(InstallData installData, String[][] commands,int execType) throws InterruptedException, FileNotFoundException {
+		String commandOutput = null;
+		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {    
 				
 				//check if command contains "yes | " and store result:
@@ -79,20 +80,20 @@ public class Main {
 				preprocessedCommands =removeYes(commands[i]);
 				
 				// verify system condition before command execution
-				Verifications.beforeCommand(i,commands[i]);
+				Verifications.preCommandProcess(i,commands[i]);
 				
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
 					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
 					if (execType ==2) {
-						RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
+						commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 					}else if (execType == 3) {
-						RunCommandsWithArgsV1.commandAndSetPath(preprocessedCommands,hasYes);
+						commandOutput = RunCommandsWithArgsV1.commandAndSetPath(preprocessedCommands,hasYes);
 					}
 				}
 				
 				// verify system condition after command execution
-				Verifications.afterCommand(i,commands[i]);
+				Verifications.postCommandProcess(i, commands[i], commandOutput);
 			}			
 		}
 	}
