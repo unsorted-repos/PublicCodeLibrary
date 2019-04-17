@@ -2,6 +2,7 @@ package autoInstallTaskwarrior;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class Main {
 		skipToNewPage();
 		
 		// create the vars file
-		CreateFiles.createVars(installData.getLinuxPath(),installData.getVars(),installData.getServerName(),installData.getServerPort());
+		CreateFiles.createVars(installData);
 		System.out.println("Should have just printed vars");
 		
 		//get commands
@@ -45,11 +46,7 @@ public class Main {
 		commands = GenerateCommandsV2.generateSecondCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
-		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);
-		
-		//check and print whether the copied certs of command 19 exist in /<ubuntu username>/.task/
-		System.out.println("VERIFYING COPYING OF FILES");
-		CreateFiles.checkIfFileExist(installData.getLinuxUserName(),installData.getCopyVerifications19());	
+		manageCommandGeneration(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),commands,2);	
 		
 		//get second list of commands after taskwarrior uuid has been determined:
 		commands = GenerateCommandsV2.generateThirdCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
@@ -68,8 +65,9 @@ public class Main {
 	 * @param label
 	 * @param type
 	 * @throws InterruptedException 
+	 * @throws FileNotFoundException 
 	 */
-	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands,int execType) throws InterruptedException {
+	private static void manageCommandGeneration(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String[][] commands,int execType) throws InterruptedException, FileNotFoundException {
 		if (!testRun) {
 			for (int i = 0; i < commands.length; i++) {    
 				
@@ -131,6 +129,7 @@ public class Main {
 		}
 		return commands;
 	}
+
 	
 	/**
 	 * Get the uuid of the taskwarrior user from:
@@ -147,27 +146,19 @@ public class Main {
 	        }
 	    }
 	}
-
+	
 	/**
-	 * Get the uuid of the taskwarrior user from:
-	 * cd $TASKDDATA/orgs/<your tw organization>/users/
-	 * @param folder
-	 */	
-//	private static void getFolderList() {
-//	File file = new File("/path/to/directory");
-//	String[] directories = file.list(new FilenameFilter() {
-//	  @Override
-//	  public boolean accept(File current, String name) {
-//	    return new File(current, name).isDirectory();
-//	  }
-//	});
-//	System.out.println(Arrays.toString(directories));
-//	}
-//	public File[] listFiles(FileFilter filter) {
-//		return null;
-//	}
-	
-	
+	 * Generates a list of folders in a directory. 
+	 * Used to get the taskwarrior uuid of the installation.
+	 * TODO: Ensure the last uuid of the array is used to make sure
+	 * the most recent installation tw uuid is used.
+	 * TODO: verify the list is sorted on order of creation,
+	 * 		either by generation of alphabetic order of tw uuid's by the installation.
+	 * 		Or by this method automatically sorting on creation date 
+	 * 		instead of alphabetic order.
+	 * @param directoryPath
+	 * @return
+	 */
 	public static List<String> findFoldersInDirectory(String directoryPath) {
 	    File directory = new File(directoryPath);
 		
@@ -189,6 +180,7 @@ public class Main {
 	    return foldersInDirectory;
 	}
 	
+	
 	/**
 	 * Todo: change such that the password is hidden when typed and remove skipping 50 lines.
 	 */
@@ -197,7 +189,5 @@ public class Main {
 			System.out.println('\n');
 		}
 	}
-//	final File folder = new File("/home/you/Desktop");
-//	listFilesForFolder(folder);
 }
 

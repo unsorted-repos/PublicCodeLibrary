@@ -9,7 +9,7 @@ public class GetThisPath {
 	 * Warning, appearently does not work in certain scenarios, the updated solution did not work in my scenario;
 	 * 		calling the .jar file from a different folder in cmd (e.g. java -jar test\myjar.jar) did not work.
 	 * 
-	 * @return Windows format of location of compiled .jar of this project in [0], Linux format in [1]
+	 * @return platform dependant format of location of compiled .jar of this project in [0], Linux format in [1]
 	 */
 	public static String[] getJarLocation() {
 		String[] paths= new String[2];

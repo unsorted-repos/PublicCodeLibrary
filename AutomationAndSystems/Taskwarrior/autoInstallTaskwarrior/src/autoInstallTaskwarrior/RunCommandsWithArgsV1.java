@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +87,8 @@ public class RunCommandsWithArgsV1 {
 	 * Then extract the working path from the second to last entry of commandData
 	 */
 	public static void commandAndSetPath(String[] commandData,Boolean ansYes) throws InterruptedException {
+		System.out.println("Incoming commandData = "+Arrays.deepToString(commandData));
+		
 		// store the commands (last entry of commandData contains working path)
 		String envVarName ="TASKDDATA";
 		String[] commands = new String[commandData.length-2];
@@ -96,8 +99,12 @@ public class RunCommandsWithArgsV1 {
 		// store the working path (stored in second last entry of commandData)
 		File workingDirectory = new File(commandData[commandData.length-2]);
 
+		// absorb commands from commandData
+		for (int i = 0; i < commandData.length - 2; i++) {commands[i] = commandData[i];}
+		
 		// create a ProcessBuilder to execute the commands in
 		ProcessBuilder pb = new ProcessBuilder(commands);
+		System.out.println("The final list of commands before execution = "+Arrays.toString(commands));
 		pb.directory(workingDirectory);
 		try {
 			

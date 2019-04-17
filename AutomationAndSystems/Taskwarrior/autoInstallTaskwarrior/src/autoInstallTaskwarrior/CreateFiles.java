@@ -16,24 +16,34 @@ public class CreateFiles {
 	 * @param serverName
 	 * @throws IOException 
 	 */
-	public static void createVars(String linuxPath, String fileName, String serverName, String serverPort) throws IOException {
-		char quotation = (char)34; // quotation mark "
-		System.out.println("Incoming path inc. filename:"+linuxPath+fileName);
+	public static void createVars(InstallData installData) throws IOException {
 		
-		deleteFile(fileName);
+		System.out.println("Incoming path inc. filename:"+installData.getLinuxPath()+installData.getVars());
+		deleteFile(installData.getVars());
 		
 		// create a file called vars with content "content"
-		createFile2(linuxPath,fileName);
-		createFile1(linuxPath,fileName);
+		createFile2(installData.getLinuxPath(),installData.getVars());
+		createFile1(installData.getLinuxPath(),installData.getVars());
+		
+		// write content of vars file
+		writeVarsContent(installData);
+	}
+	
+	/**
+	 * This method writes the content of the vars file.
+	 * @param installData
+	 */
+	public static void writeVarsContent(InstallData installData) {
+		char quotation = (char)34; // quotation mark "
 		
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(linuxPath+fileName, "UTF-8");
+			writer = new PrintWriter(installData.getLinuxPath()+installData.getVars(), "UTF-8");
 			writer.println("BITS=4096");
 			writer.println("EXPIRATION_DAYS=365");
 			//writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
 			writer.println("ORGANIZATION="+quotation+"Goteborg Bit Factory"+quotation);
-			writer.println("CN="+serverName+":"+serverPort);
+			writer.println("CN="+installData.getServerName()+":"+installData.getServerPort());
 			writer.println("COUNTRY=SE");
 			//writer.println("STATE="+quotation+"Västra Götaland"+quotation);
 			writer.println("STATE="+quotation+"Vastra Gotaland"+quotation);
@@ -57,7 +67,7 @@ public class CreateFiles {
 	 * is located.
 	 * @param fileName
 	 */
-	public static  void deleteFile(String fileName) {
+	public static void deleteFile(String fileName) {
 		File file = new File(fileName);
 		try {
 			boolean result = Files.deleteIfExists(file.toPath());
@@ -65,18 +75,6 @@ public class CreateFiles {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} //surround it in try catch block
-	}
-	
-	/**
-	 * Try creating a file in c:/
-	 * @param data
-	 * @throws IOException
-	 */
-	public static void saveDataInFile(String data) throws IOException {
-	    Path path = Paths.get("vars");
-	    byte[] strToBytes = data.getBytes();
-
-	    Files.write(path, strToBytes);
 	}
 	
 	/**
@@ -113,15 +111,34 @@ public class CreateFiles {
         }
 	}
 	
-	public static void checkIfFileExist(String ubuntuUsername,String[] filename) {
-		for (int i = 0; i<filename.length;i++) {
-			String absFilePath = "/home/"+ubuntuUsername+"/.task/"+filename[i];
-			File f = new File(absFilePath);
-			if(f.exists() && !f.isDirectory()) { 
-			    System.out.println("File:"+absFilePath+" exists");
-			}else {
-				System.out.println("ERROR!! The file:"+absFilePath+" does NOT exist");
+	public static boolean checkIfFilesExist(String path, String[] filenames) {
+		for (int i = 0; i<filenames.length;i++) {
+			if (!checkIfFileExist(path,filenames[i])) {
+				return false;
 			}
+			//String absFilePath = "/home/"+ubuntuUsername+"/.task/"+filename[i];
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the file filename in folder path exists.
+	 * @param path
+	 * @param filename
+	 * @return
+	 */
+	public static boolean checkIfFileExist(String path,String filename) {
+		
+		// merge file path and file name to file object
+		File f = new File(path+filename);
+		
+		// check if file exists
+		if(f.exists() && !f.isDirectory()) { 
+		    System.out.println("File:"+path+filename+" exists");
+		    return true;
+		}else {
+			System.out.println("ERROR!! The file:"+path+filename+" does NOT exist");
+			return false;
 		}
 	}
 }

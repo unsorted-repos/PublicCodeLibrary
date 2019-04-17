@@ -577,6 +577,13 @@ public class GenerateCommandsV2 {
 		String directoryPath = new String("/var/taskd/orgs/"+storeUserInput[2]+"/users/");
 		
 		if (!testRun) {
+			// write fillers for command 0:
+			commands[0] = new String[4];
+			commands[0][0] = "echo";
+			commands[0][1] = "filler";
+			commands[0][2] = linuxPath;
+			commands[0][3] = linuxPath;
+			
 			// taskdctl start
 			// to: 
 			//working directory: /usr/share/taskd/pki/

@@ -21,10 +21,11 @@ public class HardCoded {
 		installData.setServerPort("53589");
 		
 		//get the path of this compiled .jar file
-		installData.setWindowsPath(GetThisPath.getJarLocation()[0]);
+		installData.setLinuxPath(GetThisPath.getJarLocation()[0]);
+		
 		String serverPort = "53589";
-		installData.getUserInput()[2]="Public";
-		installData.getUserInput()[3]="First";
+//		installData.getUserInput()[2]="Public";
+//		installData.getUserInput()[3]="First";
 		
 		//when it's run in linux it automatically returns linux path. (No need for conversion)
 		//String linuxPath = getThisPath.getJarLocation()[1]; 
