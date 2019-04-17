@@ -13,6 +13,7 @@ public class InstallData {
 	private String[] copyVerifications19 = new String[3];
 	private String[] userInput;
 	private boolean testrun;
+	private String twUuid;
 	
 //	String linuxPw = storeUserInput[1];
 //	String serverName = "0.0.0.0";
@@ -205,6 +206,20 @@ public class InstallData {
 	
 	public String[] getUserInput() {
 		return this.userInput;
+	}
+
+	/**
+	 * @return the twUuid
+	 */
+	public String getTwUuid() {
+		return twUuid;
+	}
+
+	/**
+	 * @param twUuid the twUuid to set
+	 */
+	public void setTwUuid(String twUuid) {
+		this.twUuid = twUuid;
 	}
 	
 	

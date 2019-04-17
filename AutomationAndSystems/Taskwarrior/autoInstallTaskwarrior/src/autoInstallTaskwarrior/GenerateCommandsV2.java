@@ -417,15 +417,15 @@ public class GenerateCommandsV2 {
 	 * @param storeUserInput
 	 * @return
 	 */
-	public static String[][] generateSecondCommands(boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
+	public static String[][] generateSecondCommands(InstallData installData, boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		String[][] commands = new String[50][1];
-		String twUuid;
 		String directoryPath = new String("/var/taskd/orgs/"+storeUserInput[2]+"/users/");
 		
 		if (!testRun) {
-			// get taskwarrior uuid	
-			twUuid=getTwUuid.findFoldersInDirectory(directoryPath).get(0);
-			System.out.println("The TW uuid = "+getTwUuid.findFoldersInDirectory(directoryPath).get(0));
+			// get taskwarrior uuid
+			//getTwUuid.findFoldersInDirectory(directoryPath).get(0));
+			
+			System.out.println("The TW uuid = " + installData.getTwUuid());
 			
 			// write fillers for commands that are replaced:
 			// cd /usr/share/taskd/pki
@@ -546,7 +546,7 @@ public class GenerateCommandsV2 {
 			commands[8][2] = "config";
 			commands[8][3] = "taskd.credentials";
 			commands[8][4] = "--";
-			commands[8][5] = storeUserInput[2]+"/"+storeUserInput[3]+"/"+twUuid;
+			commands[8][5] = storeUserInput[2]+"/"+storeUserInput[3]+"/"+installData.getTwUuid();
 			commands[8][6] = "/usr/share/taskd/pki/";
 			
 //			// 

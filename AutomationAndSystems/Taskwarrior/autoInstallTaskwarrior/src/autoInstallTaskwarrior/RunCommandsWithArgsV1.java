@@ -110,14 +110,16 @@ public class RunCommandsWithArgsV1 {
 			 pb.environment().put(envVarName, envPath);
 			 Process process = pb.start();
 	
-			//capture output 
-		    BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
-		    while ((outputLine = r.readLine()) != null) {
-		        //System.out.println("THE OUTPUT ="+outputLine); //<--this works
-		        lines.append(outputLine);
-		    }
-		    commandOutput = lines.toString();
-			 
+			 if (!commandData[1].contentEquals("cp")) {
+				//capture output 
+			    BufferedReader r = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			    while ((outputLine = r.readLine()) != null) {
+			        //System.out.println("THE OUTPUT ="+outputLine); //<--this works
+			        lines.append(outputLine);
+			    }
+			    commandOutput = lines.toString();
+			 } 
+		    
 			 new Thread(new SyncPipe(process.getErrorStream(), System.err)).start();
 			 new Thread(new SyncPipe(process.getInputStream(), System.out)).start();
 			PrintWriter stdin = new PrintWriter(process.getOutputStream());

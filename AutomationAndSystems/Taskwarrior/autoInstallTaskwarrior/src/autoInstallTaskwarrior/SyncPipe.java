@@ -23,7 +23,6 @@ class SyncPipe implements Runnable
 	      for (int length = 0; (length = istrm_.read(buffer)) != -1; )
 	      {
 	          ostrm_.write(buffer, 0, length);
-	          System.out.println("syncpipe output"+ostrm_.toString());
 	              
 	          }
 	      }

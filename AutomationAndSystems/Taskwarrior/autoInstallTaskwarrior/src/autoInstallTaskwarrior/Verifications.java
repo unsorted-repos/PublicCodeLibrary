@@ -8,17 +8,19 @@ import java.util.Arrays;
 
 public class Verifications {
 
-	public static void preCommandProcess(int commandIndex, String[] command) throws FileNotFoundException {
+	public static void preCommandProcess(InstallData installData,int commandIndex, String[] command) throws FileNotFoundException {
 		switch (commandIndex) {
 			case 7: before7(command);
 		}
 	}
 	
-	public static void postCommandProcess(int commandIndex, String[] command, String commandOutput) throws FileNotFoundException {
+	public static InstallData postCommandProcess(InstallData installData, int commandIndex, String[] command, String commandOutput) throws FileNotFoundException {
+		System.out.println("The output of command "+commandIndex+"="+commandOutput);
 		switch (commandIndex) {
 			case 7: after7(command);
-			case 30: after30(commandOutput);
+			case 30: installData = after30(installData, commandOutput);
 		}
+		return installData;
 	}
 	
 	
@@ -28,10 +30,13 @@ public class Verifications {
 	 * and sets the taskwarrior uuid in object installData
 	 * @param commandOutput
 	 */
-	private static void after30(String commandOutput) {
-		String twUuid = commandOutput.substring("New user key: ".length(), "New user key: ".length()+36);
+	private static InstallData after30(InstallData installData, String commandOutput) {
 		System.out.println("The output of command 30="+commandOutput);
-		System.out.println("The tw uuid ="+twUuid);
+		if (commandOutput !=null && commandOutput.length() > 20 && commandOutput.substring(0, "New user key: ".length()).contentEquals("New user key: ")) {
+			System.out.println("The tw uuid ="+commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
+			installData.setTwUuid(commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
+		}
+		return installData;
 	}
 
 	/**

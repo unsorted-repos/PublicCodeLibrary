@@ -43,7 +43,7 @@ public class Main {
 		manageCommandGeneration(installData, commands,2);
 		
 		//get second list of commands after taskwarrior uuid has been determined:
-		commands = GenerateCommandsV2.generateSecondCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
+		commands = GenerateCommandsV2.generateSecondCommands(installData,installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
 		
 		// execute second list of installation commands
 		manageCommandGeneration(installData, commands,2);	
@@ -80,7 +80,7 @@ public class Main {
 				preprocessedCommands =removeYes(commands[i]);
 				
 				// verify system condition before command execution
-				Verifications.preCommandProcess(i,commands[i]);
+				Verifications.preCommandProcess(installData,i,commands[i]);
 				
 				// run commands if it does not start with null
 				if (commands[i][0]!=null) { 
@@ -93,8 +93,8 @@ public class Main {
 				}
 				
 				// verify system condition after command execution
-				Verifications.postCommandProcess(i, commands[i], commandOutput);
-			}			
+				installData = Verifications.postCommandProcess(installData,i, commands[i], commandOutput);
+			}
 		}
 	}
 
