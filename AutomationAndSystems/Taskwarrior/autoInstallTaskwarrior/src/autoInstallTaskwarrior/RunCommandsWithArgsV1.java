@@ -95,10 +95,11 @@ public class RunCommandsWithArgsV1 {
 			}
 			
 			// write any other commands you want here
+			
 			stdin.close();
 			int returnCode = p.waitFor();
-			System.out.println("The output of second runCommands = "+printCommandOutput(p));
-			System.out.println("Return code = " + returnCode);
+			
+			System.out.println("Return code = " + returnCode); // 0=good, 1/else=error.
 
 		} catch (IOException | InterruptedException e1) {
 			// TODO Auto-generated catch block

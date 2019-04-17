@@ -1,4 +1,4 @@
-BITS=4096
+﻿BITS=4096
 EXPIRATION_DAYS=365
 ORGANIZATION="Göteborg Bit Factory"
 exampleName
