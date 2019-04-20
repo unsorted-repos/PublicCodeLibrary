@@ -1,0 +1,81 @@
+a@DESKTOP-RV082N2:~$ sudo su
+[sudo] password for a:
+cdroot@DESKTOP-RV082N2:/home/a# openssl s_client -CAfile .task/ca.cert.pem -host 0.0.0.0 -port 53589
+CONNECTED(00000003)
+depth=1 CN = 0.0.0.0:53589, O = G\C3\B6teborg Bit Factory, L = G\C3\B6teborg, ST = V\C3\A4stra G\C3\B6taland, C = SE
+verify return:1
+depth=0 CN = 0.0.0.0:53589, O = G\C3\B6teborg Bit Factory
+verify return:1
+140116016629400:error:140790E5:SSL routines:ssl23_write:ssl handshake failure:s23_lib.c:177:
+---
+Certificate chain
+ 0 s:/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory
+   i:/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIFqTCCA5GgAwIBAgIMXLTDKTeg6XD1keOdMA0GCSqGSIb3DQEBCwUAMHUxFjAU
+BgNVBAMTDTAuMC4wLjA6NTM1ODkxHjAcBgNVBAoMFUfDtnRlYm9yZyBCaXQgRmFj
+dG9yeTESMBAGA1UEBwwJR8O2dGVib3JnMRowGAYDVQQIDBFWw6RzdHJhIEfDtnRh
+bGFuZDELMAkGA1UEBhMCU0UwHhcNMTkwNDE1MTc0NTEzWhcNMjAwNDE0MTc0NTEz
+WjA4MRYwFAYDVQQDEw0wLjAuMC4wOjUzNTg5MR4wHAYDVQQKDBVHw7Z0ZWJvcmcg
+Qml0IEZhY3RvcnkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDUm06v
+Nn2HiwzGRLZkN1XZWoK5yAplFtyHGE2h2NP4BDJztRWEaLPknPgGv+4YqDke8H6v
+rM7LjBIkix51VBOckkaFxLdf5hUOr6o16Y6tfL8P0SINGR3JS6x2BQVrEGjQRL8z
+NXhcIV+C7QLRDOl/UVf7R3Axbs1XiksbGouz0+MF+/Z/cbgYrsXqr3Y27ahvCAMD
+z4Qc5lUXIvGMijYlZe9coiiBM2OCQO1KfI3mvLxRYsQ+MHg+KXSfP2v//jycusf+
+QaBPl0VgoawmBjbsfdQxVTE6kHPj8JYv9NMG+2mynO/bTHSmqOQtUjy8PuOQGZIz
+rn6K8b6K4eX6YWjMmXjMEJrrU6bKvxM6TFvsfHzkVQfMwa7zzfPGvNiWFd4bNkUd
+Vqa4yH/eiVqv1aO0ZvLLwPIM61kLcDTCApCClSDwJkoKf8uyMj71HGPtsh4CWvjg
+qD++Rre7/c2XfTIr/ddvY/Kpp34wQOWDbtciMK3gzMd/OQkNDpXuerxTuhsKPEGj
+E7KaoIzhE8ZQmVAzZmZKxeAjWyxz6KE/GIpNyD1uezsEJ9xwHwNmRF2hmOJ9C00b
+zc/lH2bwfqt2yzR3ocnyeBphh2SlRlVPRVdkvWqqDgdT1dPYTKl5bX1CKESnZBcD
+TSRgdWv3E21+a8rW/wOlnZJkUp+XLdTnSFbn5wIDAQABo3YwdDAMBgNVHRMBAf8E
+AjAAMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA8GA1UdDwEB/wQFAwMHoAAwHQYDVR0O
+BBYEFDRYY44kbJzmVSFlbdLFcQz2KenbMB8GA1UdIwQYMBaAFOxhK5g10ZWSqjbi
+P6ZAlFEWHn+OMA0GCSqGSIb3DQEBCwUAA4ICAQDcteREZzUiWL+0QlHbf88lZzDx
+kKwOhnEC8zip764EBc+fVhIuujISqN15P9o3wMKki0AxozkwEASQowidkrKqMWVf
+9gV2X0PNsAcOeu3DV30WhP6Lk98Sw6km7WCdDux3xxThZ0Kh93BFkZoif2kpG8K3
+si9aQHxNnACdl4fl/Q2cqm8f0XMABToVDK1KJjXgiZuLujUqQPJMKOtQzXVKn//M
+ospvUNFp0+dfu7JKwOIj6mkX5sDxkYBjztNkSbGcptg60aKl52ixEJw3Nob9i5N+
+Hagv6HB77RJrh6ygijmL4XtYUrmkKzKTO/kwk36zRrx9MkpgbRamneAwPbbt0Ig5
+0xg0neMmcQQt0kedoMjAxv1PwHc0gVvn5QcMjQ2wyN6IdT6n5/N+Xvt/0AYVB7Ox
+jYGEm8Ca9vSE9yURoPFQKmNvTaWdpAAngBIsUoR7H7m7LIPQDxHEUqdfZGVtdsl2
+XZVuFyT8S+8KgnUks/fGXQVWXZni6UWPG9Avtl8ACfXsbPGjMBoafYycocDVoHeH
+dnPrwY0c4RossevUn7swyfnXCkPkojfyX7B7nTPeVF3iFLr4jbI6iCG/hIjAauDI
+xnlveqPqAgwKRfG0sd2q1sCcb1jY1Bxa46K3g3ophgc7uGLInnY50QRt3Y6bjDUV
+XQ69j9k5mvHV4q2QFQ==
+-----END CERTIFICATE-----
+subject=/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory
+issuer=/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+---
+Acceptable client certificate CA names
+/CN=0.0.0.0:53589/O=G\xC3\xB6teborg Bit Factory/L=G\xC3\xB6teborg/ST=V\xC3\xA4stra G\xC3\xB6taland/C=SE
+Client Certificate Types: RSA sign, DSA sign, ECDSA sign
+Requested Signature Algorithms: RSA+SHA256:ECDSA+SHA256:RSA+SHA384:ECDSA+SHA384:RSA+SHA512:ECDSA+SHA512:RSA+SHA224:ECDSA+SHA224:RSA+SHA1:ECDSA+SHA1
+Shared Requested Signature Algorithms: RSA+SHA256:ECDSA+SHA256:RSA+SHA384:ECDSA+SHA384:RSA+SHA512:ECDSA+SHA512:RSA+SHA224:ECDSA+SHA224:RSA+SHA1:ECDSA+SHA1
+Peer signing digest: SHA512
+Server Temp Key: ECDH, P-256, 256 bits
+---
+SSL handshake has read 2321 bytes and written 138 bytes
+---
+New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES256-GCM-SHA384
+Server public key is 4096 bit
+Secure Renegotiation IS supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : TLSv1.2
+    Cipher    : ECDHE-RSA-AES256-GCM-SHA384
+    Session-ID: 6A463135A6453D210228DC77E38601C5EB4876AEB5AD05E9F237D7F90EE79979
+    Session-ID-ctx:
+    Master-Key: 5D1F3928BF5710F8E7E9A85687104F5F1780FB34F14BFCB582E8426222FC6A4C60060D80302F1DBB16AFF11F70DF92F5
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1555412753
+    Timeout   : 300 (sec)
+    Verify return code: 0 (ok)
+---

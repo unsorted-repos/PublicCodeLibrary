@@ -1,0 +1,614 @@
+
+
+Incoming path inc. filename:/mnt/c/twInstall/vars
+Creating new file0:/mnt/c/twInstall/vars
+File already exists.
+Creating new file1:/mnt/c/twInstall/vars
+JUST WROTE CONTENT VARS FILE!
+Should have just printed vars
+RUNNING COMMAND:[sudo, apt, update, /mnt/c/twInstall/]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Hit:1 http://security.ubuntu.com/ubuntu xenial-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu xenial-backports InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+118 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[sudo, apt, install, task, /home/a]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+task is already the newest version (2.5.0+dfsg-1build1).
+0 upgraded, 0 newly installed, 0 to remove and 118 not upgraded.
+Return code = 0
+RUNNING COMMAND:[sudo, apt, install, taskd, /mnt/c/twInstall/]
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+taskd is already the newest version (1.1.0+dfsg-2build1).
+0 upgraded, 0 newly installed, 0 to remove and 118 not upgraded.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+Incoming array command 7=[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
+Command 7 is recognized for verification
+The folder /var/taskd exists
+RUNNING COMMAND:[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, init, --data, /var/taskd, /mnt/c/twInstall/]
+You must specify the 'server' variable before attempting a server start, for example:
+  taskd config server localhost:53589
+
+Created /var/taskd/config
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /mnt/c/twInstall/vars, /usr/share/taskd/pki/, /mnt/c/twInstall/]
+Return code = 0
+RUNNING COMMAND:[sudo, /usr/share/taskd/pki/generate, /usr/share/taskd/pki/]
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a self signed certificate...
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb70b4304d974804549bb67
+        Validity:
+                Not Before: Wed Apr 17 11:17:23 UTC 2019
+                Not After: Thu Apr 16 11:17:23 UTC 2020
+        Subject: CN=0.0.0.0:53589,O=Goteborg Bit Factory,L=Goteborg,ST=Vastra Gotaland,C=SE
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:9c:85:d1:91:62:4a:41:89:30:0c:c4:27:e4:7b:70
+                        66:48:68:d5:3b:0d:67:10:fb:9f:c4:bb:05:5a:aa:9a
+                        01:6f:07:fb:7c:28:50:ac:27:9b:17:24:4b:95:6c:05
+                        69:a2:18:5e:ce:7f:c1:ed:f9:f0:99:71:55:8f:b4:00
+                        0d:12:17:b8:f8:81:ed:df:3e:6c:74:05:84:c7:9f:03
+                        61:8c:ad:ab:26:10:b8:a0:d6:0c:5d:01:13:f4:be:77
+                        6a:a3:ed:e2:ba:eb:55:b9:24:37:c2:6c:83:67:25:77
+                        c0:97:85:5e:71:48:18:c9:49:6d:cf:4e:f1:49:40:ef
+                        a4:9c:4a:f4:79:9d:38:1f:c6:46:0e:bc:b9:20:b6:68
+                        72:5f:2f:a6:36:84:88:48:59:87:7c:2c:aa:ad:6e:84
+                        b3:fc:cd:54:bd:3a:c7:aa:18:47:36:a5:53:2d:7e:95
+                        10:f0:e8:fe:41:6c:ac:96:97:ed:fe:99:e3:a2:9d:3c
+                        ca:b0:89:89:ff:26:57:2e:e9:5d:f0:89:b9:4d:91:28
+                        ab:86:77:e5:76:08:c3:1b:5e:a5:d9:8b:4d:4c:ef:14
+                        45:f2:44:e2:e4:32:31:bc:d5:1e:15:de:58:49:ce:16
+                        d6:e9:bb:87:1c:43:6e:b3:98:8c:85:9b:4a:c1:fd:dd
+                        52:9b:b1:a0:4d:49:fc:63:d4:ba:ea:5b:59:e0:6f:3b
+                        f5:b2:c5:46:ef:56:a3:5b:42:fa:88:ad:81:87:25:e6
+                        8a:2e:10:c0:56:f2:23:18:03:5a:b8:a7:fe:ba:20:86
+                        a0:77:24:c6:1c:0d:23:26:fe:92:fe:52:ad:40:29:97
+                        61:9c:21:40:23:a6:b1:f6:34:7e:76:ae:99:af:bc:90
+                        80:4e:b3:97:94:06:ac:31:65:8f:2f:08:1e:f6:6e:2d
+                        7b:84:35:be:4b:fb:f2:ff:6b:43:17:e3:0d:8b:2c:ce
+                        bd:a1:5f:a3:2f:dc:2e:c0:2e:01:01:e7:8e:bd:00:13
+                        06:6b:74:d6:3d:9b:17:27:c7:32:48:2e:f0:a5:bc:87
+                        b1:ca:7e:08:3f:4b:00:09:63:d2:18:df:7c:eb:df:e9
+                        f5:91:db:f9:18:cc:4e:96:da:8c:40:83:7a:fa:c8:e5
+                        c7:71:28:ef:64:fe:dc:e5:d6:00:08:4e:14:53:19:28
+                        55:de:f9:59:4e:93:be:a8:b7:a0:ae:aa:df:21:ab:c3
+                        b1:28:55:43:9c:af:2f:2b:58:1c:3a:44:c2:22:fb:dc
+                        66:3b:ad:2c:08:ed:6f:3f:da:aa:2c:f8:73:5b:40:9b
+                        e6:d2:c4:75:6d:f0:bb:f8:4f:11:66:ee:be:da:30:fe
+                        8d
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): TRUE
+                Key Usage (critical):
+                        Certificate signing.
+                Subject Key Identifier (not critical):
+                        c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+Other Information:
+        Public Key ID:
+                c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |Bo*=.            |
+                |*Bo+..           |
+                |*...o   .        |
+                | .o.     + .     |
+                | o  .   S =      |
+                |o    .   +       |
+                | o    .   +      |
+                |E      . . .     |
+                |        .        |
+                +-----------------+
+
+
+
+Signing certificate...
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Thu Apr 16 13:17:24 2020
+CA expiration time: Thu Apr 16 13:17:23 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb70b441e22c540bbc5b621
+        Validity:
+                Not Before: Wed Apr 17 11:17:24 UTC 2019
+                Not After: Thu Apr 16 11:17:24 UTC 2020
+        Subject: CN=0.0.0.0:53589,O=Goteborg Bit Factory
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:d6:f8:52:39:c2:1d:df:4f:55:2b:7c:54:a8:0a:0b
+                        27:f8:e2:3d:31:2e:5a:23:38:0e:fb:d3:81:b6:f9:82
+                        41:0f:07:33:96:d1:4b:df:b5:3e:c8:52:21:29:4e:af
+                        85:da:73:d2:58:46:aa:1e:01:97:9d:a6:e6:45:fa:60
+                        8e:14:03:98:7a:76:1c:53:12:bd:33:0f:86:2d:ee:ba
+                        9b:31:91:fd:ab:ee:93:f8:03:3c:63:77:c5:b9:af:af
+                        ed:b4:e1:1b:d3:e6:e1:ed:be:95:6d:b3:d8:fe:c4:fb
+                        2a:f1:fb:57:57:3a:09:84:e3:00:b4:04:7c:ea:6d:06
+                        fd:c0:5a:22:ce:cc:ac:a6:0c:9f:5a:a1:92:6f:0f:fe
+                        6e:38:f5:f9:9b:4a:c5:fa:49:41:60:b5:2b:c6:80:30
+                        37:10:4d:b7:a5:b7:9e:d3:18:9b:3a:01:a4:df:aa:f4
+                        47:f3:cc:3d:7b:06:11:25:c1:bc:dd:c8:90:33:fd:53
+                        97:be:55:fa:e8:fe:d6:b1:d0:05:40:3c:54:56:69:18
+                        44:78:b8:d7:7a:1d:b0:05:34:f8:c5:ac:cb:37:29:50
+                        9c:40:79:a7:64:9e:db:49:fb:0c:3c:80:02:6b:09:a2
+                        09:3a:71:aa:c7:fa:3a:38:2e:14:ef:99:90:75:7a:4b
+                        13:6b:4f:b9:d3:88:57:79:c4:2b:8a:ee:ec:b2:df:3c
+                        e1:88:01:10:ae:8b:33:58:93:53:a4:e8:e6:5a:30:7e
+                        41:88:9b:01:bc:aa:fb:6c:ba:82:1f:0c:2d:0f:e5:bc
+                        11:7c:f1:b9:1a:16:19:c2:98:b0:1c:e8:14:bd:12:7e
+                        e9:73:2a:b0:bc:df:a8:0b:4e:03:ca:6c:9a:28:c5:a5
+                        b2:08:09:e1:76:f7:58:f8:ab:00:bb:ab:21:1c:b4:e2
+                        c8:65:49:02:f6:a4:51:13:9c:5f:de:1a:0c:dd:d4:06
+                        60:fb:b1:9d:56:92:f3:50:a9:3c:5a:09:45:f0:b8:d2
+                        24:0f:a8:de:26:d7:1d:f0:ab:55:9e:79:cb:62:ed:06
+                        c8:22:f2:ab:0c:96:07:aa:0b:04:ca:ab:c2:de:81:0b
+                        4a:71:0e:f0:5e:24:20:df:b9:ae:01:a9:64:bc:22:a2
+                        33:39:23:a4:7f:99:01:d0:96:48:e6:1b:32:e0:ed:d1
+                        b2:c5:d6:40:c0:15:38:00:3a:58:ec:cc:6b:77:11:f9
+                        7c:ce:b2:c8:28:85:ae:5b:0b:47:36:0d:22:46:a0:3a
+                        6a:7f:25:2d:23:69:c1:50:4d:12:6b:aa:82:01:e4:68
+                        fa:f5:8d:ad:a4:60:4d:33:46:ad:fa:0f:6b:01:3f:22
+                        2d
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Server.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        e6d05d2655b7b7b4bf044def9c96f31e2290cb29
+                Authority Key Identifier (not critical):
+                        c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+Other Information:
+        Public Key ID:
+                e6d05d2655b7b7b4bf044def9c96f31e2290cb29
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |            ... .|
+                |           .   ..|
+                |          . o  +.|
+                |       . ..+  + =|
+                |      . So.  . +.|
+                |       +. +   .o+|
+                |       E.+ . . B+|
+                |        .   . + =|
+                |               oo|
+                +-----------------+
+
+
+
+Signing certificate...
+Generating a signed CRL...
+Update times.
+
+X.509 Certificate Revocation List Information:
+        Version: 2
+        Issuer: CN=0.0.0.0:53589,O=Goteborg Bit Factory,L=Goteborg,ST=Vastra Gotaland,C=SE
+        Update dates:
+                Issued: Wed Apr 17 11:17:25 UTC 2019
+                Next at: Thu Apr 16 11:17:25 UTC 2020
+        Extensions:
+                Authority Key Identifier (not critical):
+                        c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+                CRL Number (not critical): 5cb70b45054dded8539f22f4
+        No revoked certificates.
+        Signature Algorithm: RSA-SHA256
+        Signature:
+                8f:ef:97:58:48:ed:e2:67:3a:d4:10:a7:16:b7:92:71
+                2d:74:74:c2:31:97:35:13:6b:fc:e0:05:ca:e7:7d:82
+                a2:85:aa:1e:73:4a:28:39:2e:30:62:eb:e5:94:1c:13
+                50:b1:9c:04:8c:1c:66:76:e8:77:c6:22:72:9a:c5:51
+                c1:f3:e8:10:f1:ba:83:e7:6f:6f:84:16:c0:b2:9a:7e
+                7d:e6:70:8d:85:42:92:e2:b8:51:de:d2:a6:d3:a9:8b
+                0b:c7:20:18:82:ea:fa:f7:7e:b0:a7:10:75:13:0c:da
+                9b:3e:32:e5:7a:98:01:99:b1:ad:62:cd:b7:8b:74:75
+                d2:e6:44:5f:88:44:0f:11:87:b7:b4:51:12:c8:92:90
+                32:75:37:09:97:17:77:c1:99:c7:ab:4b:0b:6e:54:9a
+                9d:86:94:51:8b:b2:7f:b5:2b:50:26:84:76:09:b5:9a
+                ac:1a:b5:5f:8f:b6:36:84:69:50:3e:67:e5:f1:02:11
+                20:4f:b8:6c:eb:1a:6b:9d:b8:2c:45:79:bf:19:fd:00
+                6a:bb:8b:79:bc:de:07:a9:fa:a9:8b:31:50:e4:e3:90
+                88:18:38:b4:96:e2:2d:42:2e:1f:30:59:ad:2f:99:c1
+                78:16:25:10:cd:89:f4:b3:c1:0d:37:e6:85:0d:fd:7d
+                3d:ec:2f:15:4e:57:2b:3e:d7:7d:9a:ea:59:4d:a5:ce
+                ae:6a:df:df:4d:93:17:74:63:2e:dd:5b:03:e6:b2:2c
+                22:1f:21:b1:27:a4:4a:5a:b9:a1:5c:00:e5:0c:19:95
+                8a:b1:e8:f5:21:25:5a:6d:7c:3c:97:fb:cf:3a:83:f4
+                45:1a:98:64:f3:f9:25:5c:f6:49:73:47:4d:2e:1f:43
+                c1:6e:7c:3e:f5:0a:03:a5:21:1d:0b:8c:75:bd:fe:d3
+                ab:5f:81:8f:b7:af:0e:2c:ee:26:8b:bc:80:bd:f9:4f
+                f5:78:8f:64:23:1f:a9:e3:05:75:b5:8f:ac:58:83:3f
+                bb:a4:39:9b:03:4c:49:c6:0f:02:a9:d4:ab:71:60:28
+                4f:ee:31:74:92:33:dd:f5:58:2f:11:65:c6:9b:2b:a5
+                5d:97:67:d4:22:41:44:ee:a2:36:17:2b:30:5f:b6:91
+                1f:2d:66:b0:d5:22:81:30:77:a3:1c:fd:89:9a:93:04
+                37:a7:22:fe:38:a9:99:82:a7:1e:46:dc:4f:11:e4:f9
+                74:99:ee:41:8f:77:40:fd:b7:52:b8:61:7f:9a:eb:e1
+                f9:b4:33:02:b4:ac:78:84:d6:cc:42:d6:f0:3d:c3:1e
+                e8:4e:eb:48:75:8e:d8:a8:23:42:ef:7f:25:51:f1:a4
+
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Thu Apr 16 13:17:26 2020
+CA expiration time: Thu Apr 16 13:17:23 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb70b462b76e26c57839b1e
+        Validity:
+                Not Before: Wed Apr 17 11:17:26 UTC 2019
+                Not After: Thu Apr 16 11:17:26 UTC 2020
+        Subject: CN=0.0.0.0:53589,O=Goteborg Bit Factory
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:bf:92:77:ff:ac:b7:0b:12:22:f4:c4:6d:ad:79:d8
+                        97:6d:60:ac:b2:ef:3b:df:3f:bf:b6:29:bf:78:8a:bd
+                        79:59:90:2d:3a:f7:88:2d:bb:98:66:95:8e:a4:a4:da
+                        f6:aa:a0:eb:ee:86:40:1d:ca:7c:02:70:d5:73:61:e8
+                        41:b2:fe:43:ec:a3:4e:9e:88:35:74:98:91:b5:2b:0c
+                        80:a3:64:33:9a:4c:04:d5:b3:5a:92:2a:47:24:26:f9
+                        46:c3:ea:e2:e2:36:37:a5:ca:b2:25:a6:5f:c9:73:3f
+                        f1:9c:2e:dd:fe:28:8e:c9:0e:45:a4:65:c5:01:5f:b5
+                        63:25:9e:a5:52:e0:83:e3:5f:83:6b:b1:26:97:65:3a
+                        68:3e:c6:f5:9b:d8:86:e9:f8:47:0d:8d:bd:7c:09:7e
+                        a9:0a:c1:81:6f:6f:a2:6c:e4:a0:2b:ce:5b:8f:98:f0
+                        92:cd:5e:bf:dd:45:e6:e3:30:e7:76:ce:a3:d5:d3:81
+                        e4:72:fa:d5:3e:ef:41:4c:2d:0f:fc:33:c5:b0:b3:0c
+                        c0:f0:c8:fe:a2:af:19:d3:59:b0:b5:cb:87:3c:80:98
+                        df:f0:a7:2e:0e:5d:95:de:e1:5d:f4:17:b9:df:1a:2f
+                        4f:9a:fd:fb:e9:00:62:38:f6:32:c5:af:d5:7a:7e:21
+                        9a:d0:9a:43:ed:4a:89:00:fe:8a:14:5c:c0:35:35:37
+                        0d:19:90:c5:d2:3e:be:99:b4:e1:28:79:59:95:a7:62
+                        fc:47:b9:e7:df:90:de:57:07:c1:6a:cf:54:f4:a5:8f
+                        a5:24:45:9a:d8:cd:69:c8:81:c7:5e:8a:6d:6d:80:68
+                        d3:fa:be:9e:50:7f:8b:fb:1c:58:52:43:39:24:0c:e7
+                        3e:44:6a:ac:6c:dc:0c:88:68:3f:27:fc:ae:55:b9:54
+                        29:e3:f7:3b:b3:48:f7:40:42:0a:34:70:9e:62:81:a1
+                        42:bc:e6:2c:b1:e7:fa:aa:42:56:48:d8:32:d7:1d:4e
+                        86:ef:f3:27:94:a4:7c:77:c7:d9:3d:65:30:94:09:31
+                        da:e3:1d:67:8e:99:20:3e:09:5a:f7:8a:9e:0e:13:e4
+                        5c:0e:59:91:12:08:48:85:83:a8:6b:cb:cc:06:c6:63
+                        ab:84:3f:28:ca:79:4c:3b:7e:ee:1b:52:e1:ed:47:00
+                        47:d1:42:64:d9:12:69:14:19:ad:ae:be:72:58:0e:97
+                        4d:2f:30:41:bd:ad:53:38:fe:e3:e6:bc:87:08:a3:3a
+                        1d:95:bb:e8:f9:17:3b:e4:85:b3:f7:b2:e9:c2:e4:54
+                        c0:29:96:ca:b9:11:27:1e:a6:1b:d1:3c:1a:d5:e4:a6
+                        3b
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Client.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        2328165f9dbdb29a9d35e29a289eedf402366250
+                Authority Key Identifier (not critical):
+                        c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+Other Information:
+        Public Key ID:
+                2328165f9dbdb29a9d35e29a289eedf402366250
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |                 |
+                |  E    . o       |
+                | ..   . o .      |
+                |.  o o     .     |
+                |. o o . S .      |
+                |.o+.   . +       |
+                |.o o.   o o      |
+                |  .+.o * + .     |
+                | .oo+.*.+        |
+                +-----------------+
+
+
+
+Signing certificate...
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/client.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/client.key.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.key.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/server.crl.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/ca.cert.pem, /var/taskd, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, client.cert, /var/taskd/client.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, client.key, /var/taskd/client.key.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.cert, /var/taskd/server.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.key, /var/taskd/server.key.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server.crl, /var/taskd/server.crl.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, ca.cert, /var/taskd/ca.cert.pem, --data, /var/taskd, /usr/share/taskd/pki/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/]
+filler
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, log, /var/taskd/taskd.log, --data, /var/taskd, /var/taskd/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, pid.file, /var/taskd/taskd.pid, --data, /var/taskd, /var/taskd/]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --force, server, 0.0.0.0:53589, --data, /var/taskd, /var/taskd]
+Config file /var/taskd/config modified.
+Return code = 0
+RUNNING COMMAND:[task, add, testtask, description, /var/taskd]
+Created task 3.
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, add, org, Public, --data, /var/taskd, /var/taskd]
+ERROR: Organization 'Public' already exists.
+Return code = 255
+RUNNING COMMAND:[sudo, taskd, add, user, Public, First, --data, /var/taskd, /var/taskd/]
+New user key: 245d2677-0c9b-499a-add6-e9e07784199a
+Created user 'First' for organization 'Public'
+Return code = 0
+Incoming file = /var/taskd/orgs/Public/users
+file = [Ljava.io.File;@246b179d
+the found directory = [245d2677-0c9b-499a-add6-e9e07784199a]
+Incoming file = /var/taskd/orgs/Public/users
+file = [Ljava.io.File;@7a07c5b4
+the found directory = [245d2677-0c9b-499a-add6-e9e07784199a]
+The TW uuid = 245d2677-0c9b-499a-add6-e9e07784199a
+RUNNING COMMAND:[sudo, /usr/share/taskd/pki/generate.client, First, /usr/share/taskd/pki/]
+** Note: You may use '--sec-param High' instead of '--bits 4096'
+Generating a 4096 bit RSA private key...
+Generating a signed certificate...
+
+Expiration time: Thu Apr 16 13:17:31 2020
+CA expiration time: Thu Apr 16 13:17:23 2020
+Warning: The time set exceeds the CA's expiration time
+X.509 Certificate Information:
+        Version: 3
+        Serial Number (hex): 5cb70b4b012f2a2861157dd9
+        Validity:
+                Not Before: Wed Apr 17 11:17:31 UTC 2019
+                Not After: Thu Apr 16 11:17:31 UTC 2020
+        Subject: CN=0.0.0.0:53589,O=Goteborg Bit Factory
+        Subject Public Key Algorithm: RSA
+        Algorithm Security Level: High (4096 bits)
+                Modulus (bits 4096):
+                        00:aa:36:96:8a:01:3f:d8:2e:7a:4a:ee:7c:c7:03:a7
+                        fb:00:49:10:52:22:cb:b5:a7:ba:2c:42:91:1f:a9:dd
+                        53:44:14:79:18:fb:36:d7:a5:60:78:0a:12:a9:22:1e
+                        af:24:b0:a3:0c:5f:a5:29:ba:62:ac:aa:e3:2e:c4:fd
+                        0c:5c:1c:9b:eb:39:0b:08:ee:db:35:6c:07:0d:72:89
+                        e1:18:ab:ff:31:8f:84:1d:a5:fb:39:b2:eb:99:16:8c
+                        dc:5d:14:14:9b:4c:d7:1d:d4:70:fa:21:df:80:8a:af
+                        33:78:06:e1:da:23:32:5f:e9:1f:a3:b6:cb:55:27:95
+                        c9:c2:e6:21:cd:84:79:4f:bf:de:6d:9b:54:f9:3b:3b
+                        c8:ac:4e:1f:2a:a5:87:14:72:14:98:c4:e8:2f:08:9f
+                        16:8c:1a:16:49:c5:ad:f4:81:31:03:bd:3a:6c:ad:72
+                        41:82:f7:ec:bd:23:7e:1f:1a:f7:cf:28:47:6d:90:dd
+                        ad:19:a3:5a:c0:64:a0:5b:d5:e8:31:f3:da:83:de:27
+                        4d:56:ca:d1:a4:be:82:ad:d1:cc:26:20:23:c7:94:66
+                        5b:d3:8b:f2:72:41:fb:e2:6e:a1:23:d8:5d:38:c5:69
+                        63:1b:98:11:19:db:31:65:13:b9:33:1b:ac:18:77:73
+                        33:f9:b7:50:ee:34:29:42:a3:7b:82:24:5f:f0:cb:b9
+                        59:fa:09:27:ac:26:bc:09:81:ee:3b:0b:d5:e6:df:9a
+                        e6:6f:8a:37:07:57:96:af:6d:df:90:9a:d6:9f:29:be
+                        05:11:45:59:cf:10:a7:32:2e:5a:1d:30:d8:0d:ea:5b
+                        f6:04:81:bf:11:1c:ba:d3:0d:d6:6c:33:36:b1:f3:61
+                        d2:4a:b1:71:46:df:6b:a8:b0:5b:93:11:6e:56:07:ef
+                        7b:3a:f4:d9:02:de:4c:dd:03:21:6b:06:d3:64:ba:ad
+                        4e:15:06:97:8c:01:2a:7c:04:82:0d:d1:85:65:b4:09
+                        d4:cb:16:8a:30:74:16:45:09:06:fa:88:0f:e0:91:87
+                        51:fa:8d:61:c7:59:09:cc:d4:2e:94:82:d3:38:c5:93
+                        96:0d:42:48:79:e9:27:13:a4:c4:85:43:c6:6b:0e:6f
+                        33:a8:d7:bb:c3:7f:ef:ba:00:d2:f1:69:9a:b8:07:2c
+                        ef:da:a7:1a:8d:67:dc:99:81:76:af:64:2b:8b:87:87
+                        74:c5:e5:c8:89:8e:dc:bf:80:f4:31:35:fd:3a:b8:5a
+                        54:95:f2:31:5b:cd:25:8a:37:02:4d:f9:cb:b2:3d:fa
+                        18:04:19:37:3a:ff:9a:d5:1c:ab:c3:46:38:bd:a1:50
+                        a7
+                Exponent (bits 24):
+                        01:00:01
+        Extensions:
+                Basic Constraints (critical):
+                        Certificate Authority (CA): FALSE
+                Key Purpose (not critical):
+                        TLS WWW Client.
+                Key Usage (critical):
+                        Digital signature.
+                        Key encipherment.
+                Subject Key Identifier (not critical):
+                        77905bcd418719cf39def91c27b0db84ecf09a63
+                Authority Key Identifier (not critical):
+                        c7f0e93c0a4089303b209da0a0595162d3ca9a9b
+Other Information:
+        Public Key ID:
+                77905bcd418719cf39def91c27b0db84ecf09a63
+        Public key's random art:
+                +--[ RSA 4096]----+
+                |             .++.|
+                |           . oo=.|
+                |          o o ooo|
+                |           = +. +|
+                |        S + = o+o|
+                |         . = + o+|
+                |            + . o|
+                |          Eo     |
+                |         .o.     |
+                +-----------------+
+
+
+
+Signing certificate...
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/First.cert.pem, /home/a/.task/, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/First.key.pem, /home/a/.task/, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, cp, /usr/share/taskd/pki/ca.cert.pem, /home/a/.task/, /usr/share/taskd/pki/]
+Return code = 0
+RUNNING COMMAND:[sudo, task, config, taskd.certificate, --, /home/a/.task/First.cert.pem, /usr/share/taskd/pki/]
+Are you sure you want to add 'taskd.certificate' with a value of '/home/a/.task/First.cert.pem'? (yes/no) Config file /home/a/.taskrc modified.
+Return code = 0
+RUNNING COMMAND:[sudo, task, config, taskd.key, --, /home/a/.task/First.key.pem, /usr/share/taskd/pki/]
+Are you sure you want to add 'taskd.key' with a value of '/home/a/.task/First.key.pem'? (yes/no) Config file /home/a/.taskrc modified.
+Return code = 0
+RUNNING COMMAND:[sudo, task, config, taskd.ca, --, /home/a/.task/ca.cert.pem, /usr/share/taskd/pki/]
+Are you sure you want to add 'taskd.ca' with a value of '/home/a/.task/ca.cert.pem'? (yes/no) Config file /home/a/.taskrc modified.
+Return code = 0
+Incoming array command 7=[sudo, task, config, taskd.server, --, 0.0.0.0:53589, /usr/share/taskd/pki/]
+The folder /var/taskd exists
+RUNNING COMMAND:[sudo, task, config, taskd.server, --, 0.0.0.0:53589, /usr/share/taskd/pki/]
+Are you sure you want to add 'taskd.server' with a value of '0.0.0.0:53589'? (yes/no) Config file /home/a/.taskrc modified.
+Return code = 0
+RUNNING COMMAND:[sudo, task, config, taskd.credentials, --, Public/First/245d2677-0c9b-499a-add6-e9e07784199a, /usr/share/taskd/pki/]
+Are you sure you want to add 'taskd.credentials' with a value of 'Public/First/245d2677-0c9b-499a-add6-e9e07784199a'? (yes/no) Config file /home/a/.taskrc modified.
+Return code = 0
+RUNNING COMMAND:[echo, filler, /mnt/c/twInstall/, /mnt/c/twInstall/]
+Incoming commandData = [echo, filler, /mnt/c/twInstall/, /mnt/c/twInstall/]
+The final list of commands before execution = [echo, filler]
+Setting environment variable TASKDDATA=/mnt/c/twInstall/
+filler
+Return code = 0
+RUNNING COMMAND:[taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+Incoming commandData = [taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+The final list of commands before execution = [taskdctl, start]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl start: daemon started
+Return code = 0
+RUNNING COMMAND:[sudo, task, sync, init, /usr/share/taskd/pki/, /var/taskd]
+Incoming commandData = [sudo, task, sync, init, /usr/share/taskd/pki/, /var/taskd]
+The final list of commands before execution = [sudo, task, sync, init]
+Setting environment variable TASKDDATA=/var/taskd
+WITH YES!
+Please confirm that you wish to upload all your pending tasks to the Taskserver (yes/no) Syncing with 0.0.0.0:53589
+
+Could not connect to 0.0.0.0 53589
+Sync failed.  Could not connect to the Taskserver.
+Return code = 1
+RUNNING COMMAND:[sudo, task, config, taskd.trust, --, ignore, hostname, /usr/share/taskd/pki/, /var/taskd]
+Incoming commandData = [sudo, task, config, taskd.trust, --, ignore, hostname, /usr/share/taskd/pki/, /var/taskd]
+The final list of commands before execution = [sudo, task, config, taskd.trust, --, ignore, hostname]
+Setting environment variable TASKDDATA=/var/taskd
+Are you sure you want to add 'taskd.trust' with a value of 'ignore hostname'? (yes/no) No changes made.
+Return code = 0
+RUNNING COMMAND:[taskdctl, stop, /usr/share/taskd/pki/, /var/taskd]
+Incoming commandData = [taskdctl, stop, /usr/share/taskd/pki/, /var/taskd]
+The final list of commands before execution = [taskdctl, stop]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl stop: daemon (no pid file) not running
+Return code = 0
+RUNNING COMMAND:[sudo, taskd, config, --data, /var/taskd/, /var/taskd/, /var/taskd]
+Incoming commandData = [sudo, taskd, config, --data, /var/taskd/, /var/taskd/, /var/taskd]
+The final list of commands before execution = [sudo, taskd, config, --data, /var/taskd/]
+Setting environment variable TASKDDATA=/var/taskd
+
+Configuration read from /var/taskd//config
+
+Variable       Value
+-------------  --------------------------
+ca.cert        /var/taskd/ca.cert.pem
+client.cert    /var/taskd/client.cert.pem
+client.key     /var/taskd/client.key.pem
+confirmation   1
+extensions     /usr/libexec/taskd
+ip.log         on
+log            /var/taskd/taskd.log
+pid.file       /var/taskd/taskd.pid
+queue.size     10
+request.limit  1048576
+root           /var/taskd/
+server         0.0.0.0:53589
+server.cert    /var/taskd/server.cert.pem
+server.crl     /var/taskd/server.crl.pem
+server.key     /var/taskd/server.key.pem
+trust          strict
+verbose        1
+
+Return code = 0
+RUNNING COMMAND:[sudo, -s, /var/taskd, /var/taskd]
+Incoming commandData = [sudo, -s, /var/taskd, /var/taskd]
+The final list of commands before execution = [sudo, -s]
+Setting environment variable TASKDDATA=/var/taskd
+Return code = 0
+Incoming array command 7=[taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+The folder /var/taskd exists
+RUNNING COMMAND:[taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+Incoming commandData = [taskdctl, start, /usr/share/taskd/pki/, /var/taskd]
+The final list of commands before execution = [taskdctl, start]
+Setting environment variable TASKDDATA=/var/taskd
+/usr/bin/taskdctl start: daemon started
+Return code = 0
+RUNNING COMMAND:[sudo, task, sync, init, /var/taskd/, /var/taskd]
+Incoming commandData = [sudo, task, sync, init, /var/taskd/, /var/taskd]
+The final list of commands before execution = [sudo, task, sync, init]
+Setting environment variable TASKDDATA=/var/taskd
+WITH YES!
+Please confirm that you wish to upload all your pending tasks to the Taskserver (yes/no) Syncing with 0.0.0.0:53589
+
+Could not connect to 0.0.0.0 53589
+Sync failed.  Could not connect to the Taskserver.
+Return code = 1
+
+
+
+ echo $TASKDDATA
+/var/taskd
