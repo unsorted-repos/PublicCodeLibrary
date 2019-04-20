@@ -64,8 +64,8 @@ public class GenerateOutput {
 		 
 			 Process process = processBuilder.start();
 			
-			 // capture the output stream of the command
-			 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			// capture the output stream of the command
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		    StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
 			reader.lines().iterator().forEachRemaining(sj::add);
 			capturedCommandOutput = sj.toString();
