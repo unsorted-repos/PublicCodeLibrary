@@ -46,7 +46,7 @@ public class RunCommandsV3 {
 		 * @param ansYes
 		 * @throws Exception 
 		 */
-		public static boolean executeCommands(Command command,Boolean ansYes) throws Exception {
+		public static String executeCommands(Command command,Boolean ansYes) throws Exception {
 			String capturedCommandOutput = null;
 			System.out.println("Incoming commandData = "+Arrays.deepToString(command.getCommandLines()));
 			File workingDirectory = new File(command.getWorkingDirectory());
@@ -54,11 +54,11 @@ public class RunCommandsV3 {
 			// create a ProcessBuilder to execute the commands in
 			ProcessBuilder processBuilder = new ProcessBuilder(command.getCommandLines());
 			
-			// this is not necessary but can be used to set an environment variable for the command
-			processBuilder = setEnvironmentVariable(processBuilder,command); 
+			// this is set an environment variable for the command (if needed)
+			if (command.isSetEnvVar()) {processBuilder = setEnvironmentVariable(processBuilder,command);} 
 			
 			// this is not necessary but can be used to set the working directory for the command
-			processBuilder.directory(workingDirectory);
+			if (command.isSetWorkingPath()) {processBuilder.directory(workingDirectory);}
 			
 			// execute the actual commands
 			try {
@@ -96,19 +96,21 @@ public class RunCommandsV3 {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			return retrieveBooleanOutput(capturedCommandOutput);
+			
+			// return output if required:
+			return capturedCommandOutput;
 	    }
 		
-		private static boolean retrieveBooleanOutput(String commandOutput) throws Exception {
-			if (commandOutput != null && commandOutput.length() == 1) { 
-				if (commandOutput.contains("0")) {
-					return false;
-				} else if (commandOutput.contains("1")) {
-					return true;
-				}
-			}
-			throw new Exception("The output is not binary.");
-		}
+//		private static boolean retrieveBooleanOutput(String commandOutput) throws Exception {
+//			if (commandOutput != null && commandOutput.length() == 1) { 
+//				if (commandOutput.contains("0")) {
+//					return false;
+//				} else if (commandOutput.contains("1")) {
+//					return true;
+//				}
+//			}
+//			throw new Exception("The output is not binary.");
+//		}
 		
 		/**
 		 * source: https://stackoverflow.com/questions/7369664/using-export-in-java

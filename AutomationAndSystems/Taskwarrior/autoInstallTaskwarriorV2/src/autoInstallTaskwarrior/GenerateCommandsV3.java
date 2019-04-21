@@ -15,143 +15,157 @@ import java.util.Map;
  */
 public class GenerateCommandsV3 {
 	public static Command[] generateCommands(InstallData installData) {
-		int nrOfCommands = 51;
+		int nrOfCommands = 52;
 		String[][] commandLines = new String[nrOfCommands+1][1];
-		Command[] commands = new Command[nrOfCommands+1];
+		Command[] commands = new Command[nrOfCommands + 1];
 		for (int i = 0; i<nrOfCommands;i++) {
-			System.out.println(commands[i].toString());
+			commands[i] = new Command();
+			
+			// preset commands to not get the output, 
+			// set the environment variable and working path at every command.
 			commands[i].setGetOutput(false);
-			} // initialise get output to false
-		//In combination with Attempt 1:
+			commands[i].setSetEnvVar(true);  
+			commands[i].setSetWorkingPath(true);
+		}
 		
-			
-			// first command to enable working with an environment variable that exists.
-			//commandLines[0].setCommandLines(commandLines);
-			commandLines[0] = new String[6];
-			commandLines[0][0] = "sudo";
-			commandLines[0][1] = "mkdir";
-			commandLines[0][2] = "-p";
-			commandLines[0][3] = "/var/taskd";
-			commandLines[0][4] = installData.getLinuxPath();
-			commandLines[0][5] = "TASKDDATA=/var/taskd";
-			commands[0].setCommandLines(commandLines[0]);
-			commands[0].setEnvVarContent("/var/task");
-			commands[0].setEnvVarName("TASKDDATA");
-			commands[0].setWorkingPath("");
+		// pdf:0
+		// first command to enable working with an environment variable that exists.
+		//commandLines[0].setCommandLines(commandLines);
+		commandLines[0] = new String[6];
+		commandLines[0][0] = "sudo";
+		commandLines[0][1] = "mkdir";
+		commandLines[0][2] = "-p";
+		commandLines[0][3] = "/var/taskd";
+		commandLines[0][4] = installData.getLinuxPath();
+		commandLines[0][5] = "TASKDDATA=/var/taskd";
+		commands[0].setCommandLines(commandLines[0]);
+		commands[0].setEnvVarContent("/var/task");
+		commands[0].setEnvVarName("TASKDDATA");
+		commands[0].setWorkingPath("");
+		commands[0].setSetWorkingPath(false);
 
-			
-			commandLines[1] = new String[5];
-			// commandLines[0][0] = "yes | sudo apt update";
-			commandLines[1][0] = "yes | sudo";
-			commandLines[1][1] = "apt";
-			commandLines[1][2] = "update";
-			commandLines[1][3] = installData.getLinuxPath();
-			commandLines[1][4] = "TASKDDATA=/var/taskd";
-			commands[1].setCommandLines(commandLines[1]);
-			commands[1].setEnvVarContent("/var/task");
-			commands[1].setEnvVarName("TASKDDATA");
-			commands[1].setWorkingPath("");
+		// pdf:1
+		commandLines[1] = new String[5];
+		// commandLines[0][0] = "yes | sudo apt update";
+		commandLines[1][0] = "yes | sudo";
+		commandLines[1][1] = "apt";
+		commandLines[1][2] = "update";
+		commandLines[1][3] = installData.getLinuxPath();
+		commandLines[1][4] = "TASKDDATA=/var/taskd";
+		commands[1].setCommandLines(commandLines[1]);
+		commands[1].setEnvVarContent("/var/task");
+		commands[1].setEnvVarName("TASKDDATA");
+		commands[1].setWorkingPath(commands[1].getEnvVarContent());
+	
+		// pdf:2
+		// commandLines[2][0] = "sudo apt install task";	
+		commandLines[2] = new String[6];
+		commandLines[2][0] = "yes | sudo";
+		commandLines[2][1] = "apt";
+		commandLines[2][2] = "install";
+		commandLines[2][3] = "task";
+		commandLines[2][4] = "/home/"+installData.getLinuxUserName();
+		commandLines[2][5] = "TASKDDATA=/var/taskd";
+		commands[2].setCommandLines(commandLines[2]);
+		commands[2].setEnvVarContent("/var/task");
+		commands[2].setEnvVarName("TASKDDATA");
+		commands[2].setWorkingPath(commands[1].getEnvVarContent());
 		
+		// pdf:3
+		// commandLines[3][0] = "sudo apt install taskd";
+		commandLines[3] = new String[6];
+		commandLines[3][0] = "yes | sudo";
+		commandLines[3][1] = "apt";
+		commandLines[3][2] = "install";
+		commandLines[3][3] = "taskd";
+		commandLines[3][4] = installData.getLinuxPath();
+		commandLines[3][5] = "TASKDDATA=/var/taskd";
+		commands[3].setCommandLines(commandLines[3]);
+		commands[3].setEnvVarContent("/var/task");
+		commands[3].setEnvVarName("TASKDDATA");
+		commands[3].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:3
+		// write fillers for commands that are replaced:
+		// cd ..
+		commandLines[4] = new String[4];
+		commandLines[4][0] = "echo";
+		commandLines[4][1] = "filler";
+		commandLines[4][2] = installData.getLinuxPath();
+		commandLines[4][3] = "TASKDDATA=/var/taskd";
+		commands[4].setCommandLines(commandLines[4]);
+		commands[4].setEnvVarContent("/var/task");
+		commands[4].setEnvVarName("TASKDDATA");
+		commands[4].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:3
+		// write fillers for commands that are replaced:
+		// cd ..
+		commandLines[5] = new String[4];
+		commandLines[5][0] = "echo";
+		commandLines[5][1] = "filler";
+		commandLines[5][2] = installData.getLinuxPath();
+		commandLines[5][3] = "TASKDDATA=/var/taskd";
+		commands[5].setCommandLines(commandLines[5]);
+		commands[5].setEnvVarContent("/var/task");
+		commands[5].setEnvVarName("TASKDDATA");
+		commands[5].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:
+		// write fillers for commands that are replaced:
+		// export TASKDDATA=/var/taskd
+		// working folder should be root
+		// environment variable:TASKDDATA=/var/taskd
+		commandLines[6] = new String[4];
+		commandLines[6][0] = "echo";
+		commandLines[6][1] = "filler";
+		commandLines[6][2] = installData.getLinuxPath();
+		commandLines[6][3] = "TASKDDATA=/var/taskd";
+		commands[6].setCommandLines(commandLines[6]);
+		commands[6].setEnvVarContent("/var/task");
+		commands[6].setEnvVarName("TASKDDATA");
+		commands[6].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:3
+		// commandLines[7][0] = "sudo mkdir -p $TASKDDATA";
+		// Note: -p creates the parent folders up and until the final folder. 
+		// Note: $TASKDDATA=/var/taskd
+		// Note: the /var folder should be located in root. Hence, it should be/is an absolute path.
+		// working folder should be root
+		// environment variable:TASKDDATA=/var/taskd
+		// TODO: verify that there is no /var/taskd made in the current working directory/location of the .jar file.
+		commandLines[7] = new String[6];
+		commandLines[7][0] = "sudo";
+		commandLines[7][1] = "mkdir";
+		commandLines[7][2] = "-p";
+		commandLines[7][3] = "/var/taskd";
+		commandLines[7][4] = installData.getLinuxPath();
+		commandLines[7][5] = "TASKDDATA=/var/taskd";
+		commands[7].setCommandLines(commandLines[7]);
+		commands[7].setEnvVarContent("/var/task");
+		commands[7].setEnvVarName("TASKDDATA");
+		commands[7].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:3
+		// commandLines[8][0] = "sudo taskd init --data $TASKDDATA";
+		// working folder should be root
+		// environment variable:TASKDDATA=/var/taskd
+		// Verified by checking whether /var/taskd/config did not exist before execution of 
+		// this command, and does exist after. Status: Both verified, hence command verified.
+		commandLines[8] = new String[7];
+		commandLines[8][0] = "yes | sudo";
+		commandLines[8][1] = "taskd";
+		commandLines[8][2] = "init";
+		commandLines[8][3] = "--data";
+		commandLines[8][4] = "/var/taskd";
+		commandLines[8][5] = installData.getLinuxPath();
+		commandLines[8][6] = "TASKDDATA=/var/taskd";
+		commands[8].setCommandLines(commandLines[8]);
+		commands[8].setEnvVarContent("/var/task");
+		commands[8].setEnvVarName("TASKDDATA");
+		commands[8].setWorkingPath(commands[1].getEnvVarContent());
 			
-			// commandLines[2][0] = "sudo apt install task";	
-			commandLines[2] = new String[6];
-			commandLines[2][0] = "yes | sudo";
-			commandLines[2][1] = "apt";
-			commandLines[2][2] = "install";
-			commandLines[2][3] = "task";
-			commandLines[2][4] = "/home/"+installData.getLinuxUserName();
-			commandLines[2][5] = "TASKDDATA=/var/taskd";
-			commands[2].setCommandLines(commandLines[2]);
-			commands[2].setEnvVarContent("/var/task");
-			commands[2].setEnvVarName("TASKDDATA");
-			commands[2].setWorkingPath("");
-			
-			// commandLines[3][0] = "sudo apt install taskd";
-			commandLines[3] = new String[6];
-			commandLines[3][0] = "yes | sudo";
-			commandLines[3][1] = "apt";
-			commandLines[3][2] = "install";
-			commandLines[3][3] = "taskd";
-			commandLines[3][4] = installData.getLinuxPath();
-			commandLines[3][5] = "TASKDDATA=/var/taskd";
-			commands[3].setCommandLines(commandLines[3]);
-			commands[3].setEnvVarContent("/var/task");
-			commands[3].setEnvVarName("TASKDDATA");
-			commands[3].setWorkingPath("");
-			
-			// write fillers for commands that are replaced:
-			// cd ..
-			commandLines[4] = new String[4];
-			commandLines[4][0] = "echo";
-			commandLines[4][1] = "filler";
-			commandLines[4][2] = installData.getLinuxPath();
-			commandLines[4][3] = "TASKDDATA=/var/taskd";
-			commands[4].setCommandLines(commandLines[4]);
-			commands[4].setEnvVarContent("/var/task");
-			commands[4].setEnvVarName("TASKDDATA");
-			commands[4].setWorkingPath("");
-			
-			// write fillers for commands that are replaced:
-			// cd ..
-			commandLines[5] = new String[4];
-			commandLines[5][0] = "echo";
-			commandLines[5][1] = "filler";
-			commandLines[5][2] = installData.getLinuxPath();
-			commandLines[5][3] = "TASKDDATA=/var/taskd";
-			commands[5].setCommandLines(commandLines[5]);
-			commands[5].setEnvVarContent("/var/task");
-			commands[5].setEnvVarName("TASKDDATA");
-			commands[5].setWorkingPath("");
-			// write fillers for commands that are replaced:
-			// export TASKDDATA=/var/taskd
-			// working folder should be root
-			// environment variable:TASKDDATA=/var/taskd
-			commandLines[6] = new String[4];
-			commandLines[6][0] = "echo";
-			commandLines[6][1] = "filler";
-			commandLines[6][2] = installData.getLinuxPath();
-			commandLines[6][3] = "TASKDDATA=/var/taskd";
-			commands[6].setCommandLines(commandLines[6]);
-			commands[6].setEnvVarContent("/var/task");
-			commands[6].setEnvVarName("TASKDDATA");
-			commands[6].setWorkingPath("");
-			// commandLines[7][0] = "sudo mkdir -p $TASKDDATA";
-			// Note: -p creates the parent folders up and until the final folder. 
-			// Note: $TASKDDATA=/var/taskd
-			// Note: the /var folder should be located in root. Hence, it should be/is an absolute path.
-			// working folder should be root
-			// environment variable:TASKDDATA=/var/taskd
-			// TODO: verify that there is no /var/taskd made in the current working directory/location of the .jar file.
-			commandLines[7] = new String[6];
-			commandLines[7][0] = "sudo";
-			commandLines[7][1] = "mkdir";
-			commandLines[7][2] = "-p";
-			commandLines[7][3] = "/var/taskd";
-			commandLines[7][4] = installData.getLinuxPath();
-			commandLines[7][5] = "TASKDDATA=/var/taskd";
-			commands[7].setCommandLines(commandLines[7]);
-			commands[7].setEnvVarContent("/var/task");
-			commands[7].setEnvVarName("TASKDDATA");
-			commands[7].setWorkingPath("");
-			// commandLines[8][0] = "sudo taskd init --data $TASKDDATA";
-			// working folder should be root
-			// environment variable:TASKDDATA=/var/taskd
-			// Verified by checking whether /var/taskd/config did not exist before execution of 
-			// this command, and does exist after. Status: Both verified, hence command verified.
-			commandLines[8] = new String[7];
-			commandLines[8][0] = "yes | sudo";
-			commandLines[8][1] = "taskd";
-			commandLines[8][2] = "init";
-			commandLines[8][3] = "--data";
-			commandLines[8][4] = "/var/taskd";
-			commandLines[8][5] = installData.getLinuxPath();
-			commandLines[8][6] = "TASKDDATA=/var/taskd";
-			commands[8].setCommandLines(commandLines[8]);
-			commands[8].setEnvVarContent("/var/task");
-			commands[8].setEnvVarName("TASKDDATA");
-			commands[8].setWorkingPath("");
-			
-
+		// pdf:5-8
 		// Verified till here: substitute: cd /usr/share/taskd/pki
 		// cd /usr/share/taskd/pki
 		// sudo nano vars
@@ -167,7 +181,8 @@ public class GenerateCommandsV3 {
 		commands[9].setCommandLines(commandLines[9]);
 		commands[9].setEnvVarContent("/var/task");
 		commands[9].setEnvVarName("TASKDDATA");
-		commands[9].setWorkingPath("");
+		commands[9].setWorkingPath("/usr/share/taskd/pki");
+		
 		/**
 		 * dir contains:
 		 * /usr/share/taskd/pki$ dir
@@ -188,6 +203,7 @@ public class GenerateCommandsV3 {
 		* Since the current directory is where this .jar file is located, it does
 		* not contain a /usr/share.. path (that only exists in root{unless you specifically made it somewhere else}).
 		*/
+		// pdf:9a
 		// sudo ./generate
 		// working directory: /usr/share/taskd/pki
 		// environment variable:TASKDDATA=/var/taskd
@@ -199,7 +215,7 @@ public class GenerateCommandsV3 {
 		commands[10].setCommandLines(commandLines[10]);
 		commands[10].setEnvVarContent("/var/task");
 		commands[10].setEnvVarName("TASKDDATA");
-		commands[10].setWorkingPath("");
+		commands[10].setWorkingPath("/usr/share/taskd/pki");
 		
 		
 		
@@ -211,6 +227,7 @@ public class GenerateCommandsV3 {
 		 * sudo cp /user/someactualdirectory/client.cert.pem "/var/task/"
 		 *
 		 */
+		// pdf:9b
 		// sudo cp client.cert.pem $TASKDDATA
 		// to: sudo cp client.cert.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -226,7 +243,9 @@ public class GenerateCommandsV3 {
 		commands[11].setCommandLines(commandLines[11]);
 		commands[11].setEnvVarContent("/var/task");
 		commands[11].setEnvVarName("TASKDDATA");
-		commands[11].setWorkingPath("");
+		commands[11].setWorkingPath("/usr/share/taskd/pki");
+		
+		// pdf:9c
 		//		sudo cp client.key.pem $TASKDDATA
 		//		to: sudo cp client.key.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -242,8 +261,9 @@ public class GenerateCommandsV3 {
 		commands[12].setCommandLines(commandLines[12]);
 		commands[12].setEnvVarContent("/var/task");
 		commands[12].setEnvVarName("TASKDDATA");
-		commands[12].setWorkingPath("");
+		commands[12].setWorkingPath("/usr/share/taskd/pki");
 		
+		// pdf:9d
 		//		sudo cp server.cert.pem $TASKDDATA
 		//		to: sudo cp server.cert.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -259,8 +279,9 @@ public class GenerateCommandsV3 {
 		commands[13].setCommandLines(commandLines[13]);
 		commands[13].setEnvVarContent("/var/task");
 		commands[13].setEnvVarName("TASKDDATA");
-		commands[13].setWorkingPath("");
+		commands[13].setWorkingPath("/usr/share/taskd/pki");
 		
+		// pdf:9e
 		//		sudo cp server.key.pem $TASKDDATA
 		//		to: sudo cp server.key.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -276,8 +297,9 @@ public class GenerateCommandsV3 {
 		commands[14].setCommandLines(commandLines[14]);
 		commands[14].setEnvVarContent("/var/task");
 		commands[14].setEnvVarName("TASKDDATA");
-		commands[14].setWorkingPath("");
+		commands[14].setWorkingPath("/usr/share/taskd/pki");
 		
+		// pdf:9f
 		//		sudo cp server.crl.pem $TASKDDATA
 		//		to: sudo cp server.crl.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -293,8 +315,9 @@ public class GenerateCommandsV3 {
 		commands[15].setCommandLines(commandLines[15]);
 		commands[15].setEnvVarContent("/var/task");
 		commands[15].setEnvVarName("TASKDDATA");
-		commands[15].setWorkingPath("");
+		commands[15].setWorkingPath("/usr/share/taskd/pki");
 		
+		// pdf:9g
 		//		sudo cp ca.cert.pem $TASKDDATA
 		//		to: sudo cp ca.cert.pem "/var/taskd"
 		// working directory: /usr/share/taskd/pki
@@ -310,8 +333,9 @@ public class GenerateCommandsV3 {
 		commands[16].setCommandLines(commandLines[16]);
 		commands[16].setEnvVarContent("/var/task");
 		commands[16].setEnvVarName("TASKDDATA");
-		commands[16].setWorkingPath("");
+		commands[16].setWorkingPath("/usr/share/taskd/pki");
 		
+		// pdf:10a
 //		sudo taskd config --force client.cert $TASKDDATA/client.cert.pem --data $TASKDDATA
 //		sudo taskd config --force client.cert /var/taskd/client.cert.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -330,9 +354,9 @@ public class GenerateCommandsV3 {
 		commands[17].setCommandLines(commandLines[17]);
 		commands[17].setEnvVarContent("/var/task");
 		commands[17].setEnvVarName("TASKDDATA");
-		commands[17].setWorkingPath("");
+		commands[17].setWorkingPath("/usr/share/taskd/pki");
 		
-		
+		// pdf:10b
 //		sudo taskd config --force client.key $TASKDDATA/client.key.pem --data $TASKDDATA
 //		sudo taskd config --force client.key /var/taskd/client.key.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -351,9 +375,9 @@ public class GenerateCommandsV3 {
 		commands[18].setCommandLines(commandLines[18]);
 		commands[18].setEnvVarContent("/var/task");
 		commands[18].setEnvVarName("TASKDDATA");
-		commands[18].setWorkingPath("");
+		commands[18].setWorkingPath("/usr/share/taskd/pki");
 		
-		
+		// pdf:10c
 //		sudo taskd config --force server.cert $TASKDDATA/server.cert.pem --data $TASKDDATA
 //		sudo taskd config --force server.cert /var/taskd/server.cert.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -372,7 +396,9 @@ public class GenerateCommandsV3 {
 		commands[19].setCommandLines(commandLines[19]);
 		commands[19].setEnvVarContent("/var/task");
 		commands[19].setEnvVarName("TASKDDATA");
-		commands[19].setWorkingPath("");
+		commands[19].setWorkingPath("/usr/share/taskd/pki");
+		
+		// pdf:10d
 //		sudo taskd config --force server.key $TASKDDATA/server.key.pem --data $TASKDDATA
 //		sudo taskd config --force server.key /var/taskd/server.key.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -391,9 +417,9 @@ public class GenerateCommandsV3 {
 		commands[20].setCommandLines(commandLines[20]);
 		commands[20].setEnvVarContent("/var/task");
 		commands[20].setEnvVarName("TASKDDATA");
-		commands[20].setWorkingPath("");
+		commands[20].setWorkingPath("/usr/share/taskd/pki");
 		
-
+		// pdf:10e
 //		sudo taskd config --force server.crl $TASKDDATA/server.crl.pem --data $TASKDDATA
 //		sudo taskd config --force server.crl /var/taskd/server.crl.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -412,12 +438,9 @@ public class GenerateCommandsV3 {
 		commands[21].setCommandLines(commandLines[21]);
 		commands[21].setEnvVarContent("/var/task");
 		commands[21].setEnvVarName("TASKDDATA");
-		commands[21].setWorkingPath("");
+		commands[21].setWorkingPath("/usr/share/taskd/pki");
 		
-		
-		
-		
-		
+		// pdf:10f
 //		sudo taskd config --force ca.cert $TASKDDATA/ca.cert.pem --data $TASKDDATA
 //		sudo taskd config --force ca.cert /var/taskd/ca.cert.pem --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -436,7 +459,9 @@ public class GenerateCommandsV3 {
 		commands[22].setCommandLines(commandLines[22]);
 		commands[22].setEnvVarContent("/var/task");
 		commands[22].setEnvVarName("TASKDDATA");
-		commands[22].setWorkingPath("");
+		commands[22].setWorkingPath("/usr/share/taskd/pki");
+		
+		// pdf:11a
 		// write fillers for commands that are replaced:
 		// cd $TASKDDATA
 		commandLines[23] = new String[4];
@@ -447,9 +472,10 @@ public class GenerateCommandsV3 {
 		commands[23].setCommandLines(commandLines[23]);
 		commands[23].setEnvVarContent("/var/task");
 		commands[23].setEnvVarName("TASKDDATA");
-		commands[23].setWorkingPath("");
-		//TODO: find out where the value of $PWD comes from
+		commands[23].setWorkingPath(commands[1].getEnvVarContent());
 		
+		// pdf:12a
+		//TODO: find out where the value of $PWD comes from
 //		sudo taskd config --force log $PWD/taskd.log --data $TASKDDATA
 //		sudo taskd config --force log $PWD/taskd.log --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -468,8 +494,9 @@ public class GenerateCommandsV3 {
 		commands[24].setCommandLines(commandLines[24]);
 		commands[24].setEnvVarContent("/var/task");
 		commands[24].setEnvVarName("TASKDDATA");
-		commands[24].setWorkingPath("");
+		commands[24].setWorkingPath(commands[1].getEnvVarContent());
 		
+		// pdf:12b
 //		sudo taskd config --force pid.file $PWD/taskd.pid --data /var/taskd
 //		sudo taskd config --force pid.file $PWD/taskd.pid --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -488,7 +515,9 @@ public class GenerateCommandsV3 {
 		commands[25].setCommandLines(commandLines[25]);
 		commands[25].setEnvVarContent("/var/task");
 		commands[25].setEnvVarName("TASKDDATA");
-		commands[25].setWorkingPath("");
+		commands[25].setWorkingPath(commands[1].getEnvVarContent());
+		
+		// pdf:12c
 //		sudo taskd config --force server 0.0.0.0:53589 --data /var/taskd
 //		sudo taskd config --force server 0.0.0.0:53589 --data /var/taskd
 		// working directory: /usr/share/taskd/pki
@@ -507,9 +536,9 @@ public class GenerateCommandsV3 {
 		commands[26].setCommandLines(commandLines[26]);
 		commands[26].setEnvVarContent("/var/task");
 		commands[26].setEnvVarName("TASKDDATA");
-		commands[26].setWorkingPath("");
+		commands[26].setWorkingPath(commands[1].getEnvVarContent());
 		
-		
+		// pdf:13a
 		//task add testtask description 1
 		// working directory: /var/taskd
 		// environment variable:TASKDDATA=/var/taskd
@@ -523,9 +552,9 @@ public class GenerateCommandsV3 {
 		commands[27].setCommandLines(commandLines[27]);
 		commands[27].setEnvVarContent("/var/task");
 		commands[27].setEnvVarName("TASKDDATA");
-		commands[27].setWorkingPath("");
+		commands[27].setWorkingPath(commands[1].getEnvVarContent());
 		
-		
+		// pdf:15a
 //		sudo taskd add org Public --data $TASKDDATA
 //		sudo taskd add org Public --data /var/taskd
 		// working directory: /var/taskd
@@ -543,15 +572,15 @@ public class GenerateCommandsV3 {
 		commands[28].setCommandLines(commandLines[28]);
 		commands[28].setEnvVarContent("/var/task");
 		commands[28].setEnvVarName("TASKDDATA");
-		commands[28].setWorkingPath("");
+		commands[28].setWorkingPath(commands[1].getEnvVarContent());
 		
+		// pdf:?
 //		commands[29].setCommandLines(commandLines[29]);
 //		commands[29].setEnvVarContent("/var/task");
 //		commands[29].setEnvVarName("TASKDDATA");
 //		commands[29].setWorkingPath("");
 		
-		
-		
+		// pdf:15b
 //		sudo taskd add user 'Public' 'First' --data $TASKDDATA
 //		sudo taskd add user 'Public' 'First' --data $TASKDDATA
 		// working directory: /var/taskd
@@ -570,7 +599,7 @@ public class GenerateCommandsV3 {
 		commands[30].setCommandLines(commandLines[30]);
 		commands[30].setEnvVarContent("/var/task");
 		commands[30].setEnvVarName("TASKDDATA");
-		commands[30].setWorkingPath("");
+		commands[30].setWorkingPath(commands[1].getEnvVarContent());
 		
 		//return commands;
 	//}
@@ -587,7 +616,7 @@ public class GenerateCommandsV3 {
 	 */
 	//public static String[][] generateSecondCommands(InstallData installData, boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		//String[][] commands = new String[50][1];
-		String directoryPath = new String("/var/taskd/orgs/"+installData.getTwOrganisation()+"/users/");
+		
 		
 		if (!installData.isTestrun()) {
 			// get taskwarrior uuid
@@ -595,6 +624,7 @@ public class GenerateCommandsV3 {
 			
 			System.out.println("The TW uuid = " + installData.getTwUuid());
 			
+			// pdf:18a
 			// write fillers for commands that are replaced:
 			// cd /usr/share/taskd/pki
 //			commandLines[31] = new String[3];
@@ -606,8 +636,7 @@ public class GenerateCommandsV3 {
 //			commands[31].setEnvVarName("TASKDDATA");
 //			commands[31].setWorkingPath("");
 
-			
-			
+			// pdf:18b 	
 			// sudo ./generate.client First
 			// to: sudo  ./generate.client <taskwarrior username> 
 			// with working directory: /usr/share/taskd/pki
@@ -621,9 +650,9 @@ public class GenerateCommandsV3 {
 			commands[32].setCommandLines(commandLines[32]);
 			commands[32].setEnvVarContent("/var/task");
 			commands[32].setEnvVarName("TASKDDATA");
-			commands[32].setWorkingPath("");
+			commands[32].setWorkingPath("/usr/share/taskd/pki");
 			
-			
+			// pdf:19a
 			// write fillers for commands that are replaced:
 			// cd /usr/share/taskd/pki
 //			commandLines[33] = new String[3];
@@ -635,7 +664,7 @@ public class GenerateCommandsV3 {
 //			commands[33].setEnvVarName("TASKDDATA");
 //			commands[33].setWorkingPath("");
 			
-			
+			// pdf:19b
 			// sudo cp First.cert.pem /home/a/.task
 			// to: sudo cp <taskwarrior username>.cert.pem /home/<Ubuntu username>/.task
 			//working directory: /usr/share/taskd/pki/
@@ -653,9 +682,9 @@ public class GenerateCommandsV3 {
 			commands[35].setCommandLines(commandLines[35]);
 			commands[35].setEnvVarContent("/var/task");
 			commands[35].setEnvVarName("TASKDDATA");
-			commands[35].setWorkingPath("");
+			commands[35].setWorkingPath("/usr/share/taskd/pki");
 			
-			
+			// pdf:19c
 			//sudo cp First.key.pem /home/a/.task
 			// to: sudo cp <taskwarrior username>.key.pem /home/<Ubuntu username>/.task
 			//working directory: /usr/share/taskd/pki/
@@ -671,8 +700,9 @@ public class GenerateCommandsV3 {
 			commands[36].setCommandLines(commandLines[35]);
 			commands[36].setEnvVarContent("/var/task");
 			commands[36].setEnvVarName("TASKDDATA");
-			commands[36].setWorkingPath("");
+			commands[36].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:19d
 			//sudo cp ca.cert.pem /home/a/.task
 			// to: sudo cp ca.cert.pem /home/<Ubuntu username>/.task
 			//working directory: /usr/share/taskd/pki/
@@ -688,8 +718,9 @@ public class GenerateCommandsV3 {
 			commands[37].setCommandLines(commandLines[35]);
 			commands[37].setEnvVarContent("/var/task");
 			commands[37].setEnvVarName("TASKDDATA");
-			commands[37].setWorkingPath("");
+			commands[37].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:19e
 			//sudo task config taskd.certificate -- /home/a/.task/First.cert.pem
 			// to: sudo task config taskd.certificate -- /home/<Ubuntu username>/.task/<taskwarrior username>.cert.pem
 			//working directory: /usr/share/taskd/pki/
@@ -705,9 +736,9 @@ public class GenerateCommandsV3 {
 			commands[38].setCommandLines(commandLines[35]);
 			commands[38].setEnvVarContent("/var/task");
 			commands[38].setEnvVarName("TASKDDATA");
-			commands[38].setWorkingPath("");
+			commands[38].setWorkingPath("/usr/share/taskd/pki");
 			
-			
+			// pdf:20a
 			// sudo task config taskd.key -- /home/a/.task/First.key.pem
 			// to: sudo task config taskd.key -- /home/<Ubuntu username>/.task/<taskwarrior username>.key.pem
 			//working directory: /usr/share/taskd/pki/
@@ -723,8 +754,9 @@ public class GenerateCommandsV3 {
 			commands[39].setCommandLines(commandLines[36]);
 			commands[39].setEnvVarContent("/var/task");
 			commands[39].setEnvVarName("TASKDDATA");
-			commands[39].setWorkingPath("");
+			commands[39].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:20b
 			// sudo task config taskd.ca -- /home/a/.task/ca.cert.pem
 			// to: sudo task config taskd.ca -- /home/<Ubuntu username>/.task/ca.cert.pem
 			//working directory: /usr/share/taskd/pki/
@@ -740,8 +772,9 @@ public class GenerateCommandsV3 {
 			commands[40].setCommandLines(commandLines[40]);
 			commands[40].setEnvVarContent("/var/task");
 			commands[40].setEnvVarName("TASKDDATA");
-			commands[40].setWorkingPath("");
+			commands[40].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:20c
 			// sudo task config taskd.server -- 0.0.0.0:53589
 			// to: sudo task config taskd.server -- 0.0.0.0:53589
 			//working directory: /usr/share/taskd/pki/
@@ -757,8 +790,9 @@ public class GenerateCommandsV3 {
 			commands[41].setCommandLines(commandLines[41]);
 			commands[41].setEnvVarContent("/var/task");
 			commands[41].setEnvVarName("TASKDDATA");
-			commands[41].setWorkingPath("");
+			commands[41].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:21a
 			// sudo task config taskd.credentials -- Public/First/b6634b72-04a3-4220-8d49-6d56as4tefb
 			// to: sudo task config taskd.credentials -- <taskwarrior organisation>/<taskwarrior username>/<taskwarrior uuid>
 			//working directory: /usr/share/taskd/pki/
@@ -774,7 +808,7 @@ public class GenerateCommandsV3 {
 			commands[42].setCommandLines(commandLines[42]);
 			commands[42].setEnvVarContent("/var/task");
 			commands[42].setEnvVarName("TASKDDATA");
-			commands[42].setWorkingPath("");
+			commands[42].setWorkingPath("/usr/share/taskd/pki");
 		}
 //		return commands;
 //	}
@@ -798,6 +832,7 @@ public class GenerateCommandsV3 {
 		//String directoryPath = new String("/var/taskd/orgs/"+installData.getTwUuid()+"/users/");
 		
 		if (!installData.isTestrun()) {
+			// pdf:?
 			// write fillers for command 0:
 			commandLines[43] = new String[4];
 			commandLines[43][0] = "echo";
@@ -807,8 +842,9 @@ public class GenerateCommandsV3 {
 			commands[43].setCommandLines(commandLines[43]);
 			commands[43].setEnvVarContent("/var/task");
 			commands[43].setEnvVarName("TASKDDATA");
-			commands[43].setWorkingPath("");
+			commands[43].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:23a
 			// taskdctl start
 			// to: 
 			//working directory: /usr/share/taskd/pki/
@@ -821,8 +857,9 @@ public class GenerateCommandsV3 {
 			commands[44].setCommandLines(commandLines[44]);
 			commands[44].setEnvVarContent("/var/task");
 			commands[44].setEnvVarName("TASKDDATA");
-			commands[44].setWorkingPath("");
+			commands[44].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:23b
 			// sudo task sync init 
 			// to: 
 			//working directory: /usr/share/taskd/pki/
@@ -836,8 +873,9 @@ public class GenerateCommandsV3 {
 			commands[45].setCommandLines(commandLines[45]);
 			commands[45].setEnvVarContent("/var/task");
 			commands[45].setEnvVarName("TASKDDATA");
-			commands[45].setWorkingPath("");
+			commands[45].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:25a
 			// sudo task config taskd.trust -- ignore hostname
 			// to: 
 			//working directory: /usr/share/taskd/pki/
@@ -854,8 +892,9 @@ public class GenerateCommandsV3 {
 			commands[46].setCommandLines(commandLines[46]);
 			commands[46].setEnvVarContent("/var/task");
 			commands[46].setEnvVarName("TASKDDATA");
-			commands[46].setWorkingPath("");
+			commands[46].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:25b
 			// taskdctl stop
 			// to: 
 			//working directory: /usr/share/taskd/pki/
@@ -867,8 +906,9 @@ public class GenerateCommandsV3 {
 			commands[47].setCommandLines(commandLines[47]);
 			commands[47].setEnvVarContent("/var/task");
 			commands[47].setEnvVarName("TASKDDATA");
-			commands[47].setWorkingPath("");
+			commands[47].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:25e
 			//sudo taskd config --data $TASKDDATA
 			// to: sudo taskd config --data /var/taskd 
 			//working directory: /var/taskd/
@@ -883,8 +923,9 @@ public class GenerateCommandsV3 {
 			commands[48].setCommandLines(commandLines[48]);
 			commands[48].setEnvVarContent("/var/task");
 			commands[48].setEnvVarName("TASKDDATA");
-			commands[48].setWorkingPath("");
+			commands[48].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:27a
 			// sudo -s
 			// export TASKDDATA=/var/taskd
 			// taskdctl start
@@ -898,8 +939,9 @@ public class GenerateCommandsV3 {
 			commands[49].setCommandLines(commandLines[49]);
 			commands[49].setEnvVarContent("/var/task");
 			commands[49].setEnvVarName("TASKDDATA");
-			commands[49].setWorkingPath("");
+			commands[49].setWorkingPath("/usr/share/taskd/pki");
 			
+			// pdf:27c
 			commandLines[50] = new String[4];
 			commandLines[50][0] = "taskdctl";
 			commandLines[50][1] = "start";
@@ -908,7 +950,9 @@ public class GenerateCommandsV3 {
 			commands[50].setCommandLines(commandLines[50]);
 			commands[50].setEnvVarContent("/var/task");
 			commands[50].setEnvVarName("TASKDDATA");
-			commands[50].setWorkingPath("");
+			commands[50].setWorkingPath("/usr/share/taskd/pki");
+			
+			// pdf:27d
 			// sudo task sync init
 			// to: 
 			//working directory: /var/taskd/
@@ -922,7 +966,7 @@ public class GenerateCommandsV3 {
 			commands[51].setCommandLines(commandLines[51]);
 			commands[51].setEnvVarContent("/var/task");
 			commands[51].setEnvVarName("TASKDDATA");
-			commands[51].setWorkingPath("");
+			commands[51].setWorkingPath("/usr/share/taskd/pki");
 		}
 		return commands;
 	}

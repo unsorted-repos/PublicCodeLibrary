@@ -6,6 +6,8 @@ public class Command {
 	private String envVarName;
 	private String envVarContent;
 	private boolean getOutput;
+	private boolean setWorkingPath;
+	private boolean setEnvVar;
 	
 	public Command() {}
 	/**
@@ -67,6 +69,30 @@ public class Command {
 	 */
 	public void setGetOutput(boolean getOutput) {
 		this.getOutput = getOutput;
+	}
+	/**
+	 * @return the setWorkingPath
+	 */
+	public boolean isSetWorkingPath() {
+		return setWorkingPath;
+	}
+	/**
+	 * @param setWorkingPath the setWorkingPath to set
+	 */
+	public void setSetWorkingPath(boolean setWorkingPath) {
+		this.setWorkingPath = setWorkingPath;
+	}
+	/**
+	 * @return the setEnvVar
+	 */
+	public boolean isSetEnvVar() {
+		return setEnvVar;
+	}
+	/**
+	 * @param setEnvVar the setEnvVar to set
+	 */
+	public void setSetEnvVar(boolean setEnvVar) {
+		this.setEnvVar = setEnvVar;
 	}
 	
 	
