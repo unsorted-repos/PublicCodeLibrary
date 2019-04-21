@@ -37,22 +37,10 @@ public class Main {
 		System.out.println("Should have just printed vars");
 		
 		//get commands
-		String[][] commands = GenerateCommandsV2.generateCommands(installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(),installData.getServerPort());
+		Command[] commands = GenerateCommandsV3.generateCommands(installData);
 		
 		// execute installation commands
-		manageCommandGeneration(installData, commands,2);
-		
-		//get second list of commands after taskwarrior uuid has been determined:
-		commands = GenerateCommandsV2.generateSecondCommands(installData,installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
-		
-		// execute second list of installation commands
-		manageCommandGeneration(installData, commands,2);	
-		
-		//get second list of commands after taskwarrior uuid has been determined:
-		commands = GenerateCommandsV2.generateThirdCommands(installData, installData.isTestrun(),installData.getLinuxPath(),installData.getVars(),installData.getUserInput(),installData.getServerName(), installData.getServerPort());
-		
-		// execute second list of installation commands
-		manageCommandGeneration(installData,commands,3);
+		manageCommandGeneration(installData, commands);
 		
 		System.exit(0);
 	}
@@ -64,10 +52,9 @@ public class Main {
 	 * @param udaName
 	 * @param label
 	 * @param type
-	 * @throws InterruptedException 
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
-	private static void manageCommandGeneration(InstallData installData, Command[] commands,int execType) throws InterruptedException, FileNotFoundException {
+	private static void manageCommandGeneration(InstallData installData, Command[] commands) throws Exception {
 		String commandOutput = null;
 		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {    
@@ -76,22 +63,18 @@ public class Main {
 				Boolean hasYes =  startsWithYes(commands[i].getCommandLines()[0]);
 				
 				// remove the "yes | " of a command
-				String[] preprocessedCommands = new String[commands[i].length];
+				String[] preprocessedCommands = new String[commands.length];
 				preprocessedCommands =removeYes(commands[i].getCommandLines());
 				
 				// verify system condition before command execution
-				Verifications.preCommandProcess(installData,i,commands[i]);
+				commands[i] = Verifications.preCommandProcess(installData,i,commands[i]);
 				
 				// run commands if it does not start with null
-				if (commands[i][0]!=null) { 
+				if (commands[i].getCommandLines()[0]!=null) { 
 					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
-					if (execType ==2) {
+					//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 						//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
-						commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 						RunCommandsV3.executeCommands(commands[i],hasYes);
-					}else if (execType == 3) {
-						commandOutput = RunCommandsWithArgsV1.commandAndSetPath(preprocessedCommands,hasYes);
-					}
 				}
 				
 				// verify system condition after command execution

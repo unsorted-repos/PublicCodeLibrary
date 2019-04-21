@@ -14,11 +14,14 @@ import java.util.Map;
  *
  */
 public class GenerateCommandsV3 {
-	public static Command[] generateCommands(InstallData installData, boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
+	public static Command[] generateCommands(InstallData installData) {
 		int nrOfCommands = 51;
-		String[][] commandLines = new String[nrOfCommands][1];
-		Command[] commands = new Command[nrOfCommands];
-		for (int i = 0; i<=nrOfCommands;i++) {commands[i].setGetOutput(false);}; // initialise get output to false
+		String[][] commandLines = new String[nrOfCommands+1][1];
+		Command[] commands = new Command[nrOfCommands+1];
+		for (int i = 0; i<nrOfCommands;i++) {
+			System.out.println(commands[i].toString());
+			commands[i].setGetOutput(false);
+			} // initialise get output to false
 		//In combination with Attempt 1:
 		
 			
@@ -29,7 +32,7 @@ public class GenerateCommandsV3 {
 			commandLines[0][1] = "mkdir";
 			commandLines[0][2] = "-p";
 			commandLines[0][3] = "/var/taskd";
-			commandLines[0][4] = linuxPath;
+			commandLines[0][4] = installData.getLinuxPath();
 			commandLines[0][5] = "TASKDDATA=/var/taskd";
 			commands[0].setCommandLines(commandLines[0]);
 			commands[0].setEnvVarContent("/var/task");
@@ -42,7 +45,7 @@ public class GenerateCommandsV3 {
 			commandLines[1][0] = "yes | sudo";
 			commandLines[1][1] = "apt";
 			commandLines[1][2] = "update";
-			commandLines[1][3] = linuxPath;
+			commandLines[1][3] = installData.getLinuxPath();
 			commandLines[1][4] = "TASKDDATA=/var/taskd";
 			commands[1].setCommandLines(commandLines[1]);
 			commands[1].setEnvVarContent("/var/task");
@@ -56,7 +59,7 @@ public class GenerateCommandsV3 {
 			commandLines[2][1] = "apt";
 			commandLines[2][2] = "install";
 			commandLines[2][3] = "task";
-			commandLines[2][4] = "/home/"+storeUserInput[0];
+			commandLines[2][4] = "/home/"+installData.getLinuxUserName();
 			commandLines[2][5] = "TASKDDATA=/var/taskd";
 			commands[2].setCommandLines(commandLines[2]);
 			commands[2].setEnvVarContent("/var/task");
@@ -69,7 +72,7 @@ public class GenerateCommandsV3 {
 			commandLines[3][1] = "apt";
 			commandLines[3][2] = "install";
 			commandLines[3][3] = "taskd";
-			commandLines[3][4] = linuxPath;
+			commandLines[3][4] = installData.getLinuxPath();
 			commandLines[3][5] = "TASKDDATA=/var/taskd";
 			commands[3].setCommandLines(commandLines[3]);
 			commands[3].setEnvVarContent("/var/task");
@@ -81,7 +84,7 @@ public class GenerateCommandsV3 {
 			commandLines[4] = new String[4];
 			commandLines[4][0] = "echo";
 			commandLines[4][1] = "filler";
-			commandLines[4][2] = linuxPath;
+			commandLines[4][2] = installData.getLinuxPath();
 			commandLines[4][3] = "TASKDDATA=/var/taskd";
 			commands[4].setCommandLines(commandLines[4]);
 			commands[4].setEnvVarContent("/var/task");
@@ -93,7 +96,7 @@ public class GenerateCommandsV3 {
 			commandLines[5] = new String[4];
 			commandLines[5][0] = "echo";
 			commandLines[5][1] = "filler";
-			commandLines[5][2] = linuxPath;
+			commandLines[5][2] = installData.getLinuxPath();
 			commandLines[5][3] = "TASKDDATA=/var/taskd";
 			commands[5].setCommandLines(commandLines[5]);
 			commands[5].setEnvVarContent("/var/task");
@@ -106,7 +109,7 @@ public class GenerateCommandsV3 {
 			commandLines[6] = new String[4];
 			commandLines[6][0] = "echo";
 			commandLines[6][1] = "filler";
-			commandLines[6][2] = linuxPath;
+			commandLines[6][2] = installData.getLinuxPath();
 			commandLines[6][3] = "TASKDDATA=/var/taskd";
 			commands[6].setCommandLines(commandLines[6]);
 			commands[6].setEnvVarContent("/var/task");
@@ -124,7 +127,7 @@ public class GenerateCommandsV3 {
 			commandLines[7][1] = "mkdir";
 			commandLines[7][2] = "-p";
 			commandLines[7][3] = "/var/taskd";
-			commandLines[7][4] = linuxPath;
+			commandLines[7][4] = installData.getLinuxPath();
 			commandLines[7][5] = "TASKDDATA=/var/taskd";
 			commands[7].setCommandLines(commandLines[7]);
 			commands[7].setEnvVarContent("/var/task");
@@ -141,7 +144,7 @@ public class GenerateCommandsV3 {
 			commandLines[8][2] = "init";
 			commandLines[8][3] = "--data";
 			commandLines[8][4] = "/var/taskd";
-			commandLines[8][5] = linuxPath;
+			commandLines[8][5] = installData.getLinuxPath();
 			commandLines[8][6] = "TASKDDATA=/var/taskd";
 			commands[8].setCommandLines(commandLines[8]);
 			commands[8].setEnvVarContent("/var/task");
@@ -157,9 +160,9 @@ public class GenerateCommandsV3 {
 		commandLines[9] = new String[6];
 		commandLines[9][0] = "sudo";
 		commandLines[9][1] = "cp";
-		commandLines[9][2] = linuxPath+vars; 
+		commandLines[9][2] = installData.getLinuxPath()+installData.getVars(); 
 		commandLines[9][3] = "/usr/share/taskd/pki/";
-		commandLines[9][4] = linuxPath;
+		commandLines[9][4] = installData.getLinuxPath();
 		commandLines[9][5] = "TASKDDATA=/var/taskd";
 		commands[9].setCommandLines(commandLines[9]);
 		commands[9].setEnvVarContent("/var/task");
@@ -439,7 +442,7 @@ public class GenerateCommandsV3 {
 		commandLines[23] = new String[4];
 		commandLines[23][0] = "echo";
 		commandLines[23][1] = "filler";
-		commandLines[23][2] = linuxPath;
+		commandLines[23][2] = installData.getLinuxPath();
 		commandLines[23][3] = "TASKDDATA=/var/taskd";
 		commands[23].setCommandLines(commandLines[23]);
 		commands[23].setEnvVarContent("/var/task");
@@ -496,7 +499,7 @@ public class GenerateCommandsV3 {
 		commandLines[26][2] = "config";
 		commandLines[26][3] = "--force";
 		commandLines[26][4] = "server";
-		commandLines[26][5] = serverName+":"+serverPort;
+		commandLines[26][5] = installData.getServerName()+":"+installData.getServerPort();
 		commandLines[26][6] = "--data";
 		commandLines[26][7] = "/var/taskd";
 		commandLines[26][8] = "/var/taskd";
@@ -532,7 +535,7 @@ public class GenerateCommandsV3 {
 		commandLines[28][1] = "taskd"; 
 		commandLines[28][2] = "add";
 		commandLines[28][3] = "org";
-		commandLines[28][4] = storeUserInput[2];
+		commandLines[28][4] = installData.getTwOrganisation();
 		commandLines[28][5] = "--data";
 		commandLines[28][6] = "/var/taskd";
 		commandLines[28][7] = "/var/taskd";
@@ -558,8 +561,8 @@ public class GenerateCommandsV3 {
 		commandLines[30][1] = "taskd"; 
 		commandLines[30][2] = "add";
 		commandLines[30][3] = "user";
-		commandLines[30][4] = storeUserInput[2];
-		commandLines[30][5] = storeUserInput[3];
+		commandLines[30][4] = installData.getTwOrganisation();
+		commandLines[30][5] = installData.getTwUserName();
 		commandLines[30][6] = "--data";
 		commandLines[30][7] = "/var/taskd";
 		commandLines[30][8] = "/var/taskd/";
@@ -584,9 +587,9 @@ public class GenerateCommandsV3 {
 	 */
 	//public static String[][] generateSecondCommands(InstallData installData, boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		//String[][] commands = new String[50][1];
-		String directoryPath = new String("/var/taskd/orgs/"+storeUserInput[2]+"/users/");
+		String directoryPath = new String("/var/taskd/orgs/"+installData.getTwOrganisation()+"/users/");
 		
-		if (!testRun) {
+		if (!installData.isTestrun()) {
 			// get taskwarrior uuid
 			//getTwUuid.findFoldersInDirectory(directoryPath).get(0));
 			
@@ -612,7 +615,7 @@ public class GenerateCommandsV3 {
 			commandLines[32] = new String[5];
 			commandLines[32][0] = "sudo";
 			commandLines[32][1] = "/usr/share/taskd/pki/generate.client"; 
-			commandLines[32][2] = storeUserInput[3];
+			commandLines[32][2] = installData.getTwUserName();
 			commandLines[32][3] = "/usr/share/taskd/pki/";
 			commandLines[32][4]= "TASKDDATA=/var/taskd";
 			commands[32].setCommandLines(commandLines[32]);
@@ -642,9 +645,9 @@ public class GenerateCommandsV3 {
 			commandLines[35] = new String[6];
 			commandLines[35][0] = "sudo";
 			commandLines[35][1] = "cp"; 
-			//commandLines[35][2] = storeUserInput[3]+".cert.pem";
-			commandLines[35][2] = "/usr/share/taskd/pki/"+storeUserInput[3]+".cert.pem"; //abs
-			commandLines[35][3] = "/home/"+storeUserInput[0]+"/.task/";
+			//commandLines[35][2] = installData.getTwUserName()+".cert.pem";
+			commandLines[35][2] = "/usr/share/taskd/pki/"+installData.getTwUserName()+".cert.pem"; //abs
+			commandLines[35][3] = "/home/"+installData.getLinuxUserName()+"/.task/";
 			commandLines[35][4] = "/usr/share/taskd/pki/";
 			commandLines[35][5] = "TASKDDATA=/var/taskd";
 			commands[35].setCommandLines(commandLines[35]);
@@ -660,9 +663,9 @@ public class GenerateCommandsV3 {
 			commandLines[36] = new String[6];
 			commandLines[36][0] = "sudo";
 			commandLines[36][1] = "cp"; 
-			//commandLines[35][2] = storeUserInput[3]+".key.pem";
-			commandLines[36][2] = "/usr/share/taskd/pki/"+storeUserInput[3]+".key.pem"; //abs
-			commandLines[36][3] = "/home/"+storeUserInput[0]+"/.task/";
+			//commandLines[35][2] = installData.getTwUserName()+".key.pem";
+			commandLines[36][2] = "/usr/share/taskd/pki/"+installData.getTwUserName()+".key.pem"; //abs
+			commandLines[36][3] = "/home/"+installData.getLinuxUserName()+"/.task/";
 			commandLines[36][4] = "/usr/share/taskd/pki/";
 			commandLines[36][5] = "TASKDDATA=/var/taskd";
 			commands[36].setCommandLines(commandLines[35]);
@@ -679,7 +682,7 @@ public class GenerateCommandsV3 {
 			commandLines[37][1] = "cp"; 
 			//commandLines[37][2] = "ca.cert.pem";
 			commandLines[37][2] = "/usr/share/taskd/pki/"+"ca.cert.pem"; //abs
-			commandLines[37][3] = "/home/"+storeUserInput[0]+"/.task/";
+			commandLines[37][3] = "/home/"+installData.getLinuxUserName()+"/.task/";
 			commandLines[37][4] = "/usr/share/taskd/pki/";
 			commandLines[37][5] = "TASKDDATA=/var/taskd";
 			commands[37].setCommandLines(commandLines[35]);
@@ -696,7 +699,7 @@ public class GenerateCommandsV3 {
 			commandLines[38][2] = "config";
 			commandLines[38][3] = "taskd.certificate";
 			commandLines[38][4] = "--";
-			commandLines[38][5] = "/home/"+storeUserInput[0]+"/.task/"+storeUserInput[3]+".cert.pem";
+			commandLines[38][5] = "/home/"+installData.getLinuxUserName()+"/.task/"+installData.getTwUserName()+".cert.pem";
 			commandLines[38][6] = "/usr/share/taskd/pki/";
 			commandLines[38][7] = "TASKDDATA=/var/taskd";
 			commands[38].setCommandLines(commandLines[35]);
@@ -714,7 +717,7 @@ public class GenerateCommandsV3 {
 			commandLines[39][2] = "config";
 			commandLines[39][3] = "taskd.key";
 			commandLines[39][4] = "--";
-			commandLines[39][5] = "/home/"+storeUserInput[0]+"/.task/"+storeUserInput[3]+".key.pem";
+			commandLines[39][5] = "/home/"+installData.getLinuxUserName()+"/.task/"+installData.getTwUserName()+".key.pem";
 			commandLines[39][6] = "/usr/share/taskd/pki/";
 			commandLines[39][7] = "TASKDDATA=/var/taskd";
 			commands[39].setCommandLines(commandLines[36]);
@@ -731,7 +734,7 @@ public class GenerateCommandsV3 {
 			commandLines[40][2] = "config";
 			commandLines[40][3] = "taskd.ca";
 			commandLines[40][4] = "--";
-			commandLines[40][5] = "/home/"+storeUserInput[0]+"/.task/ca.cert.pem";
+			commandLines[40][5] = "/home/"+installData.getLinuxUserName()+"/.task/ca.cert.pem";
 			commandLines[40][6] = "/usr/share/taskd/pki/";
 			commandLines[40][7] = "TASKDDATA=/var/taskd";
 			commands[40].setCommandLines(commandLines[40]);
@@ -748,7 +751,7 @@ public class GenerateCommandsV3 {
 			commandLines[41][2] = "config";
 			commandLines[41][3] = "taskd.server";
 			commandLines[41][4] = "--";
-			commandLines[41][5] = serverName+":"+serverPort;
+			commandLines[41][5] = installData.getServerName()+":"+installData.getServerPort();
 			commandLines[41][6] = "/usr/share/taskd/pki/";
 			commandLines[41][7] = "TASKDDATA=/var/taskd";
 			commands[41].setCommandLines(commandLines[41]);
@@ -765,7 +768,7 @@ public class GenerateCommandsV3 {
 			commandLines[42][2] = "config";
 			commandLines[42][3] = "taskd.credentials";
 			commandLines[42][4] = "--";
-			commandLines[42][5] = storeUserInput[2]+"/"+storeUserInput[3]+"/"+installData.getTwUuid();
+			commandLines[42][5] = installData.getTwOrganisation()+"/"+installData.getTwUserName()+"/"+installData.getTwUuid();
 			commandLines[42][6] = "/usr/share/taskd/pki/";
 			commandLines[42][7] = "TASKDDATA=/var/taskd";
 			commands[42].setCommandLines(commandLines[42]);
@@ -791,15 +794,15 @@ public class GenerateCommandsV3 {
 	//public static String[][] generateThirdCommands(InstallData installData, boolean testRun,String linuxPath,String vars,String[] storeUserInput,String serverName,String serverPort) {
 		//String[][] commands = new String[50][1];
 		String twUuid;
-		//String directoryPath = new String("/var/taskd/orgs/"+storeUserInput[2]+"/users/");
+		//String directoryPath = new String("/var/taskd/orgs/"+installData.getTwOrganisation()+"/users/");
 		//String directoryPath = new String("/var/taskd/orgs/"+installData.getTwUuid()+"/users/");
 		
-		if (!testRun) {
+		if (!installData.isTestrun()) {
 			// write fillers for command 0:
 			commandLines[43] = new String[4];
 			commandLines[43][0] = "echo";
 			commandLines[43][1] = "filler";
-			commandLines[43][2] = linuxPath;
+			commandLines[43][2] = installData.getLinuxPath();
 			commandLines[43][3] = "TASKDDATA=/var/taskd";
 			commands[43].setCommandLines(commandLines[43]);
 			commands[43].setEnvVarContent("/var/task");

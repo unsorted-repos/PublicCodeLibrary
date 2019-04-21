@@ -8,16 +8,17 @@ import java.util.Arrays;
 
 public class Verifications {
 
-	public static void preCommandProcess(InstallData installData,int commandIndex, String[] command) throws FileNotFoundException {
-		switch (commandIndex) {
-			case 7: before7(command);
-		}
+	public static Command preCommandProcess(InstallData installData,int commandIndex, Command command) throws FileNotFoundException {
+//		switch (commandIndex) {
+//			case 7: before7(command);
+//		}
+		return command;
 	}
 	
-	public static InstallData postCommandProcess(InstallData installData, int commandIndex, String[] command, String commandOutput) throws FileNotFoundException {
+	public static InstallData postCommandProcess(InstallData installData, int commandIndex, Command command, String commandOutput) throws FileNotFoundException {
 		System.out.println("The output of command "+commandIndex+"="+commandOutput);
 		switch (commandIndex) {
-			case 7: after7(command);
+			//case 7: after7(command);
 			case 30: installData = after30(installData, commandOutput);
 		}
 		return installData;
