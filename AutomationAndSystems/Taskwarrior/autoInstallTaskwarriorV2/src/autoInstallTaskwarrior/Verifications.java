@@ -11,14 +11,25 @@ public class Verifications {
 
 	public static Command preCommandProcess(InstallData installData,int commandIndex, Command command) throws Exception {
 		switch (commandIndex) {
-			case 0: before0(installData,command);
+			case 0: {
+				before0(installData,command);
+				break;
+			}
+			case 42: {
+				command = before42(installData,command);
+				break;
+			}
 		}
 		return command;
 	}
 	
 	public static InstallData postCommandProcess(InstallData installData, int commandIndex, Command command, String commandOutput) throws FileNotFoundException {
+		System.out.println("i="+commandIndex);
 		switch (commandIndex) {
-			case 7: after0(installData,command);
+			case 7: {
+				after7(installData,command);
+				break;
+			}
 //			TODO: After generate command of 10 create verification for files
 //			client.cert.pem
 //			client.key.pem
@@ -29,26 +40,16 @@ public class Verifications {
 //			in location:/usr/share/taskd/pki/
 			
 //			TODO: After copy of command 16 verify those files are also located in: /var/taskd/
-			case 30: installData = after30(installData, commandOutput);
+			
+			// get the tw uuid
+			case 30: {
+				installData = after30(installData, commandOutput);
+				break;
+			}
 		}
 		return installData;
 	}
 	
-	
-	/**
-	 * Gets the output of the command that adds a new user to the setup
-	 * Then reads the taskwarrior uuid
-	 * and sets the taskwarrior uuid in object installData
-	 * @param commandOutput
-	 */
-	private static InstallData after30(InstallData installData, String commandOutput) {
-		if (commandOutput !=null && commandOutput.length() > 20 && commandOutput.substring(0, "New user key: ".length()).contentEquals("New user key: ")) {
-			System.out.println("The tw uuid ="+commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
-			installData.setTwUuid(commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
-		}
-		return installData;
-	}
-
 	/**
 	 * verification 7 checks whether command
 	 * 
@@ -80,6 +81,68 @@ public class Verifications {
 	}
 	
 	/**
+	 * Updates the empty tw uuid to the one read stored in install data,
+	 * which is read from the output of executing command 30.
+	 * @param installData
+	 * @param command
+	 * @return
+	 */
+	public static Command before42(InstallData installData, Command command) {
+		String[] temp = command.getCommandLines();
+		temp[temp.length-1]=installData.getTwOrganisation()+"/"+installData.getTwUserName()+"/"+installData.getTwUuid();
+		command.setCommandLines(temp);
+		return command;
+	}
+	
+	/**
+	 * verification 7 checks whether command
+	 * 
+	 *  	commands[7] = new String[5];
+	 *		commands[7][0] = "sudo";
+	 *		commands[7][1] = "mkdir";
+	 *		commands[7][2] = "-p";
+	 *		commands[7][3] = "/var/taskd";
+	 *		commands[7][4] = linuxPath;
+	 * exists, and whether the file path exists after the command is executed
+	 * @throws FileNotFoundException 
+	 */
+	public static void after7(InstallData installData, Command command) throws FileNotFoundException {
+		Path path = Paths.get(command.getEnvVarContent());
+		//=[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
+		if (command.getCommandLines()[0].equals("sudo") && command.getCommandLines()[1].equals("mkdir") && command.getCommandLines()[2].equals("-p") && command.getCommandLines()[3].equals("/var/taskd")) {
+			if (!Files.exists(path)) {
+				throw new FileNotFoundException("The folder /var/taskd does not exist, even though it should!");
+			}
+		}
+		System.out.println("The folder /var/taskd exists");
+	}
+	
+	public static void after19(String[] command) {
+		//check and print whether the copied certs of command 19 exist in /<ubuntu username>/.task/
+		System.out.println("VERIFYING COPYING OF FILES");
+		//CreateFiles.checkIfFileExist(installData.getLinuxUserName(),installData.getCopyVerifications19());
+	}
+	
+	/**
+	 * Gets the output of the command that adds a new user to the setup
+	 * Then reads the taskwarrior uuid
+	 * and sets the taskwarrior uuid in object installData
+	 * @param commandOutput
+	 */
+	private static InstallData after30(InstallData installData, String commandOutput) {
+		System.out.println("TotalLen="+commandOutput.length());
+		System.out.println("Lenght of:New user key: "+"="+"New user key: ".length());
+		System.out.println("Key="+commandOutput.substring("New user key: ".length(),commandOutput.length()));
+		if (commandOutput !=null && commandOutput.length() > 20 && commandOutput.substring(0, "New user key: ".length()).contentEquals("New user key: ")) {
+			System.out.println("The tw uuid ="+commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
+			installData.setTwUuid(commandOutput.substring("New user key: ".length(), "New user key: ".length()+36));
+		} else {
+			System.out.println("DID NOT CATCH UUID IN:"+commandOutput);
+		}
+		return installData;
+	}
+	
+	/**
 	 * Delete the (end) folder of path, if path exists.
 	 * Automatically requests sudo pw.
 	 * @param path
@@ -104,32 +167,5 @@ public class Verifications {
 	}
 	
 	
-	/**
-	 * verification 7 checks whether command
-	 * 
-	 *  	commands[7] = new String[5];
-	 *		commands[7][0] = "sudo";
-	 *		commands[7][1] = "mkdir";
-	 *		commands[7][2] = "-p";
-	 *		commands[7][3] = "/var/taskd";
-	 *		commands[7][4] = linuxPath;
-	 * exists, and whether the file path exists after the command is executed
-	 * @throws FileNotFoundException 
-	 */
-	public static void after0(InstallData installData, Command command) throws FileNotFoundException {
-		Path path = Paths.get(command.getEnvVarContent());
-		//=[sudo, mkdir, -p, /var/taskd, /mnt/c/twInstall/]
-		if (command.getCommandLines()[0].equals("sudo") && command.getCommandLines()[1].equals("mkdir") && command.getCommandLines()[2].equals("-p") && command.getCommandLines()[3].equals("/var/taskd")) {
-			if (!Files.exists(path)) {
-				throw new FileNotFoundException("The folder /var/taskd does not exist, even though it should!");
-			}
-		}
-		System.out.println("The folder /var/taskd exists");
-	}
 	
-	public static void after19(String[] command) {
-		//check and print whether the copied certs of command 19 exist in /<ubuntu username>/.task/
-		System.out.println("VERIFYING COPYING OF FILES");
-		//CreateFiles.checkIfFileExist(installData.getLinuxUserName(),installData.getCopyVerifications19());
-	}
 }

@@ -75,10 +75,11 @@ public class Main {
 				if (commands[i].getCommandLines()[0]!=null) { 
 					//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 						//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
-						RunCommandsV3.executeCommands(commands[i],hasYes);
+						commandOutput = RunCommandsV3.executeCommands(commands[i],hasYes);
+						System.out.println("Output="+commandOutput);
 				}
 				
-				// verify system condition after command execution
+				// verify system condition after command execution				
 				installData = Verifications.postCommandProcess(installData,i, commands[i], commandOutput);
 			}
 		}

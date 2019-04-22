@@ -559,6 +559,7 @@ public class GenerateCommandsV3 {
 		commands[30].setEnvVarContent("/var/taskd");
 		commands[30].setEnvVarName("TASKDDATA");
 		commands[30].setWorkingPath(commands[1].getEnvVarContent());
+		commands[30].setGetOutput(true);
 		
 		//return commands;
 	//}
@@ -679,7 +680,7 @@ public class GenerateCommandsV3 {
 			//commandLines[35][2] = installData.getTwUserName()+".key.pem";
 			commandLines[36][2] = "/usr/share/taskd/pki/"+installData.getTwUserName()+".key.pem"; //abs
 			commandLines[36][3] = "/home/"+installData.getLinuxUserName()+"/.task/";
-			commands[36].setCommandLines(commandLines[35]);
+			commands[36].setCommandLines(commandLines[36]);
 			commands[36].setEnvVarContent("/var/taskd");
 			commands[36].setEnvVarName("TASKDDATA");
 			commands[36].setWorkingPath("/usr/share/taskd/pki");
@@ -695,7 +696,7 @@ public class GenerateCommandsV3 {
 			//commandLines[37][2] = "ca.cert.pem";
 			commandLines[37][2] = "/usr/share/taskd/pki/"+"ca.cert.pem"; //abs
 			commandLines[37][3] = "/home/"+installData.getLinuxUserName()+"/.task/";
-			commands[37].setCommandLines(commandLines[35]);
+			commands[37].setCommandLines(commandLines[37]);
 			commands[37].setEnvVarContent("/var/taskd");
 			commands[37].setEnvVarName("TASKDDATA");
 			commands[37].setWorkingPath("/usr/share/taskd/pki");
@@ -711,7 +712,7 @@ public class GenerateCommandsV3 {
 			commandLines[38][3] = "taskd.certificate";
 			commandLines[38][4] = "--";
 			commandLines[38][5] = "/home/"+installData.getLinuxUserName()+"/.task/"+installData.getTwUserName()+".cert.pem";
-			commands[38].setCommandLines(commandLines[35]);
+			commands[38].setCommandLines(commandLines[38]);
 			commands[38].setEnvVarContent("/var/taskd");
 			commands[38].setEnvVarName("TASKDDATA");
 			commands[38].setWorkingPath("/usr/share/taskd/pki");
@@ -727,7 +728,7 @@ public class GenerateCommandsV3 {
 			commandLines[39][3] = "taskd.key";
 			commandLines[39][4] = "--";
 			commandLines[39][5] = "/home/"+installData.getLinuxUserName()+"/.task/"+installData.getTwUserName()+".key.pem";
-			commands[39].setCommandLines(commandLines[36]);
+			commands[39].setCommandLines(commandLines[39]);
 			commands[39].setEnvVarContent("/var/taskd");
 			commands[39].setEnvVarName("TASKDDATA");
 			commands[39].setWorkingPath("/usr/share/taskd/pki");
