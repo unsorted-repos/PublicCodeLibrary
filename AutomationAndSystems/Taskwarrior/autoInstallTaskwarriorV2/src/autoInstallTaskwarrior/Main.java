@@ -58,7 +58,8 @@ public class Main {
 		String commandOutput = null;
 		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {    
-				System.out.println("I="+i+" and commands.length="+commands.length);
+				
+				printCommand(i,commands[i].getCommandLines());
 				
 				//check if command contains "yes | " and store result:
 				Boolean hasYes =  startsWithYes(commands[i].getCommandLines()[0]);
@@ -174,6 +175,14 @@ public class Main {
 		for (int i = 1; i <= 50; i++) {
 			System.out.println('\n');
 		}
+	}
+	
+	private static void printCommand(int commandNr, String[] commands) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i<commands.length;i++) {
+			sb.append(commands[i]+" ");
+		}
+		System.out.println(commandNr+"RUNNINGCOMMAND="+sb.toString());
 	}
 }
 

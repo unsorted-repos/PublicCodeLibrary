@@ -19,6 +19,16 @@ public class Verifications {
 	public static InstallData postCommandProcess(InstallData installData, int commandIndex, Command command, String commandOutput) throws FileNotFoundException {
 		switch (commandIndex) {
 			case 7: after0(installData,command);
+//			TODO: After generate command of 10 create verification for files
+//			client.cert.pem
+//			client.key.pem
+//			server.sert.pem
+//			server.key.pem
+//			server.crl.pem
+//			ca.cert.pem
+//			in location:/usr/share/taskd/pki/
+			
+//			TODO: After copy of command 16 verify those files are also located in: /var/taskd/
 			case 30: installData = after30(installData, commandOutput);
 		}
 		return installData;

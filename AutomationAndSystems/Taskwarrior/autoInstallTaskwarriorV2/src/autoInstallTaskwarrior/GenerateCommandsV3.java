@@ -152,14 +152,12 @@ public class GenerateCommandsV3 {
 		// environment variable:TASKDDATA=/var/taskd
 		// Verified by checking whether /var/taskd/config did not exist before execution of 
 		// this command, and does exist after. Status: Both verified, hence command verified.
-		commandLines[8] = new String[7];
+		commandLines[8] = new String[5];
 		commandLines[8][0] = "yes | sudo";
 		commandLines[8][1] = "taskd";
 		commandLines[8][2] = "init";
 		commandLines[8][3] = "--data";
 		commandLines[8][4] = "/var/taskd";
-		commandLines[8][5] = installData.getLinuxPath();
-		commandLines[8][6] = "TASKDDATA=/var/taskd";
 		commands[8].setCommandLines(commandLines[8]);
 		commands[8].setEnvVarContent("/var/taskd");
 		commands[8].setEnvVarName("TASKDDATA");
@@ -205,18 +203,13 @@ public class GenerateCommandsV3 {
 		// sudo ./generate
 		// working directory: /usr/share/taskd/pki
 		// environment variable:TASKDDATA=/var/taskd
-		commandLines[10] = new String[4];
+		commandLines[10] = new String[2];
 		commandLines[10][0] = "sudo";
 		commandLines[10][1] = "/usr/share/taskd/pki/generate";
-		commandLines[10][2] = "/usr/share/taskd/pki/";
-		commandLines[10][3] = "TASKDDATA=/var/taskd";
 		commands[10].setCommandLines(commandLines[10]);
 		commands[10].setEnvVarContent("/var/taskd");
 		commands[10].setEnvVarName("TASKDDATA");
 		commands[10].setWorkingPath("/usr/share/taskd/pki");
-		
-		
-		
 
 		/**
 		 * TODO: derive where the client.cert.pem is actually generated/located
@@ -233,7 +226,6 @@ public class GenerateCommandsV3 {
 		commandLines[11] = new String[4];
 		commandLines[11][0] = "sudo";
 		commandLines[11][1] = "cp"; 
-		//commandLines[11][2] = "client.cert.pem";
 		commandLines[11][2] = "/usr/share/taskd/pki/client.cert.pem"; //abs
 		commandLines[11][3] = "/var/taskd";
 		commands[11].setCommandLines(commandLines[11]);

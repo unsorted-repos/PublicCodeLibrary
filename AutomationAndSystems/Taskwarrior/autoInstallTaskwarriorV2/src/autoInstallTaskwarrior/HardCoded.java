@@ -30,13 +30,6 @@ public class HardCoded {
 		//when it's run in linux it automatically returns linux path. (No need for conversion)
 		//String linuxPath = getThisPath.getJarLocation()[1]; 
 		
-		//hardcoded copy verifications file names
-		String[] copyVerification19 = new String[3]; 		
-		copyVerification19[0] = installData.getUserInput()[3]+".cert.pem";
-		copyVerification19[1] = installData.getUserInput()[3]+".key.pem";
-		copyVerification19[2] = "ca.cert.pem";
-		installData.setCopyVerifications19(copyVerification19);
-		
 		// TODO: Set to false before you publish so that users don't lose their other tw users!
 		// TODO: Add question at start asking if they want to do a clean install/delete other tw users.
 		installData.setDeleteOtherTwUsers(true);

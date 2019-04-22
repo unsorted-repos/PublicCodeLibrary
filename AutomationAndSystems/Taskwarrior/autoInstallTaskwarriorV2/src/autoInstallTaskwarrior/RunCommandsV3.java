@@ -48,7 +48,6 @@ public class RunCommandsV3 {
 		 */
 		public static String executeCommands(Command command,Boolean ansYes) throws Exception {
 			String capturedCommandOutput = null;
-			System.out.println("RUNNING COMMAND="+Arrays.deepToString(command.getCommandLines()));
 			File workingDirectory = new File(command.getWorkingDirectory());
 
 			// create a ProcessBuilder to execute the commands in
@@ -131,6 +130,8 @@ public class RunCommandsV3 {
 			 
 			 return processBuilder;
 		}
+		
+		
 	}
 
 

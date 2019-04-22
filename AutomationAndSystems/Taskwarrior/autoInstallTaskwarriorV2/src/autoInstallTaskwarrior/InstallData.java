@@ -200,9 +200,7 @@ public class InstallData {
 		this.linuxUserName = userInput[0];
 		this.linuxPw = userInput[1];
 		this.twOrganisation = userInput[2];
-		this.twOrganisation = "Org";
 		this.twUserName = userInput[3];
-		this.twUserName = "Public";
 	}
 	
 	public String[] getUserInput() {
