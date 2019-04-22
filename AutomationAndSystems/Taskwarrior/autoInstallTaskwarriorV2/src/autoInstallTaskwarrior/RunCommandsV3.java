@@ -48,7 +48,7 @@ public class RunCommandsV3 {
 		 */
 		public static String executeCommands(Command command,Boolean ansYes) throws Exception {
 			String capturedCommandOutput = null;
-			System.out.println("Incoming commandData = "+Arrays.deepToString(command.getCommandLines()));
+			System.out.println("RUNNING COMMAND="+Arrays.deepToString(command.getCommandLines()));
 			File workingDirectory = new File(command.getWorkingDirectory());
 
 			// create a ProcessBuilder to execute the commands in
@@ -124,7 +124,7 @@ public class RunCommandsV3 {
 //			String envVarContent = "/mnt/c/testfolder a/";
 			
 			Map<String, String> env = processBuilder.environment();
-			 System.out.println("Setting environment variable "+command.getEnvVarName()+"="+command.getEnvVarContent());
+			 //System.out.println("Setting environment variable "+command.getEnvVarName()+"="+command.getEnvVarContent());
 			 env.put(command.getEnvVarName(), command.getEnvVarContent());
 			 
 			 processBuilder.environment().put(command.getEnvVarName(), command.getEnvVarContent());

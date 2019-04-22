@@ -58,6 +58,7 @@ public class Main {
 		String commandOutput = null;
 		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {    
+				System.out.println("I="+i+" and commands.length="+commands.length);
 				
 				//check if command contains "yes | " and store result:
 				Boolean hasYes =  startsWithYes(commands[i].getCommandLines()[0]);
@@ -71,7 +72,6 @@ public class Main {
 				
 				// run commands if it does not start with null
 				if (commands[i].getCommandLines()[0]!=null) { 
-					System.out.println("RUNNING COMMAND:"+Arrays.toString(preprocessedCommands));
 					//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 						//commandOutput = RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 						RunCommandsV3.executeCommands(commands[i],hasYes);
