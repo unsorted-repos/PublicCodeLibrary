@@ -1,0 +1,10 @@
+##Delete all lines NOT containing "hi"##
+ - In sublime: 
+ 0. Ctrl+f
+ 1. type hi (finds all lines/instances containing/of "hi")
+ 2. Alt+f3 (selects all instances of "hi")
+ 3. Click on the tab to exit the search bar
+ 4. Ctrl+L (Selects all lines that contain "hi")
+ 5. Click Selection>Invert Selection
+ 6. Delete
+ 
