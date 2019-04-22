@@ -37,6 +37,10 @@ public class HardCoded {
 		copyVerification19[2] = "ca.cert.pem";
 		installData.setCopyVerifications19(copyVerification19);
 		
+		// TODO: Set to false before you publish so that users don't lose their other tw users!
+		// TODO: Add question at start asking if they want to do a clean install/delete other tw users.
+		installData.setDeleteOtherTwUsers(true);
+		
 		
 		System.out.println("Path ="+installData.getWindowsPath());
 		System.out.println("Path ="+installData.getLinuxPath());

@@ -14,6 +14,7 @@ public class InstallData {
 	private String[] userInput;
 	private boolean testrun;
 	private String twUuid;
+	private boolean deleteOtherTwUsers;
 	
 //	String linuxPw = storeUserInput[1];
 //	String serverName = "0.0.0.0";
@@ -220,6 +221,20 @@ public class InstallData {
 	 */
 	public void setTwUuid(String twUuid) {
 		this.twUuid = twUuid;
+	}
+
+	/**
+	 * @return the deleteOtherTwUsers
+	 */
+	public boolean isDeleteOtherTwUsers() {
+		return deleteOtherTwUsers;
+	}
+
+	/**
+	 * @param deleteOtherTwUsers the deleteOtherTwUsers to set
+	 */
+	public void setDeleteOtherTwUsers(boolean deleteOtherTwUsers) {
+		this.deleteOtherTwUsers = deleteOtherTwUsers;
 	}
 	
 	
