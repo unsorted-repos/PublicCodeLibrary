@@ -3,17 +3,20 @@ import java.util.Scanner;
 
 public class AskUserInput {
 	public static String[] getUserInput() { 
-		String[] userInput = new String[5];
+		String[] userInput = new String[7];
 		Scanner reader = new Scanner(System.in);  // Reading from System.in
 		System.out.println("Please re-enter your Unix username: ");
 		userInput[0] = reader.next(); // Scans the next token of the input as an int.
-		System.out.println("Please re-enter your Unix password: ");
-		userInput[1] = reader.next(); // Scans the next token of the input as an int.
 		System.out.println("Please enter the name of your taskwarrior organization (it can be named:Public if you don't have any): ");
 		userInput[2] = reader.next(); // Scans the next token of the input as an int.
-		System.out.println("Please enter the name of this taskwarrior installation: ");
+		System.out.println("Please enter the name of this taskwarrior user: (it can be:First if you don't know any");
 		userInput[3] = reader.next(); // Scans the next token of the input as an int.
-		
+		System.out.println("Please enter the server name: eg. something.something.com or: 0.0.0.0");
+		userInput[4] = reader.next(); // Scans the next token of the input as an int.
+		System.out.println("Is thisyour server (pc that is on most of the time and doing a few sorting computations) or client?(server/client)");
+		userInput[5] = reader.next();
+		System.out.println("By default your taskwarrior backup is put into:"+"/mnt/c/task backup"+"\n if you want to change that path, then please enter it now:(to skip type:n)");
+		userInput[6] = reader.next();
 		//once finished
 		reader.close();
 		return userInput;

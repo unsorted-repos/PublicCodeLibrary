@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class GenerateCommandsV3 {
 	public static Command[] generateCommands(InstallData installData) {
-		int nrOfCommands = 52;
+		int nrOfCommands = 55;
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];
 		for (int i = 0; i<nrOfCommands;i++) {
@@ -922,6 +922,99 @@ public class GenerateCommandsV3 {
 			commands[51].setEnvVarContent("/var/taskd");
 			commands[51].setEnvVarName("TASKDDATA");
 			commands[51].setWorkingPath("/usr/share/taskd/pki");
+			
+			//TODO: Add to enable automatic sync: sudo task config taskd.trust -- ignore hostname
+			commandLines[52] = new String[6];
+			commandLines[52][0] = "yes | sudo";
+			commandLines[52][1] = "task"; 
+			commandLines[52][2] = "config";
+			commandLines[52][3] = "taskd.trust";
+			commandLines[52][4] = "--";
+			commandLines[52][5] = "ignore hostname";
+			commands[52].setCommandLines(commandLines[52]);
+			commands[52].setEnvVarContent("/var/taskd");
+			commands[52].setEnvVarName("TASKDDATA");
+			commands[52].setWorkingPath("/usr/share/taskd/pki");
+			
+			/**
+			 * Make automatic backups are created automatically.
+			 * pdf: 9 sec: 6.1 ignored (see git readme "login and start cronjob service automatically")
+			 * TODO: copy the autoBackup.sh to the same folder as vars, and src are in. then copy it with:
+			 * cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/maintenance/
+			 * 
+			 * 1.2 Make the bash file runnable in unix: (otherwise says "permission denied")
+			 * `chmod +x "/home/<yourUsername>/maintenance/"`
+
+			 * TODO: make autoBackup.sh runnable
+			 * TODO: enter commands:
+			 */
+			
+//			mkdir "/home/ Linux user name / maintenance"
+//			cp -a "LINUX PATH OF THIS PROJECT/jar, auto startup/autoBackup.sh" ~/maintenance/
+//			chmod +x ~/maintenance/
+			commandLines[53] = new String[4];
+			commandLines[53][0] = "sudo";
+			commandLines[53][1] = "mkdir";
+			commandLines[53][2] = "-p";
+			commandLines[53][3] = "/home/"+installData.getLinuxUserName()+"/autoBackup/";
+			commands[53].setCommandLines(commandLines[53]);
+			commands[53].setEnvVarContent("/var/taskd");
+			commands[53].setEnvVarName("TASKDDATA");
+			commands[53].setWorkingPath("");
+			commands[53].setSetWorkingPath(false);
+			
+			/**
+			 * Copy/create the custom sort script.
+			 * pdf: no, see git
+			 * Merge project customsort in here.
+			 */
+			
+			/**
+			 * Make a cronjob that handles automatic backup and customSort script
+			 * pdf: 10 sec: 6.2 ignored, (see git readme "login and start cronjob service automatically")
+			 * 
+			 * ### **2. Creating a functioning cronjob:**
+			 */
+//			 1. Browse to folder `/etc/` in your WSL Ubuntu.
+//			 2. Then in folder `/etc/` enter:`sudo nano crontab`
+//			 3. In that file named crontab enter your command.
+//			 4. E.g.: `*/1 * * * * root touch /var/www/myFile`
+//			 5. To create a file named `myFile` in location `/var/www/` every minute.
+//			 6. For completeness: `*/2 * * * * root touch /var/www/myFile` means: the command "touch /var/myFile" is executed every two minutes with root access.
+//			 and add lines:
+//				# m h dom mon dow user  command
+//				# Backing up .task file/folder:
+//				*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
+//				# The next line is for the custom sorting, leave it out if you don't use it:
+//				*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
+			
+			
+			/**
+			 * Enable crontab services at startup with bashrc.
+			 * pdf: 10 sec: 6.3
+			 * 
+			 * 1. cd to `/home/<your ubuntu user name>`
+    		 * 2. `sudo nano .bashrc`
+			 * 3. The text editor nano then creates/opens a file `.bashrc`
+			 * 4. In that file a lot of examples can be shown already, write/paste the following code on the first line/above what was already there in the `.bashrc` file.
+			 * 
+			 * 2 options: server or non-server/client
+			 */
+			
+			/**
+			 * remove prompting for password with sudo visudo.
+			 * That changes /etc/sudoers.tmp.
+			 * TODO: Add last line to that file with:
+			 * <your WSL ubuntu username> ALL=(ALL) NOPASSWD: ALL
+			 */
+			
+			commandLines[54] = new String[2];
+			commandLines[54][0] = "sudo";
+			commandLines[54][1] = "visudo"; 
+			commands[54].setCommandLines(commandLines[54]);
+			commands[54].setEnvVarContent("/var/taskd");
+			commands[54].setEnvVarName("TASKDDATA");
+			commands[54].setWorkingPath("/usr/share/taskd/pki");
 		}
 		return commands;
 	}

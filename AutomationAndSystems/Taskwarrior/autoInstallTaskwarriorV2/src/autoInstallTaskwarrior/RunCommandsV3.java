@@ -63,7 +63,6 @@ public class RunCommandsV3 {
 			try {
 			 
 				Process process = processBuilder.start();
-				System.out.println("TRUE="+command.isGetOutput());
 				// capture the output stream of the command
 				if (command.isGetOutput()) {
 					// capture the output stream of the command

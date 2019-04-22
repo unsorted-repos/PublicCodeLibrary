@@ -58,6 +58,7 @@ public class Main {
 		String commandOutput = null;
 		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {    
+			//for (int i = 0; i < 49; i++) {
 				
 				printCommand(i,commands[i].getCommandLines());
 				

@@ -15,6 +15,8 @@ public class InstallData {
 	private boolean testrun;
 	private String twUuid;
 	private boolean deleteOtherTwUsers;
+	private boolean isServer;
+	private String backupDestination;
 	
 //	String linuxPw = storeUserInput[1];
 //	String serverName = "0.0.0.0";
@@ -201,6 +203,16 @@ public class InstallData {
 		this.linuxPw = userInput[1];
 		this.twOrganisation = userInput[2];
 		this.twUserName = userInput[3];
+		this.serverName = userInput[4];
+		if (userInput[5].equals("y")) {
+			this.isServer = true;
+		} else {
+			this.isServer = false;
+		}
+		if (!userInput[6].equals("n")) {
+			this.backupDestination = userInput[6];
+		}
+		
 	}
 	
 	public String[] getUserInput() {
@@ -233,6 +245,34 @@ public class InstallData {
 	 */
 	public void setDeleteOtherTwUsers(boolean deleteOtherTwUsers) {
 		this.deleteOtherTwUsers = deleteOtherTwUsers;
+	}
+
+	/**
+	 * @return the isServer
+	 */
+	public boolean isServer() {
+		return isServer;
+	}
+
+	/**
+	 * @param isServer the isServer to set
+	 */
+	public void setServer(boolean isServer) {
+		this.isServer = isServer;
+	}
+
+	/**
+	 * @return the backupDestination
+	 */
+	public String getBackupDestination() {
+		return backupDestination;
+	}
+
+	/**
+	 * @param backupDestination the backupDestination to set
+	 */
+	public void setBackupDestination(String backupDestination) {
+		this.backupDestination = backupDestination;
 	}
 	
 	

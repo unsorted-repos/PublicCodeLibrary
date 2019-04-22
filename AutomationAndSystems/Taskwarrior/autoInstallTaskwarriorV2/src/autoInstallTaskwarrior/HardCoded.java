@@ -17,13 +17,14 @@ public class HardCoded {
 		installData.setTestrun(false);
 		installData.setVars("vars");
 		
-		installData.setServerName("0.0.0.0");
+		installData.setServerName(installData.getUserInput()[4]);
 		installData.setServerPort("53589");
 		
 		//get the path of this compiled .jar file
 		installData.setLinuxPath(GetThisPath.getJarLocation()[0]);
 		
-		String serverPort = "53589";
+		
+		
 //		installData.getUserInput()[2]="Public";
 //		installData.getUserInput()[3]="First";
 		
