@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CreateFiles {
 	
@@ -49,6 +47,31 @@ public class CreateFiles {
 			writer.println("STATE="+quotation+"Vastra Gotaland"+quotation);
 			//writer.println("LOCALITY="+quotation+"Göteborg"+quotation);
 			writer.println("LOCALITY="+quotation+"Goteborg"+quotation);
+			writer.close();
+			System.out.println("JUST WROTE CONTENT VARS FILE!");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Just failed at printing vars"+e);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Just failed at printing vars"+e);
+		}
+	}
+
+	/**
+	 * This method writes the content of the vars file.
+	 * @param installData
+	 */
+	public static void writeExportContent(InstallData installData) {
+		char quotation = (char)34; // quotation mark "
+		
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(installData.getLinuxPath()+"myscript.sh", "UTF-8");
+			writer.println("#!/bin/sh");
+			writer.println("echo TASKDDATA=/var/taskd");
 			writer.close();
 			System.out.println("JUST WROTE CONTENT VARS FILE!");
 		} catch (FileNotFoundException e) {

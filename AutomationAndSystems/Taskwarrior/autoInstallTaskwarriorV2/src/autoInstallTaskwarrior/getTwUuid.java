@@ -1,10 +1,5 @@
 package autoInstallTaskwarrior;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Gets the directory path based on the taskwarrior organisation
  * and the taskwarrior user name that the user entered. 

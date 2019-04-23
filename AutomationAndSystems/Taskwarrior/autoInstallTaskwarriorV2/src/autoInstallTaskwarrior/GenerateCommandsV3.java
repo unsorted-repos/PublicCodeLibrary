@@ -1,8 +1,5 @@
 package autoInstallTaskwarrior;
 
-import java.io.IOException;
-import java.util.Map;
-
 /**
  * A list of the verified commands (In the comment above each command)
  * is converted into a set of commands that Java can execute (an array of strings).
@@ -14,8 +11,8 @@ import java.util.Map;
  *
  */
 public class GenerateCommandsV3 {
-	public static Command[] generateCommands(InstallData installData) {
-		int nrOfCommands = 55;
+	public static Command[] generateCommands(InstallData installData) throws Exception {
+		int nrOfCommands = 57;
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];
 		for (int i = 0; i<nrOfCommands;i++) {
@@ -935,6 +932,57 @@ public class GenerateCommandsV3 {
 			commands[52].setEnvVarContent("/var/taskd");
 			commands[52].setEnvVarName("TASKDDATA");
 			commands[52].setWorkingPath("/usr/share/taskd/pki");
+
+			commandLines[53] = new String[4];
+			commandLines[53][0] = "sudo";
+			commandLines[53][1] = "-s";
+			commandLines[53][2] = "taskdctl"; 
+			commandLines[53][3] = "start";
+			commands[53].setCommandLines(commandLines[53]);
+			commands[53].setEnvVarContent("/var/taskd");
+			commands[53].setEnvVarName("TASKDDATA");
+			commands[53].setWorkingPath("/usr/share/taskd/pki");
+			
+			commandLines[54] = new String[5];
+			commandLines[54][0] = "yes | sudo";
+			commandLines[54][1] = "-s";
+			commandLines[54][2] = "task"; 
+			commandLines[54][3] = "sync";
+			commandLines[54][4] = "init";
+			commands[54].setCommandLines(commandLines[54]);
+			commands[54].setEnvVarContent("/var/taskd");
+			commands[54].setEnvVarName("TASKDDATA");
+			commands[54].setWorkingPath("/usr/share/taskd/pki");
+			
+			CreateFiles.writeExportContent(installData);
+			commandLines[55] = new String[3];
+			commandLines[55][0] = "chmod";
+			commandLines[55][1] = "+x";
+			commandLines[55][2] = "myscript.sh";
+			commands[55].setCommandLines(commandLines[55]);
+			commands[55].setEnvVarContent("/var/taskd");
+			commands[55].setEnvVarName("TASKDDATA");
+			commands[55].setWorkingPath(installData.getLinuxPath());
+			
+			commandLines[56] = new String[2];
+			commandLines[56][0] = "export";
+			commandLines[56][1] = "$(./myscript.sh)";
+			commands[56].setCommandLines(commandLines[56]);
+			commands[56].setEnvVarContent("/var/taskd");
+			commands[56].setEnvVarName("TASKDDATA");
+			commands[56].setWorkingPath(installData.getLinuxPath());
+			
+			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("/resources/autoBackup.sh"));
+			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("resources/autoBackup.sh"));
+			if (CopyFiles.getResourceAsFile("resources/autoBackup.sh")!=null) {
+				System.out.println("find the exported file in:"+CopyFiles.getResourceAsFile("resources/autoBackup.sh").getAbsolutePath());
+			}
+			if (CopyFiles.getResourceAsFile("/resources/autoBackup.sh")!=null) {
+				System.out.println("find the exported file in:"+CopyFiles.getResourceAsFile("/resources/autoBackup.sh").getAbsolutePath());
+			}	
+			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("/src/resources/autoBackup.sh"));
+			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("src/resources/autoBackup.sh"));
+			
 			
 			/**
 			 * Make automatic backups are created automatically.
@@ -949,20 +997,22 @@ public class GenerateCommandsV3 {
 			 * TODO: enter commands:
 			 */
 			
+			
+			
 //			mkdir "/home/ Linux user name / maintenance"
 //			cp -a "LINUX PATH OF THIS PROJECT/jar, auto startup/autoBackup.sh" ~/maintenance/
 //			chmod +x ~/maintenance/
-			commandLines[53] = new String[4];
-			commandLines[53][0] = "sudo";
-			commandLines[53][1] = "mkdir";
-			commandLines[53][2] = "-p";
-			commandLines[53][3] = "/home/"+installData.getLinuxUserName()+"/autoBackup/";
-			commands[53].setCommandLines(commandLines[53]);
-			commands[53].setEnvVarContent("/var/taskd");
-			commands[53].setEnvVarName("TASKDDATA");
-			commands[53].setWorkingPath("");
-			commands[53].setSetWorkingPath(false);
-			
+//			commandLines[53] = new String[4];
+//			commandLines[53][0] = "sudo";
+//			commandLines[53][1] = "mkdir";
+//			commandLines[53][2] = "-p";
+//			commandLines[53][3] = "/home/"+installData.getLinuxUserName()+"/autoBackup/";
+//			commands[53].setCommandLines(commandLines[53]);
+//			commands[53].setEnvVarContent("/var/taskd");
+//			commands[53].setEnvVarName("TASKDDATA");
+//			commands[53].setWorkingPath("");
+//			commands[53].setSetWorkingPath(false);
+//			
 			/**
 			 * Copy/create the custom sort script.
 			 * pdf: no, see git
@@ -1008,13 +1058,13 @@ public class GenerateCommandsV3 {
 			 * <your WSL ubuntu username> ALL=(ALL) NOPASSWD: ALL
 			 */
 			
-			commandLines[54] = new String[2];
-			commandLines[54][0] = "sudo";
-			commandLines[54][1] = "visudo"; 
-			commands[54].setCommandLines(commandLines[54]);
-			commands[54].setEnvVarContent("/var/taskd");
-			commands[54].setEnvVarName("TASKDDATA");
-			commands[54].setWorkingPath("/usr/share/taskd/pki");
+//			commandLines[54] = new String[2];
+//			commandLines[54][0] = "sudo";
+//			commandLines[54][1] = "visudo"; 
+//			commands[54].setCommandLines(commandLines[54]);
+//			commands[54].setEnvVarContent("/var/taskd");
+//			commands[54].setEnvVarName("TASKDDATA");
+//			commands[54].setWorkingPath("/usr/share/taskd/pki");
 		}
 		return commands;
 	}
