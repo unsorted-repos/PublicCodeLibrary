@@ -48,16 +48,15 @@ public class CopyFiles {
      * copy the temporary file that is read from recourses
      * @param args
      */
-    public static void main(String[] args)
-    {	
+    public static void copyFile(File file,String filePath, String fileName) {	
     	InputStream inStream = null;
     	OutputStream outStream = null;
     	try{
  
-    	    File file1 =new File("/Users/<username>/Documents/file1.txt");
-    	    File file2 =new File("/Users/<username>/Documents/file2.txt");
+    	   
+    	    File file2 =new File(filePath+fileName);
  
-    	    inStream = new FileInputStream(file1);
+    	    inStream = new FileInputStream(file);
     	    outStream = new FileOutputStream(file2); // for override file content
     	    //outStream = new FileOutputStream(file2,<strong>true</strong>); // for append file content
  
@@ -71,9 +70,27 @@ public class CopyFiles {
     	    if (inStream != null)inStream.close();
     	    if (outStream != null)outStream.close();
  
-    	    System.out.println("File Copied..");
+    	    System.out.println("File Copied to:"+filePath);
     	}catch(IOException e){
     		e.printStackTrace();
     	}
+    }
+    
+    public static void copyFileWithSudo(InstallData installData,String sourcePath,String sourceFileName, String destinationPath, String destinationFileName) throws Exception {
+    	
+    	// create copy command
+    	Command command = new Command();
+    	String[] commandLines = new String[4];
+		commandLines[0] = "sudo";
+		commandLines[1] = "cp";
+		commandLines[2] = sourcePath+sourceFileName;
+		commandLines[3] = destinationPath+destinationFileName;
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("/usr/share/taskd/pki");
+		
+		// copy file
+		RunCommandsV3.executeCommands(command,false);
     }
 }

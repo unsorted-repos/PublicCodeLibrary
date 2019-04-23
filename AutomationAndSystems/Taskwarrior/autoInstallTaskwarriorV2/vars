@@ -1,7 +1,7 @@
 BITS=4096
 EXPIRATION_DAYS=365
 ORGANIZATION="Goteborg Bit Factory"
-CN=f:53589
+CN=d:53589
 COUNTRY=SE
 STATE="Vastra Gotaland"
 LOCALITY="Goteborg"

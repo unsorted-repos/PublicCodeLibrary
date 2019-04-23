@@ -164,4 +164,23 @@ public class CreateFiles {
 			return false;
 		}
 	}
+	
+	
+	public static void makeScriptRunnable(String Path, String scriptName) {
+
+    	// create copy command
+    	Command command = new Command();
+    	String[] commandLines = new String[4];
+		
+		commandLines[0] = "chmod";
+		commandLines[1] = "+x";
+		commandLines[2] = scriptName;
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath(Path);
+		command.setSetWorkingPath(true);
+	}
+	
+	
 }

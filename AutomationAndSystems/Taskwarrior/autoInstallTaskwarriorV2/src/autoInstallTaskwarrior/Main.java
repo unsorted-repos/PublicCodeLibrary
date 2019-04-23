@@ -33,6 +33,9 @@ public class Main {
 		CreateFiles.createVars(installData);
 		System.out.println("Should have just printed vars");
 		
+		// export autoBackup.sh
+		exportAutoBackup(installData);
+		
 		//get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
 		
@@ -42,6 +45,27 @@ public class Main {
 		System.exit(0);
 	}
 
+	private static void exportAutoBackup(InstallData installData) throws Exception {
+		// declare copy and paste locations
+		File internalFile = CopyFiles.getResourceAsFile(installData.getInternalBackupScriptPath()+installData.getInternalBackupScriptName());
+		String sourceFileName = internalFile.getName();
+		String sourcePath = internalFile.getPath().substring(0, internalFile.getPath().length()-sourceFileName.length());
+		String destinationPath = installData.getBackupDestination();
+		String destinationFileName = installData.getBackupScriptName();
+		
+		
+		if (CopyFiles.getResourceAsFile("resource/autoBackup.sh")!=null) {
+			System.out.println("find the exported file one in:"+CopyFiles.getResourceAsFile("resource/autoBackup.sh").getAbsolutePath());
+			
+			// copy internal file to external folder
+			CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath, destinationFileName);
+			
+			// make .sh runnable
+			CreateFiles.makeScriptRunnable(destinationPath, destinationFileName);
+		}
+	}
+
+	
 	/**
 	 * Method creates a taskwarrior user defined Attribute if the data type is correct
 	 * Thows error datatype is not correct.

@@ -17,6 +17,39 @@ public class InstallData {
 	private boolean deleteOtherTwUsers;
 	private boolean isServer;
 	private String backupDestination;
+	private String backupScriptName;
+	private String internalBackupScriptName;
+	private String internalBackupScriptPath;
+	/**
+	 * @return the internalBackupScriptName
+	 */
+	public String getInternalBackupScriptName() {
+		return internalBackupScriptName;
+	}
+
+	/**
+	 * @param internalBackupScriptName the internalBackupScriptName to set
+	 */
+	public void setInternalBackupScriptName(String internalBackupScriptName) {
+		this.internalBackupScriptName = internalBackupScriptName;
+	}
+
+	/**
+	 * @return the internalBackupScriptPath
+	 */
+	public String getInternalBackupScriptPath() {
+		return internalBackupScriptPath;
+	}
+
+	/**
+	 * @param internalBackupScriptPath the internalBackupScriptPath to set
+	 */
+	public void setInternalBackupScriptPath(String internalBackupScriptPath) {
+		this.internalBackupScriptPath = internalBackupScriptPath;
+	}
+
+	private String customSortScriptName;
+	
 	
 //	String linuxPw = storeUserInput[1];
 //	String serverName = "0.0.0.0";
@@ -34,6 +67,34 @@ public class InstallData {
 //	copyVerification19[0] = storeUserInput[3]+".cert.pem";
 //	copyVerification19[1] = storeUserInput[3]+".key.pem";
 //	copyVerification19[2] = "ca.cert.pem";
+
+	/**
+	 * @return the backupScriptName
+	 */
+	public String getBackupScriptName() {
+		return backupScriptName;
+	}
+
+	/**
+	 * @param backupScriptName the backupScriptName to set
+	 */
+	public void setBackupScriptName(String backupScriptName) {
+		this.backupScriptName = backupScriptName;
+	}
+
+	/**
+	 * @return the customSortScriptName
+	 */
+	public String getCustomSortScriptName() {
+		return customSortScriptName;
+	}
+
+	/**
+	 * @param customSortScriptName the customSortScriptName to set
+	 */
+	public void setCustomSortScriptName(String customSortScriptName) {
+		this.customSortScriptName = customSortScriptName;
+	}
 
 	InstallData(){
 	}
@@ -209,8 +270,11 @@ public class InstallData {
 		} else {
 			this.isServer = false;
 		}
-		if (!userInput[6].equals("n")) {
+		// TODO: change from if NOT n then userInput[6]
+		if (userInput[6].equals("nnnnn")) {
 			this.backupDestination = userInput[6];
+		}else {
+			this.backupDestination = "/home/"+this.linuxUserName+"/maintenance/";
 		}
 		
 	}

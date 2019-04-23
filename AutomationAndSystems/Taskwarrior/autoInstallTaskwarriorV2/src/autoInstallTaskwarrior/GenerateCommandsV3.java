@@ -970,34 +970,7 @@ public class GenerateCommandsV3 {
 			commands[56].setCommandLines(commandLines[56]);
 			commands[56].setEnvVarContent("/var/taskd");
 			commands[56].setEnvVarName("TASKDDATA");
-			commands[56].setWorkingPath(installData.getLinuxPath());
-			
-			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("/resources/autoBackup.sh"));
-			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("resources/autoBackup.sh"));
-			if (CopyFiles.getResourceAsFile("resources/autoBackup.sh")!=null) {
-				System.out.println("find the exported file in:"+CopyFiles.getResourceAsFile("resources/autoBackup.sh").getAbsolutePath());
-			}
-			if (CopyFiles.getResourceAsFile("/resources/autoBackup.sh")!=null) {
-				System.out.println("find the exported file in:"+CopyFiles.getResourceAsFile("/resources/autoBackup.sh").getAbsolutePath());
-			}	
-			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("/src/resources/autoBackup.sh"));
-			//System.out.println("find the exported file in:"+CopyFiles.ExportResource("src/resources/autoBackup.sh"));
-			
-			
-			/**
-			 * Make automatic backups are created automatically.
-			 * pdf: 9 sec: 6.1 ignored (see git readme "login and start cronjob service automatically")
-			 * TODO: copy the autoBackup.sh to the same folder as vars, and src are in. then copy it with:
-			 * cp -a "/mnt/e/somefolder/TaskWarrior/auto startup/autoBackup.sh" "/home/<yourUsername>/maintenance/
-			 * 
-			 * 1.2 Make the bash file runnable in unix: (otherwise says "permission denied")
-			 * `chmod +x "/home/<yourUsername>/maintenance/"`
-
-			 * TODO: make autoBackup.sh runnable
-			 * TODO: enter commands:
-			 */
-			
-			
+			commands[56].setWorkingPath(installData.getLinuxPath());			
 			
 //			mkdir "/home/ Linux user name / maintenance"
 //			cp -a "LINUX PATH OF THIS PROJECT/jar, auto startup/autoBackup.sh" ~/maintenance/
