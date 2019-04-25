@@ -1,7 +1,7 @@
 #get root
-if [ ! -f /home/a/getRootBool ]; then
+if [ ! -f /home/a/maintenance/getRootBool ]; then
     echo "Getting sudo rights now."
-    touch /home/a/maintenance/getRootBool
+    sudo touch /home/a/maintenance/getRootBool
     sudo -s
 fi
 
@@ -18,3 +18,5 @@ sudo taskd config --data $TASKDDATA
 
 taskdctl start
 task sync 
+
+echo "test"

@@ -10,25 +10,32 @@ package autoInstallTaskwarrior;
 public class HardCoded {
 	public static InstallData hardCoded() {
 		InstallData installData = new InstallData();
+		// TODO: Turn off developer mode before publishing!
+		installData.setDevelopeMode(true);
 		
 		//hardcoded
 //		String[] storeUserInput =;
-		installData.setUserInput(AskUserInput.getUserInput());
+		installData.setUserInput(AskUserInput.getUserInput(installData));
 		installData.setTestrun(false);
 		installData.setVars("vars");
 		
 		installData.setServerName(installData.getUserInput()[4]);
 		installData.setServerPort("53589");
 		
-		installData.setBackupScriptName("autoBackup.sh");
+		
 		installData.setInternalBackupScriptPath("resource/");
 		installData.setInternalBackupScriptName("autoBackup.sh");
+		installData.setBackupScriptName("autoBackup.sh");
+		installData.setBackupDestination("/home/"+installData.getLinuxUserName()+"/maintenance/");
 		installData.setCustomSortScriptName("JavaServerSort.jar");
+		installData.setBasrcFileName(".bashrc");
+		installData.setBashrcPath("/home/"+installData.getLinuxUserName());
+		installData.setVisudoFileName("sudoers.sh");
+		installData.setVisudoPath("/home/"+installData.getLinuxUserName()+"/maintenance/");
+		installData.setSudoersFileName("sudoers.sh");
 		
 		//get the path of this compiled .jar file
 		installData.setLinuxPath(GetThisPath.getJarLocation()[0]);
-		
-		
 		
 //		installData.getUserInput()[2]="Public";
 //		installData.getUserInput()[3]="First";

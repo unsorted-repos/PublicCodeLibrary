@@ -29,12 +29,24 @@ public class Main {
 		// move pw out of screen
 		skipToNewPage();
 		
-		// create the vars file
+		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);
-		System.out.println("Should have just printed vars");
+		CreateFiles.createSudoers(installData);
 		
-		// export autoBackup.sh
-		exportAutoBackup(installData);
+		//create the .basshrc file.
+		exportBashrc(installData);
+		
+		// remove prompting for password in visudo
+		//modifyVisudo(installData);
+		
+		// create cronjob
+		CreateCron c = new CreateCron();
+	    c.doStuff();
+	    c.writeJobs();
+		
+		// export resources autoBackup.sh and javaServerSort.jar 
+	    CopyFiles.exportResource(installData,"autoBackup.sh",true);
+		CopyFiles.exportResource(installData,"JavaServerSort.jar",true);
 		
 		//get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
@@ -42,29 +54,60 @@ public class Main {
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
 		
+		System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
 		System.exit(0);
 	}
 
-	private static void exportAutoBackup(InstallData installData) throws Exception {
-		// declare copy and paste locations
-		File internalFile = CopyFiles.getResourceAsFile(installData.getInternalBackupScriptPath()+installData.getInternalBackupScriptName());
-		String sourceFileName = internalFile.getName();
-		String sourcePath = internalFile.getPath().substring(0, internalFile.getPath().length()-sourceFileName.length());
-		String destinationPath = installData.getBackupDestination();
-		String destinationFileName = installData.getBackupScriptName();
+	private static void exportBashrc(InstallData installData) throws Exception {
+		//File testFile = new File(installData.getLinuxPath()+"testFile");
+		File testFile = new File(installData.getBashrcPath(), installData.getBasrcFileName());
 		
+		// write the first two lines of the .bashrc bootup procedure to compare with original
+		// to determine whether the automatic login procedure is already contained in the .bashrc
+		// TODO: Refactor this check to the modify Files method prependLines.
+		// TODO: by writing the String array of lines once and passing it to both that prependLines
+		// and this check method. (purpose: reduce code duplication).
+		String[] comparisonLines = new String[2];
+		comparisonLines[0]="#get root";
+		comparisonLines[1]="if [ ! -f /home/"+installData.getLinuxUserName()+"/maintenance/getRootBool ]; then";
 		
-		if (CopyFiles.getResourceAsFile("resource/autoBackup.sh")!=null) {
-			System.out.println("find the exported file one in:"+CopyFiles.getResourceAsFile("resource/autoBackup.sh").getAbsolutePath());
-			
-			// copy internal file to external folder
-			CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath, destinationFileName);
-			
-			// make .sh runnable
-			CreateFiles.makeScriptRunnable(destinationPath, destinationFileName);
+		// split the original lines of the .bashrc file into an array with one line per element
+		 String[] originalLines = ReadFiles.readFiles(testFile.getAbsolutePath()).toString().split("\\r?\\n");
+		
+		if (!ReadFiles.firstLinesMatch(originalLines,2,comparisonLines)) {
+			System.out.println("The .bashrc did not contain the automated login procedure yet, so it is added now");
+			ModifyFiles.prependText(installData, testFile);
+		} else {
+			System.out.println("The .bashrc already contained the automatic login procedure, so it is not modified.");
 		}
 	}
 
+	private static void modifyVisudo(InstallData installData) throws Exception {
+		//File testFile = new File(installData.getLinuxPath()+"testFile");
+		File testFile = new File(installData.getVisudoPath(), installData.getVisudoFileName());
+		
+		// write the first two lines of the .bashrc bootup procedure to compare with original
+		// to determine whether the automatic login procedure is already contained in the .bashrc
+		// TODO: Refactor this check to the modify Files method prependLines.
+		// TODO: by writing the String array of lines once and passing it to both that prependLines
+		// and this check method. (purpose: reduce code duplication).
+		String[] comparisonLines = new String[1];
+		comparisonLines[0]="zq ALL=(ALL) NOPASSWD: ALL";
+		
+		// split the original lines of the .bashrc file into an array with one line per element
+		 String[] originalLines = ReadFiles.readFiles(testFile.getAbsolutePath()).toString().split("\\r?\\n");
+		
+		 System.out.println("TESTFILE VISUDO ALREADY HAS LAST LINE="+ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines));
+		 
+		if (!ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines)) {
+			System.out.println("The visudo did not yet contain the last line that removes prompt for password, so it is added now");
+			ModifyFiles.appendText(installData, testFile);
+		} else {
+			System.out.println("The visudo did alread contained the last line that removes prompt for password, so it is not modified.");
+		}
+	}
+
+	
 	
 	/**
 	 * Method creates a taskwarrior user defined Attribute if the data type is correct

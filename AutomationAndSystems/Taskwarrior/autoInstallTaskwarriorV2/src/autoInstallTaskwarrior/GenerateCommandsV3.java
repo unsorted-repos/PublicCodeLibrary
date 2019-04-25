@@ -12,7 +12,8 @@ package autoInstallTaskwarrior;
  */
 public class GenerateCommandsV3 {
 	public static Command[] generateCommands(InstallData installData) throws Exception {
-		int nrOfCommands = 57;
+		char quotation = (char)34; // quotation mark "
+		int nrOfCommands = 59;
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];
 		for (int i = 0; i<nrOfCommands;i++) {
@@ -954,23 +955,47 @@ public class GenerateCommandsV3 {
 			commands[54].setEnvVarName("TASKDDATA");
 			commands[54].setWorkingPath("/usr/share/taskd/pki");
 			
-			CreateFiles.writeExportContent(installData);
-			commandLines[55] = new String[3];
-			commandLines[55][0] = "chmod";
-			commandLines[55][1] = "+x";
-			commandLines[55][2] = "myscript.sh";
+			commandLines[55] = new String[4];
+			commandLines[55][0] = "echo";
+			commandLines[55][1] = "filler";
+			commandLines[55][2] = installData.getLinuxPath();
+			commandLines[55][3] = "TASKDDATA=/var/taskd";
 			commands[55].setCommandLines(commandLines[55]);
 			commands[55].setEnvVarContent("/var/taskd");
 			commands[55].setEnvVarName("TASKDDATA");
-			commands[55].setWorkingPath(installData.getLinuxPath());
+			commands[55].setWorkingPath(commands[1].getEnvVarContent());
 			
-			commandLines[56] = new String[2];
-			commandLines[56][0] = "export";
-			commandLines[56][1] = "$(./myscript.sh)";
+			commandLines[56] = new String[4];
+			commandLines[56][0] = "echo";
+			commandLines[56][1] = "filler";
+			commandLines[56][2] = installData.getLinuxPath();
+			commandLines[56][3] = "TASKDDATA=/var/taskd";
 			commands[56].setCommandLines(commandLines[56]);
 			commands[56].setEnvVarContent("/var/taskd");
 			commands[56].setEnvVarName("TASKDDATA");
-			commands[56].setWorkingPath(installData.getLinuxPath());			
+			commands[56].setWorkingPath(commands[1].getEnvVarContent());
+			
+			//TODO: add command:
+			//sudo bash -c 'echo "zq ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
+			
+			commandLines[57] = new String[4];
+			commandLines[57][0] = "sudo";
+			commandLines[57][1] = "cp";
+			commandLines[57][2] = installData.getLinuxPath()+installData.getSudoersFileName(); 
+			commandLines[57][3] = "/home/"+installData.getLinuxUserName()+"/maintenance/";
+			commands[57].setCommandLines(commandLines[57]);
+			commands[57].setEnvVarContent("/var/taskd");
+			commands[57].setEnvVarName("TASKDDATA");
+			commands[57].setWorkingPath("/home/"+installData.getLinuxUserName()+"/maintenance/");
+			
+			commandLines[58] = new String[3];
+			commandLines[58][0] = "sudo";
+			commandLines[58][1] = "sh";
+			commandLines[58][2] = "/home/"+installData.getLinuxUserName()+"/maintenance/"+installData.getVisudoFileName();
+			commands[58].setCommandLines(commandLines[58]);
+			commands[58].setEnvVarContent("/var/taskd");
+			commands[58].setEnvVarName("TASKDDATA");
+			commands[58].setWorkingPath("/etc/");			
 			
 //			mkdir "/home/ Linux user name / maintenance"
 //			cp -a "LINUX PATH OF THIS PROJECT/jar, auto startup/autoBackup.sh" ~/maintenance/
@@ -990,7 +1015,7 @@ public class GenerateCommandsV3 {
 			 * Copy/create the custom sort script.
 			 * pdf: no, see git
 			 * Merge project customsort in here.
-			 */
+			 */	
 			
 			/**
 			 * Make a cronjob that handles automatic backup and customSort script
@@ -1010,7 +1035,6 @@ public class GenerateCommandsV3 {
 //				*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
 //				# The next line is for the custom sorting, leave it out if you don't use it:
 //				*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
-			
 			
 			/**
 			 * Enable crontab services at startup with bashrc.

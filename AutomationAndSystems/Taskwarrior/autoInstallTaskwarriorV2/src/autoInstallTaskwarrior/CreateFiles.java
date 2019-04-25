@@ -21,67 +21,59 @@ public class CreateFiles {
 		
 		// create a file called vars with content "content"
 		createFile2(installData.getLinuxPath(),installData.getVars());
-		createFile1(installData.getLinuxPath(),installData.getVars());
+		//createFile1(installData.getLinuxPath(),installData.getVars());
 		
 		// write content of vars file
-		writeVarsContent(installData);
+		writeFileContent(installData, installData.getVars());
+	}
+
+	/**
+	 * This creates the sudoers.sh file required in command 8
+	 * @param serverName
+	 * @throws IOException 
+	 */
+	public static void createSudoers(InstallData installData) throws IOException {
+		
+		System.out.println("Incoming path inc. filename:"+installData.getLinuxPath()+installData.getSudoersFileName());
+		deleteFile(installData.getSudoersFileName());
+		
+		// create a file called vars with content "content"
+		createFile2(installData.getLinuxPath(),installData.getSudoersFileName());
+		//createFile1(installData.getLinuxPath(),installData.getSudoersFileName());
+		
+		// write content of vars file
+		writeFileContent(installData, installData.getSudoersFileName());
 	}
 	
 	/**
 	 * This method writes the content of the vars file.
 	 * @param installData
 	 */
-	public static void writeVarsContent(InstallData installData) {
+	public static void writeFileContent(InstallData installData,String fileName) {
 		char quotation = (char)34; // quotation mark "
 		
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(installData.getLinuxPath()+installData.getVars(), "UTF-8");
-			writer.println("BITS=4096");
-			writer.println("EXPIRATION_DAYS=365");
-			//writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
-			writer.println("ORGANIZATION="+quotation+"Goteborg Bit Factory"+quotation);
-			writer.println("CN="+installData.getServerName()+":"+installData.getServerPort());
-			writer.println("COUNTRY=SE");
-			//writer.println("STATE="+quotation+"Västra Götaland"+quotation);
-			writer.println("STATE="+quotation+"Vastra Gotaland"+quotation);
-			//writer.println("LOCALITY="+quotation+"Göteborg"+quotation);
-			writer.println("LOCALITY="+quotation+"Goteborg"+quotation);
+			writer = new PrintWriter(installData.getLinuxPath()+fileName, "UTF-8");
+			switch (fileName) {
+				case "vars": writer = writeLinesBashrc(installData,writer); 
+				break;
+				case ".bashrc": writer = writeLinesBashrc(installData,writer);
+				break;
+				case "sudoers.sh": writer = writeLinesSudoers(installData,writer);
+				break;
+			}
+	
 			writer.close();
-			System.out.println("JUST WROTE CONTENT VARS FILE!");
+			System.out.println("JUST WROTE CONTENT of "+ fileName + " FILE!");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Just failed at printing vars"+e);
+			System.out.println("Just failed at printing "+fileName+e);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Just failed at printing vars"+e);
-		}
-	}
-
-	/**
-	 * This method writes the content of the vars file.
-	 * @param installData
-	 */
-	public static void writeExportContent(InstallData installData) {
-		char quotation = (char)34; // quotation mark "
-		
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(installData.getLinuxPath()+"myscript.sh", "UTF-8");
-			writer.println("#!/bin/sh");
-			writer.println("echo TASKDDATA=/var/taskd");
-			writer.close();
-			System.out.println("JUST WROTE CONTENT VARS FILE!");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Just failed at printing vars"+e);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Just failed at printing vars"+e);
+			System.out.println("Just failed at printing "+fileName+e);
 		}
 	}
 	
@@ -123,16 +115,16 @@ public class CreateFiles {
 	    }
 	}
 	
-	public static void createFile1(String linuxPath, String fileName) {
-		try {
-			System.out.println("Creating new file1:"+linuxPath+fileName);
-            File file = new File(linuxPath+fileName);
-            file.createNewFile();
-            //file.createNewFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	}
+//	public static void createFile1(String linuxPath, String fileName) {
+//		try {
+//			System.out.println("Creating new file1:"+linuxPath+fileName);
+//            File file = new File(linuxPath+fileName);
+//            file.createNewFile();
+//            //file.createNewFile();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//	}
 	
 	public static boolean checkIfFilesExist(String path, String[] filenames) {
 		for (int i = 0; i<filenames.length;i++) {
@@ -168,7 +160,7 @@ public class CreateFiles {
 	
 	public static void makeScriptRunnable(String Path, String scriptName) {
 
-    	// create copy command
+    	// create chmod command
     	Command command = new Command();
     	String[] commandLines = new String[4];
 		
@@ -181,6 +173,51 @@ public class CreateFiles {
 		command.setWorkingPath(Path);
 		command.setSetWorkingPath(true);
 	}
+		
+	public static PrintWriter writeLinesVars(InstallData installData, PrintWriter writer) {
+		char quotation = (char)34; // quotation mark "
+		writer.println("BITS=4096");
+		writer.println("EXPIRATION_DAYS=365");
+		//writer.println("ORGANIZATION="+quotation+"Göteborg Bit Factory"+quotation);
+		writer.println("ORGANIZATION="+quotation+"Goteborg Bit Factory"+quotation);
+		writer.println("CN="+installData.getServerName()+":"+installData.getServerPort());
+		writer.println("COUNTRY=SE");
+		//writer.println("STATE="+quotation+"Västra Götaland"+quotation);
+		writer.println("STATE="+quotation+"Vastra Gotaland"+quotation);
+		//writer.println("LOCALITY="+quotation+"Göteborg"+quotation);
+		writer.println("LOCALITY="+quotation+"Goteborg"+quotation);
+		return writer;
+	}
 	
+	public static PrintWriter writeLinesBashrc(InstallData installData, PrintWriter writer) {
+		char quotation = (char)34; // quotation mark "
+		writer.println("#get root");
+		writer.println("if [ ! -f /home/"+installData.getLinuxUserName()+"/maintenance/getRootBool ]; then");
+		writer.println("   echo "+quotation+"Getting sudo rights now."+quotation);
+		writer.println("   sudo touch /home/"+installData.getLinuxUserName()+"/maintenance/getRootBool");
+		writer.println("   sudo -s");
+		writer.println("fi");
+
+		writer.println("# remove got root boolean for next time you boot up Unix");
+		writer.println("sudo rm /home/" + installData.getLinuxUserName()+"/maintenance/getRootBool");
+
+		writer.println("#Start cron service");
+		writer.println("sudo -i service cron start");
+
+		writer.println("#Startup taskwarrior");
+		writer.println("export TASKDDATA=/var/taskd");
+		writer.println("cd $TASKDDATA");
+		writer.println("sudo taskd config --data $TASKDDATA");
+
+		writer.println("taskdctl start");
+		writer.println("task sync");
+		return writer;
+	}
 	
+	public static PrintWriter writeLinesSudoers(InstallData installData, PrintWriter writer) {
+		char quotation = (char)34; // quotation mark "
+		writer.println("#!/bin/sh");
+		writer.println("sudo bash -c 'echo \""+installData.getLinuxUserName()+" ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers'");
+		return writer;
+	}
 }

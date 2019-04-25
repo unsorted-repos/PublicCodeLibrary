@@ -1,7 +1,7 @@
 #get root
-if [ ! -f /home/a/maintenance/getRootBool ]; then
+if [ ! -f /home/a/getRootBool ]; then
    echo "Getting sudo rights now."
-   sudo touch /home/a/maintenance/getRootBool
+   touch /home/a/maintenance/getRootBool
    sudo -s
 fi
 # remove got root boolean for next time you boot up Unix

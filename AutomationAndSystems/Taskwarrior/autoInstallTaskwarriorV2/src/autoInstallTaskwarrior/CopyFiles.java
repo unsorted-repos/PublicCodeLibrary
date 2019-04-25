@@ -13,7 +13,43 @@ import java.io.OutputStream;
 public class CopyFiles {
 
 	/**
+	 * TODO: at internalFile replace path with path dependent on fileName with switchstatement
+	 * This method orchestrates exporting a file from resources to an external folder.
+	 * After copying the file to the destination path, the file is made runnable with chmod.
+	 * @param installData
+	 * @param fileName
+	 * @throws Exception
+	 */
+	public static void exportResource(InstallData installData, String fileName, boolean runnable) throws Exception {
+		// declare copy and paste locations
+		File internalFile = CopyFiles.getResourceAsFile(installData.getInternalBackupScriptPath()+fileName);
+		System.out.println("Finding file="+fileName);
+		String sourceFileName = internalFile.getName();
+		String sourcePath = internalFile.getPath().substring(0, internalFile.getPath().length()-sourceFileName.length());
+		String destinationPath = installData.getBackupDestination();
+		String destinationFileName = installData.getBackupScriptName();
+		
+		if (CopyFiles.getResourceAsFile("resource/"+fileName)!=null) {
+			System.out.println("find the exported file one in:"+CopyFiles.getResourceAsFile("resource/"+fileName).getAbsolutePath());
+			
+			// copy internal file to external folder
+			System.out.println("And copied it to:"+destinationPath+fileName);
+			CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath, fileName);
+			
+			// make .sh runnable
+			if (runnable) {
+				CreateFiles.makeScriptRunnable(destinationPath, destinationFileName);
+			}
+		}
+	}
+	
+	/**
      * Create a file instance to copy a temporary file.
+     * In human words: The file that is contained in the resource folder of this eclipse project
+     * is put into a java "File" object. That means it gets a different name
+     * and the absolute path/directory of that file becomes something like: /tm/234234.tmp
+     * Since you can apply the copy command to that file you can copy it
+     * to an actual existing destination folder.
      * @param resourcePath
      * @return
      */
@@ -53,7 +89,6 @@ public class CopyFiles {
     	OutputStream outStream = null;
     	try{
  
-    	   
     	    File file2 =new File(filePath+fileName);
  
     	    inStream = new FileInputStream(file);
@@ -76,7 +111,20 @@ public class CopyFiles {
     	}
     }
     
+    /**
+     * First it creates the destination folder if it doesn't exist yet.
+     * Then it copies the file from resource to the destination path.
+     * @param installData
+     * @param sourcePath
+     * @param sourceFileName
+     * @param destinationPath
+     * @param destinationFileName
+     * @throws Exception
+     */
     public static void copyFileWithSudo(InstallData installData,String sourcePath,String sourceFileName, String destinationPath, String destinationFileName) throws Exception {
+    	
+    	//create destination folder if it does not exist
+    	makeDestinationFolder(destinationPath);
     	
     	// create copy command
     	Command command = new Command();
@@ -90,7 +138,30 @@ public class CopyFiles {
 		command.setEnvVarName("TASKDDATA");
 		command.setWorkingPath("/usr/share/taskd/pki");
 		
-		// copy file
+		// execute command to copy file
+		RunCommandsV3.executeCommands(command,false);
+    }
+    
+    /**
+     * The destination path is only made if it does not yet exist.
+     * If it does exist and contains files, those files are preserved.
+     * @param destinationPath
+     * @throws Exception
+     */
+    public static void makeDestinationFolder(String destinationPath) throws Exception {
+		Command command = new Command();
+    	String[] commandLines = new String[4];
+		commandLines[0] = "sudo";
+		commandLines[1] = "mkdir";
+		commandLines[2] = "-p";
+		commandLines[3] = destinationPath;
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetWorkingPath(false);
+		
+		// execute command to create destination folder
 		RunCommandsV3.executeCommands(command,false);
     }
 }

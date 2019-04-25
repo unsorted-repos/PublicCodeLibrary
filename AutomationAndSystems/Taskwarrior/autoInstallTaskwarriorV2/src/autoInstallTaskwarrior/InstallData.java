@@ -20,6 +20,83 @@ public class InstallData {
 	private String backupScriptName;
 	private String internalBackupScriptName;
 	private String internalBackupScriptPath;
+	private boolean developeMode;
+	private String basrcFileName;
+	private String bashrcPath;
+	private String visudoFileName;
+	private String visudoPath;
+	private String sudoersFileName;
+	
+	/**
+	 * @return the sudoers
+	 */
+	public String getSudoersFileName() {
+		return sudoersFileName;
+	}
+
+	/**
+	 * @param sudoers the sudoers to set
+	 */
+	public void setSudoersFileName(String sudoersFileName) {
+		this.sudoersFileName = sudoersFileName;
+	}
+
+	/**
+	 * @return the visudoFileName
+	 */
+	public String getVisudoFileName() {
+		return visudoFileName;
+	}
+
+	/**
+	 * @param visudoFileName the visudoFileName to set
+	 */
+	public void setVisudoFileName(String visudoFileName) {
+		this.visudoFileName = visudoFileName;
+	}
+
+	/**
+	 * @return the visudoPath
+	 */
+	public String getVisudoPath() {
+		return visudoPath;
+	}
+
+	/**
+	 * @param visudoPath the visudoPath to set
+	 */
+	public void setVisudoPath(String visudoPath) {
+		this.visudoPath = visudoPath;
+	}
+
+	/**
+	 * @return the basrcFileName
+	 */
+	public String getBasrcFileName() {
+		return basrcFileName;
+	}
+
+	/**
+	 * @param basrcFileName the basrcFileName to set
+	 */
+	public void setBasrcFileName(String basrcFileName) {
+		this.basrcFileName = basrcFileName;
+	}
+
+	/**
+	 * @return the bashrcPath
+	 */
+	public String getBashrcPath() {
+		return bashrcPath;
+	}
+
+	/**
+	 * @param bashrcPath the bashrcPath to set
+	 */
+	public void setBashrcPath(String bashrcPath) {
+		this.bashrcPath = bashrcPath;
+	}
+
 	/**
 	 * @return the internalBackupScriptName
 	 */
@@ -338,6 +415,19 @@ public class InstallData {
 	public void setBackupDestination(String backupDestination) {
 		this.backupDestination = backupDestination;
 	}
-	
+
+	/**
+	 * @return the developeMode
+	 */
+	public boolean isDevelopeMode() {
+		return developeMode;
+	}
+
+	/**
+	 * @param developeMode the developeMode to set
+	 */
+	public void setDevelopeMode(boolean developeMode) {
+		this.developeMode = developeMode;
+	}
 	
 }
