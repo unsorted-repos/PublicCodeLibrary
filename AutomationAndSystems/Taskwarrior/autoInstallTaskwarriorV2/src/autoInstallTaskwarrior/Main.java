@@ -23,6 +23,7 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
+
 		InstallData installData = HardCoded.hardCoded();		
 		//SetEnvVar.setEnvVar();
 		
@@ -41,7 +42,7 @@ public class Main {
 		
 		// create cronjob
 		CreateCron c = new CreateCron();
-	    c.doStuff();
+	    c.doStuff(installData);
 	    c.writeJobs();
 		
 		// export resources autoBackup.sh and javaServerSort.jar 

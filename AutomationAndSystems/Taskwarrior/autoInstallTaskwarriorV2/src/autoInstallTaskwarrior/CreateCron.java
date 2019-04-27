@@ -73,12 +73,15 @@ public class CreateCron {
      * TODO: remove hardcoded cronjob paths
      * TODO: uncomment
      */
-    void doStuff() {
+    void doStuff(InstallData installData) {
      readCron();
      listJobs();
-//     jobs.add("*/1 * * * * touch /home/a/maintenance/cronTest");
-//     jobs.add("*/1 * * * * sudo touch /home/a/maintenance/cronTestSudo");
-//     jobs.add("*/1 * * * * root touch /home/a/maintenance/cronTestSudo");
+     for (int i = 0; i < installData.getCronJobs().length; i++) {
+    	 jobs.add(installData.getCronJobs()[i]);
+    	 jobs.add("*/1 * * * * touch /home/a/maintenance/cronTest");
+         jobs.add("*/1 * * * * sudo touch /home/a/maintenance/cronTestSudo");
+         jobs.add("*/1 * * * * root touch /home/a/maintenance/cronTestSudo");
+     }
      writeJobs();
      readCron();
      listJobs();

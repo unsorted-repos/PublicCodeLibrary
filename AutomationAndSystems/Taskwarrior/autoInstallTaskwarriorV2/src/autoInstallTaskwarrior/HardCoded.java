@@ -8,6 +8,8 @@ package autoInstallTaskwarrior;
  *
  */
 public class HardCoded {
+	
+	
 	public static InstallData hardCoded() {
 		InstallData installData = new InstallData();
 		// TODO: Turn off developer mode before publishing!
@@ -47,10 +49,38 @@ public class HardCoded {
 		// TODO: Add question at start asking if they want to do a clean install/delete other tw users.
 		installData.setDeleteOtherTwUsers(true);
 		
+		// TODO: Ask if user wants to use customSorting
+		// set cronjobs
+		int nrOfCronJobs = 2;
+		CronJob[] cronJobs = null ;
+		String[] cronTiming = new String[nrOfCronJobs];
+		String[] cronCommand = new String[nrOfCronJobs];
+		String[] cronPath = new String[nrOfCronJobs];
+		String[] cronFileName = new String[nrOfCronJobs];
+		
+		// set 1st cronjob:*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
+		cronTiming[0] = "*/1 * * * *";
+		cronCommand[0] = "root sh -v";
+		cronPath[0] = "/home/a/maintenance/";
+		cronFileName[0] = "autoBackup.sh";
+		
+		// set 2nd cronjob:*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
+		cronTiming[1] = "*/10 * * * *";
+		cronCommand[1] = "root java -jar -v";
+		cronPath[1] = "/home/a/maintenance/";
+		cronFileName[1] = "JavaServerSort.jar";
+		
+		for (int i = 0; i <nrOfCronJobs; i++) {
+			cronJobs[i] = new CronJob(cronTiming[i],cronCommand[i],cronPath[i],cronFileName[i]);
+		}
+		
+		installData.setCronJobs(cronJobs);
 		
 		System.out.println("Path ="+installData.getWindowsPath());
 		System.out.println("Path ="+installData.getLinuxPath());
 
 		return installData;
 	}
+	
+	
 }

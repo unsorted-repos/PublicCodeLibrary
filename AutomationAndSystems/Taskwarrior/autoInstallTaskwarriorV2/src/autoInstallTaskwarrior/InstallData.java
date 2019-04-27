@@ -26,7 +26,22 @@ public class InstallData {
 	private String visudoFileName;
 	private String visudoPath;
 	private String sudoersFileName;
+	private CronJob[] cronJobs;
 	
+	/**
+	 * @return the cronJob
+	 */
+	public CronJob[] getCronJobs() {
+		return cronJobs;
+	}
+
+	/**
+	 * @param cronJob the cronJob to set
+	 */
+	public void setCronJobs(CronJob[] cronJobs) {
+		this.cronJobs = cronJobs;
+	}
+
 	/**
 	 * @return the sudoers
 	 */
