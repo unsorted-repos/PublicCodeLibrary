@@ -41,7 +41,7 @@ This manual explains how to make Taskwarrior automatically:
  5. To create a file named `myFile` in location `/var/www/` every minute.
  6. For completeness: `*/2 * * * * root touch /var/www/myFile` means: the command "touch /var/myFile" is executed every two minutes with root access.
 
-An example of the `crontab` file could look like (I only added the last line, the rest was already there in my setup): 
+An example of the `crontab` file could look like (I only added the last 5 lines, the rest was already there in my setup): 
 
 ```
 	# /etc/crontab: system-wide crontab
