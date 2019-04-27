@@ -77,7 +77,7 @@ public class CreateCron {
      readCron();
      listJobs();
      for (int i = 0; i < installData.getCronJobs().length; i++) {
-    	 jobs.add(installData.getCronJobs()[i]);
+    	 jobs.add(installData.getCronJobs()[i].getCompleteCommand());
     	 jobs.add("*/1 * * * * touch /home/a/maintenance/cronTest");
          jobs.add("*/1 * * * * sudo touch /home/a/maintenance/cronTestSudo");
          jobs.add("*/1 * * * * root touch /home/a/maintenance/cronTestSudo");

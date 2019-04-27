@@ -52,7 +52,7 @@ public class HardCoded {
 		// TODO: Ask if user wants to use customSorting
 		// set cronjobs
 		int nrOfCronJobs = 2;
-		CronJob[] cronJobs = null ;
+		CronJob[] cronJobs = new CronJob[nrOfCronJobs];
 		String[] cronTiming = new String[nrOfCronJobs];
 		String[] cronCommand = new String[nrOfCronJobs];
 		String[] cronPath = new String[nrOfCronJobs];
