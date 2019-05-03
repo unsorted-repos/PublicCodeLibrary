@@ -29,13 +29,13 @@ public class GenerateCommandsV3 {
 		// pdf:0
 		// first command to enable working with an environment variable that exists.
 		//commandLines[0].setCommandLines(commandLines);
-		commandLines[0] = new String[6];
+		commandLines[0] = new String[4];
 		commandLines[0][0] = "sudo";
 		commandLines[0][1] = "mkdir";
 		commandLines[0][2] = "-p";
 		commandLines[0][3] = "/var/taskd";
-		commandLines[0][4] = installData.getLinuxPath();
-		commandLines[0][5] = "TASKDDATA=/var/taskd";
+//		commandLines[0][4] = installData.getLinuxPath();
+//		commandLines[0][5] = "TASKDDATA=/var/taskd";
 		commands[0].setCommandLines(commandLines[0]);
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
@@ -132,13 +132,13 @@ public class GenerateCommandsV3 {
 		// working folder should be root
 		// environment variable:TASKDDATA=/var/taskd
 		// TODO: verify that there is no /var/taskd made in the current working directory/location of the .jar file.
-		commandLines[7] = new String[6];
+		commandLines[7] = new String[4];
 		commandLines[7][0] = "sudo";
 		commandLines[7][1] = "mkdir";
 		commandLines[7][2] = "-p";
 		commandLines[7][3] = "/var/taskd";
-		commandLines[7][4] = installData.getLinuxPath();
-		commandLines[7][5] = "TASKDDATA=/var/taskd";
+//		commandLines[7][4] = installData.getLinuxPath();
+//		commandLines[7][5] = "TASKDDATA=/var/taskd";
 		commands[7].setCommandLines(commandLines[7]);
 		commands[7].setEnvVarContent("/var/taskd");
 		commands[7].setEnvVarName("TASKDDATA");

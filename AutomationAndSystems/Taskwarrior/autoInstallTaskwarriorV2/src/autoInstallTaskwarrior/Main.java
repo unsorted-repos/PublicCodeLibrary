@@ -5,7 +5,6 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * TODO: Before compiling, set testRun to false!
  * Copy this script to /home/<your ubuntuUsername (which is the same as ~/)

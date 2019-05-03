@@ -43,10 +43,17 @@ public class CreateCron {
     void listJobs() {
      Iterator iter = jobs.iterator();
      while (iter.hasNext()) {
-         System.out.println((String)iter.next());
+         System.out.println("job="+(String)iter.next());
      }
     }
 
+    void checkJobs(String description,ArrayList listOfJobs) {
+        Iterator iter = listOfJobs.iterator();
+        while (iter.hasNext()) {
+            System.out.println(description+(String)iter.next());
+        }
+       }
+    
     void writeJobs() {
      //String[] edit = { "crontab"};
      String[] edit = { "sudo", "crontab"};
@@ -76,20 +83,26 @@ public class CreateCron {
     void doStuff(InstallData installData) {
      readCron();
      listJobs();
+     String tempJobString;
+     
+     //before adding the jobs, check whether they are in it.
+     checkJobs("already present=",jobs);
+     
      for (int i = 0; i < installData.getCronJobs().length; i++) {
-    	 jobs.add(installData.getCronJobs()[i].getCompleteCommand());
-    	 jobs.add("*/1 * * * * touch /home/a/maintenance/cronTest");
-         jobs.add("*/1 * * * * sudo touch /home/a/maintenance/cronTestSudo");
-         jobs.add("*/1 * * * * root touch /home/a/maintenance/cronTestSudo");
+    	 tempJobString=installData.getCronJobs()[i].getCompleteCommand();
+    	 if (!jobs.contains(tempJobString)) {
+    		 jobs.add(tempJobString);
+        	 System.out.println("Adding="+tempJobString);
+    	 }else {
+    		 System.out.println("The list already contained:"+tempJobString);
+    	 }
+    	 
      }
+     
      writeJobs();
      readCron();
      listJobs();
     }
 
-//    public static void main(String[] args) {
-//     CreateCron c = new CreateCron();
-//     c.doStuff();
-//     c.writeJobs();
-//    }
+    
 }
