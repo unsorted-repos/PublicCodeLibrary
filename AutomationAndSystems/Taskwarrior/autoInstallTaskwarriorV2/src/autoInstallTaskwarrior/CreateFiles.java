@@ -56,7 +56,7 @@ public class CreateFiles {
 		try {
 			writer = new PrintWriter(installData.getLinuxPath()+fileName, "UTF-8");
 			switch (fileName) {
-				case "vars": writer = writeLinesBashrc(installData,writer); 
+				case "vars": writer = writeLinesVars(installData,writer); 
 				break;
 				case ".bashrc": writer = writeLinesBashrc(installData,writer);
 				break;

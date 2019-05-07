@@ -96,7 +96,6 @@ public class CreateCron {
     	 }else {
     		 System.out.println("The list already contained:"+tempJobString);
     	 }
-    	 
      }
      
      writeJobs();
