@@ -27,7 +27,37 @@ public class InstallData {
 	private String visudoPath;
 	private String sudoersFileName;
 	private CronJob[] cronJobs;
+	private String maintenanceFolder;
+	private String sortScriptName;
 	
+	/**
+	 * @return the maintenanceFolder
+	 */
+	public String getMaintenanceFolder() {
+		return maintenanceFolder;
+	}
+
+	/**
+	 * @param maintenanceFolder the maintenanceFolder to set
+	 */
+	public void setMaintenanceFolder(String maintenanceFolder) {
+		this.maintenanceFolder = maintenanceFolder;
+	}
+
+	/**
+	 * @return the sortScriptName
+	 */
+	public String getSortScriptName() {
+		return sortScriptName;
+	}
+
+	/**
+	 * @param sortScriptName the sortScriptName to set
+	 */
+	public void setSortScriptName(String sortScriptName) {
+		this.sortScriptName = sortScriptName;
+	}
+
 	/**
 	 * @return the cronJob
 	 */

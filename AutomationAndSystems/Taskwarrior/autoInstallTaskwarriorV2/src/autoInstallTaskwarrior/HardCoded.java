@@ -23,7 +23,8 @@ public class HardCoded {
 		
 		installData.setServerName(installData.getUserInput()[4]);
 		installData.setServerPort("53589");
-		
+		installData.setMaintenanceFolder("maintenance");
+		installData.setSortScriptName("JavaServerSort.jar");
 		
 		installData.setInternalBackupScriptPath("resource/");
 		installData.setInternalBackupScriptName("autoBackup.sh");

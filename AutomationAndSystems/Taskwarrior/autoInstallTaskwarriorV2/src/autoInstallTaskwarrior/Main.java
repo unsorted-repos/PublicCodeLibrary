@@ -22,9 +22,15 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-
+		
 		InstallData installData = HardCoded.hardCoded();		
 		//SetEnvVar.setEnvVar();
+		
+			//run JavaServerSort once
+			runJavaServerSort(installData);
+			
+			System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
+			System.exit(0);
 		
 		// move pw out of screen
 		skipToNewPage();
@@ -54,10 +60,9 @@ public class Main {
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
 		
-		System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
-		System.exit(0);
+		
 	}
-
+	
 	private static void exportBashrc(InstallData installData) throws Exception {
 		//File testFile = new File(installData.getLinuxPath()+"testFile");
 		File testFile = new File(installData.getBashrcPath(), installData.getBasrcFileName());
@@ -249,6 +254,31 @@ public class Main {
 			sb.append(commands[i]+" ");
 		}
 		System.out.println(commandNr+"RUNNINGCOMMAND="+sb.toString());
+	}
+	
+	private static void runJavaServerSort(InstallData installData) {
+		int nrOfCommands = 1;
+		String[][] commandLines = new String[nrOfCommands][1];
+		Command[] commands = new Command[nrOfCommands];
+		commands[0] = new Command();
+		
+		commandLines[0] = new String[3];
+		commandLines[0][0] = "java";
+		commandLines[0][1] = "-jar";
+		commandLines[0][2] = "/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+"/"+installData.getSortScriptName();
+		System.out.println("commandLines[0]="+commandLines[0]);
+		commands[0].setCommandLines(commandLines[0]);
+		commands[0].setEnvVarContent("/var/taskd");
+		commands[0].setEnvVarName("TASKDDATA");
+		commands[0].setWorkingPath("");
+		commands[0].setSetWorkingPath(false);
+		try {
+			RunCommandsV3.executeCommands(commands[0],false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
 
