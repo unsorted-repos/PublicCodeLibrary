@@ -13,10 +13,56 @@ public class hardCoded {
 	private static String ubuntuFilePath="/home/a/.task/";
 	private static String nameOfCustomSortParameterLabel="cSort";
 	private static String customSortDataType="numeric";
+	private static String udaName="estimate";
+	private static String udaLabel="est";
+	private static String udaDataType="duration";
 	private static String customReportName="nice0";
 	private static double urgencyThreshold = 11.5;
 	private static String sudo = "sudo ";
+	/**
+	 * @return the udaName
+	 */
+	public static String getUdaName() {
+		return udaName;
+	}
+
+	/**
+	 * @param udaName the udaName to set
+	 */
+	public static void setUdaName(String udaName) {
+		hardCoded.udaName = udaName;
+	}
+
+	/**
+	 * @return the udaLabel
+	 */
+	public static String getUdaLabel() {
+		return udaLabel;
+	}
+
+	/**
+	 * @param udaLabel the udaLabel to set
+	 */
+	public static void setUdaLabel(String udaLabel) {
+		hardCoded.udaLabel = udaLabel;
+	}
+
+	/**
+	 * @return the udaDataType
+	 */
+	public static String getUdaDataType() {
+		return udaDataType;
+	}
+
+	/**
+	 * @param udaDataType the udaDataType to set
+	 */
+	public static void setUdaDataType(String udaDataType) {
+		hardCoded.udaDataType = udaDataType;
+	}
+
 	private static String nameOfCustomSortParameter="customSort";
+	
 	/**
 	 * @return the nameOfCustomSortParameter
 	 */
@@ -66,6 +112,7 @@ public class hardCoded {
 		return customReportName;
 	}
 
+	
 	/**
 	 * @param customReportName the customReportName to set
 	 */

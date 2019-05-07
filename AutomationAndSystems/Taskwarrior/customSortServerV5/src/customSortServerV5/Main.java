@@ -23,8 +23,11 @@ public class Main {
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
 
-		//Create customSortUDA in tw:
+		//Create customSortUDA cSort in tw:
 		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		//Create UDA estimate in tw:
+		createUDA(hardCoded.getUdaName(), hardCoded.getUdaLabel(),hardCoded.getUdaDataType());
+		
 		//create customReport
 		createCustomReport(hardCoded.getCustomReportName());
 		
@@ -159,6 +162,11 @@ public class Main {
 	}
 
 	/**
+	 * Extra info, remove UDA's with:
+	 * task config uda.<UDA name>.label
+	 * task config uda.<UDA name>.type
+	 * task config uda.<UDA name>.values
+	 * 
 	 * Method creates a user defined Attribute if the data type is correct
 	 * Thows error datatype is not correct.
 	 * TODO: write proper exception
@@ -224,8 +232,8 @@ public class Main {
 	private static void createCustomReport(String reportName) {
 		ArrayList<String> commands=new ArrayList<>();
 		commands.add("task config report."+reportName+".description Custom sorted list of all tasks 1.");
-		commands.add("task config report."+reportName+".columns     id,depends,due,priority,urgency,duration,project,recur,tags,description,start");
-		commands.add("task config report."+reportName+".labels      id,dep,due,prio,urgy,dura,proj,again,tag, descr,start");
+		commands.add("task config report."+reportName+".columns     id,depends,due,priority,urgency,estimate,project,recur,tags,description,start");
+		commands.add("task config report."+reportName+".labels      id,dep,due,prio,urgy,est,proj,again,tag, descr,start");
 		commands.add("task config report."+reportName+".sort        customSort+");
 		commands.add("task config report."+reportName+".filter      status:pending");
 
@@ -236,6 +244,7 @@ public class Main {
 		}
 	}
 
+
 	/**
 	*
 	*TODO: Create extra report to sort purely on due date:
@@ -243,7 +252,7 @@ public class Main {
 	*Extra info, remove custom reports by just not specifying the data after the command.
 	* add a new report by: 
 	*task config report.sortDue.description Sort on nearing due date earliest due date last
-	*task config report.sortDue.columns id,depends,due,duration,priority,urgency,project,recur,tags,description,start
+	*task config report.sortDue.columns id,depends,due,estimate,priority,urgency,project,recur,tags,description,start
 	*task config report.sortDue.label sortDue
 	*task config report.sortDue.sort due-
 	*task config report.sortDue.filter status:pending -due:
@@ -266,6 +275,8 @@ public class Main {
 			runMultipleCommandsExpectYes(commands);
 		}
 	}
+	
+	
 	
 	/**
 	 * Runs the commands given in an arrayList
