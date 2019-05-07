@@ -24,14 +24,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		InstallData installData = HardCoded.hardCoded();		
-		//SetEnvVar.setEnvVar();
-		
-			//run JavaServerSort once
-			runJavaServerSort(installData);
-			
-			System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
-			System.exit(0);
-		
+		//SetEnvVar.setEnvVar();				
 		// move pw out of screen
 		skipToNewPage();
 		
@@ -50,6 +43,8 @@ public class Main {
 	    c.doStuff(installData);
 	    c.writeJobs();
 		
+	    
+	    
 		// export resources autoBackup.sh and javaServerSort.jar 
 	    CopyFiles.exportResource(installData,"autoBackup.sh",true);
 		CopyFiles.exportResource(installData,"JavaServerSort.jar",true);
@@ -59,8 +54,13 @@ public class Main {
 		
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
+
+		//run JavaServerSort once
+		runJavaServerSort(installData);
 		
-		
+		System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
+		System.exit(0);
+
 	}
 	
 	private static void exportBashrc(InstallData installData) throws Exception {
