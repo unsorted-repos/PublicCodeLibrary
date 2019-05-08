@@ -29,6 +29,7 @@ public class HardCoded {
 		installData.setInternalBackupScriptPath("resource/");
 		installData.setInternalBackupScriptName("autoBackup.sh");
 		installData.setBackupScriptName("autoBackup.sh");
+		
 		installData.setBackupDestination("/home/"+installData.getLinuxUserName()+"/maintenance/");
 		installData.setCustomSortScriptName("JavaServerSort.jar");
 		installData.setBasrcFileName(".bashrc");
@@ -36,6 +37,8 @@ public class HardCoded {
 		installData.setVisudoFileName("sudoers.sh");
 		installData.setVisudoPath("/home/"+installData.getLinuxUserName()+"/maintenance/");
 		installData.setSudoersFileName("sudoers.sh");
+		
+
 		
 		//get the path of this compiled .jar file
 		installData.setLinuxPath(GetThisPath.getJarLocation()[0]);
@@ -83,5 +86,13 @@ public class HardCoded {
 		return installData;
 	}
 	
-	
+	public static void initializeOutputFolder(InstallData installData) {
+		installData.setOutputPath("/mnt/"+installData.getOutputFolderDriveLetter()+"/"+"Taskwarrior"+"/");
+		//TODO: check whether setBackupDestination is used as a reference to the autoBacckup.sh file, or as the actual destination of the backups.
+		// 		in case of the latter, it is conflicting with the setBackupOutputFolderName
+		installData.setBackupInputPath(installData.getOutputPath()+"backupsInput"+"/");
+		installData.setBackupOutputPath(installData.getOutputPath()+"backupsOutput"+"/");
+		installData.setCertificateOutputPath(installData.getOutputPath()+"certificatesOutput"+"/");
+		installData.setCertificateInputPath(installData.getOutputPath()+"certificatesInput"+"/");
+	}
 }

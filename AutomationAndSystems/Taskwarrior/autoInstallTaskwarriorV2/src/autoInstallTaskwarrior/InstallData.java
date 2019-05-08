@@ -29,6 +29,100 @@ public class InstallData {
 	private CronJob[] cronJobs;
 	private String maintenanceFolder;
 	private String sortScriptName;
+	private String outputFolderDriveLetter;
+	private String outputPath;
+	private String certificateOutputPath;
+	private String certificateInputPath;
+	private String BackupOutputPath;
+	private String BackupInputPath;
+	
+	
+	/**
+	 * @return the outputPath
+	 */
+	public String getOutputPath() {
+		return outputPath;
+	}
+
+	/**
+	 * @param outputPath the outputPath to set
+	 */
+	public void setOutputPath(String outputPath) {
+		this.outputPath = outputPath;
+	}
+
+	
+	/**
+	 * @return the outputFolderDriveLetter
+	 */
+	public String getOutputFolderDriveLetter() {
+		return outputFolderDriveLetter;
+	}
+
+	/**
+	 * TODO: check if it is bad style to update the values of the relative paths like this.
+	 * @param outputFolderDriveLetter the outputFolderDriveLetter to set
+	 */
+	public void setOutputFolderDriveLetter(String outputFolderDriveLetter) {
+		this.outputFolderDriveLetter = outputFolderDriveLetter;
+		HardCoded.initializeOutputFolder(this);
+	}
+
+	/**
+	 * @return the certificateOutputPath
+	 */
+	public String getCertificateOutputPath() {
+		return certificateOutputPath;
+	}
+
+	/**
+	 * @param certificateOutputPath the certificateOutputPath to set
+	 */
+	public void setCertificateOutputPath(String certificateOutputPath) {
+		this.certificateOutputPath = certificateOutputPath;
+	}
+
+	/**
+	 * @return the certificateInputPath
+	 */
+	public String getCertificateInputPath() {
+		return certificateInputPath;
+	}
+
+	/**
+	 * @param certificateInputPath the certificateInputPath to set
+	 */
+	public void setCertificateInputPath(String certificateInputPath) {
+		this.certificateInputPath = certificateInputPath;
+	}
+
+	/**
+	 * @return the backupOutputPath
+	 */
+	public String getBackupOutputPath() {
+		return BackupOutputPath;
+	}
+
+	/**
+	 * @param backupOutputPath the backupOutputPath to set
+	 */
+	public void setBackupOutputPath(String backupOutputPath) {
+		BackupOutputPath = backupOutputPath;
+	}
+
+	/**
+	 * @return the backupInputPath
+	 */
+	public String getBackupInputPath() {
+		return BackupInputPath;
+	}
+
+	/**
+	 * @param backupInputPath the backupInputPath to set
+	 */
+	public void setBackupInputPath(String backupInputPath) {
+		BackupInputPath = backupInputPath;
+	}
 	
 	/**
 	 * @return the maintenanceFolder

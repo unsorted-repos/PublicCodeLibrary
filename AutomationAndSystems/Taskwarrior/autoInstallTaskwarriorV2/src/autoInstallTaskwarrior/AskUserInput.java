@@ -34,4 +34,12 @@ public class AskUserInput {
 		}
 		return userInput;
 	}
+	
+	public static String requestDriveLetter() {
+		String driveLetter=null;
+		Scanner reader = new Scanner(System.in);  // Reading from System.in
+		System.out.println("I would like to make a folder to copy your certificates and backups to, so that you can easily copy them to your other devices."+'\n'+'\n'+"Can you please enter the letter of the harddrive in which you want this folder?");
+		driveLetter = reader.next(); // Scans the next token of the input as an int.
+		return driveLetter;
+	}
 }

@@ -28,6 +28,10 @@ public class Main {
 		// move pw out of screen
 		skipToNewPage();
 		
+		CreateFolders.findHardDrive(installData);
+		
+		System.exit(0);
+		
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);
@@ -57,6 +61,8 @@ public class Main {
 
 		//run JavaServerSort once
 		runJavaServerSort(installData);
+		
+		System.out.println("your output folder is located in="+installData.getOutputFolderDriveLetter()+":/taskwarrior/");
 		
 		System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
 		System.exit(0);
@@ -278,7 +284,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }
 
