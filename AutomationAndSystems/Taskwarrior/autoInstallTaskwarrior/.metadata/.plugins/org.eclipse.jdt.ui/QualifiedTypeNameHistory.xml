@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
-<fullyQualifiedTypeName name="java.io.FileReader"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="org.junit.jupiter.api.Assertions"/>
-</qualifiedTypeNameHistroy>
