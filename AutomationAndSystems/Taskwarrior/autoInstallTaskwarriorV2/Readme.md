@@ -11,14 +11,6 @@ Then run: (1st command takes+-: 30 mins, 2nd command: 4 mins)
 
 `yes | sudo apt install default-jre` 
 
-`export TASKDDATA=/var/taskd`
-
-`sudo mkdir -p $TASKDDATA`
-
-If you run in to troubles in that installation of Java, you can try:
-
-`yes | sudo apt install default-jre --fix-missing`
-
 Then compile or download the .jar file in this repo.
 Put it for example in `c:/path with space/` and in WSL ubuntu run it with:
 
