@@ -279,7 +279,7 @@ public class Main {
 		commands[0].setCommandLines(commandLines[0]);
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
-		commands[0].setWorkingPath("");
+		commands[0].setWorkingPath("/home/"+installData.getLinuxUserName()+"/");
 		commands[0].setSetWorkingPath(false);
 		try {
 			RunCommandsV3.executeCommands(commands[0],false);
