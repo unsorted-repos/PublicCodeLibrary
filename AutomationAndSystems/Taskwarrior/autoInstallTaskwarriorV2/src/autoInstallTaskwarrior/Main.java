@@ -37,8 +37,10 @@ public class Main {
 		CreateFiles.createSudoers(installData);
 		
 		//create the .basshrc file.
+		System.out.println("backupScriptDestination="+installData.getBackupScriptDestination());
 		exportBashrc(installData);
 		
+		System.out.println("Server and port are:"+installData.getServerName()+"and="+installData.getServerPort());
 		// remove prompting for password in visudo
 		//modifyVisudo(installData);
 		

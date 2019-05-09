@@ -17,11 +17,9 @@ public class HardCoded {
 		
 		//hardcoded
 //		String[] storeUserInput =;
-		installData.setUserInput(AskUserInput.getUserInput(installData));
+		AskUserInput.getUserInput(installData);
 		installData.setTestrun(false);
 		installData.setVars("vars");
-		
-		installData.setServerName(installData.getUserInput()[4]);
 		installData.setServerPort("53589");
 		installData.setMaintenanceFolder("maintenance");
 		installData.setSortScriptName("JavaServerSort.jar");

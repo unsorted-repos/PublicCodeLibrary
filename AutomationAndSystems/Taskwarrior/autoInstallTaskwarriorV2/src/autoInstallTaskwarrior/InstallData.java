@@ -2,7 +2,6 @@ package autoInstallTaskwarrior;
 
 public class InstallData {
 	private String linuxUserName;
-	private String linuxPw;
 	private String serverName;
 	private String serverPort;
 	private String twOrganisation;
@@ -11,12 +10,12 @@ public class InstallData {
 	private String linuxPath;
 	private String vars;
 	private String[] copyVerifications19 = new String[3];
-	private String[] userInput;
+	//private String[] userInput;
 	private boolean testrun;
 	private String twUuid;
 	private boolean deleteOtherTwUsers;
 	private boolean isServer;
-	private String backupDestination;
+	private String backupScriptDestination;
 	private String backupScriptName;
 	private String internalBackupScriptName;
 	private String internalBackupScriptPath;
@@ -37,6 +36,20 @@ public class InstallData {
 	private String BackupInputPath;
 	
 	
+	/**
+	 * @return the backupScriptDestination
+	 */
+	public String getBackupScriptDestination() {
+		return backupScriptDestination;
+	}
+
+	/**
+	 * @param backupScriptDestination the backupScriptDestination to set
+	 */
+	public void setBackupScriptDestination(String backupScriptDestination) {
+		this.backupScriptDestination = backupScriptDestination;
+	}
+
 	/**
 	 * @return the outputPath
 	 */
@@ -330,20 +343,6 @@ public class InstallData {
 	}
 
 	/**
-	 * @return the linuxPw
-	 */
-	public String getLinuxPw() {
-		return linuxPw;
-	}
-
-	/**
-	 * @param linuxPw the linuxPw to set
-	 */
-	public void setLinuxPw(String linuxPw) {
-		this.linuxPw = linuxPw;
-	}
-
-	/**
 	 * @return the serverName
 	 */
 	public String getServerName() {
@@ -469,35 +468,9 @@ public class InstallData {
 		this.testrun = testrun;
 	}
 
-	/**
-	 * TODO: remove hardcoded tw org and tw username
-	 * TODO: disable reading userInput
-	 * @param userInput the userInput to set
-	 */
-	public void setUserInput(String[] userInput) {
-		this.userInput = userInput;
-		this.linuxUserName = userInput[0];
-		this.linuxPw = userInput[1];
-		this.twOrganisation = userInput[2];
-		this.twUserName = userInput[3];
-		this.serverName = userInput[4];
-		if (userInput[5].equals("y")) {
-			this.isServer = true;
-		} else {
-			this.isServer = false;
-		}
-		// TODO: change from if NOT n then userInput[6]
-		if (userInput[6].equals("nnnnn")) {
-			this.backupDestination = userInput[6];
-		}else {
-			this.backupDestination = "/home/"+this.linuxUserName+"/maintenance/";
-		}
-		
-	}
 	
-	public String[] getUserInput() {
-		return this.userInput;
-	}
+	
+	
 
 	/**
 	 * @return the twUuid
@@ -545,14 +518,14 @@ public class InstallData {
 	 * @return the backupDestination
 	 */
 	public String getBackupDestination() {
-		return backupDestination;
+		return backupScriptDestination;
 	}
 
 	/**
 	 * @param backupDestination the backupDestination to set
 	 */
 	public void setBackupDestination(String backupDestination) {
-		this.backupDestination = backupDestination;
+		this.backupScriptDestination = backupDestination;
 	}
 
 	/**
@@ -569,4 +542,36 @@ public class InstallData {
 		this.developeMode = developeMode;
 	}
 	
+	/**
+	 * assume input has been filtered
+	 * TODO: remove hardcoded tw org and tw username
+	 * TODO: disable reading userInput
+	 * @param userInput the userInput to set
+	 */
+	public void setUserInput(UserInput userInput) {
+		this.linuxUserName = userInput.getAnswer().get(0);
+		System.out.println("linuxUserName="+this.linuxUserName);
+		this.twOrganisation = userInput.getAnswer().get(1);
+		this.twUserName = userInput.getAnswer().get(2);
+		if (userInput.getAnswer().get(3).equals("y")) { //uses on multiple devices
+			if (userInput.getAnswer().get(4).equals("server")) {
+				this.isServer = true;
+			} else { // pc is client
+				this.isServer = false;
+			}
+		} else { // uses on single device so this does the sorting/is server
+			this.isServer = true;
+		}
+		if (this.isServer) {
+			System.out.println("Setting server="+userInput.getAnswer().get(5));
+			this.serverName = userInput.getAnswer().get(5);
+		} else {
+			this.serverName = "0.0.0.0";
+		}
+		
+		// TODO: Put in correct location
+		this.backupScriptDestination = "/home/"+this.linuxUserName+"/maintenance/";
+		System.out.println("backupScriptDestination="+this.backupScriptDestination);
+		
+	}
 }
