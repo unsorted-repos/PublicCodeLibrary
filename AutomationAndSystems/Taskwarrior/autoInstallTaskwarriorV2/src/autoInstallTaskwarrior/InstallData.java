@@ -558,7 +558,7 @@ public class InstallData {
 				this.isServer = true;
 			} else { // pc is client
 				this.isServer = false;
-			}
+			} 
 		} else { // uses on single device so this does the sorting/is server
 			this.isServer = true;
 		}
