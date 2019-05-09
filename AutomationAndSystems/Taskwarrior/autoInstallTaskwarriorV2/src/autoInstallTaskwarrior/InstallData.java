@@ -562,12 +562,14 @@ public class InstallData {
 		} else { // uses on single device so this does the sorting/is server
 			this.isServer = true;
 		}
-		if (this.isServer) {
-			System.out.println("Setting server="+userInput.getAnswer().get(5));
-			this.serverName = userInput.getAnswer().get(5);
-		} else {
-			this.serverName = "0.0.0.0";
-		}
+		
+		this.serverName = userInput.getAnswer().get(5);
+//		if (this.isServer) {
+//			System.out.println("Setting server="+userInput.getAnswer().get(5));
+//			
+//		} else {
+//			this.serverName = "0.0.0.0";
+//		}
 		
 		// TODO: Put in correct location
 		this.backupScriptDestination = "/home/"+this.linuxUserName+"/maintenance/";
