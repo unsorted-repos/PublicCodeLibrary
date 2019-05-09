@@ -64,13 +64,13 @@ public class HardCoded {
 		
 		// set 1st cronjob:*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
 		cronTiming[0] = "*/1 * * * *";
-		cronCommand[0] = "root sh -v";
+		cronCommand[0] = "sudo sh -v";
 		cronPath[0] = "/home/a/maintenance/";
 		cronFileName[0] = "autoBackup.sh";
 		
 		// set 2nd cronjob:*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
 		cronTiming[1] = "*/10 * * * *";
-		cronCommand[1] = "root java -jar -v";
+		cronCommand[1] = "sudo java -jar";
 		cronPath[1] = "/home/a/maintenance/";
 		cronFileName[1] = "JavaServerSort.jar";
 		

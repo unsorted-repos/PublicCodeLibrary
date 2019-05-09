@@ -42,4 +42,20 @@ public class AskUserInput {
 		driveLetter = reader.next(); // Scans the next token of the input as an int.
 		return driveLetter;
 	}
+	
+	public static void promptReboot() {
+		String response=null;
+		
+		boolean confirmedReboot = false;
+		while (!confirmedReboot) {
+			System.out.println("Installation is completed. Before you continue you need to restart WSL Ubuntu (start>ubuntu). Please confirm with y.");
+			//System.exit(0);
+			Scanner reader = new Scanner(System.in);  // Reading from System.in
+			response = reader.next();
+			if (response.equals("y")) {
+				confirmedReboot = true;
+				Main.exitUbuntu();
+			}
+		}
+	}
 }

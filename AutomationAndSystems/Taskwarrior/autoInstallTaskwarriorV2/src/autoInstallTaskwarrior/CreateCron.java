@@ -19,7 +19,8 @@ public class CreateCron {
 
     void readCron() {
      //String[] list = { "crontab", "-l" };
-     String[] list = { "sudo", "crontab", "-l" };
+     //String[] list = { "sudo", "crontab", "-l" };
+     String[] list = { "crontab", "-l" };
      jobs = new ArrayList();
      try {
          // Stick a job into crontab
@@ -55,8 +56,8 @@ public class CreateCron {
        }
     
     void writeJobs() {
-     //String[] edit = { "crontab"};
-     String[] edit = { "sudo", "crontab"};
+     String[] edit = { "crontab"};
+     //String[] edit = { "sudo", "crontab"};
      try {
          // Stick a job into crontab
          Process child = rt.exec(edit);

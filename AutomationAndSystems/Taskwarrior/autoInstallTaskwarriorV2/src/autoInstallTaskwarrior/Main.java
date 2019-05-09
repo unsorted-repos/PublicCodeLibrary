@@ -30,7 +30,7 @@ public class Main {
 		
 		CreateFolders.findHardDrive(installData);
 		
-		System.exit(0);
+		
 		
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);
@@ -64,7 +64,7 @@ public class Main {
 		
 		System.out.println("your output folder is located in="+installData.getOutputFolderDriveLetter()+":/taskwarrior/");
 		
-		System.out.println("Installation is completed. Please close and re-open WSL Ubuntu 16.04 to use taskwarrior!");
+		AskUserInput.promptReboot();
 		System.exit(0);
 
 	}
@@ -277,6 +277,28 @@ public class Main {
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("");
+		commands[0].setSetWorkingPath(false);
+		try {
+			RunCommandsV3.executeCommands(commands[0],false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
+	
+	public static void exitUbuntu() {
+		int nrOfCommands = 1;
+		String[][] commandLines = new String[nrOfCommands][1];
+		Command[] commands = new Command[nrOfCommands];
+		commands[0] = new Command();
+		
+		commandLines[0] = new String[1];
+		commandLines[0][0] = "exit";
+		commands[0].setCommandLines(commandLines[0]);
+		commands[0].setEnvVarContent("/var/taskd");
+		commands[0].setEnvVarName("TASKDDATA");
+		commands[0].setWorkingPath("/home/");
+		commands[0].setSetEnvVar(false);
 		commands[0].setSetWorkingPath(false);
 		try {
 			RunCommandsV3.executeCommands(commands[0],false);
