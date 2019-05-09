@@ -280,7 +280,7 @@ public class Main {
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("/home/"+installData.getLinuxUserName()+"/");
-		commands[0].setSetWorkingPath(false);
+//		commands[0].setSetWorkingPath(false);
 		try {
 			RunCommandsV3.executeCommands(commands[0],false);
 		} catch (Exception e) {
@@ -301,8 +301,8 @@ public class Main {
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("/home/");
-		commands[0].setSetEnvVar(false);
-		commands[0].setSetWorkingPath(false);
+//		commands[0].setSetEnvVar(false);
+//		commands[0].setSetWorkingPath(false);
 		try {
 			RunCommandsV3.executeCommands(commands[0],false);
 		} catch (Exception e) {
