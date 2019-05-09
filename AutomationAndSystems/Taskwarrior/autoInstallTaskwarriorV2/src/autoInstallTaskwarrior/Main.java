@@ -62,6 +62,7 @@ public class Main {
 		manageCommandGeneration(installData, commands);
 
 		//run JavaServerSort once
+		System.out.println("Running javasort");
 		runJavaServerSort(installData);
 		
 		System.out.println("your output folder is located in="+installData.getOutputFolderDriveLetter()+":/taskwarrior/");
