@@ -13,7 +13,7 @@ public class HardCoded {
 	public static InstallData hardCoded() {
 		InstallData installData = new InstallData();
 		// TODO: Turn off developer mode before publishing!
-		installData.setDevelopeMode(true);
+		installData.setDevelopeMode(false);
 		
 		//hardcoded
 //		String[] storeUserInput =;
