@@ -38,6 +38,21 @@ public class InstallData {
 	private boolean importCertificates;
 	private boolean importBackup;
 	private String[] syncCertificateNames;
+	private String twUuidFileName;
+
+	/**
+	 * @return the twUuidFileName
+	 */
+	public String getTwUuidFileName() {
+		return twUuidFileName;
+	}
+
+	/**
+	 * @param twUuidFileName the twUuidFileName to set
+	 */
+	public void setTwUuidFileName(String twUuidFileName) {
+		this.twUuidFileName = twUuidFileName;
+	}
 
 	/**
 	 * @return the backupScriptDestination

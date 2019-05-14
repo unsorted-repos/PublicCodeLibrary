@@ -43,7 +43,7 @@ public class HardCoded {
 		syncCertificateNames[1] = installData.getTwUserName() + ".cert.pem";
 		syncCertificateNames[2] = installData.getTwUserName() + ".key.pem";
 		installData.setSyncCertificateNames(syncCertificateNames);
-		
+		installData.setTwUuidFileName("twUuid.txt");
 		
 		
 //		installData.getUserInput()[2]="Public";

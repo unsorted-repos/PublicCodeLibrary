@@ -24,12 +24,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		InstallData installData = HardCoded.hardCoded();
-		skipToNewPage();
-		
-		
-		
-		
-		
+		skipToNewPage();		
 		
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);

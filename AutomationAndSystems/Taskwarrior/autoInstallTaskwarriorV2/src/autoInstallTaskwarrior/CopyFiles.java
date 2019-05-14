@@ -203,6 +203,7 @@ public class CopyFiles {
 					e.printStackTrace();
 				}
 			}
+			CreateFiles.exportTwUuid(installData);
 		}
 	}
 }

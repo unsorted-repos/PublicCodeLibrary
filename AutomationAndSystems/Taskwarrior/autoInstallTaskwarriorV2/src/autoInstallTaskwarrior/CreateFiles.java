@@ -69,6 +69,9 @@ public class CreateFiles {
 			case "sudoers.sh":
 				writer = writeLinesSudoers(installData, writer);
 				break;
+			case "twUuid.txt":
+				writer = writeLinesExportTwUuid(installData, writer);
+				break;
 			}
 
 			writer.close();
@@ -224,10 +227,27 @@ public class CreateFiles {
 	}
 
 	public static PrintWriter writeLinesSudoers(InstallData installData, PrintWriter writer) {
-		char quotation = (char) 34; // quotation mark "
 		writer.println("#!/bin/sh");
 		writer.println("sudo bash -c 'echo \"" + installData.getLinuxUserName()
 				+ " ALL=(ALL) NOPASSWD:ALL\" >> /etc/sudoers'");
+		return writer;
+	}
+
+	public static void exportTwUuid(InstallData installData) {
+		writeFileContent(installData, installData.getTwUuidFileName());
+		String sourcePath = installData.getLinuxPath();
+		String destinationPath = installData.getCertificateOutputPath();
+		try {
+			CopyFiles.copyFileWithSudo(installData, sourcePath, installData.getTwUuidFileName(), destinationPath,
+					installData.getTwUuidFileName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static PrintWriter writeLinesExportTwUuid(InstallData installData, PrintWriter writer) {
+		writer.println(installData.getTwUuid());
 		return writer;
 	}
 }
