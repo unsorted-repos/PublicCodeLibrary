@@ -27,8 +27,7 @@ public class Main {
 		skipToNewPage();
 		
 		
-		// create the installation folders for taskwarrior
-		CreateFolders.findHardDrive(installData);
+		
 		
 		
 		
@@ -65,6 +64,7 @@ public class Main {
 		
 		// export certificates if this is the server installation.
 		CopyFiles.exportServerCertificates(installData);
+		// import certificates if this is client installation.
 		ImportFiles.importCertificates(installData);
 		
 		AskUserInput.promptReboot();

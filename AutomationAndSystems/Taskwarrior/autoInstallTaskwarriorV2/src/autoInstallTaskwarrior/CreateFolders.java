@@ -32,14 +32,13 @@ public class CreateFolders {
 			foundDrive = checkIfDriveExists(requestedDriveLetter);
 			installData.setOutputFolderDriveLetter(requestedDriveLetter);
 		}
-		System.out.println("drive letter stored="+installData.getOutputFolderDriveLetter());
+//		System.out.println("drive letter stored="+installData.getOutputFolderDriveLetter());
 		listOutputFolders(installData);
 		return installData;
 	}
 	
 	private static boolean checkIfDriveExists(String driveLetter) {
 		if (driveLetter!=null) {
-			System.out.println("driveLetter tested="+driveLetter);
 			return checkIfFolderExists("/mnt/"+driveLetter+"/");
 		} else {
 			return false;
@@ -52,7 +51,7 @@ public class CreateFolders {
 		
 		// check if file exists
 		if(f.isDirectory()) { 
-		    System.out.println("File:"+path+" exists");
+//		    System.out.println("File:"+path+" exists");
 		    return true;
 		}
 		return false;
@@ -66,26 +65,33 @@ public class CreateFolders {
 		createOutputFolder(installData, installData.getCertificateOutputPath());
 	}
 	
+	/**
+	 * create outputFolder if the path does not exist
+	 * @param installData
+	 * @param folderPath
+	 */
 	public static void createOutputFolder(InstallData installData, String folderPath) {
-		int nrOfCommands = 1;
-		String[][] commandLines = new String[nrOfCommands][1];
-		Command[] commands = new Command[nrOfCommands];
-		commands[0] = new Command();
-		
-		commandLines[0] = new String[3];
-		commandLines[0][0] = "sudo";
-		commandLines[0][1] = "mkdir";
-		commandLines[0][2] = folderPath;
-		commands[0].setCommandLines(commandLines[0]);
-		commands[0].setEnvVarContent("/var/taskd");
-		commands[0].setEnvVarName("TASKDDATA");
-		commands[0].setWorkingPath("");
-		commands[0].setSetWorkingPath(false);
-		try {
-			RunCommandsV3.executeCommands(commands[0],false);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (!CreateFolders.checkIfFolderExists(folderPath)) {
+			int nrOfCommands = 1;
+			String[][] commandLines = new String[nrOfCommands][1];
+			Command[] commands = new Command[nrOfCommands];
+			commands[0] = new Command();
+			
+			commandLines[0] = new String[3];
+			commandLines[0][0] = "sudo";
+			commandLines[0][1] = "mkdir";
+			commandLines[0][2] = folderPath;
+			commands[0].setCommandLines(commandLines[0]);
+			commands[0].setEnvVarContent("/var/taskd");
+			commands[0].setEnvVarName("TASKDDATA");
+			commands[0].setWorkingPath("");
+			commands[0].setSetWorkingPath(false);
+			try {
+				RunCommandsV3.executeCommands(commands[0],false);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

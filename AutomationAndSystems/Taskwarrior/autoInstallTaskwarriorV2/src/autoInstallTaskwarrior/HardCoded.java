@@ -86,8 +86,13 @@ public class HardCoded {
 
 		installData.setCronJobs(cronJobs);
 
-		System.out.println("isImportCertificates = "+installData.isImportCertificates());
-		if (installData.isImportCertificates()) {ImportFiles.importCertificates(installData);}
+		// create the installation folders for taskwarrior
+		CreateFolders.findHardDrive(installData);
+		
+//		System.out.println("isImportCertificates = "+installData.isImportCertificates());
+//		if (installData.isImportCertificates()) {ImportFiles.importCertificates(installData);}
+		ImportFiles.checkImportCertificates(installData);
+		
 		
 		System.out.println("Path =" + installData.getWindowsPath());
 		System.out.println("Path =" + installData.getLinuxPath());

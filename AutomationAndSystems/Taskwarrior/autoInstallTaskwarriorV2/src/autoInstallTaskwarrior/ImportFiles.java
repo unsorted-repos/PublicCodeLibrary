@@ -10,11 +10,14 @@ public class ImportFiles {
 	 * 
 	 */
 	public static void checkImportCertificates(InstallData installData) {
-		// check if certificatesInput folder exists, create it if it does not exist.
-		if (!CreateFolders.checkIfFolderExists(installData.getCertificateInputPath())) {
-			CreateFolders.createOutputFolder(installData, installData.getCertificateInputPath());
+		if (!installData.isUseSingleDevice() && !installData.isServer()) {
+			// check if certificatesInput folder exists, create it if it does not exist.
+			System.out.println("The certificateInputPath ="+installData.getCertificateInputPath());
+			if (!CreateFolders.checkIfFolderExists(installData.getCertificateInputPath())) {
+				CreateFolders.createOutputFolder(installData, installData.getCertificateInputPath());
+			}
+			checkIfCertificatesExist(installData);
 		}
-		checkIfCertificatesExist(installData);
 	}
 
 	/**
@@ -25,10 +28,10 @@ public class ImportFiles {
 	 * @return
 	 */
 	private static void checkIfCertificatesExist(InstallData installData) {
-		int nrOfCertificatesToImport = 3;
-		boolean[] checkAllFiles = new boolean[3];
+		boolean[] checkAllFiles = new boolean[installData.getSyncCertificateNames().length];
 		// check if certificates exist in certificatesInput folder
-		while (areAllTrue(checkAllFiles)) {
+//		System.out.println("alltrue="+areAllTrue(checkAllFiles));
+		while (!areAllTrue(checkAllFiles)) {
 			for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
 				checkAllFiles[i] = CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),
 						installData.getSyncCertificateNames()[i]);
@@ -40,6 +43,7 @@ public class ImportFiles {
 	}
 	
 	public static void requestCertificatesInput(InstallData installData) {
+		String desiredAnswer = "y";
 		StringBuilder sb = new StringBuilder();
 		sb.append("In your server-device, you can find the required certificates in:"+'\n');
 		sb.append(installData.getCertificateOutputPath()+'\n');
@@ -51,6 +55,9 @@ public class ImportFiles {
 		sb.append(installData.getCertificateInputPath()+'\n');
 		sb.append("and confirm with y if you have done so.");
 		String question = sb.toString();
+		
+		AskUserInput.loopQuestion(question, desiredAnswer);
+		
 	}
 	
 	public static boolean areAllTrue(boolean[] array)
@@ -59,7 +66,27 @@ public class ImportFiles {
 	    return true;
 	}
 	
+	/**
+	 * Checks if you use multiple devices and whether this is a client pc.
+	 * If both true, it imports the certificates from <your hdd>/taskwarrior/certificatesInput
+	 * to /home/<your linux username>/.task/
+	 * @param installData
+	 */
 	public static void importCertificates(InstallData installData) {
-		
+		if (!installData.isUseSingleDevice() && !installData.isServer()) {
+			String sourcePath = installData.getCertificateInputPath();
+			String destinationPath = "/home/"+installData.getLinuxUserName()+"/.task/";
+			for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
+				String sourceFileName = installData.getSyncCertificateNames()[i];
+				String destinationFileName = sourceFileName;
+				try {
+					CopyFiles.copyFileWithSudo(installData, sourcePath,sourceFileName,destinationPath, 
+							destinationFileName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

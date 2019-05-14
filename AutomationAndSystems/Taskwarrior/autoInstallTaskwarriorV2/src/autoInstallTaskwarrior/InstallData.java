@@ -605,7 +605,6 @@ public class InstallData {
 	 */
 	public void setUserInput(UserInput userInput) {
 		this.linuxUserName = userInput.getAnswer().get(0);
-		System.out.println("linuxUserName=" + this.linuxUserName);
 		this.twOrganisation = userInput.getAnswer().get(1);
 		this.twUserName = userInput.getAnswer().get(2);
 		if (userInput.getAnswer().get(3).equals("y")) { // uses on multiple devices
@@ -630,7 +629,7 @@ public class InstallData {
 
 		// TODO: Put in correct location
 		this.backupScriptDestination = "/home/" + this.linuxUserName + "/maintenance/";
-		System.out.println("backupScriptDestination=" + this.backupScriptDestination);
+//		System.out.println("backupScriptDestination=" + this.backupScriptDestination);
 
 	}
 

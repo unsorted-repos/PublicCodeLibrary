@@ -1,5 +1,8 @@
 package autoInstallTaskwarrior;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class AskUserInput {
@@ -61,7 +64,7 @@ public class AskUserInput {
 			}
 
 		}
-		reader.close();
+//		reader.close();
 		installData.setUserInput(userInput);
 	}
 
@@ -132,14 +135,34 @@ public class AskUserInput {
 		String response = null;
 		
 		while (true) {
-			System.out.println(question);
 			// System.exit(0);
-			Scanner reader = new Scanner(System.in); // Reading from System.in
-			response = reader.next();
+			
+//			Scanner reader = new Scanner(System.in); // Reading from System.in
+			System.out.println(question);
+			response = bufferedReaderInput();
+//			response = reader.next();
 			if (response.equals(desiredAnswer)) {
-				reader.close();
+//				reader.close();
 				return true;
 			}
+//			reader.close();
 		}
 	}
+	
+	public static String bufferedReaderInput() {
+		  BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		    String input = null;
+			try {
+				input = reader.readLine();
+				String answer = input;
+//			    reader.close();
+			    return input;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return input;
+		    
+	}
 }
+

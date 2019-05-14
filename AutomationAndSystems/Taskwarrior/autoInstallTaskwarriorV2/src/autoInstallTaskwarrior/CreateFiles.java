@@ -159,10 +159,10 @@ public class CreateFiles {
 
 		// check if file exists
 		if (f.exists() && !f.isDirectory()) {
-			System.out.println("File:" + path + filename + " exists");
+//			System.out.println("File:" + path + filename + " exists");
 			return true;
 		} else {
-			System.out.println("ERROR!! The file:" + path + filename + " does NOT exist");
+//			System.out.println("ERROR!! The file:" + path + filename + " does NOT exist");
 			return false;
 		}
 	}
