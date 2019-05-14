@@ -66,7 +66,7 @@ public class CreateFolders {
 		createOutputFolder(installData, installData.getCertificateOutputPath());
 	}
 	
-	private static void createOutputFolder(InstallData installData, String folderPath) {
+	public static void createOutputFolder(InstallData installData, String folderPath) {
 		int nrOfCommands = 1;
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];

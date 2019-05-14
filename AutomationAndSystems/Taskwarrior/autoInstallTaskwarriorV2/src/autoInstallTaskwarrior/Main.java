@@ -23,11 +23,11 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		
-		InstallData installData = HardCoded.hardCoded();		
-		//SetEnvVar.setEnvVar();				
-		// move pw out of screen
+		InstallData installData = HardCoded.hardCoded();
 		skipToNewPage();
 		
+		
+		// create the installation folders for taskwarrior
 		CreateFolders.findHardDrive(installData);
 		
 		
@@ -48,8 +48,6 @@ public class Main {
 		CreateCron c = new CreateCron();
 	    c.doStuff(installData);
 	    c.writeJobs();
-		
-	    
 	    
 		// export resources autoBackup.sh and javaServerSort.jar 
 	    CopyFiles.exportResource(installData,"autoBackup.sh",true);
@@ -65,7 +63,9 @@ public class Main {
 		System.out.println("Running javasort");
 		runJavaServerSort(installData);
 		
-		System.out.println("your output folder is located in="+installData.getOutputFolderDriveLetter()+":/taskwarrior/");
+		// export certificates if this is the server installation.
+		CopyFiles.exportServerCertificates(installData);
+		ImportFiles.importCertificates(installData);
 		
 		AskUserInput.promptReboot();
 		System.exit(0);

@@ -10,7 +10,7 @@ public class InstallData {
 	private String linuxPath;
 	private String vars;
 	private String[] copyVerifications19 = new String[3];
-	//private String[] userInput;
+	// private String[] userInput;
 	private boolean testrun;
 	private String twUuid;
 	private boolean deleteOtherTwUsers;
@@ -34,8 +34,11 @@ public class InstallData {
 	private String certificateInputPath;
 	private String BackupOutputPath;
 	private String BackupInputPath;
-	
-	
+	private boolean useSingleDevice;
+	private boolean importCertificates;
+	private boolean importBackup;
+	private String[] syncCertificateNames;
+
 	/**
 	 * @return the backupScriptDestination
 	 */
@@ -64,7 +67,6 @@ public class InstallData {
 		this.outputPath = outputPath;
 	}
 
-	
 	/**
 	 * @return the outputFolderDriveLetter
 	 */
@@ -73,7 +75,9 @@ public class InstallData {
 	}
 
 	/**
-	 * TODO: check if it is bad style to update the values of the relative paths like this.
+	 * TODO: check if it is bad style to update the values of the relative paths
+	 * like this.
+	 * 
 	 * @param outputFolderDriveLetter the outputFolderDriveLetter to set
 	 */
 	public void setOutputFolderDriveLetter(String outputFolderDriveLetter) {
@@ -136,7 +140,7 @@ public class InstallData {
 	public void setBackupInputPath(String backupInputPath) {
 		BackupInputPath = backupInputPath;
 	}
-	
+
 	/**
 	 * @return the maintenanceFolder
 	 */
@@ -278,8 +282,7 @@ public class InstallData {
 	}
 
 	private String customSortScriptName;
-	
-	
+
 //	String linuxPw = storeUserInput[1];
 //	String serverName = "0.0.0.0";
 //	String serverPort = "53589";
@@ -325,7 +328,7 @@ public class InstallData {
 		this.customSortScriptName = customSortScriptName;
 	}
 
-	InstallData(){
+	InstallData() {
 	}
 
 	/**
@@ -439,7 +442,7 @@ public class InstallData {
 	public void setCopyVerifications19(String[] copyVerifications19) {
 		this.copyVerifications19 = copyVerifications19;
 	}
-	
+
 	/**
 	 * @return the vars
 	 */
@@ -467,10 +470,6 @@ public class InstallData {
 	public void setTestrun(boolean testrun) {
 		this.testrun = testrun;
 	}
-
-	
-	
-	
 
 	/**
 	 * @return the twUuid
@@ -541,28 +540,86 @@ public class InstallData {
 	public void setDevelopeMode(boolean developeMode) {
 		this.developeMode = developeMode;
 	}
-	
+
 	/**
-	 * assume input has been filtered
-	 * TODO: remove hardcoded tw org and tw username
+	 * @return the useSingleDevice
+	 */
+	public boolean isUseSingleDevice() {
+		return useSingleDevice;
+	}
+
+	/**
+	 * @param useSingleDevice the useSingleDevice to set
+	 */
+	public void setUseSingleDevice(boolean useSingleDevice) {
+		this.useSingleDevice = useSingleDevice;
+	}
+
+	/**
+	 * @return the importCertificates
+	 */
+	public boolean isImportCertificates() {
+		return importCertificates;
+	}
+
+	/**
+	 * @param importCertificates the importCertificates to set
+	 */
+	public void setImportCertificates(boolean importCertificates) {
+		this.importCertificates = importCertificates;
+	}
+
+	/**
+	 * @return the importBackup
+	 */
+	public boolean isImportBackup() {
+		return importBackup;
+	}
+
+	/**
+	 * @param importBackup the importBackup to set
+	 */
+	public void setImportBackup(boolean importBackup) {
+		this.importBackup = importBackup;
+	}
+
+	/**
+	 * @return the syncCertificateNames
+	 */
+	public String[] getSyncCertificateNames() {
+		return syncCertificateNames;
+	}
+
+	/**
+	 * @param syncCertificateNames the syncCertificateNames to set
+	 */
+	public void setSyncCertificateNames(String[] syncCertificateNames) {
+		this.syncCertificateNames = syncCertificateNames;
+	}
+
+	/**
+	 * assume input has been filtered TODO: remove hardcoded tw org and tw username
 	 * TODO: disable reading userInput
+	 * 
 	 * @param userInput the userInput to set
 	 */
 	public void setUserInput(UserInput userInput) {
 		this.linuxUserName = userInput.getAnswer().get(0);
-		System.out.println("linuxUserName="+this.linuxUserName);
+		System.out.println("linuxUserName=" + this.linuxUserName);
 		this.twOrganisation = userInput.getAnswer().get(1);
 		this.twUserName = userInput.getAnswer().get(2);
-		if (userInput.getAnswer().get(3).equals("y")) { //uses on multiple devices
+		if (userInput.getAnswer().get(3).equals("y")) { // uses on multiple devices
+			this.useSingleDevice = false;
 			if (userInput.getAnswer().get(4).equals("server")) {
 				this.isServer = true;
 			} else { // pc is client
 				this.isServer = false;
-			} 
+			}
 		} else { // uses on single device so this does the sorting/is server
+			this.useSingleDevice = true;
 			this.isServer = true;
 		}
-		
+
 		this.serverName = userInput.getAnswer().get(5);
 //		if (this.isServer) {
 //			System.out.println("Setting server="+userInput.getAnswer().get(5));
@@ -570,10 +627,11 @@ public class InstallData {
 //		} else {
 //			this.serverName = "0.0.0.0";
 //		}
-		
+
 		// TODO: Put in correct location
-		this.backupScriptDestination = "/home/"+this.linuxUserName+"/maintenance/";
-		System.out.println("backupScriptDestination="+this.backupScriptDestination);
-		
+		this.backupScriptDestination = "/home/" + this.linuxUserName + "/maintenance/";
+		System.out.println("backupScriptDestination=" + this.backupScriptDestination);
+
 	}
+
 }
