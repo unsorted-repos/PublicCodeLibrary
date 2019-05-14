@@ -66,7 +66,7 @@ public class GenerateCommandsV3 {
 		commands[2].setCommandLines(commandLines[2]);
 		commands[2].setEnvVarContent("/var/taskd");
 		commands[2].setEnvVarName("TASKDDATA");
-		commands[2].setWorkingPath(commands[1].getEnvVarContent());
+		commands[2].setWorkingPath("/home/");
 		commands[2].setSetEnvVar(false);
 		commands[2].setSetWorkingPath(false);
 
