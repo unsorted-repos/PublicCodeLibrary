@@ -1081,4 +1081,36 @@ public class GenerateCommandsV3 {
 		}
 		return commands;
 	}
+	
+	/**
+	 * 
+	 * create outputFolder if the path does not exist
+	 * @param installData
+	 * @param folderPath
+	 */
+	public static void setTwServerUuid(InstallData installData) {
+		int nrOfCommands = 1;
+		String[][] commandLines = new String[nrOfCommands][1];
+		Command[] commands = new Command[nrOfCommands];
+		commands[0] = new Command();
+		commandLines[0] = new String[5];
+		commandLines[0][0] = "task";
+		commandLines[0][1] = "config";
+		commandLines[0][2] = "taskd.credentials";
+		commandLines[0][3] = "--";
+		commandLines[0][4] = installData.getTwOrganisation()+"/"+installData.getTwUserName()+"/"+installData.getServerTwUuid();
+		
+		commands[0].setCommandLines(commandLines[0]);
+		commands[0].setEnvVarContent("/var/taskd");
+		commands[0].setEnvVarName("TASKDDATA");
+		commands[0].setWorkingPath("");
+		commands[0].setSetWorkingPath(false);
+		try {
+			RunCommandsV3.executeCommands(commands[0],false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
