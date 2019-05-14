@@ -39,12 +39,27 @@ public class InstallData {
 	private boolean importBackup;
 	private String[] syncCertificateNames;
 	private String twUuidFileName;
+	private String serverTwUuid;
 
 	/**
 	 * @return the twUuidFileName
 	 */
 	public String getTwUuidFileName() {
 		return twUuidFileName;
+	}
+
+	/**
+	 * @return the serverTwUuid
+	 */
+	public String getServerTwUuid() {
+		return serverTwUuid;
+	}
+
+	/**
+	 * @param serverTwUuid the serverTwUuid to set
+	 */
+	public void setServerTwUuid(String serverTwUuid) {
+		this.serverTwUuid = serverTwUuid;
 	}
 
 	/**

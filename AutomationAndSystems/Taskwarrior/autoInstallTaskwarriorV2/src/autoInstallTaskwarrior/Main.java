@@ -24,7 +24,11 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		InstallData installData = HardCoded.hardCoded();
-		skipToNewPage();		
+				
+		
+		// import certificates if this is client installation.
+		ImportFiles.importCertificates(installData);
+		skipToNewPage();
 		
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);
@@ -59,8 +63,7 @@ public class Main {
 		
 		// export certificates if this is the server installation.
 		CopyFiles.exportServerCertificates(installData);
-		// import certificates if this is client installation.
-		ImportFiles.importCertificates(installData);
+		
 		
 		AskUserInput.promptReboot();
 		System.exit(0);

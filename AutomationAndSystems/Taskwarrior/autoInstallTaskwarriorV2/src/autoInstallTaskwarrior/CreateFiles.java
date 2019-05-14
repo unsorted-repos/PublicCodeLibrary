@@ -1,6 +1,7 @@
 package autoInstallTaskwarrior;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -169,6 +170,7 @@ public class CreateFiles {
 			return false;
 		}
 	}
+	
 
 	public static void makeScriptRunnable(String Path, String scriptName) {
 
