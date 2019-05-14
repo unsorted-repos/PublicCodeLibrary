@@ -1094,7 +1094,7 @@ public class GenerateCommandsV3 {
 		Command[] commands = new Command[nrOfCommands];
 		commands[0] = new Command();
 		commandLines[0] = new String[5];
-		commandLines[0][0] = "task";
+		commandLines[0][0] = "yes | task";
 		commandLines[0][1] = "config";
 		commandLines[0][2] = "taskd.credentials";
 		commandLines[0][3] = "--";
