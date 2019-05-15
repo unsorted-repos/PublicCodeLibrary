@@ -196,6 +196,7 @@ public class CopyFiles {
 
 		for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
 			try {
+				System.out.println("Copying:"+sourcePath+installData.getSyncCertificateNames()[i]+"to:"+destinationPath+installData.getSyncCertificateNames()[i]);
 				CopyFiles.copyFileWithSudo(installData, sourcePath, installData.getSyncCertificateNames()[i],
 						destinationPath, installData.getSyncCertificateNames()[i]);
 			} catch (Exception e) {

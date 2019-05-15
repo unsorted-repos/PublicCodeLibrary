@@ -60,8 +60,10 @@ public class Main {
 		System.out.println("Running javasort");
 		runJavaServerSort(installData);
 		
-		// export certificates if this is the server installation.
-		//importServerData(installData);
+		// import certificates
+		importServerData(installData);
+		// export certificates if this is the server installation.		
+		CopyFiles.exportServerCertificates(installData);
 		
 		
 		AskUserInput.promptReboot();
@@ -73,8 +75,6 @@ public class Main {
 		System.out.println("useSingledevice true="+installData.isUseSingleDevice());
 		if (installData.isUseSingleDevice()) {
 			// import certificates if this is client installation.
-			ImportFiles.importCertificates(installData);
-			CopyFiles.exportServerCertificates(installData);
 			ImportFiles.importCertificates(installData);
 			ModifyTwConfig.setTwServerUuid(installData);
 		}

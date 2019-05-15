@@ -87,6 +87,7 @@ public class ImportFiles {
 			String sourceFileName = installData.getSyncCertificateNames()[i];
 			String destinationFileName = sourceFileName;
 			try {
+				System.out.println("Copying as import:"+sourcePath+sourceFileName+"to:"+destinationPath+destinationFileName);
 				CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath,
 						destinationFileName);
 			} catch (Exception e) {
