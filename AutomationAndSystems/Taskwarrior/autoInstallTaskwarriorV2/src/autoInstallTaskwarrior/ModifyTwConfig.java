@@ -80,6 +80,7 @@ public class ModifyTwConfig {
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("");
 		commands[0].setSetWorkingPath(false);
+		
 		Main.printCommand(0,commandLines[0]);
 		try {
 			RunCommandsV3.executeCommands(commands[0],true);

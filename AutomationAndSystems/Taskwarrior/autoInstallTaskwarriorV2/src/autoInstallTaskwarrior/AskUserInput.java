@@ -172,7 +172,8 @@ public class AskUserInput {
 					+ "'\n' Please put the txt file with the tw uuid of the server in it and answer with y.";
 			AskUserInput.loopQuestion(question,"y");
 		}
-		installData.setServerTwUuid(ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString());
+		System.out.println("EncapsulatedUuid="+ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString().substring(0, installData.getUuidLength())+"=");
+		installData.setServerTwUuid(ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString().substring(0, installData.getUuidLength()));
 		return installData;
 	}
 }

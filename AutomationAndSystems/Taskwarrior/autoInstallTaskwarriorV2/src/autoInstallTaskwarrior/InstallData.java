@@ -40,6 +40,7 @@ public class InstallData {
 	private String[] syncCertificateNames;
 	private String twUuidFileName;
 	private String serverTwUuid;
+	private int uuidLength;
 
 	/**
 	 * @return the twUuidFileName
@@ -625,6 +626,14 @@ public class InstallData {
 	 */
 	public void setSyncCertificateNames(String[] syncCertificateNames) {
 		this.syncCertificateNames = syncCertificateNames;
+	}
+
+	public int getUuidLength() {
+		return uuidLength;
+	}
+
+	public void setUuidLength(int uuidLength) {
+		this.uuidLength = uuidLength;
 	}
 
 	/**
