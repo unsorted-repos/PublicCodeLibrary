@@ -63,10 +63,9 @@ public class Main {
 		
 		// export certificates if this is the server installation.
 		CopyFiles.exportServerCertificates(installData);
-		
-		
 		ImportFiles.importCertificates(installData);
 		ModifyTwConfig.setTwServerUuid(installData);
+		
 		
 		AskUserInput.promptReboot();
 		System.exit(0);
@@ -258,13 +257,15 @@ public class Main {
 		}
 	}
 	
-	private static void printCommand(int commandNr, String[] commands) {
+	public static void printCommand(int commandNr, String[] commands) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i<commands.length;i++) {
 			sb.append(commands[i]+" ");
 		}
 		System.out.println(commandNr+"RUNNINGCOMMAND="+sb.toString());
 	}
+	
+	
 	
 	private static void runJavaServerSort(InstallData installData) {
 		int nrOfCommands = 1;

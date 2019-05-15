@@ -2,7 +2,7 @@ package autoInstallTaskwarrior;
 
 public class ModifyTwConfig {
 	public static void setTwServerUuid(InstallData installData) {
-		if (!installData.isUseSingleDevice() && installData.isServer() && installData.getServerTwUuid() != null) {
+		if (!installData.isUseSingleDevice() && !installData.isServer() && installData.getServerTwUuid() != null) {
 			setTwServerAdress(installData);
 			setTwServerUuidCommand(installData);
 		}
@@ -26,15 +26,13 @@ public class ModifyTwConfig {
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];
 		commands[0] = new Command();
-		commandLines[0] = new String[8];
+		commandLines[0] = new String[6];
 		commandLines[0][0] = "sudo";
 		commandLines[0][1] = "task";
 		commandLines[0][2] = "config";
 		commandLines[0][3] = "taskd.server";
 		commandLines[0][4] = "--";
-		commandLines[0][5] = installData.getServerName();
-		commandLines[0][6] = ":";
-		commandLines[0][7] = installData.getServerPort();
+		commandLines[0][5] = installData.getServerName()+":"+installData.getServerPort();
 		
 		commands[0].setCommandLines(commandLines[0]);
 		commands[0].setEnvVarContent("/var/taskd");
@@ -78,6 +76,7 @@ public class ModifyTwConfig {
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("");
 		commands[0].setSetWorkingPath(false);
+		Main.printCommand(0,commandLines[0]);
 		try {
 			RunCommandsV3.executeCommands(commands[0],true);
 		} catch (Exception e) {
