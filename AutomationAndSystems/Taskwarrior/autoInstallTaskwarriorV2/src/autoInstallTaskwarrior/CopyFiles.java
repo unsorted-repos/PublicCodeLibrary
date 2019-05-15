@@ -190,20 +190,19 @@ public class CopyFiles {
 	 */
 	public static void exportServerCertificates(InstallData installData) {
 		System.out.println("your output folder is located in=" + installData.getOutputPath());
-		if (!installData.isUseSingleDevice() && installData.isServer()) {
-			String sourcePath = "/home/" + installData.getLinuxUserName() + "/.task/";
-			String destinationPath = installData.getCertificateOutputPath();
+		
+		String sourcePath = "/home/" + installData.getLinuxUserName() + "/.task/";
+		String destinationPath = installData.getCertificateOutputPath();
 
-			for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
-				try {
-					CopyFiles.copyFileWithSudo(installData, sourcePath, installData.getSyncCertificateNames()[i],
-							destinationPath, installData.getSyncCertificateNames()[i]);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
+			try {
+				CopyFiles.copyFileWithSudo(installData, sourcePath, installData.getSyncCertificateNames()[i],
+						destinationPath, installData.getSyncCertificateNames()[i]);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			CreateFiles.exportTwUuid(installData);
 		}
+		CreateFiles.exportTwUuid(installData);
 	}
 }

@@ -12,14 +12,14 @@ public class ImportFiles {
 	 * 
 	 */
 	public static void checkImportCertificates(InstallData installData) {
-		if (!installData.isUseSingleDevice() && !installData.isServer()) {
+		
 			// check if certificatesInput folder exists, create it if it does not exist.
 			System.out.println("The certificateInputPath =" + installData.getCertificateInputPath());
 			if (!CreateFolders.checkIfFolderExists(installData.getCertificateInputPath())) {
 				CreateFolders.createOutputFolder(installData, installData.getCertificateInputPath());
 			}
 			checkIfCertificatesExist(installData);
-		}
+		
 	}
 
 	/**
@@ -81,19 +81,17 @@ public class ImportFiles {
 	 * @param installData
 	 */
 	public static void importCertificates(InstallData installData) {
-		if (!installData.isUseSingleDevice() && !installData.isServer()) {
-			String sourcePath = installData.getCertificateInputPath();
-			String destinationPath = "/home/" + installData.getLinuxUserName() + "/.task/";
-			for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
-				String sourceFileName = installData.getSyncCertificateNames()[i];
-				String destinationFileName = sourceFileName;
-				try {
-					CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath,
-							destinationFileName);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		String sourcePath = installData.getCertificateInputPath();
+		String destinationPath = "/home/" + installData.getLinuxUserName() + "/.task/";
+		for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
+			String sourceFileName = installData.getSyncCertificateNames()[i];
+			String destinationFileName = sourceFileName;
+			try {
+				CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath,
+						destinationFileName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

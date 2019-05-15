@@ -26,8 +26,7 @@ public class Main {
 		InstallData installData = HardCoded.hardCoded();
 				
 		
-		// import certificates if this is client installation.
-		ImportFiles.importCertificates(installData);
+
 		skipToNewPage();
 		
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
@@ -62,14 +61,23 @@ public class Main {
 		runJavaServerSort(installData);
 		
 		// export certificates if this is the server installation.
-		CopyFiles.exportServerCertificates(installData);
-		ImportFiles.importCertificates(installData);
-		ModifyTwConfig.setTwServerUuid(installData);
+		//importServerData(installData);
 		
 		
 		AskUserInput.promptReboot();
 		System.exit(0);
 
+	}
+	
+	private static void importServerData(InstallData installData) {
+		System.out.println("useSingledevice true="+installData.isUseSingleDevice());
+		if (installData.isUseSingleDevice()) {
+			// import certificates if this is client installation.
+			ImportFiles.importCertificates(installData);
+			CopyFiles.exportServerCertificates(installData);
+			ImportFiles.importCertificates(installData);
+			ModifyTwConfig.setTwServerUuid(installData);
+		}
 	}
 	
 	private static void exportBashrc(InstallData installData) throws Exception {
@@ -264,8 +272,6 @@ public class Main {
 		}
 		System.out.println(commandNr+"RUNNINGCOMMAND="+sb.toString());
 	}
-	
-	
 	
 	private static void runJavaServerSort(InstallData installData) {
 		int nrOfCommands = 1;

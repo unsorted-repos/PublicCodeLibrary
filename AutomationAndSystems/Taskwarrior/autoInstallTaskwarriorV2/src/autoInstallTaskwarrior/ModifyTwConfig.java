@@ -2,7 +2,8 @@ package autoInstallTaskwarrior;
 
 public class ModifyTwConfig {
 	public static void setTwServerUuid(InstallData installData) {
-		if (!installData.isUseSingleDevice() && !installData.isServer() && installData.getServerTwUuid() != null) {
+		System.out.println("Not null ="+installData.getServerTwUuid());
+		if (installData.getServerTwUuid() != null) {
 			setTwServerAdress(installData);
 			setTwServerUuidCommand(installData);
 		}
@@ -32,13 +33,15 @@ public class ModifyTwConfig {
 		commandLines[0][2] = "config";
 		commandLines[0][3] = "taskd.server";
 		commandLines[0][4] = "--";
-		commandLines[0][5] = installData.getServerName()+":"+installData.getServerPort();
+		//TODO: make dynamic
+		commandLines[0][5] = "eai.ddns.net:"+installData.getServerPort();
 		
 		commands[0].setCommandLines(commandLines[0]);
 		commands[0].setEnvVarContent("/var/taskd");
 		commands[0].setEnvVarName("TASKDDATA");
 		commands[0].setWorkingPath("");
 		commands[0].setSetWorkingPath(false);
+		Main.printCommand(0,commandLines[0]);
 		try {
 			RunCommandsV3.executeCommands(commands[0],true);
 		} catch (Exception e) {
@@ -64,12 +67,13 @@ public class ModifyTwConfig {
 		String[][] commandLines = new String[nrOfCommands][1];
 		Command[] commands = new Command[nrOfCommands];
 		commands[0] = new Command();
-		commandLines[0] = new String[5];
-		commandLines[0][0] = "task";
-		commandLines[0][1] = "config";
-		commandLines[0][2] = "taskd.credentials";
-		commandLines[0][3] = "--";
-		commandLines[0][4] = installData.getTwOrganisation()+"/"+installData.getTwUserName()+"/"+installData.getServerTwUuid();
+		commandLines[0] = new String[6];
+		commandLines[0][0] = "sudo";
+		commandLines[0][1] = "task";
+		commandLines[0][2] = "config";
+		commandLines[0][3] = "taskd.credentials";
+		commandLines[0][4] = "--";
+		commandLines[0][5] = installData.getTwOrganisation()+"/"+installData.getTwUserName()+"/"+installData.getServerTwUuid();
 		
 		commands[0].setCommandLines(commandLines[0]);
 		commands[0].setEnvVarContent("/var/taskd");
