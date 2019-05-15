@@ -64,6 +64,8 @@ public class Main {
 		// export certificates if this is the server installation.
 		CopyFiles.exportServerCertificates(installData);
 		
+		
+		ImportFiles.importCertificates(installData);
 		ModifyTwConfig.setTwServerUuid(installData);
 		
 		AskUserInput.promptReboot();

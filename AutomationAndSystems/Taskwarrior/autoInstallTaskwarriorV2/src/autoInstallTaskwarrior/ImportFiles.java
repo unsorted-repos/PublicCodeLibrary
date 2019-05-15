@@ -30,7 +30,7 @@ public class ImportFiles {
 	 * @return
 	 */
 	private static void checkIfCertificatesExist(InstallData installData) {
-		boolean[] checkAllFiles = new boolean[installData.getSyncCertificateNames().length];
+		boolean[] checkAllFiles = new boolean[installData.getSyncCertificateNames().length+1];
 		// check if certificates exist in certificatesInput folder
 //		System.out.println("alltrue="+areAllTrue(checkAllFiles));
 		while (!areAllTrue(checkAllFiles)) {
@@ -38,6 +38,9 @@ public class ImportFiles {
 				checkAllFiles[i] = CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),
 						installData.getSyncCertificateNames()[i]);
 			}
+			System.out.println("Checking: whether twUuid.txt exits="+installData.getTwUuidFileName());
+			checkAllFiles[installData.getSyncCertificateNames().length] = CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),
+					installData.getTwUuidFileName());
 			if (!areAllTrue(checkAllFiles)) {
 				requestCertificatesInput(installData);
 			}
@@ -47,11 +50,12 @@ public class ImportFiles {
 	public static void requestCertificatesInput(InstallData installData) {
 		String desiredAnswer = "y";
 		StringBuilder sb = new StringBuilder();
-		sb.append("In your server-device, you can find the required certificates in:" + '\n');
+		sb.append('\n'+"In your server-device, you can find the required certificates in:" + '\n');
 		sb.append(installData.getCertificateOutputPath() + '\n');
-		sb.append("Please copy those 3 certificate files:" + '\n' + '\n');
+		sb.append("Please copy those 3 certificate files and the txt file with the taskwarrior server uuid:" + '\n' + '\n');
 		for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
 			sb.append(installData.getSyncCertificateNames()[i] + '\n');
+			sb.append(installData.getServerTwUuid()+'\n');
 		}
 		sb.append("to path:" + '\n');
 		sb.append(installData.getCertificateInputPath() + '\n');
@@ -76,7 +80,7 @@ public class ImportFiles {
 	 * 
 	 * @param installData
 	 */
-	public static InstallData importCertificates(InstallData installData) {
+	public static void importCertificates(InstallData installData) {
 		if (!installData.isUseSingleDevice() && !installData.isServer()) {
 			String sourcePath = installData.getCertificateInputPath();
 			String destinationPath = "/home/" + installData.getLinuxUserName() + "/.task/";
@@ -91,19 +95,6 @@ public class ImportFiles {
 					e.printStackTrace();
 				}
 			}
-			return ImportFiles.importTaskUuid(installData);
 		}
-		return installData;
-	}
-
-	public static InstallData importTaskUuid(InstallData installData) {
-		while (!CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),installData.getTwUuidFileName())) {
-			String question = "I could not find the file with the taskwarrior server uuid in"
-					+ installData.getCertificateInputPath()
-					+ "'\n' Please put the txt file with the tw uuid of the server in it and answer with y.";
-			AskUserInput.loopQuestion(question,"y");
-		}
-		installData.setServerTwUuid(ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString());
-		return installData;
 	}
 }

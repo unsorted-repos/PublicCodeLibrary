@@ -164,5 +164,16 @@ public class AskUserInput {
 			return input;
 		    
 	}
+	
+	public static InstallData importTaskUuid(InstallData installData) {
+		while (!CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),installData.getTwUuidFileName())) {
+			String question = "I could not find the file with the taskwarrior server uuid in"
+					+ installData.getCertificateInputPath()
+					+ "'\n' Please put the txt file with the tw uuid of the server in it and answer with y.";
+			AskUserInput.loopQuestion(question,"y");
+		}
+		installData.setServerTwUuid(ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString());
+		return installData;
+	}
 }
 

@@ -92,6 +92,9 @@ public class HardCoded {
 //		System.out.println("isImportCertificates = "+installData.isImportCertificates());
 //		if (installData.isImportCertificates()) {ImportFiles.importCertificates(installData);}
 		ImportFiles.checkImportCertificates(installData);
+		
+		installData = AskUserInput.importTaskUuid(installData);
+		
 		return installData;
 	}
 
