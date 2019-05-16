@@ -73,7 +73,7 @@ public class Main {
 	
 	private static void importServerData(InstallData installData) {
 		System.out.println("useSingledevice true="+installData.isUseSingleDevice());
-		if (installData.isUseSingleDevice()) {
+		if (!installData.isUseSingleDevice() && installData.isServer()) {
 			// import certificates if this is client installation.
 			ImportFiles.importCertificates(installData);
 			ModifyTwConfig.setTwServerUuid(installData);
