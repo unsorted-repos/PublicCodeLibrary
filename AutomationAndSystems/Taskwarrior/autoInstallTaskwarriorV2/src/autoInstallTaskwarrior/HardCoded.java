@@ -93,9 +93,9 @@ public class HardCoded {
 //		if (installData.isImportCertificates()) {ImportFiles.importCertificates(installData);}
 		ImportFiles.checkImportCertificates(installData);
 		
-		
-		installData = AskUserInput.importTaskUuid(installData);
-		
+		if (!installData.isUseSingleDevice() && !installData.isServer()) {
+			installData = AskUserInput.importTaskUuid(installData);
+		}
 		return installData;
 	}
 
