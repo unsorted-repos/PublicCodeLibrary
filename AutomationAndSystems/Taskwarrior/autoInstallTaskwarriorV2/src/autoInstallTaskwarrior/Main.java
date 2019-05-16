@@ -60,7 +60,7 @@ public class Main {
 		runJavaServerSort(installData);
 		
 		// import certificates
-		importServerData(installData);
+		importData(installData);
 		// export certificates if this is the server installation.		
 		CopyFiles.exportServerCertificates(installData);
 		
@@ -70,12 +70,16 @@ public class Main {
 
 	}
 	
-	private static void importServerData(InstallData installData) {
+	private static void importData(InstallData installData) {
 		System.out.println("useSingledevice true="+installData.isUseSingleDevice());
 		if (!installData.isUseSingleDevice() && installData.isServer()) {
 			// import certificates if this is client installation.
 			ImportFiles.importCertificates(installData);
 			ModifyTwConfig.setTwServerUuid(installData);
+		}
+		if (installData.isRestoreBackup()) {
+			System.out.println("importing backup");
+			ImportFiles.importBackups(installData);
 		}
 	}
 	
