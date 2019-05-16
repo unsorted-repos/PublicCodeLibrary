@@ -12,14 +12,12 @@ public class ImportFiles {
 	 * 
 	 */
 	public static void checkImportCertificates(InstallData installData) {
-		
 			// check if certificatesInput folder exists, create it if it does not exist.
 			System.out.println("The certificateInputPath =" + installData.getCertificateInputPath());
 			if (!CreateFolders.checkIfFolderExists(installData.getCertificateInputPath())) {
 				CreateFolders.createOutputFolder(installData, installData.getCertificateInputPath());
 			}
 			checkIfCertificatesExist(installData);
-		
 	}
 
 	/**
@@ -85,6 +83,79 @@ public class ImportFiles {
 		String destinationPath = "/home/" + installData.getLinuxUserName() + "/.task/";
 		for (int i = 0; i < installData.getSyncCertificateNames().length; i++) {
 			String sourceFileName = installData.getSyncCertificateNames()[i];
+			String destinationFileName = sourceFileName;
+			try {
+				System.out.println("Copying as import:"+sourcePath+sourceFileName+"to:"+destinationPath+destinationFileName);
+				CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName, destinationPath,
+						destinationFileName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void checkImportBackups(InstallData installData) {
+		// check if certificatesInput folder exists, create it if it does not exist.
+		System.out.println("The backupInputPath =" + installData.getBackupInputPath());
+		if (!CreateFolders.checkIfFolderExists(installData.getBackupInputPath())) {
+			CreateFolders.createOutputFolder(installData, installData.getBackupInputPath());
+		}
+		checkIfBackupsExist(installData);
+	}
+	
+	/**
+	 * Checks whether the certificates exist in the folder certificatesInput of the
+	 * taskwarrior working directory
+	 * 
+	 * @param installData
+	 * @return
+	 */
+	private static void checkIfBackupsExist(InstallData installData) {
+		boolean[] checkAllFiles = new boolean[installData.getRestoreBackupNames().length+1];
+		// check if certificates exist in certificatesInput folder
+//		System.out.println("alltrue="+areAllTrue(checkAllFiles));
+		while (!areAllTrue(checkAllFiles)) {
+			for (int i = 0; i < installData.getRestoreBackupNames().length; i++) {
+				checkAllFiles[i] = CreateFiles.checkIfFileExist(installData.getBackupInputPath(),
+						installData.getRestoreBackupNames()[i]);
+			}
+			System.out.println("Checking: whether twUuid.txt exits="+installData.getTwUuidFileName());
+			checkAllFiles[installData.getRestoreBackupNames().length] = CreateFiles.checkIfFileExist(installData.getBackupInputPath(),
+					installData.getTwUuidFileName());
+			if (!areAllTrue(checkAllFiles)) {
+				requestBackupInput(installData);
+			}
+		}
+	}
+	
+	public static void requestBackupInput(InstallData installData) {
+		String desiredAnswer = "y";
+		StringBuilder sb = new StringBuilder();
+		sb.append('\n'+"Please put the following files:" + '\n');
+		
+		for (int i = 0; i < installData.getRestoreBackupNames().length; i++) {
+			sb.append(installData.getRestoreBackupNames()[i] + '\n');
+		}
+		sb.append("to path:" + '\n');
+		sb.append(installData.getBackupInputPath() + '\n');
+		sb.append("and confirm with y if you have done so."+'\n');
+		String question = sb.toString();
+
+		AskUserInput.loopQuestion(question, desiredAnswer);
+
+	}
+	
+	/**
+	 * Imports the .data files from <you hdd>/taskwarrior/backupsInput to /home/<your linux username>/.task/
+	 * 
+	 * @param installData
+	 */
+	public static void importBackups(InstallData installData) {
+		String sourcePath = installData.getBackupInputPath();
+		String destinationPath = "/home/" + installData.getLinuxUserName() + "/.task/";
+		for (int i = 0; i < installData.getRestoreBackupNames().length; i++) {
+			String sourceFileName = installData.getRestoreBackupNames()[i];
 			String destinationFileName = sourceFileName;
 			try {
 				System.out.println("Copying as import:"+sourcePath+sourceFileName+"to:"+destinationPath+destinationFileName);

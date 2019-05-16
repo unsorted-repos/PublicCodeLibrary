@@ -27,6 +27,7 @@ public class Main {
 
 		skipToNewPage();
 		
+		System.out.println("Backuprestore="+installData.isRestoreBackup());
 		// create the external non-resource files (export with commands 9,57 iso exportResource.
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);

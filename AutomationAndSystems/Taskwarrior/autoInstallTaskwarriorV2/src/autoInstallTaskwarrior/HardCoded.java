@@ -46,6 +46,14 @@ public class HardCoded {
 		installData.setTwUuidFileName("twUuid.txt");
 		installData.setUuidLength(36);
 		
+		String[] restoreBackupNames = new String[4];
+		restoreBackupNames[0] = "backlog.data";
+		restoreBackupNames[1] = "completed.data";
+		restoreBackupNames[2] = "pending.data";
+		restoreBackupNames[3] = "undo.data";
+		installData.setRestoreBackupNames(restoreBackupNames);	
+
+		
 //		installData.getUserInput()[2]="Public";
 //		installData.getUserInput()[3]="First";
 
@@ -95,6 +103,10 @@ public class HardCoded {
 			ImportFiles.checkImportCertificates(installData);
 			installData = AskUserInput.importTaskUuid(installData);
 		}
+		if (installData.isRestoreBackup()) {
+			ImportFiles.checkImportBackups(installData);
+		}
+		
 		return installData;
 	}
 

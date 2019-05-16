@@ -35,6 +35,7 @@ public class AskUserInput {
 		userInput.appendQuestion("Is this your server or client pc?(server/client)");
 		userInput.appendQuestion(
 				"Please enter the ddns of the website that you host with this pc. (e.g. duckduckgo.life becomes:duckduckgo.ddns.net)");
+		userInput.appendQuestion("Do you want to restore an old taskwarrior backup that you have (y/n)?");
 		// userInput[6] = reader.next();
 
 		askQuestions(installData, userInput);
@@ -56,11 +57,11 @@ public class AskUserInput {
 				correctFormat = checkUserFormat(i, answer);
 			}
 			userInput.appendAnswer(answer);
-			if (i == 3 && answer.equals("n")) { // if use 1 device, always server so skip last 2 questions.
+			if (i == 3 && answer.equals("n")) { // if use 1 device, always server so skip next 2 questions.
 				userInput.appendAnswer("server");
 				userInput.appendAnswer("0.0.0.0");
 				System.out.println("Answers=" + String.join(",", userInput.getAnswer()));
-				i = userInput.getQuestions().size() + 1;
+				i = 5;
 			}
 
 		}
@@ -78,36 +79,45 @@ public class AskUserInput {
 	 */
 	private static boolean checkUserFormat(int i, String answer) {
 		switch (i) {
-		case 0: {
-			return true;
-		}
-		case 1: {
-			return true;
-		}
-		case 2: {
-			return true;
-		}
-		case 3: {
-			if (answer.equals("y")) {
+			case 0: {
 				return true;
-			} else if (answer.equals("n")) {
-				return true;
-			} else {
-				return false;
 			}
-		}
-		case 4: {
-			if (answer.equals("server")) {
+			case 1: {
 				return true;
-			} else if (answer.equals("client")) {
-				return true;
-			} else {
-				return false;
 			}
-		}
-		case 5: {
-			return true;
-		}
+			case 2: {
+				return true;
+			}
+			case 3: {
+				if (answer.equals("y")) {
+					return true;
+				} else if (answer.equals("n")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			case 4: {
+				if (answer.equals("server")) {
+					return true;
+				} else if (answer.equals("client")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			case 5: {
+				return true;
+			}
+			case 6: {
+				if (answer.equals("y")) {
+					return true;
+				} else if (answer.equals("n")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		}
 		return false;
 	}

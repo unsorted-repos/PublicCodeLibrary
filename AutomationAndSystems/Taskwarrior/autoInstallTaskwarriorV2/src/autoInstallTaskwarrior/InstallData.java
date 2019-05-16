@@ -38,9 +38,27 @@ public class InstallData {
 	private boolean importCertificates;
 	private boolean importBackup;
 	private String[] syncCertificateNames;
+	private String[] restoreBackupNames;
+	public String[] getRestoreBackupNames() {
+		return restoreBackupNames;
+	}
+
+	public void setRestoreBackupNames(String[] restoreBackupNames) {
+		this.restoreBackupNames = restoreBackupNames;
+	}
+
 	private String twUuidFileName;
 	private String serverTwUuid;
 	private int uuidLength;
+	private boolean restoreBackup;
+
+	public boolean isRestoreBackup() {
+		return restoreBackup;
+	}
+
+	public void setRestoreBackup(boolean restoreBackup) {
+		this.restoreBackup = restoreBackup;
+	}
 
 	/**
 	 * @return the twUuidFileName
@@ -659,12 +677,13 @@ public class InstallData {
 		}
 
 		this.serverName = userInput.getAnswer().get(5);
-//		if (this.isServer) {
-//			System.out.println("Setting server="+userInput.getAnswer().get(5));
-//			
-//		} else {
-//			this.serverName = "0.0.0.0";
-//		}
+		
+		if (userInput.getAnswer().get(6).equals("y")) { // wants to restore backup
+			this.restoreBackup = true;
+		}
+		else if (userInput.getAnswer().get(6).equals("n")) { // don't restore backup
+			this.restoreBackup = false;
+		}
 
 		// TODO: Put in correct location
 		this.backupScriptDestination = "/home/" + this.linuxUserName + "/maintenance/";
