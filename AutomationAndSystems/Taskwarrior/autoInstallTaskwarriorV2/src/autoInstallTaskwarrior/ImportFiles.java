@@ -112,7 +112,7 @@ public class ImportFiles {
 	 * @return
 	 */
 	private static void checkIfBackupsExist(InstallData installData) {
-		boolean[] checkAllFiles = new boolean[installData.getRestoreBackupNames().length+1];
+		boolean[] checkAllFiles = new boolean[installData.getRestoreBackupNames().length];
 		// check if certificates exist in certificatesInput folder
 //		System.out.println("alltrue="+areAllTrue(checkAllFiles));
 		while (!areAllTrue(checkAllFiles)) {
@@ -120,9 +120,6 @@ public class ImportFiles {
 				checkAllFiles[i] = CreateFiles.checkIfFileExist(installData.getBackupInputPath(),
 						installData.getRestoreBackupNames()[i]);
 			}
-			System.out.println("Checking: whether twUuid.txt exits="+installData.getTwUuidFileName());
-			checkAllFiles[installData.getRestoreBackupNames().length] = CreateFiles.checkIfFileExist(installData.getBackupInputPath(),
-					installData.getTwUuidFileName());
 			if (!areAllTrue(checkAllFiles)) {
 				requestBackupInput(installData);
 			}
@@ -137,6 +134,7 @@ public class ImportFiles {
 		for (int i = 0; i < installData.getRestoreBackupNames().length; i++) {
 			sb.append(installData.getRestoreBackupNames()[i] + '\n');
 		}
+		sb.append("(undo.data) is not necessary but will be restored if you include it"+'\n');
 		sb.append("to path:" + '\n');
 		sb.append(installData.getBackupInputPath() + '\n');
 		sb.append("and confirm with y if you have done so."+'\n');

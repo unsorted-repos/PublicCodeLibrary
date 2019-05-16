@@ -46,11 +46,10 @@ public class HardCoded {
 		installData.setTwUuidFileName("twUuid.txt");
 		installData.setUuidLength(36);
 		
-		String[] restoreBackupNames = new String[4];
+		String[] restoreBackupNames = new String[3];
 		restoreBackupNames[0] = "backlog.data";
 		restoreBackupNames[1] = "completed.data";
 		restoreBackupNames[2] = "pending.data";
-		restoreBackupNames[3] = "undo.data";
 		installData.setRestoreBackupNames(restoreBackupNames);	
 
 		
