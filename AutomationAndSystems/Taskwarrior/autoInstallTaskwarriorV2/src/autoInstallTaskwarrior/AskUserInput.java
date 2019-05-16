@@ -123,20 +123,37 @@ public class AskUserInput {
 		return driveLetter;
 	}
 
-	public static void promptReboot() {
-		String question = "Installation is completed. Before you continue you need to restart WSL Ubuntu (start>ubuntu). Please confirm with y.";
+	public static void promptReboot(InstallData installData) {
+		mentionCertOutLocation(installData);
+		String question = "Installation is completed. Before you continue you need to restart WSL Ubuntu (start>ubuntu).";
 		String desiredAnswer = "y";
-		if (loopQuestion(question, desiredAnswer)) {
-			Main.exitUbuntu();
+		while(true) {
+			loopQuestion(question, desiredAnswer);
+		}
+	}
+
+	public static void mentionCertOutLocation(InstallData installData) {
+		if (!installData.isUseSingleDevice() && installData.isServer()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Your server certificates are located in:" + '\n' + '\n');
+			sb.append(installData.getCertificateOutputPath() + '\n');
+			sb.append("To be able to sync another device with this taskwarrior server, you need to copy these files to:   "
+					+ "<yourharddrive>:/Taskwarrior/certificateInput" + "  on that other device (That installation will ask you for the files when it needs them.)" + '\n');
+			sb.append("Please confirm with y, if you found the 4 files.");
+			String question = sb.toString();
+			String desiredAnswer = "y";
+			if (!loopQuestion(question, desiredAnswer)) {
+				mentionCertOutLocation(installData);
+			}
 		}
 	}
 
 	public static boolean loopQuestion(String question, String desiredAnswer) {
 		String response = null;
-		
+
 		while (true) {
 			// System.exit(0);
-			
+
 //			Scanner reader = new Scanner(System.in); // Reading from System.in
 			System.out.println(question);
 			response = bufferedReaderInput();
@@ -148,33 +165,37 @@ public class AskUserInput {
 //			reader.close();
 		}
 	}
-	
+
 	public static String bufferedReaderInput() {
-		  BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		    String input = null;
-			try {
-				input = reader.readLine();
-				String answer = input;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String input = null;
+		try {
+			input = reader.readLine();
+			String answer = input;
 //			    reader.close();
-			    return input;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return input;
-		    
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return input;
+
 	}
-	
+
 	public static InstallData importTaskUuid(InstallData installData) {
-		while (!CreateFiles.checkIfFileExist(installData.getCertificateInputPath(),installData.getTwUuidFileName())) {
+		while (!CreateFiles.checkIfFileExist(installData.getCertificateInputPath(), installData.getTwUuidFileName())) {
 			String question = "I could not find the file with the taskwarrior server uuid in"
 					+ installData.getCertificateInputPath()
 					+ "'\n' Please put the txt file with the tw uuid of the server in it and answer with y.";
-			AskUserInput.loopQuestion(question,"y");
+			AskUserInput.loopQuestion(question, "y");
 		}
-		System.out.println("EncapsulatedUuid="+ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString().substring(0, installData.getUuidLength())+"=");
-		installData.setServerTwUuid(ReadFiles.readFiles(installData.getCertificateInputPath()+installData.getTwUuidFileName()).toString().substring(0, installData.getUuidLength()));
+		System.out.println("EncapsulatedUuid="
+				+ ReadFiles.readFiles(installData.getCertificateInputPath() + installData.getTwUuidFileName())
+						.toString().substring(0, installData.getUuidLength())
+				+ "=");
+		installData.setServerTwUuid(
+				ReadFiles.readFiles(installData.getCertificateInputPath() + installData.getTwUuidFileName()).toString()
+						.substring(0, installData.getUuidLength()));
 		return installData;
 	}
 }
-

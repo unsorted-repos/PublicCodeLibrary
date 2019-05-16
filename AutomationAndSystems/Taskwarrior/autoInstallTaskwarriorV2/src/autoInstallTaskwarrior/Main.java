@@ -64,7 +64,7 @@ public class Main {
 		CopyFiles.exportServerCertificates(installData);
 		
 		
-		AskUserInput.promptReboot();
+		AskUserInput.promptReboot(installData);
 		System.exit(0);
 
 	}
