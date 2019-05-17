@@ -74,21 +74,24 @@ public class HardCoded {
 		String[] cronCommand = new String[nrOfCronJobs];
 		String[] cronPath = new String[nrOfCronJobs];
 		String[] cronFileName = new String[nrOfCronJobs];
+		boolean[] useThisCronInClientScenario = new boolean[nrOfCronJobs];
 
 		// set 1st cronjob:*/1 * * * * root sh -v /home/a/maintenance/autoBackup.sh
 		cronTiming[0] = "*/1 * * * *";
 		cronCommand[0] = "sudo sh -v";
 		cronPath[0] = "/home/a/maintenance/";
 		cronFileName[0] = "autoBackup.sh";
+		useThisCronInClientScenario[0] = true;
 
 		// set 2nd cronjob:*/10 * * * * root sh -v /home/a/maintenance/customSort.sh
 		cronTiming[1] = "*/10 * * * *";
 		cronCommand[1] = "sudo java -jar";
 		cronPath[1] = "/home/a/maintenance/";
 		cronFileName[1] = "JavaServerSort.jar";
+		useThisCronInClientScenario[1] = false;
 
 		for (int i = 0; i < nrOfCronJobs; i++) {
-			cronJobs[i] = new CronJob(cronTiming[i], cronCommand[i], cronPath[i], cronFileName[i]);
+			cronJobs[i] = new CronJob(cronTiming[i], cronCommand[i], cronPath[i], cronFileName[i], useThisCronInClientScenario[i]);
 		}
 
 		installData.setCronJobs(cronJobs);

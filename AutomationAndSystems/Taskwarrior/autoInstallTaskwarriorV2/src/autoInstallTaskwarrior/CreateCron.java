@@ -92,8 +92,10 @@ public class CreateCron {
      for (int i = 0; i < installData.getCronJobs().length; i++) {
     	 tempJobString=installData.getCronJobs()[i].getCompleteCommand();
     	 if (!jobs.contains(tempJobString)) {
-    		 jobs.add(tempJobString);
-        	 System.out.println("Adding="+tempJobString);
+    		 if (checkIfCronShouldBeInstalled(installData,i)) {
+    			 jobs.add(tempJobString);
+            	 System.out.println("Adding="+tempJobString);	 
+    		 }
     	 }else {
     		 System.out.println("The list already contained:"+tempJobString);
     	 }
@@ -104,5 +106,18 @@ public class CreateCron {
      listJobs();
     }
 
-    
+    /**
+     * This method checks whether the cronjob should be installed or not. 
+     * @param installData
+     * @param cronjob
+     */
+    private boolean checkIfCronShouldBeInstalled(InstallData installData, int cronJobIndex) {
+    	CronJob tempCronJob = installData.getCronJobs()[cronJobIndex];
+    	if (!installData.isServer() && !tempCronJob.isUseInClient()) {
+    		System.out.println("It is client, and this cron should not be used in client");
+    		return false;
+    	}else {
+    		return true;
+    	}
+    }
 }

@@ -13,6 +13,66 @@ public class CronJob {
 	private String cronPath;
 	private String cronFileName;	
 	private String completeCommand;
+	private boolean useInMultiDevice;
+	private boolean useThisCronInClientScenario;
+	
+	
+	public boolean isUseThisCronInClientScenario() {
+		return useThisCronInClientScenario;
+	}
+
+	public void setUseThisCronInClientScenario(boolean useThisCronInClientScenario) {
+		this.useThisCronInClientScenario = useThisCronInClientScenario;
+	}
+
+	public String getCronTiming() {
+		return cronTiming;
+	}
+
+	public void setCronTiming(String cronTiming) {
+		this.cronTiming = cronTiming;
+	}
+
+	public String getCronCommand() {
+		return cronCommand;
+	}
+
+	public void setCronCommand(String cronCommand) {
+		this.cronCommand = cronCommand;
+	}
+
+	public String getCronFileName() {
+		return cronFileName;
+	}
+
+	public void setCronFileName(String cronFileName) {
+		this.cronFileName = cronFileName;
+	}
+
+	public boolean isUseInMultiDevice() {
+		return useInMultiDevice;
+	}
+
+	public void setUseInMultiDevice(boolean useInMultiDevice) {
+		this.useInMultiDevice = useInMultiDevice;
+	}
+
+	public boolean isUseInClient() {
+		return useInClient;
+	}
+
+	public void setUseInClient(boolean useInClient) {
+		this.useInClient = useInClient;
+	}
+
+	public String getCronPath() {
+		return cronPath;
+	}
+
+	public void setCompleteCommand(String completeCommand) {
+		this.completeCommand = completeCommand;
+	}
+	private boolean useInClient;
 	
 	/**
      * Question: is calling setCronPath in the constructor proper etiquette?
@@ -21,12 +81,13 @@ public class CronJob {
 	 * @param cronPath
 	 * @param cronFileName
 	 */
-	CronJob(String cronTiming, String cronCommand, String cronPath, String cronFileName) {
+	CronJob(String cronTiming, String cronCommand, String cronPath, String cronFileName, boolean useThisCronInClientScenario) {
 		this.cronTiming = cronTiming;
 		this.cronCommand = cronCommand;	
 		// ensure path is correct
 		this.setCronPath(cronPath);
 		this.cronFileName = cronFileName;
+		this.useThisCronInClientScenario = useThisCronInClientScenario;
 	}
 	
 	/**
