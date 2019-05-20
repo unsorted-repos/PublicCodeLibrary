@@ -18,6 +18,7 @@ public class ModifyTwConfig {
 	 * sudo task config taskd.server -- <yourOwnWebsite>.ddns.net:53589
 	 * task config taskd.credentials -- Public/First/<the user UUID of your Main tw server>
 	 * 
+	 * TODO: Make server adress dynamic.
 	 * create outputFolder if the path does not exist
 	 * @param installData
 	 * @param folderPath
