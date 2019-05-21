@@ -39,6 +39,20 @@ public class InstallData {
 	private boolean importBackup;
 	private String[] syncCertificateNames;
 	private String[] restoreBackupNames;
+	private String wslOs;
+	
+	
+	
+	
+	
+	public String getWslOs() {
+		return wslOs;
+	}
+
+	public void setWslOs(String wslOs) {
+		this.wslOs = wslOs;
+	}
+
 	public String[] getRestoreBackupNames() {
 		return restoreBackupNames;
 	}

@@ -62,7 +62,12 @@ public class GenerateCommandsV3 {
 		commandLines[2][0] = "yes | sudo";
 		commandLines[2][1] = "apt";
 		commandLines[2][2] = "install";
-		commandLines[2][3] = "task";
+		if (installData.getWslOs().equals("Ubuntu 16.04")){
+			commandLines[2][3] = "task";
+		}else if (installData.getWslOs().equals("Ubuntu 18.04")){
+			commandLines[2][3] = "taskwarrior";
+		}
+		
 		commands[2].setCommandLines(commandLines[2]);
 		commands[2].setEnvVarContent("/var/taskd");
 		commands[2].setEnvVarName("TASKDDATA");
