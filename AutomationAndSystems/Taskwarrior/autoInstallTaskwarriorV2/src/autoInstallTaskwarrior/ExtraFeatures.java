@@ -10,7 +10,7 @@ public class ExtraFeatures {
 //		(Clear the programmatically added lines of the automated installation process (till "task sync"))
 //		sudo add-apt-repository ppa:jonathonf/python-3.6
 //		sudo apt update
-//		sudo apt install python3.6 python3-pip
+//		yes | sudo apt install python3.6 python3-pip
 //		sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
 //		sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2
 //		sudo -H pip3 install --upgrade pip
@@ -18,21 +18,23 @@ public class ExtraFeatures {
 //		export WORKON_HOME=$HOME/.virtualenvs                    
 //		export PROJECT_HOME=/mnt/c/Users/a/Code         
 //		export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6       
-//		source /usr/local/bin/virtualenvwrapper.sh         
+//		source /usr/local/bin/virtualenvwrapper.sh
 //		source ~/.bashrc
 //		python3 -V
 //		
 //		cd ~
 //		mkdir gCalSync
 //		cd gCalSync
-//		python3 -V (returns: Python 3.6.2)
 //		git clone https://github.com/bergercookie/taskw_gcal_sync.git
 //		cd taskw_gcal_sync
-//		pip3 install --user --upgrade requirements.txt (returns error: could not find version that satisfies requirements.txt)
+//		SKIPPED: pip3 install --user --upgrade requirements.txt (returns error: could not find version that satisfies requirements.txt)
 //		pip3 install --user --upgrade taskw_gcal_sync
-//		tw_gcal_sync --help (SUCCESSFULL!)
+//		./tw_gcal_sync --help (when installed as root)
+//		tw_gcal_sync --help (SUCCESSFULL! for non-root)
 //		tw_gcal_sync	
-//		tw_gcal_sync -c --gcal-calendar -t --taskwarrior-tag
+//		task add due:2019-06-01T13:01 tag:remindme testtask
+//		./tw_gcal_sync -c "TW Reminders" -t remindme
+		//Completely successfull and verified in Ubuntu18.04 (problem, tw not automatically installed after script.)
 	}
 
 	// auto install timewarrior
