@@ -40,11 +40,19 @@ public class InstallData {
 	private String[] syncCertificateNames;
 	private String[] restoreBackupNames;
 	private String wslOs;
+	private String gCalSyncFolderName; 
 	
 	
 	
 	
-	
+	public String getgCalSyncFolderName() {
+		return gCalSyncFolderName;
+	}
+
+	public void setgCalSyncFolderName(String gCalSyncFolderName) {
+		this.gCalSyncFolderName = gCalSyncFolderName;
+	}
+
 	public String getWslOs() {
 		return wslOs;
 	}

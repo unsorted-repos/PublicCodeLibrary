@@ -118,6 +118,8 @@ public class HardCoded {
 			installData.setWslOs("Ubuntu 16.04");
 		}
 		
+		installData.setgCalSyncFolderName("gCalSync");
+		
 		return installData;
 	}
 

@@ -34,6 +34,7 @@ public class ExtraFeatures {
 //		tw_gcal_sync	
 //		task add due:2019-06-01T13:01 tag:remindme testtask
 //		./tw_gcal_sync -c "TW Reminders" -t remindme
+//		python3 /home/a/gCalSync/taskw_gcal_sync/tw_gcal_sync -c "TW Reminders" -t remindme
 		//Completely successfull and verified in Ubuntu18.04 (problem, tw not automatically installed after script.)
 	}
 

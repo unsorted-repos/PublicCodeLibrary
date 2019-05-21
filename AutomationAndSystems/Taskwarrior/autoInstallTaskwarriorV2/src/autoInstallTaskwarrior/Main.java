@@ -33,10 +33,8 @@ public class Main {
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);
 
-		// create the .basshrc file.
-		System.out.println("backupScriptDestination=" + installData.getBackupScriptDestination());
-		exportBashrc(installData);
-
+		
+		
 		System.out.println("Server and port are:" + installData.getServerName() + "and=" + installData.getServerPort());
 
 		// create cronjob
@@ -50,10 +48,24 @@ public class Main {
 
 		// get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
-
+		
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
 
+		//run shell
+//		RunShell.runScript("/home/a/.bashrc");
+		
+		// get commands to instal calendar sync
+		commands = GCalSyncCommands.generateCommands(installData);
+		
+		// execute installation commands
+		manageCommandGeneration(installData, commands);
+
+		
+		// create the .basshrc file.
+		System.out.println("backupScriptDestination=" + installData.getBackupScriptDestination());
+		exportBashrc(installData);
+		
 		// run JavaServerSort once
 		System.out.println("Running javasort");
 		runJavaServerSort(installData);
