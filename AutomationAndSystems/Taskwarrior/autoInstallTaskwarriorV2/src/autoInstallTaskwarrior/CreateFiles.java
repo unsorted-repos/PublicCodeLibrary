@@ -28,6 +28,19 @@ public class CreateFiles {
 		// write content of vars file
 		writeFileContent(installData, installData.getVars());
 	}
+	
+	public static void createGCalSyncInstall(InstallData installData) throws IOException {
+
+		System.out.println("Incoming path inc. filename:" + installData.getLinuxPath() + installData.getgCalSyncInstallScriptName());
+		deleteFile(installData.getgCalSyncInstallScriptName());
+
+		// create a file called vars with content "content"
+		createFile2(installData.getLinuxPath(), installData.getgCalSyncInstallScriptName());
+		// createFile1(installData.getLinuxPath(),installData.getVars());
+
+		// write content of vars file
+		writeFileContent(installData, installData.getgCalSyncInstallScriptName());
+	}
 
 	/**
 	 * This creates the sudoers.sh file required in command 8
@@ -73,10 +86,12 @@ public class CreateFiles {
 			case "twUuid.txt":
 				writer = writeLinesExportTwUuid(installData, writer);
 				break;
+			case "gCalSyncInstaller.sh":
+				writer = writeLinesGCalSyncInstaller(installData, writer);
 			}
 
 			writer.close();
-			System.out.println("JUST WROTE CONTENT of " + fileName + " FILE!");
+			System.out.println("JUST WROTE CONTENT of " + fileName + " FILE! To path:"+installData.getLinuxPath());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -235,6 +250,46 @@ public class CreateFiles {
 		return writer;
 	}
 
+	public static PrintWriter writeLinesGCalSyncInstaller(InstallData installData, PrintWriter writer) {
+		char quotation = (char) 34; // quotation mark "
+		writer.println("#!/bin/bash");
+		writer.println("add-apt-repository ppa:jonathonf/python-3.6");
+		writer.println("echo 1");
+		writer.println("apt update");
+		writer.println("echo 2");
+		writer.println("sudo apt install python3.6 python3-pip");
+		writer.println("sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1");
+		writer.println("sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2");
+		writer.println("sudo -H pip3 install --upgrade pip");
+		writer.println("sudo -H pip3 install virtualenv virtualenvwrapper");
+		writer.println("export WORKON_HOME=$HOME/.virtualenvs");
+		writer.println("export PROJECT_HOME=/mnt/c/Users/a/Code");
+		writer.println("export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6");
+		writer.println("source /usr/local/bin/virtualenvwrapper.sh");
+		writer.println("source ~/.bashrc");
+		writer.println("python3 -V");
+		writer.println("homeDirName="+quotation+"/home/a/"+quotation);
+		writer.println("gCalSyncFolderName="+quotation+"gCalSync"+quotation);
+		writer.println("task_gcal_syncFolderName="+quotation+"task_gcal_sync"+quotation);
+		writer.println("cd "+quotation+"$(homeDirName "+quotation+"$0"+quotation+")"+quotation);
+		writer.println("mkdir gCalSync");
+		writer.println("cd gCalSync");
+		writer.println("cd "+quotation+"$(homeDirName+gCalSyncFolderName "+quotation+"$0"+quotation+")"+quotation);
+		writer.println("git clone https://github.com/bergercookie/taskw_gcal_sync.git");
+		writer.println("cd taskw_gcal_sync");
+		writer.println("cd "+quotation+"$(homeDirName+gCalSyncFolderName+"+quotation+"/"+quotation+"+task_gcal_syncFolderName "+quotation+"$0"+quotation+")"+quotation);
+		writer.println("pip3 install --user --upgrade requirements.txt");
+		writer.println("pip3 install --user --upgrade taskw_gcal_sync");
+		writer.println("/home/a/gCalSync/task_gcal_sync/tw_gcal_sync --help");
+		writer.println("tw_gcal_sync --help");
+		writer.println("sudo ./tw_gcal_sync --help");
+		writer.println("tw_gcal_sync");
+		writer.println("task add due:2019-06-01T13:01 tag:remindme testtask");
+		writer.println("./tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
+		writer.println("python3 /home/a/gCalSync/taskw_gcal_sync/tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
+		return writer;
+	}
+	
 	public static void exportTwUuid(InstallData installData) {
 		writeFileContent(installData, installData.getTwUuidFileName());
 		String sourcePath = installData.getLinuxPath();

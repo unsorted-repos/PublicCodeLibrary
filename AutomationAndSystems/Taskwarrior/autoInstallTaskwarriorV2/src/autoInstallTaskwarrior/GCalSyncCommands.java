@@ -142,10 +142,9 @@ public class GCalSyncCommands {
 		commands[9].setSetEnvVar(false);
 		commands[9].setSetWorkingPath(false);
 
-		commandLines[10] = new String[3];
-		commandLines[10][0] = "yes | sudo";
-		commandLines[10][1] = "add-apt-repository";
-		commandLines[10][2] = "ppa:jonathonf/python-3.6";
+		commandLines[10] = new String[2];
+		commandLines[10][0] = "yes | echo";
+		commandLines[10][1] = "filler";
 		commands[10].setCommandLines(commandLines[10]);
 		commands[10].setEnvVarContent("");
 		commands[10].setEnvVarName("");
@@ -159,10 +158,10 @@ public class GCalSyncCommands {
 		commandLines[11][1] = "bash";
 		commandLines[11][2] = "/usr/local/bin/virtualenvwrapper.sh";
 		commands[11].setCommandLines(commandLines[11]);
-		commands[11].setEnvVarContent("");
-		commands[11].setEnvVarName("");
-		commands[11].setWorkingPath(commands[11].getEnvVarContent());
-		commands[11].setSetEnvVar(false);
+		commands[11].setEnvVarContent("/usr/bin/python3.6");
+		commands[11].setEnvVarName("VIRTUALENVWRAPPER_PYTHON");
+		commands[11].setWorkingPath("/usr/local/bin/");
+		commands[11].setSetEnvVar(true);
 		commands[11].setSetWorkingPath(false);
 		
 		commandLines[12] = new String[3];
@@ -200,29 +199,42 @@ public class GCalSyncCommands {
 		commands[14].setWorkingPath("/home/"+installData.getLinuxUserName()+"/"+installData.getgCalSyncFolderName());
 		commands[14].setSetEnvVar(false);
 		commands[14].setSetWorkingPath(true);
-		
+		 
 		commandLines[15] = new String[5];
 		commandLines[15][0] = "pip3";
 		commandLines[15][1] = "install";
 		commandLines[15][2] = "--user";
 		commandLines[15][3] = "--upgrade";
-		commandLines[15][4] = "taskw_gcal_sync";
+		commandLines[15][4] = "requirements.txt";
 		commands[15].setCommandLines(commandLines[15]);
 		commands[15].setEnvVarContent("");
 		commands[15].setEnvVarName("");
 		commands[15].setWorkingPath(commands[15].getEnvVarContent());
 		commands[15].setSetEnvVar(false);
 		commands[15].setSetWorkingPath(false);
-
-		commandLines[16] = new String[2];
-		commandLines[16][0] = "./tw_gcal_sync";
-		commandLines[16][1] = "--help";
+		
+		commandLines[16] = new String[5];
+		commandLines[16][0] = "pip3";
+		commandLines[16][1] = "install";
+		commandLines[16][2] = "--user";
+		commandLines[16][3] = "--upgrade";
+		commandLines[16][4] = "taskw_gcal_sync";
 		commands[16].setCommandLines(commandLines[16]);
 		commands[16].setEnvVarContent("");
 		commands[16].setEnvVarName("");
 		commands[16].setWorkingPath(commands[16].getEnvVarContent());
 		commands[16].setSetEnvVar(false);
 		commands[16].setSetWorkingPath(false);
+
+//		commandLines[16] = new String[2];
+//		commandLines[16][0] = "./tw_gcal_sync";
+//		commandLines[16][1] = "--help";
+//		commands[16].setCommandLines(commandLines[16]);
+//		commands[16].setEnvVarContent("");
+//		commands[16].setEnvVarName("");
+//		commands[16].setWorkingPath(commands[16].getEnvVarContent());
+//		commands[16].setSetEnvVar(false);
+//		commands[16].setSetWorkingPath(false);
 //		
 		commandLines[17] = new String[4];
 		commandLines[17][0] = "sudo";

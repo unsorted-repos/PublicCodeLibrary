@@ -35,6 +35,7 @@ public class HardCoded {
 		installData.setVisudoFileName("sudoers.sh");
 		installData.setVisudoPath("/home/" + installData.getLinuxUserName() + "/maintenance/");
 		installData.setSudoersFileName("sudoers.sh");
+		installData.setgCalSyncInstallScriptName("gCalSyncInstaller.sh");
 
 		// get the path of this compiled .jar file
 		installData.setLinuxPath(GetThisPath.getJarLocation()[0]);

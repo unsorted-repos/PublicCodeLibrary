@@ -27,4 +27,27 @@ public class RunShell {
 	        System.exit(1);
 	    }
 	}
+	
+	/**
+	 * The destination path is only made if it does not yet exist. If it does exist
+	 * and contains files, those files are preserved.
+	 * 
+	 * @param destinationPath
+	 * @throws Exception
+	 */
+	public static void runShellWithSudo(String destinationPath,String destinationFile) throws Exception {
+		Command command = new Command();
+		String[] commandLines = new String[3];
+		commandLines[0] = "sudo";
+		commandLines[1] = "bash";
+		commandLines[2] = destinationPath+destinationFile;
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetWorkingPath(false);
+
+		// execute command to create destination folder
+		RunCommandsV3.executeCommands(command, false);
+	}
 }

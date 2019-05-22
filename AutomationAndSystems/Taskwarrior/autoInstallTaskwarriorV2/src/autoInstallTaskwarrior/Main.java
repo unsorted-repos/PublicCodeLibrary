@@ -22,7 +22,7 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-
+		char quotation = (char) 34; // quotation mark "
 		InstallData installData = HardCoded.hardCoded();
 
 		skipToNewPage();
@@ -32,7 +32,8 @@ public class Main {
 		// exportResource.
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);
-
+		installGCalSyn(installData);
+		
 		
 		
 		System.out.println("Server and port are:" + installData.getServerName() + "and=" + installData.getServerPort());
@@ -48,24 +49,26 @@ public class Main {
 
 		// get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
-		
+
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
 
-		//run shell
+		// run shell
 //		RunShell.runScript("/home/a/.bashrc");
-		
-		// get commands to instal calendar sync
-		commands = GCalSyncCommands.generateCommands(installData);
-		
-		// execute installation commands
-		manageCommandGeneration(installData, commands);
 
+		// get commands to instal calendar sync
+		//commands = GCalSyncCommands.generateCommands(installData);
+
+		// execute installation commands
+//		manageCommandGeneration(installData, commands);
+
+		//installGCalSync
+		CreateFiles.writeFileContent(installData,"gCalSyncInstaller.sh");
 		
 		// create the .basshrc file.
 		System.out.println("backupScriptDestination=" + installData.getBackupScriptDestination());
 		exportBashrc(installData);
-		
+
 		// run JavaServerSort once
 		System.out.println("Running javasort");
 		runJavaServerSort(installData);
@@ -76,11 +79,27 @@ public class Main {
 		CopyFiles.exportServerCertificates(installData);
 
 		// Loop asking user to reboot WSL Ubuntu 16.04
+		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"
+				+ installData.getgCalSyncFolderName() + "/taskw_gcal_sync/tw_gcal_sync -c " + quotation + "TW Reminders"
+				+ quotation + " -t remindme");
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
 
 	}
 
+	private static void installGCalSyn(InstallData installData) {		
+		try {
+			CreateFiles.createGCalSyncInstall(installData);
+			CopyFiles.copyFileWithSudo(installData, installData.getLinuxPath(), installData.getgCalSyncInstallScriptName(), installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
+			CreateFiles.makeScriptRunnable(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
+			RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/**
 	 * Scenario: Multi-device: client. Imports the certificates from the folder as
 	 * specified in HardCoded (currently: <your
@@ -105,7 +124,8 @@ public class Main {
 	}
 
 	/**
-	 * The .bashrc file 
+	 * The .bashrc file
+	 * 
 	 * @param installData
 	 * @throws Exception
 	 */
@@ -136,6 +156,9 @@ public class Main {
 			System.out.println("The .bashrc already contained the automatic login procedure, so it is not modified.");
 		}
 	}
+	
+	
+
 
 	private static void modifyVisudo(InstallData installData) throws Exception {
 		// File testFile = new File(installData.getLinuxPath()+"testFile");
