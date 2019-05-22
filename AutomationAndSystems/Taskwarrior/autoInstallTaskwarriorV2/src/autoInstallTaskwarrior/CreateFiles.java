@@ -266,7 +266,8 @@ public class CreateFiles {
 		writer.println("export PROJECT_HOME=/mnt/c/Users/a/Code");
 		writer.println("export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.6");
 		writer.println("source /usr/local/bin/virtualenvwrapper.sh");
-		writer.println("source ~/.bashrc");
+		//TODO: Uncomment if required
+		//writer.println("source ~/.bashrc");
 		writer.println("python3 -V");
 		writer.println("homeDirName="+quotation+"/home/a/"+quotation);
 		writer.println("gCalSyncFolderName="+quotation+"gCalSync"+quotation);

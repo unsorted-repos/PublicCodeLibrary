@@ -32,7 +32,7 @@ public class Main {
 		// exportResource.
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);
-		installGCalSyn(installData);
+		
 		
 		
 		
@@ -52,6 +52,8 @@ public class Main {
 
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
+		
+		installGCalSyn(installData);
 
 		// run shell
 //		RunShell.runScript("/home/a/.bashrc");
@@ -82,6 +84,9 @@ public class Main {
 		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"
 				+ installData.getgCalSyncFolderName() + "/taskw_gcal_sync/tw_gcal_sync -c " + quotation + "TW Reminders"
 				+ quotation + " -t remindme");
+		
+		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
+		
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
 
@@ -92,7 +97,7 @@ public class Main {
 			CreateFiles.createGCalSyncInstall(installData);
 			CopyFiles.copyFileWithSudo(installData, installData.getLinuxPath(), installData.getgCalSyncInstallScriptName(), installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
 			CreateFiles.makeScriptRunnable(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
-			RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
