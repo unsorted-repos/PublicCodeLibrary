@@ -257,7 +257,7 @@ public class CreateFiles {
 		writer.println("echo 1");
 		writer.println("apt update");
 		writer.println("echo 2");
-		writer.println("sudo apt install python3.6 python3-pip");
+		writer.println("yes | sudo apt install python3.6 python3-pip");
 		writer.println("sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1");
 		writer.println("sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 2");
 		writer.println("sudo -H pip3 install --upgrade pip");
