@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO: Before compiling, set testRun to false! Copy this script to /home/<your
- * ubuntuUsername (which is the same as ~/) So if you store this script on your
- * Windows disc c:/copyToUbuntu you enter: cp
- * /mnt/c/copyToUbuntu/commandLinux.jar ~/
+ * TODO: Before compiling, set testRun to false! Before you run this
+ * project/script, enter the following commands in WSL Ubuntu:
  * 
- * Before you run it: yes | sudo apt update yes | sudo apt install default-jre
+ * yes | sudo apt update
  * 
- * This script executes a series of commands to install taskwarrior on WSL
- * Ubuntu.
+ * yes | sudo apt install default-jre
  * 
- * @author a
- *
+ * If you store this script on your Windows harddrive in
+ * c:/copyToUbuntu/autoInstallTaskwarrior.jar you run the script with:
+ * 
+ * java -jar "/mnt/c/copyToUbuntu/autoInstallTaskwarrior.jar
  */
 public class Main {
 
@@ -32,10 +31,7 @@ public class Main {
 		// exportResource.
 		CreateFiles.createVars(installData);
 		CreateFiles.createSudoers(installData);
-		
-		
-		
-		
+
 		System.out.println("Server and port are:" + installData.getServerName() + "and=" + installData.getServerPort());
 
 		// create cronjob
@@ -49,18 +45,18 @@ public class Main {
 
 		// get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
-		
+
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
-		
+
 		installGCalSyn(installData);
 
 		// run shell
 //		RunShell.runScript("/home/a/.bashrc");
 
-		//Create gCalSync installation shell
-		CreateFiles.writeFileContent(installData,"gCalSyncInstaller.sh");
-		
+		// Create gCalSync installation shell
+		CreateFiles.writeFileContent(installData, "gCalSyncInstaller.sh");
+
 		// create the .basshrc file.
 		System.out.println("backupScriptDestination=" + installData.getBackupScriptDestination());
 		exportBashrc(installData);
@@ -75,31 +71,45 @@ public class Main {
 		CopyFiles.exportServerCertificates(installData);
 
 		// Loop asking user to reboot WSL Ubuntu 16.04
-		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"+installData.getMaintenanceFolder()+"/"
-				+ installData.getgCalSyncCloneFolder() + "/tw_gcal_sync -c " + quotation + "TW Reminders"
-				+ quotation + " -t remindme");
-		
-		//Run gCalSync installation shell
+		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"
+				+ installData.getMaintenanceFolder() + "/" + installData.getgCalSyncCloneFolder() + "/tw_gcal_sync -c "
+				+ quotation + "TW Reminders" + quotation + " -t remindme");
+
+		// Run gCalSync installation shell
 		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
-		
+
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
 
 	}
 
-	private static void installGCalSyn(InstallData installData) {		
+	/**
+	 * First writes the gCalSyncInstaller.sh shell script that will install the
+	 * google calendar synchronisation tool.
+	 * 
+	 * Then it copies the file from within the project, to the usage destination.
+	 * 
+	 * After it is copied, it is made runnable with chmod +x, so that it can be
+	 * installed at the end of the installation.
+	 * 
+	 * @param installData
+	 */
+	private static void installGCalSyn(InstallData installData) {
 		try {
 			CreateFiles.createGCalSyncInstall(installData);
-			CopyFiles.copyFileWithSudo(installData, installData.getLinuxPath(), installData.getgCalSyncInstallScriptName(), installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
-			CreateFiles.makeScriptRunnable(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
-			
+			CopyFiles.copyFileWithSudo(installData, installData.getLinuxPath(),
+					installData.getgCalSyncInstallScriptName(), installData.getBackupScriptDestination(),
+					installData.getgCalSyncInstallScriptName());
+			CreateFiles.makeScriptRunnable(installData.getBackupScriptDestination(),
+					installData.getgCalSyncInstallScriptName());
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Scenario: Multi-device: client. Imports the certificates from the folder as
 	 * specified in HardCoded (currently: <your
@@ -124,73 +134,63 @@ public class Main {
 	}
 
 	/**
-	 * The .bashrc file
+	 * First the method checks whether the .bashrc file that is located in
+	 * /home/<your tw username> is already modified. If it is not modified, it is
+	 * modified and stored back into /home/<your tw username>.
 	 * 
 	 * @param installData
 	 * @throws Exception
 	 */
 	private static void exportBashrc(InstallData installData) throws Exception {
-		// File testFile = new File(installData.getLinuxPath()+"testFile");
 		File testFile = new File(installData.getBashrcPath(), installData.getBasrcFileName());
+		// TODO: Refactor the first 2 lines check to the a separate method. (purpose:
+		// reduce code duplication).
 
-		// write the first two lines of the .bashrc bootup procedure to compare with
-		// original
-		// to determine whether the automatic login procedure is already contained in
-		// the .bashrc
-		// TODO: Refactor this check to the modify Files method prependLines.
-		// TODO: by writing the String array of lines once and passing it to both that
-		// prependLines
-		// and this check method. (purpose: reduce code duplication).
+		// manually re-create first 2 lines of .bashrc file modification.
 		String[] comparisonLines = new String[2];
 		comparisonLines[0] = "#get root";
 		comparisonLines[1] = "if [ ! -f /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool ]; then";
 
-		// split the original lines of the .bashrc file into an array with one line per
-		// element
+		// split the original lines of .bashrc into an array with one line per element.
 		String[] originalLines = ReadFiles.readFiles(testFile.getAbsolutePath()).toString().split("\\r?\\n");
 
+		// Check if the .bashrc file has been modified, if yes, skip modification.
 		if (!ReadFiles.firstLinesMatch(originalLines, 2, comparisonLines)) {
-			System.out.println("The .bashrc did not contain the automated login procedure yet, so it is added now");
 			ModifyFiles.prependText(installData, testFile);
-		} else {
-			System.out.println("The .bashrc already contained the automatic login procedure, so it is not modified.");
 		}
 	}
-	
-	
 
-
-	private static void modifyVisudo(InstallData installData) throws Exception {
-		// File testFile = new File(installData.getLinuxPath()+"testFile");
-		File testFile = new File(installData.getVisudoPath(), installData.getVisudoFileName());
-
-		// write the first two lines of the .bashrc bootup procedure to compare with
-		// original
-		// to determine whether the automatic login procedure is already contained in
-		// the .bashrc
-		// TODO: Refactor this check to the modify Files method prependLines.
-		// TODO: by writing the String array of lines once and passing it to both that
-		// prependLines
-		// and this check method. (purpose: reduce code duplication).
-		String[] comparisonLines = new String[1];
-		comparisonLines[0] = "zq ALL=(ALL) NOPASSWD: ALL";
-
-		// split the original lines of the .bashrc file into an array with one line per
-		// element
-		String[] originalLines = ReadFiles.readFiles(testFile.getAbsolutePath()).toString().split("\\r?\\n");
-
-		System.out.println("TESTFILE VISUDO ALREADY HAS LAST LINE="
-				+ ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines));
-
-		if (!ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines)) {
-			System.out.println(
-					"The visudo did not yet contain the last line that removes prompt for password, so it is added now");
-			ModifyFiles.appendText(installData, testFile);
-		} else {
-			System.out.println(
-					"The visudo did alread contained the last line that removes prompt for password, so it is not modified.");
-		}
-	}
+//	private static void modifyVisudo(InstallData installData) throws Exception {
+//		// File testFile = new File(installData.getLinuxPath()+"testFile");
+//		File testFile = new File(installData.getVisudoPath(), installData.getVisudoFileName());
+//
+//		// write the first two lines of the .bashrc bootup procedure to compare with
+//		// original
+//		// to determine whether the automatic login procedure is already contained in
+//		// the .bashrc
+//		// TODO: Refactor this check to the modify Files method prependLines.
+//		// TODO: by writing the String array of lines once and passing it to both that
+//		// prependLines
+//		// and this check method. (purpose: reduce code duplication).
+//		String[] comparisonLines = new String[1];
+//		comparisonLines[0] = "zq ALL=(ALL) NOPASSWD: ALL";
+//
+//		// split the original lines of the .bashrc file into an array with one line per
+//		// element
+//		String[] originalLines = ReadFiles.readFiles(testFile.getAbsolutePath()).toString().split("\\r?\\n");
+//
+//		System.out.println("TESTFILE VISUDO ALREADY HAS LAST LINE="
+//				+ ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines));
+//
+//		if (!ReadFiles.lastLinesMatch(originalLines, comparisonLines.length, comparisonLines)) {
+//			System.out.println(
+//					"The visudo did not yet contain the last line that removes prompt for password, so it is added now");
+//			ModifyFiles.appendText(installData, testFile);
+//		} else {
+//			System.out.println(
+//					"The visudo did alread contained the last line that removes prompt for password, so it is not modified.");
+//		}
+//	}
 
 	/**
 	 * Method creates a taskwarrior user defined Attribute if the data type is

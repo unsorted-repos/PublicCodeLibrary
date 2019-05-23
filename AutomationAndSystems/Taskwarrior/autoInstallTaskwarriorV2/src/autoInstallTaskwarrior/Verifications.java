@@ -166,9 +166,9 @@ public class Verifications {
 	
 	/**
 	 * Testing parameters
-	 * linuxUsername:testUbuntu
+	 * linuxUsername:testlinuxname
 	 * taskwarrior organisation:testOrg
-	 * taskwarrior username:testUser 
+	 * taskwarrior username:testtwname 
 	 */
 	
 	/**
