@@ -119,7 +119,7 @@ public class HardCoded {
 			installData.setWslOs("Ubuntu 16.04");
 		}
 		
-		installData.setgCalSyncFolderName("gCalSync");
+		installData.setgCalSyncCloneFolder("taskw_gcal_sync");
 		
 		return installData;
 	}
@@ -150,7 +150,7 @@ public class HardCoded {
 //		command.setEnvVarName("TASKDDATA");
 		command.setWorkingPath("");
 		command.setSetEnvVar(false);
-		command.setSetWorkingPath(false);
+		command.setSetWorkingPath(false);	
 		command.setGetOutput(true);
 
 		// execute command to create destination folder

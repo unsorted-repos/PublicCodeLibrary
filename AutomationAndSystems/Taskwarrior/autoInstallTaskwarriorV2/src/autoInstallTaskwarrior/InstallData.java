@@ -40,11 +40,23 @@ public class InstallData {
 	private String[] syncCertificateNames;
 	private String[] restoreBackupNames;
 	private String wslOs;
-	private String gCalSyncFolderName; 
+ 
 	private String gCalSyncInstallScriptName;
+	private String gCalSyncCloneFolder;
+	
+	//TODO: Lookup Java variable typing style (w.r.t. captial letters in abreviations).
+	//TODO: Apply java variable typing style (w.r.t. captial letters in abreviations), consistent.
 	
 	
 	
+	public String getgCalSyncCloneFolder() {
+		return gCalSyncCloneFolder;
+	}
+
+	public void setgCalSyncCloneFolder(String gCalSyncCloneFolder) {
+		this.gCalSyncCloneFolder = gCalSyncCloneFolder;
+	}
+
 	public String getgCalSyncInstallScriptName() {
 		return gCalSyncInstallScriptName;
 	}
@@ -53,13 +65,7 @@ public class InstallData {
 		this.gCalSyncInstallScriptName = gCalSyncInstallScriptName;
 	}
 
-	public String getgCalSyncFolderName() {
-		return gCalSyncFolderName;
-	}
-
-	public void setgCalSyncFolderName(String gCalSyncFolderName) {
-		this.gCalSyncFolderName = gCalSyncFolderName;
-	}
+	
 
 	public String getWslOs() {
 		return wslOs;

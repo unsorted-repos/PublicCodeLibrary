@@ -273,21 +273,21 @@ public class CreateFiles {
 		writer.println("gCalSyncFolderName="+quotation+"gCalSync"+quotation);
 		writer.println("task_gcal_syncFolderName="+quotation+"task_gcal_sync"+quotation);
 		writer.println("cd "+quotation+"$(homeDirName "+quotation+"$0"+quotation+")"+quotation);
-		writer.println("mkdir gCalSync");
-		writer.println("cd gCalSync");
-		writer.println("cd "+quotation+"$(homeDirName+gCalSyncFolderName "+quotation+"$0"+quotation+")"+quotation);
+//		writer.println("mkdir gCalSync");
+//		writer.println("cd gCalSync");
+		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+" "+quotation+"$0"+quotation+")"+quotation);
 		writer.println("git clone https://github.com/bergercookie/taskw_gcal_sync.git");
-		writer.println("cd taskw_gcal_sync");
-		writer.println("cd "+quotation+"$(homeDirName+gCalSyncFolderName+"+quotation+"/"+quotation+"+task_gcal_syncFolderName "+quotation+"$0"+quotation+")"+quotation);
+		writer.println("cd "+installData.getgCalSyncCloneFolder());
+		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+"/"+installData.getgCalSyncCloneFolder()+" "+quotation+"$0"+quotation+")"+quotation);
 		writer.println("pip3 install --user --upgrade requirements.txt");
 		writer.println("pip3 install --user --upgrade taskw_gcal_sync");
-		writer.println("/home/a/gCalSync/task_gcal_sync/tw_gcal_sync --help");
+		writer.println("/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+"/"+installData.getgCalSyncCloneFolder()+"/tw_gcal_sync --help");
 		writer.println("tw_gcal_sync --help");
 		writer.println("sudo ./tw_gcal_sync --help");
-		writer.println("tw_gcal_sync");
+//		writer.println("tw_gcal_sync");
 		writer.println("task add due:2019-06-01T13:01 tag:remindme testtask");
 		writer.println("./tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
-		writer.println("python3 /home/a/gCalSync/taskw_gcal_sync/tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
+		writer.println("python3 "+"/home/"+installData.getLinuxUserName()+"/"+installData.getgCalSyncCloneFolder()+"tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
 		return writer;
 	}
 	

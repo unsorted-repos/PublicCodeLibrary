@@ -81,8 +81,8 @@ public class Main {
 		CopyFiles.exportServerCertificates(installData);
 
 		// Loop asking user to reboot WSL Ubuntu 16.04
-		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"
-				+ installData.getgCalSyncFolderName() + "/taskw_gcal_sync/tw_gcal_sync -c " + quotation + "TW Reminders"
+		System.out.println("Please enter:sudo python3 /home/" + installData.getLinuxUserName() + "/"+installData.getMaintenanceFolder()+"/"
+				+ installData.getgCalSyncCloneFolder() + "/tw_gcal_sync -c " + quotation + "TW Reminders"
 				+ quotation + " -t remindme");
 		
 		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
