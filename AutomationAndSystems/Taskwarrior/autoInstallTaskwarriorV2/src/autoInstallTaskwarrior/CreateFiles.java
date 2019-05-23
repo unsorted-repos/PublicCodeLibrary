@@ -269,10 +269,10 @@ public class CreateFiles {
 		//TODO: Uncomment if required
 		//writer.println("source ~/.bashrc");
 		writer.println("python3 -V");
-		writer.println("homeDirName="+quotation+"/home/a/"+quotation);
-		writer.println("gCalSyncFolderName="+quotation+"gCalSync"+quotation);
-		writer.println("task_gcal_syncFolderName="+quotation+"task_gcal_sync"+quotation);
-		writer.println("cd "+quotation+"$(homeDirName "+quotation+"$0"+quotation+")"+quotation);
+//		writer.println("homeDirName="+quotation+"/home/a/"+quotation);
+//		writer.println("gCalSyncFolderName="+quotation+"gCalSync"+quotation);
+//		writer.println("task_gcal_syncFolderName="+quotation+"task_gcal_sync"+quotation);
+//		writer.println("cd "+quotation+"$(homeDirName "+quotation+"$0"+quotation+")"+quotation);
 //		writer.println("mkdir gCalSync");
 //		writer.println("cd gCalSync");
 		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+" "+quotation+"$0"+quotation+")"+quotation);
