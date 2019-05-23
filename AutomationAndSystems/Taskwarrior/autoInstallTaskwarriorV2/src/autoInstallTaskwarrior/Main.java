@@ -80,7 +80,6 @@ public class Main {
 
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
-
 	}
 
 	/**
@@ -111,22 +110,25 @@ public class Main {
 	}
 
 	/**
-	 * Scenario: Multi-device: client. Imports the certificates from the folder as
-	 * specified in HardCoded (currently: <your
-	 * harddrive>/Taskwarrior/certificateInput) Reads the tw uuid of the server from
-	 * the file as specified in HardCoded (currently twUuid.txt). That tw uuid of
-	 * the server is entered into the client configuration with command: sudo task
-	 * config taskd.credentials -- <twOrg><twUserName><twUuid>
+	 * Manages the importation of the:
+	 * 
+	 * Certificates and tw uuid of the server, in case the installation is for a
+	 * multi-device setup with the current device as client.
+	 * 
+	 * Backup files pending.data etc of a previous installation (if the user
+	 * requests to do so).
 	 * 
 	 * @param installData
 	 */
 	private static void importData(InstallData installData) {
-		System.out.println("useSingledevice true=" + installData.isUseSingleDevice());
+		
+		// import certificates if this is client installation.
 		if (!installData.isUseSingleDevice() && installData.isServer()) {
-			// import certificates if this is client installation.
 			ImportFiles.importCertificates(installData);
 			ModifyTwConfig.setTwServerUuid(installData);
 		}
+		
+		//import backup data
 		if (installData.isRestoreBackup()) {
 			System.out.println("importing backup");
 			ImportFiles.importBackups(installData);
@@ -193,8 +195,11 @@ public class Main {
 //	}
 
 	/**
-	 * Method creates a taskwarrior user defined Attribute if the data type is
-	 * correct Thows error datatype is not correct. TODO: write proper exception
+	 * Method manages: Removal of "yes | " before a command and storing the "yes | "
+	 * as boolean. Pre-processing of command if required. Execution of the command.
+	 * Printing of command ouput Post-processing of the command if required.
+	 * 
+	 * TODO: write proper exception
 	 * 
 	 * @param udaName
 	 * @param label
@@ -205,31 +210,25 @@ public class Main {
 		String commandOutput = null;
 		if (!installData.isTestrun()) {
 			for (int i = 0; i < commands.length; i++) {
-				// for (int i = 0; i < 49; i++) {
-
 				printCommand(i, commands[i].getCommandLines());
 
-				// check if command contains "yes | " and store result:
+				// Pre-process command if needed: check if command has "yes | ".
 				Boolean hasYes = startsWithYes(commands[i].getCommandLines()[0]);
 
-				// remove the "yes | " of a command
+				// Pre-process command if needed: Removing "yes | " and store as boolean.
 				String[] preprocessedCommands = new String[commands.length];
 				preprocessedCommands = removeYes(commands[i].getCommandLines());
 
-				// verify system condition before command execution
+				// Pre-process: verify system condition before command execution.
 				commands[i] = Verifications.preCommandProcess(installData, i, commands[i]);
 
-				// run commands if it does not start with null
+				// Execute commands and print output.
 				if (commands[i].getCommandLines()[0] != null) {
-					// commandOutput =
-					// RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
-					// commandOutput =
-					// RunCommandsWithArgsV1.processBuilder(preprocessedCommands,hasYes);
 					commandOutput = RunCommandsV3.executeCommands(commands[i], hasYes);
-					System.out.println("Output=" + commandOutput);
+					System.out.println("Command output=" + commandOutput);
 				}
 
-				// verify system condition after command execution
+				// Post process command.
 				installData = Verifications.postCommandProcess(installData, i, commands[i], commandOutput);
 			}
 		}

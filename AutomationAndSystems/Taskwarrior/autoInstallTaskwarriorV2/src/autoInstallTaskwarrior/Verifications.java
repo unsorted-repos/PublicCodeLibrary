@@ -171,13 +171,16 @@ public class Verifications {
 	 * taskwarrior username:testtwname 
 	 */
 	
+	
+	
 	/**
 	 * Sorting checks.
 	 */
 	//TODO: Test whether sort runs when server in multi-device on laptop: 2019-05-23 verified with user a,Public,First Ubuntu 18.04
 	//TODO: Test whether sort runs when client in multi-device on laptop: 
 	//TODO: Test whether sort runs when server in single-device on laptop: Started in 2019-05-23T15:51 Ubuntu 18.04 (with backup restoration)
-	//TODO: Test whether sort runs when server in multi-device on desktop:
+	//TODO: Test whether sort runs when server in multi-device on desktop: 2019-05-23T16:46 Ubuntu 18.04 failed with: Sync failed.  The Taskserver returned error: 500 Client sync key not found.
+	// retry in Ubuntu16.04 with backup restoration (copy output).
 	//TODO: Test whether sort runs when client in multi-device on desktop:
 	//TODO: Test whether sort runs when server in single-device on desktop:
 
@@ -194,6 +197,7 @@ public class Verifications {
 	/**
 	 * Generality
 	 */
+	//TODO: READ THE CURRENT tw uuid/code from the backlog.data first line and modify it in the first line of the backup restoration AFTER IMPORTING, so that the taskwarrior is able to sync after backup imporation
 	//TODO: disable names with anything other than abc-_ in them (so no new lines no spaces no enters either).
 	//TODO: Test if sync works with certificates with different username for client than for host.
 	
