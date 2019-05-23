@@ -189,7 +189,6 @@ public class Verifications {
 	 * Generality
 	 */
 	//TODO: disable names with anything other than abc-_ in them (so no new lines no spaces no enters either).
-	//TODO: Auto detect linux username, if there is only one folder in /home/
 	//TODO: Test if sync works with certificates with different username for client than for host.
 	
 	/**
@@ -206,16 +205,26 @@ public class Verifications {
 	//TODO: auto compile sorting project in java code
 	
 	/**
+	 * Quality
+	 */
+	//TODO: Fix TODO's in code.
+	//TODO: Refactor code
+	//TODO: Write Javadoc for all methods
+	//TODO: Clean code.
+	//TODO: Ask advice on usage of interfaces.
+	//TODO: run through online quality check untill code quality at least B.
+	//TODO: CTRL+SHIFT+F all code at once to enforce text witdth
+	
+	/**
 	 * Automation
 	 */
 	//TODO: make bash/exe that completely automatically installs everything, including wsl.
 	//TODO: Setup auto encrypted ftp for certificates
+	//TODO: Auto detect linux username, if there is only one folder in /home/
 
 	/**
 	 * Android
 	 */
 	//TODO: Auto install tw on android (through adb requires windows adb of the same level).
 	//TODO: Auto copy certificates to android (from multi-device-setup both client and server) 
-
-	
 }
