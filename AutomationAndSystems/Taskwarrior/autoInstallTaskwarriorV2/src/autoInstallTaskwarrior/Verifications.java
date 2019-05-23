@@ -164,13 +164,19 @@ public class Verifications {
 		}
 	}
 	
+	/**
+	 * Testing parameters
+	 * linuxUsername:testUbuntu
+	 * taskwarrior organisation:testOrg
+	 * taskwarrior username:testUser 
+	 */
 	
 	/**
 	 * Sorting checks.
 	 */
-	//TODO: Test whether sort runs when server in multi-device on laptop: 2019-05-23 verified with user a,Public,First
+	//TODO: Test whether sort runs when server in multi-device on laptop: 2019-05-23 verified with user a,Public,First Ubuntu 18.04
 	//TODO: Test whether sort runs when client in multi-device on laptop: 
-	//TODO: Test whether sort runs when server in single-device on laptop:
+	//TODO: Test whether sort runs when server in single-device on laptop: Started in 2019-05-23T15:51 Ubuntu 18.04 (with backup restoration)
 	//TODO: Test whether sort runs when server in multi-device on desktop:
 	//TODO: Test whether sort runs when client in multi-device on desktop:
 	//TODO: Test whether sort runs when server in single-device on desktop:
@@ -214,6 +220,8 @@ public class Verifications {
 	//TODO: Ask advice on usage of interfaces.
 	//TODO: run through online quality check untill code quality at least B.
 	//TODO: CTRL+SHIFT+F all code at once to enforce text witdth
+	//TODO: Ask advice on how this would be tested properly in a professional environment.
+	//TODO: Increase testing coverage to at least 30%.
 	
 	/**
 	 * Automation

@@ -49,9 +49,6 @@ public class Main {
 
 		// get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
-
-		CreateFiles.writeFileContent(installData,"gCalSyncInstaller.sh");
-		System.exit(0);
 		
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
@@ -61,13 +58,7 @@ public class Main {
 		// run shell
 //		RunShell.runScript("/home/a/.bashrc");
 
-		// get commands to instal calendar sync
-		//commands = GCalSyncCommands.generateCommands(installData);
-
-		// execute installation commands
-//		manageCommandGeneration(installData, commands);
-
-		//installGCalSync
+		//Create gCalSync installation shell
 		CreateFiles.writeFileContent(installData,"gCalSyncInstaller.sh");
 		
 		// create the .basshrc file.
@@ -88,6 +79,7 @@ public class Main {
 				+ installData.getgCalSyncCloneFolder() + "/tw_gcal_sync -c " + quotation + "TW Reminders"
 				+ quotation + " -t remindme");
 		
+		//Run gCalSync installation shell
 		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
 		
 		AskUserInput.promptReboot(installData);
