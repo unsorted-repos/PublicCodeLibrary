@@ -50,6 +50,9 @@ public class Main {
 		// get commands
 		Command[] commands = GenerateCommandsV3.generateCommands(installData);
 
+		CreateFiles.writeFileContent(installData,"gCalSyncInstaller.sh");
+		System.exit(0);
+		
 		// execute installation commands
 		manageCommandGeneration(installData, commands);
 		

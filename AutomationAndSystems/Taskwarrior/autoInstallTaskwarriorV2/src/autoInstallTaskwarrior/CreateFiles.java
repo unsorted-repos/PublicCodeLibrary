@@ -287,7 +287,7 @@ public class CreateFiles {
 //		writer.println("tw_gcal_sync");
 		writer.println("task add due:2019-06-01T13:01 tag:remindme testtask");
 		writer.println("./tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
-		writer.println("python3 "+"/home/"+installData.getLinuxUserName()+"/"+installData.getgCalSyncCloneFolder()+"tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
+		writer.println("python3 "+"/home/"+installData.getLinuxUserName()+"/"+installData.getgCalSyncCloneFolder()+"/"+"tw_gcal_sync -c "+quotation+"TW Reminders"+quotation+" -t remindme");
 		return writer;
 	}
 	
