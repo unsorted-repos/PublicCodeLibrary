@@ -165,5 +165,57 @@ public class Verifications {
 	}
 	
 	
+	/**
+	 * Sorting checks.
+	 */
+	//TODO: Test whether sort runs when server in multi-device on laptop: 2019-05-23 verified with user a,Public,First
+	//TODO: Test whether sort runs when client in multi-device on laptop: 
+	//TODO: Test whether sort runs when server in single-device on laptop:
+	//TODO: Test whether sort runs when server in multi-device on desktop:
+	//TODO: Test whether sort runs when client in multi-device on desktop:
+	//TODO: Test whether sort runs when server in single-device on desktop:
+
+	/**
+	 * Sorting efficiency:
+	 */
+	//TODO: Test whether blows up the backlog or undo.data when server in multi-device on desktop with a sync from client:
+	//TODO: Test whether blows up the backlog or undo.data when server in single-device on desktop:
+	//TODO: Test whether blows up the backlog or undo.data when server in single-device on laptop:
+	//TODO: Test if sort blows up with recurrent tasks on desktop
+	//TODO: Test if sort blows up with recurrent tasks on laptop
+	//TODO: Optimize sorting algorithm and nr of modifications.
+
+	/**
+	 * Generality
+	 */
+	//TODO: disable names with anything other than abc-_ in them (so no new lines no spaces no enters either).
+	//TODO: Auto detect linux username, if there is only one folder in /home/
+	//TODO: Test if sync works with certificates with different username for client than for host.
+	
+	/**
+	 * Functioning
+	 */
+//	//TODO: Check if backups are actually written to C:/taskwarrior/backupOutput
+
+	/**
+	 * Security
+	 */
+	//TODO: Test if sync works if 1 letter is changed in: ca.cert.pem, First.cert.pem or First,key.pem 
+	//TODO: compile taskwarrior in Java code to 2.6
+	//TODO: auto compile timewarrior in Java code
+	//TODO: auto compile sorting project in java code
+	
+	/**
+	 * Automation
+	 */
+	//TODO: make bash/exe that completely automatically installs everything, including wsl.
+	//TODO: Setup auto encrypted ftp for certificates
+
+	/**
+	 * Android
+	 */
+	//TODO: Auto install tw on android (through adb requires windows adb of the same level).
+	//TODO: Auto copy certificates to android (from multi-device-setup both client and server) 
+
 	
 }
