@@ -199,6 +199,7 @@ public class Verifications {
 	//TODO: READ THE CURRENT tw uuid/code from the backlog.data first line and modify it in the first line of the backup restoration AFTER IMPORTING, so that the taskwarrior is able to sync after backup imporation
 	//TODO: disable names with anything other than abc-_ in them (so no new lines no spaces no enters either).
 	//TODO: Test if sync works with certificates with different username for client than for host.
+	//TODO: Change the hardcoded /home/a/.. of javaserversort to a dynamic linux username using an automated username detection script.
 	
 	/**
 	 * Functioning
@@ -206,7 +207,11 @@ public class Verifications {
 	//TODO: Check if backups are actually written to C:/taskwarrior/backupOutput
 	//TODO: Copy current tw uuid to the top of backlog.data AFTER it has been imported
 	
-
+	/**
+	 * Robustness
+	 */
+	//TODO: Change .bashrc content of creating a getInitBool that must exist untill the end of times to prevent another task sync init (iso just task sync) at bootup, to: create the getInitBool before during installation commands, and delete it once during first time bootup.
+	
 	/**
 	 * Security
 	 */
