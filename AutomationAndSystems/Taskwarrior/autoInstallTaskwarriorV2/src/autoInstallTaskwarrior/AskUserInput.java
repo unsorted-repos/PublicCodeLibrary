@@ -12,7 +12,7 @@ public class AskUserInput {
 		if (!installData.isDevelopeMode()) {
 			initialiseQuestionsPreInstall(installData, userInput);
 		} else {
-			userInput.getAnswer().add("a");
+			userInput.getAnswer().add(GetThisPath.getLinuxUserName());
 			userInput.getAnswer().add("Public");
 			userInput.getAnswer().add("First");
 			userInput.getAnswer().add("n");
@@ -27,7 +27,7 @@ public class AskUserInput {
 	 * @param userInput
 	 */
 	private static void initialiseQuestionsPreInstall(InstallData installData, UserInput userInput) {
-		userInput.appendQuestion("Please re-enter your Unix username: ");
+//		userInput.appendQuestion("Please re-enter your Unix username: ");
 		userInput.appendQuestion(
 				"Please enter the name of your taskwarrior organization (Standard organisation is called:Public):");
 		userInput.appendQuestion("Please enter the name of this taskwarrior user: (Standard username is called:First");
@@ -49,6 +49,7 @@ public class AskUserInput {
 	private static void askQuestions(InstallData installData, UserInput userInput) {
 		Scanner reader = new Scanner(System.in); // Reading from System.in
 		String answer = null;
+		userInput.appendAnswer(GetThisPath.getLinuxUserName());
 		for (int i = 0; i < userInput.getQuestions().size(); i++) {
 			boolean correctFormat = false;
 			while (!correctFormat) {
@@ -57,11 +58,11 @@ public class AskUserInput {
 				correctFormat = checkUserFormat(i, answer);
 			}
 			userInput.appendAnswer(answer);
-			if (i == 3 && answer.equals("n")) { // if use 1 device, always server so skip next 2 questions.
+			if (i == 2 && answer.equals("n")) { // if use 1 device, always server so skip next 2 questions.
 				userInput.appendAnswer("server");
 				userInput.appendAnswer("0.0.0.0");
 				System.out.println("Answers=" + String.join(",", userInput.getAnswer()));
-				i = 5;
+				i = 4;
 			}
 
 		}
@@ -79,6 +80,9 @@ public class AskUserInput {
 	 */
 	private static boolean checkUserFormat(int i, String answer) {
 		switch (i) {
+//			case 0: {
+//				return true;
+//			}
 			case 0: {
 				return true;
 			}
@@ -86,9 +90,6 @@ public class AskUserInput {
 				return true;
 			}
 			case 2: {
-				return true;
-			}
-			case 3: {
 				if (answer.equals("y")) {
 					return true;
 				} else if (answer.equals("n")) {
@@ -97,7 +98,7 @@ public class AskUserInput {
 					return false;
 				}
 			}
-			case 4: {
+			case 3: {
 				if (answer.equals("server")) {
 					return true;
 				} else if (answer.equals("client")) {
@@ -106,10 +107,10 @@ public class AskUserInput {
 					return false;
 				}
 			}
-			case 5: {
+			case 4: {
 				return true;
 			}
-			case 6: {
+			case 5: {
 				if (answer.equals("y")) {
 					return true;
 				} else if (answer.equals("n")) {

@@ -46,4 +46,20 @@ public class GetThisPath {
 		
 		return null;
 	}
+	
+	public static String getLinuxUserName() {
+		Command command = new Command();
+		String[] commandLines = new String[1];
+		commandLines[0] = "whoami";
+		
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetWorkingPath(false);
+		command.setGetOutput(true);
+
+		// execute command to create destination folder
+		return RunCommandsV3.executeCommands(command, false);
+	}
 }

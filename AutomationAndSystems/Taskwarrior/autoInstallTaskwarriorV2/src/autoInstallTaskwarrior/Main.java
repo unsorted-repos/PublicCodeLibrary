@@ -22,9 +22,13 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		char quotation = (char) 34; // quotation mark "
+		
+		GetThisPath.getLinuxUserName();
 		InstallData installData = HardCoded.hardCoded();
 
 		skipToNewPage();
+		
+		
 		
 		System.out.println("Backuprestore=" + installData.isRestoreBackup());
 		// create the external non-resource files (export with commands 9,57 iso
