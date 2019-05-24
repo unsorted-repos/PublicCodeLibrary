@@ -35,7 +35,7 @@ public class ModifyFiles {
 	
 	    try {
 	        fileOutputStream = new FileOutputStream(newFileName);
-	        fileOutputStream = writeLines(fileOutputStream,lines);
+	        fileOutputStream = writeLines(fileOutputStream, lines);
 	
 	        fr = new FileReader(fileName);
 	        br = new BufferedReader(fr);
@@ -252,5 +252,30 @@ public class ModifyFiles {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	//chmod o+x /home/user
+	public static String enforceWriteAccess(String filePath, String fileName) {
+		Command command = new Command();
+		String[] commandLines = new String[3];
+		commandLines[0] = "chmod";
+		commandLines[1] = "o+x";
+		commandLines[2] = filePath+fileName;
+		command.setCommandLines(commandLines);
+//		command.setEnvVarContent("/var/taskd");
+//		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetEnvVar(false);
+		command.setSetWorkingPath(false);	
+		command.setGetOutput(true);
+
+		// execute command to create destination folder
+		try {
+			return RunCommandsV3.executeCommands(command, false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
