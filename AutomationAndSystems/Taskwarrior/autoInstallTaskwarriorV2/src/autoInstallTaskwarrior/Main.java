@@ -167,8 +167,10 @@ public class Main {
 		
 		//Locate file
 		String fileName = installData.getRestoreBackupNames()[0]+installData.getCopyText();
-//		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
 		String filePath = installData.getBackupInputPath();
+		String destinationPath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
+		String destinationFileName = installData.getRestoreBackupNames()[0];
+
 		ModifyFiles.enforceWriteAccess(filePath,fileName);
 		
 		//Check if file exists
@@ -178,6 +180,9 @@ public class Main {
 			ModifyFiles.prependText(installData, backlog,twUuid);
 		}
 		
+		//copy the copied file to the new location.
+		CopyFiles.copyFileWithSudo(installData, filePath, fileName, destinationPath, destinationFileName);
+		System.out.println("Copied:"+filePath+fileName+" to:"+destinationPath+destinationFileName);
 	}
 
 	/**
