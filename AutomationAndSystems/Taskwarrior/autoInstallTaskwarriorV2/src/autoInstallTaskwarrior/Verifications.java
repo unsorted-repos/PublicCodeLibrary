@@ -206,6 +206,7 @@ public class Verifications {
 	 */
 	//TODO: Check if backups are actually written to C:/taskwarrior/backupOutput
 	//TODO: Copy current tw uuid to the top of backlog.data AFTER it has been imported
+	//TODO: Remove bashrcServer file from the src folder of autoInstallTaskwarrior and verify it still works (hardcoded linux username). (Deleted, not verified)
 	
 	/**
 	 * Robustness

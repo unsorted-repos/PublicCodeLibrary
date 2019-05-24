@@ -139,16 +139,6 @@ class ReadTasksTest {
 	}
 
 	/**
-	 * Test method for {@link customSortServerV5.ReadTasks#readJsonLocation()}.
-	 */
-	@Test
-	void testReadJsonLocation() {
-		String expectedPath="/home/a/.task/pending.data";
-		System.out.println("returning:"+ReadTasks.readJsonLocation());
-		assertTrue(expectedPath.equals(ReadTasks.readJsonLocation()));
-	}
-
-	/**
 	 * This test checks the returned testing filepath is not equal to the hardcoded testing filepath
 	 */
 	@Test

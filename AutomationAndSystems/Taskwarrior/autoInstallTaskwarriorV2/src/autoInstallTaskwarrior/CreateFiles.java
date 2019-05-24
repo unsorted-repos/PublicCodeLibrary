@@ -274,7 +274,7 @@ public class CreateFiles {
 //		writer.println("cd "+quotation+"$(homeDirName "+quotation+"$0"+quotation+")"+quotation);
 //		writer.println("mkdir gCalSync");
 //		writer.println("cd gCalSync");
-		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+" "+quotation+"$0"+quotation+")"+quotation);
+		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+"/ "+quotation+"$0"+quotation+")"+quotation);
 		writer.println("git clone https://github.com/bergercookie/taskw_gcal_sync.git");
 		writer.println("cd "+installData.getgCalSyncCloneFolder());
 		writer.println("cd "+quotation+"$(/home/"+installData.getLinuxUserName()+"/"+installData.getMaintenanceFolder()+"/"+installData.getgCalSyncCloneFolder()+" "+quotation+"$0"+quotation+")"+quotation);
