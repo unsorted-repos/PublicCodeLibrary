@@ -167,7 +167,8 @@ public class Main {
 		
 		//Locate file
 		String fileName = installData.getRestoreBackupNames()[0]+installData.getCopyText();
-		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
+//		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
+		String filePath = installData.getBackupInputPath();
 		ModifyFiles.enforceWriteAccess(filePath,fileName);
 		
 		//Check if file exists
