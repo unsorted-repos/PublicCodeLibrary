@@ -141,6 +141,14 @@ public class Main {
 
 	private static void testOverWritingBacklog(InstallData installData) {
 		installData.setTwUuid("d5c234ab-71d4-4fa1-b978-c4f586d15222");
+		//copy to backlog1.data
+		String sourcePath = installData.getBackupDestination();
+		String sourceFileName = installData.getRestoreBackupNames()[0];
+		String destinationPath = sourcePath;
+		String destinationFileName = sourceFileName+"1";
+		CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName,
+				destinationPath, destinationFileName);
+		System.out.println("Copied:"+sourcePath+sourceFileName+" to:"+destinationPath+destinationFileName);
 		overWriteOldTwUuidImportedBacklog(installData);
 		System.exit(0);
 	}

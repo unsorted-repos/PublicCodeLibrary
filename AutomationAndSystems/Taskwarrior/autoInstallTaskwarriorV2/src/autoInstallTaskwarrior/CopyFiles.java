@@ -132,7 +132,7 @@ public class CopyFiles {
 	 * @throws Exception
 	 */
 	public static void copyFileWithSudo(InstallData installData, String sourcePath, String sourceFileName,
-			String destinationPath, String destinationFileName) throws Exception {
+			String destinationPath, String destinationFileName){
 
 		// create destination folder if it does not exist
 		makeDestinationFolder(destinationPath);
@@ -160,7 +160,7 @@ public class CopyFiles {
 	 * @param destinationPath
 	 * @throws Exception
 	 */
-	public static void makeDestinationFolder(String destinationPath) throws Exception {
+	public static void makeDestinationFolder(String destinationPath) {
 		Command command = new Command();
 		String[] commandLines = new String[4];
 		commandLines[0] = "sudo";
