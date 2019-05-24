@@ -44,6 +44,8 @@ public class InstallData {
 	private String gCalSyncInstallScriptName;
 	private String gCalSyncCloneFolder;
 	private String twDataFolderName;
+	private String copyText;
+	
 	
 	
 	
@@ -52,6 +54,14 @@ public class InstallData {
 	
 	
 	
+	public String getCopyText() {
+		return copyText;
+	}
+
+	public void setCopyText(String copyText) {
+		this.copyText = copyText;
+	}
+
 	public String getgCalSyncCloneFolder() {
 		return gCalSyncCloneFolder;
 	}

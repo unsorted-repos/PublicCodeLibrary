@@ -145,7 +145,7 @@ public class Main {
 		String sourcePath = installData.getBackupInputPath();
 		String sourceFileName = installData.getRestoreBackupNames()[0];
 		String destinationPath = sourcePath;
-		String destinationFileName = sourceFileName+"1";
+		String destinationFileName = sourceFileName+installData.getCopyText();
 		CopyFiles.copyFileWithSudo(installData, sourcePath, sourceFileName,
 				destinationPath, destinationFileName);
 		System.out.println("Copied:"+sourcePath+sourceFileName+" to:"+destinationPath+destinationFileName);
@@ -166,7 +166,7 @@ public class Main {
 		twUuid.add(installData.getTwUuid());
 		
 		//Locate file
-		String fileName = installData.getRestoreBackupNames()[0];
+		String fileName = installData.getRestoreBackupNames()[0]+installData.getCopyText();
 		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
 		ModifyFiles.enforceWriteAccess(filePath,fileName);
 		

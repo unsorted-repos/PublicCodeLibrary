@@ -54,6 +54,7 @@ public class HardCoded {
 		restoreBackupNames[2] = "pending.data";
 		installData.setRestoreBackupNames(restoreBackupNames);	
 		installData.setTwDataFolderName(".task");
+		installData.setCopyText("copy");
 		
 //		installData.getUserInput()[2]="Public";
 //		installData.getUserInput()[3]="First";
