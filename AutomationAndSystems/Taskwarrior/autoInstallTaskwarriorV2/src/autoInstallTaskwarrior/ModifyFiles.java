@@ -8,9 +8,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ModifyFiles {
+
 	/**
 	 * TODO: Remove hardcoded switch by restructuring fileOutputStream usage.
 	 * 
@@ -24,52 +26,42 @@ public class ModifyFiles {
 	 * @param installData
 	 * @param fileName
 	 */
-	public static void prependText(InstallData installData, File fileName) {
-		FileOutputStream fileOutputStream = null;
-
-		BufferedReader br = null;
-		FileReader fr = null;
-		String newFileName = fileName.getAbsolutePath() + "@";
-
-		try {
-			fileOutputStream = new FileOutputStream(newFileName);
-			switch (fileName.getName()) {
-			case ".bashrc":
-				fileOutputStream = writeBashrc(installData, fileOutputStream);
-				break;
-			case "backlog.data":
-				fileOutputStream = writeBacklog(installData, fileOutputStream);
-				break;
-
-			}
-
-			fr = new FileReader(fileName);
-			br = new BufferedReader(fr);
-
-			String sCurrentLine;
-
-			while ((sCurrentLine = br.readLine()) != null) {
-				fileOutputStream.write(("\n" + sCurrentLine).getBytes());
-			}
-			fileOutputStream.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fileOutputStream != null)
-					fileOutputStream.close();
-				
-				if (br != null)
-					br.close();
-
-				if (fr != null)
-					fr.close();
-
-				new File(newFileName).renameTo(new File(newFileName.replace("@", "")));
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
+	public static void prependText(InstallData installData, File fileName, ArrayList<String> lines) {
+	    FileOutputStream fileOutputStream =null;
+	
+	    BufferedReader br = null;
+	    FileReader fr = null;
+	    String newFileName = fileName.getAbsolutePath() + "@";
+	
+	    try {
+	        fileOutputStream = new FileOutputStream(newFileName);
+	        fileOutputStream = writeLines(fileOutputStream,lines);
+	
+	        fr = new FileReader(fileName);
+	        br = new BufferedReader(fr);
+	
+	        String sCurrentLine;
+	
+	        while ((sCurrentLine = br.readLine()) != null) {
+	            fileOutputStream.write(("\n"+sCurrentLine).getBytes());
+	        }
+	        fileOutputStream.flush();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            fileOutputStream.close();
+	            if (br != null)
+	                br.close();
+	
+	            if (fr != null)
+	                fr.close();
+	
+	            new File(newFileName).renameTo(new File(newFileName.replace("@", "")));
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
 	}
 
 	public static void appendText(InstallData installData, File fileName) {
@@ -113,6 +105,18 @@ public class ModifyFiles {
 		}
 	}
 
+	private static FileOutputStream writeLines(FileOutputStream fileOutputStream, ArrayList<String> lines) {
+		for (int i = 0; i <lines.size();i++) {
+			try {
+				fileOutputStream.write(lines.get(i).getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return fileOutputStream;
+	}
+	
 	/**
 	 * Write the lines you wish to prepend to the text file. A line/string ending
 	 * with \n starts a new line. The last line does not need a \n to make the
@@ -122,41 +126,72 @@ public class ModifyFiles {
 	 * @return
 	 * @throws IOException
 	 */
-	private static FileOutputStream writeBashrc(InstallData installData, FileOutputStream fileOutputStream)
-			throws IOException {
+//	private static FileOutputStream writeBashrc(InstallData installData, FileOutputStream fileOutputStream)
+//			throws IOException {
+//		char quotation = (char) 34; // quotation mark "
+//		fileOutputStream.write(("#get root" + "\n").getBytes());
+//		fileOutputStream
+//				.write(("if [ ! -f /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool ]; then" + "\n")
+//						.getBytes());
+//		fileOutputStream.write(("   echo " + quotation + "Getting sudo rights now." + quotation + "\n").getBytes());
+//		fileOutputStream
+//				.write(("   sudo touch /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n")
+//						.getBytes());
+//		fileOutputStream.write(("   sudo -s" + "\n").getBytes());
+//		fileOutputStream.write(("fi" + "\n").getBytes());
+//		fileOutputStream.write(("\n").getBytes());
+//
+//		fileOutputStream.write(("# remove got root boolean for next time you boot up Unix" + "\n").getBytes());
+//		fileOutputStream.write(
+//				("sudo rm /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n").getBytes());
+//		fileOutputStream.write(("\n").getBytes());
+//
+//		fileOutputStream.write(("#Start cron service" + "\n").getBytes());
+//		fileOutputStream.write(("sudo -i service cron start" + "\n").getBytes());
+//		fileOutputStream.write(("\n").getBytes());
+//
+//		fileOutputStream.write(("#Startup taskwarrior" + "\n").getBytes());
+//		fileOutputStream.write(("export TASKDDATA=/var/taskd" + "\n").getBytes());
+//		fileOutputStream.write(("cd $TASKDDATA" + "\n").getBytes());
+//		fileOutputStream.write(("sudo taskd config --data $TASKDDATA" + "\n").getBytes());
+//		fileOutputStream.write(("\n").getBytes());
+//
+//		fileOutputStream.write(("taskdctl start" + "\n").getBytes());
+//		fileOutputStream.write(("task sync" + "\n").getBytes());
+//		fileOutputStream.write(("\n").getBytes());
+//
+//		return fileOutputStream;
+//	}
+	
+	public static ArrayList<String> createLinesBashrc(InstallData installData){
 		char quotation = (char) 34; // quotation mark "
-		fileOutputStream.write(("#get root" + "\n").getBytes());
-		fileOutputStream
-				.write(("if [ ! -f /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool ]; then" + "\n")
-						.getBytes());
-		fileOutputStream.write(("   echo " + quotation + "Getting sudo rights now." + quotation + "\n").getBytes());
-		fileOutputStream
-				.write(("   sudo touch /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n")
-						.getBytes());
-		fileOutputStream.write(("   sudo -s" + "\n").getBytes());
-		fileOutputStream.write(("fi" + "\n").getBytes());
-		fileOutputStream.write(("\n").getBytes());
+		ArrayList<String> lines = new ArrayList<String>();
+		lines.add("#get root" + "\n");
+		lines.add("if [ ! -f /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool ]; then" + "\n");
+		lines.add("   echo " + quotation + "Getting sudo rights now." + quotation + "\n");
+		lines.add("   sudo touch /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n");
+		lines.add("   sudo -s" + "\n");
+		lines.add("fi" + "\n");
+		lines.add("\n");
 
-		fileOutputStream.write(("# remove got root boolean for next time you boot up Unix" + "\n").getBytes());
-		fileOutputStream.write(
-				("sudo rm /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n").getBytes());
-		fileOutputStream.write(("\n").getBytes());
+		lines.add("# remove got root boolean for next time you boot up Unix" + "\n");
+		lines.add("sudo rm /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n");
+		lines.add("\n");
 
-		fileOutputStream.write(("#Start cron service" + "\n").getBytes());
-		fileOutputStream.write(("sudo -i service cron start" + "\n").getBytes());
-		fileOutputStream.write(("\n").getBytes());
+		lines.add("#Start cron service" + "\n");
+		lines.add("sudo -i service cron start" + "\n");
+		lines.add("\n");
 
-		fileOutputStream.write(("#Startup taskwarrior" + "\n").getBytes());
-		fileOutputStream.write(("export TASKDDATA=/var/taskd" + "\n").getBytes());
-		fileOutputStream.write(("cd $TASKDDATA" + "\n").getBytes());
-		fileOutputStream.write(("sudo taskd config --data $TASKDDATA" + "\n").getBytes());
-		fileOutputStream.write(("\n").getBytes());
+		lines.add("#Startup taskwarrior" + "\n");
+		lines.add("export TASKDDATA=/var/taskd" + "\n");
+		lines.add("cd $TASKDDATA" + "\n");
+		lines.add("sudo taskd config --data $TASKDDATA" + "\n");
+		lines.add("\n");
 
-		fileOutputStream.write(("taskdctl start" + "\n").getBytes());
-		fileOutputStream.write(("task sync" + "\n").getBytes());
-		fileOutputStream.write(("\n").getBytes());
-
-		return fileOutputStream;
+		lines.add("taskdctl start" + "\n");
+		lines.add("task sync" + "\n");
+		lines.add("\n");
+		return lines;
 	}
 
 	/**

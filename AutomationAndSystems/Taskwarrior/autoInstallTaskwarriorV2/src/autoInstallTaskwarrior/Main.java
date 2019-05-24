@@ -26,6 +26,8 @@ public class Main {
 
 		skipToNewPage();
 		
+		testOverWritingBacklog(installData);
+		
 		System.out.println("Backuprestore=" + installData.isRestoreBackup());
 		// create the external non-resource files (export with commands 9,57 iso
 		// exportResource.
@@ -137,11 +139,11 @@ public class Main {
 		}
 	}
 
-//	private static void testOverWritingBacklog(InstallData installData) {
-//		installData.setTwUuid("d5c234ab-71d4-4fa1-b978-c4f586d15222");
-//		
-//		System.exit(0);
-//	}
+	private static void testOverWritingBacklog(InstallData installData) {
+		installData.setTwUuid("d5c234ab-71d4-4fa1-b978-c4f586d15222");
+		overWriteOldTwUuidImportedBacklog(installData);
+		System.exit(0);
+	}
 	
 	/**
 	 * If backup data is restored, the backlog.data file contains the tw uuid of the
@@ -151,15 +153,20 @@ public class Main {
 	 * 
 	 */
 	private static void overWriteOldTwUuidImportedBacklog(InstallData installData) {
+		// convert tw uuid to ArrayList
+		ArrayList<String> twUuid = new ArrayList<String>();
+		twUuid.add(installData.getTwUuid());
+		
 		//Locate file
 		String fileName = installData.getRestoreBackupNames()[0];
 		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
+		
 		
 		//Check if file exists
 		if (CreateFiles.checkIfFileExist(filePath,fileName)) {
 			File backlog = new File(filePath+fileName);
 			ModifyFiles.removeFirstNLines(filePath,fileName,1); //remove 1 line from top
-			ModifyFiles.prependText(installData, backlog);
+			ModifyFiles.prependText(installData, backlog,twUuid);
 		}
 		
 	}
@@ -187,7 +194,7 @@ public class Main {
 
 		// Check if the .bashrc file has been modified, if yes, skip modification.
 		if (!ReadFiles.firstLinesMatch(originalLines, 2, comparisonLines)) {
-			ModifyFiles.prependText(installData, testFile);
+			ModifyFiles.prependText(installData, testFile, ModifyFiles.createLinesBashrc(installData));
 		}
 	}
 
