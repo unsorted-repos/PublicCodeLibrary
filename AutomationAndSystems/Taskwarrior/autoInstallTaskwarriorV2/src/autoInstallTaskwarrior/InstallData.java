@@ -43,6 +43,9 @@ public class InstallData {
  
 	private String gCalSyncInstallScriptName;
 	private String gCalSyncCloneFolder;
+	private String twDataFolderName;
+	
+	
 	
 	//TODO: Lookup Java variable typing style (w.r.t. captial letters in abreviations).
 	//TODO: Apply java variable typing style (w.r.t. captial letters in abreviations), consistent.
@@ -51,6 +54,14 @@ public class InstallData {
 	
 	public String getgCalSyncCloneFolder() {
 		return gCalSyncCloneFolder;
+	}
+
+	public String getTwDataFolderName() {
+		return twDataFolderName;
+	}
+
+	public void setTwDataFolderName(String twDataFolderName) {
+		this.twDataFolderName = twDataFolderName;
 	}
 
 	public void setgCalSyncCloneFolder(String gCalSyncCloneFolder) {

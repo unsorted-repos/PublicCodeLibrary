@@ -204,7 +204,9 @@ public class Verifications {
 	/**
 	 * Functioning
 	 */
-//	//TODO: Check if backups are actually written to C:/taskwarrior/backupOutput
+	//TODO: Check if backups are actually written to C:/taskwarrior/backupOutput
+	//TODO: Copy current tw uuid to the top of backlog.data AFTER it has been imported
+	
 
 	/**
 	 * Security

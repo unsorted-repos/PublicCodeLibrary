@@ -2,6 +2,10 @@ package autoInstallTaskwarrior;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class Main {
 		InstallData installData = HardCoded.hardCoded();
 
 		skipToNewPage();
-
+		
 		System.out.println("Backuprestore=" + installData.isRestoreBackup());
 		// create the external non-resource files (export with commands 9,57 iso
 		// exportResource.
@@ -78,6 +82,8 @@ public class Main {
 		// Run gCalSync installation shell
 		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
 
+		overWriteOldTwUuidImportedBacklog(installData);
+		
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
 	}
@@ -106,7 +112,6 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -121,18 +126,46 @@ public class Main {
 	 * @param installData
 	 */
 	private static void importData(InstallData installData) {
-		
+
 		// import certificates if this is client installation.
 		if (!installData.isUseSingleDevice() && installData.isServer()) {
 			ImportFiles.importCertificates(installData);
 			ModifyTwConfig.setTwServerUuid(installData);
 		}
-		
-		//import backup data
+
+		// import backup data
 		if (installData.isRestoreBackup()) {
 			System.out.println("importing backup");
 			ImportFiles.importBackups(installData);
+
 		}
+	}
+
+//	private static void testOverWritingBacklog(InstallData installData) {
+//		installData.setTwUuid("d5c234ab-71d4-4fa1-b978-c4f586d15222");
+//		
+//		System.exit(0);
+//	}
+	
+	/**
+	 * If backup data is restored, the backlog.data file contains the tw uuid of the
+	 * previous installation. To be able sync with the backed up data, the old tw
+	 * uuid needs to be replaced with the new tw uuid in the top line of
+	 * backlog.data.
+	 * 
+	 */
+	private static void overWriteOldTwUuidImportedBacklog(InstallData installData) {
+		//Locate file
+		String fileName = installData.getRestoreBackupNames()[0];
+		String filePath = "/home/"+installData.getLinuxUserName()+"/"+installData.getTwDataFolderName()+"/";
+		
+		//Check if file exists
+		if (CreateFiles.checkIfFileExist(filePath,fileName)) {
+			File backlog = new File(filePath+fileName);
+			ModifyFiles.removeFirstNLines(filePath,fileName,1); //remove 1 line from top
+			ModifyFiles.prependText(installData, backlog);
+		}
+		
 	}
 
 	/**
