@@ -10,7 +10,7 @@ public class hardCoded {
 	private static String eclipseFilePath="input/";
 	private static String eclipseFileName="pendingPublic.data";
 	private static String ubuntuFileName="pending.data";
-	private static String ubuntuFilePath="/home/a/.task/";
+	private static String ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
 	private static String nameOfCustomSortParameterLabel="cSort";
 	private static String customSortDataType="numeric";
 	private static String udaName="estimate";
@@ -184,5 +184,29 @@ public class hardCoded {
 
 	public static void setEclipseFileName(String eclipseFileName) {
 		hardCoded.eclipseFileName = eclipseFileName;
+	}
+	
+	public static String getLinuxUserName() {
+		String linuxUserName = null;
+		Command command = new Command();
+		String[] commandLines = new String[1];
+		commandLines[0] = "whoami";
+		
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetWorkingPath(false);
+		command.setGetOutput(true);
+
+		
+		// execute command to create destination folder
+		try {
+			linuxUserName = RunCommandsV3.executeCommands(command, false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

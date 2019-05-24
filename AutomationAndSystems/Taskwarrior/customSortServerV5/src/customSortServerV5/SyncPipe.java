@@ -9,7 +9,8 @@ public SyncPipe(InputStream istrm, OutputStream ostrm) {
       istrm_ = istrm;
       ostrm_ = ostrm;
   }
-  public void run() {
+  @Override
+public void run() {
       try
       {
           final byte[] buffer = new byte[1024];

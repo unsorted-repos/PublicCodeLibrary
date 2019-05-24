@@ -1,7 +1,5 @@
 package customSortServerV5;
 
-import java.util.ArrayList;
-
 public class Task {
 
 	 String depends =null;
@@ -253,7 +251,7 @@ public class Task {
 
 	public void setCustomSort(Object customSort) {
 		//this.customSort = (int) customSort;
-		this.customSort = Integer.parseInt((String) removeZeroDecimals(customSort));
+		this.customSort = Integer.parseInt(removeZeroDecimals(customSort));
 	}	
 	
 	/**
