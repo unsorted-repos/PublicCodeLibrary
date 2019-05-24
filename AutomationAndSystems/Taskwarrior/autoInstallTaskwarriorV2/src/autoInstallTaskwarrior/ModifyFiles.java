@@ -56,7 +56,9 @@ public class ModifyFiles {
 			e.printStackTrace();
 		} finally {
 			try {
-				fileOutputStream.close();
+				if (fileOutputStream != null)
+					fileOutputStream.close();
+				
 				if (br != null)
 					br.close();
 
