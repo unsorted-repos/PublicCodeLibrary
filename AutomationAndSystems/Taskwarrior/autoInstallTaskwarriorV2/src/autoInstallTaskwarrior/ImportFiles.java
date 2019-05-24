@@ -1,7 +1,5 @@
 package autoInstallTaskwarrior;
 
-import java.io.File;
-
 public class ImportFiles {
 
 	/**

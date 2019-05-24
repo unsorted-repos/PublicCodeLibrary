@@ -176,11 +176,10 @@ public class Verifications {
 	/**
 	 * Sorting checks.
 	 */
-	//TODO: Test whether sort runs when server in multi-device on laptop: 2019-05-23 verified with user a,Public,First Ubuntu 18.04
+	//TODO: Test whether sort runs when server in multi-device on laptop: 
 	//TODO: Test whether sort runs when client in multi-device on laptop: 
-	//TODO: Test whether sort runs when server in single-device on laptop: Started in 2019-05-23T15:51 Ubuntu 18.04 (with backup restoration)
-	//TODO: Test whether sort runs when server in multi-device on desktop: 2019-05-23T16:46 Ubuntu 18.04 failed with: Sync failed.  The Taskserver returned error: 500 Client sync key not found.
-	// retry in Ubuntu16.04 with backup restoration (copy output).
+	//TODO: Test whether sort runs when server in single-device on laptop: 
+	//TODO: Test whether sort runs when server in multi-device on desktop: 2019-05-24T12:55 Ubuntu 18.04 with backup restoration
 	//TODO: Test whether sort runs when client in multi-device on desktop:
 	//TODO: Test whether sort runs when server in single-device on desktop:
 

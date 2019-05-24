@@ -18,6 +18,7 @@ class SyncPipe implements Runnable
 		istrm_ = istrm;
 		ostrm_ = ostrm;
 	}
+	@Override
 	public void run() {
 		  
 	  try

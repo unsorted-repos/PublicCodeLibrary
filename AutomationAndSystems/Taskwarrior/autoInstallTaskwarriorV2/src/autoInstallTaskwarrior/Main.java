@@ -2,10 +2,6 @@ package autoInstallTaskwarrior;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -334,6 +330,7 @@ public class Main {
 		System.out.println("Incoming file = " + directory.getAbsolutePath());
 
 		FileFilter directoryFileFilter = new FileFilter() {
+			@Override
 			public boolean accept(File file) {
 				return file.isDirectory();
 			}
