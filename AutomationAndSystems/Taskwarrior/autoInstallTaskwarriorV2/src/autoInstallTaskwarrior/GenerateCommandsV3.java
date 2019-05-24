@@ -1086,4 +1086,29 @@ public class GenerateCommandsV3 {
 		}
 		return commands;
 	}
+	
+	public static String finalSyncInitCommand() {
+		Command command = new Command();
+		String[] commandLines = new String[4];
+		commandLines[0] = "sudo";
+		commandLines[1] = "task";
+		commandLines[2] = "sync";
+		commandLines[3] = "init";
+		command.setCommandLines(commandLines);
+//		command.setEnvVarContent("/var/taskd");
+//		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("");
+		command.setSetEnvVar(false);
+		command.setSetWorkingPath(false);	
+		command.setGetOutput(true);
+
+		// execute command to create destination folder
+		try {
+			return RunCommandsV3.executeCommands(command, false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
