@@ -257,10 +257,11 @@ public class ModifyFiles {
 	//chmod o+x /home/user
 	public static String enforceWriteAccess(String filePath, String fileName) {
 		Command command = new Command();
-		String[] commandLines = new String[3];
-		commandLines[0] = "chmod";
-		commandLines[1] = "o+x";
-		commandLines[2] = filePath+fileName;
+		String[] commandLines = new String[4];
+		commandLines[0] = "sudo";
+		commandLines[1] = "chmod";
+		commandLines[2] = "o+x";
+		commandLines[3] = filePath+fileName;
 		command.setCommandLines(commandLines);
 //		command.setEnvVarContent("/var/taskd");
 //		command.setEnvVarName("TASKDDATA");
