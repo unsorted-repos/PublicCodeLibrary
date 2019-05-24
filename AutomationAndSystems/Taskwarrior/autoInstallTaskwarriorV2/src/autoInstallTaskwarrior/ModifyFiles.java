@@ -195,7 +195,7 @@ public class ModifyFiles {
 		lines.add("   echo " + quotation + "Initialising task sync init now." + quotation + "\n");
 		lines.add("   sudo touch /home/" + installData.getLinuxUserName() + "/maintenance/getInitBool" + "\n");
 		lines.add("   taskdctl start" + "\n");
-		lines.add("   sudo task sync init" + "\n");
+		lines.add("   yes | sudo task sync init" + "\n");
 		lines.add("fi" + "\n");
 		lines.add("\n");
 
