@@ -178,7 +178,7 @@ public class ModifyFiles {
 		lines.add("# remove got root boolean for next time you boot up Unix" + "\n");
 		lines.add("sudo rm /home/" + installData.getLinuxUserName() + "/maintenance/getRootBool" + "\n");
 		lines.add("\n");
-
+		
 		lines.add("#Start cron service" + "\n");
 		lines.add("sudo -i service cron start" + "\n");
 		lines.add("\n");
@@ -187,6 +187,16 @@ public class ModifyFiles {
 		lines.add("export TASKDDATA=/var/taskd" + "\n");
 		lines.add("cd $TASKDDATA" + "\n");
 		lines.add("sudo taskd config --data $TASKDDATA" + "\n");
+		lines.add("\n");
+		
+		// task sync init first time use
+		lines.add("#get first time sudo task sync Init" + "\n");
+		lines.add("if [ ! -f /home/" + installData.getLinuxUserName() + "/maintenance/getInitBool ]; then" + "\n");
+		lines.add("   echo " + quotation + "Initialising task sync init now." + quotation + "\n");
+		lines.add("   sudo touch /home/" + installData.getLinuxUserName() + "/maintenance/getInitBool" + "\n");
+		lines.add("   taskdctl start" + "\n");
+		lines.add("   sudo task sync init" + "\n");
+		lines.add("fi" + "\n");
 		lines.add("\n");
 
 		lines.add("taskdctl start" + "\n");
