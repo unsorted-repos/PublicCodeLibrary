@@ -187,6 +187,35 @@ public class hardCoded {
 	}
 	
 	public static String getLinuxUserName() {
+		if (checkForNonRoot() != null && checkForNonRoot() != "root") {
+			System.out.println("Returning nonRoot username ="+checkForNonRoot());
+			return checkForNonRoot();
+		}
+		String linuxUserName = null;
+		Command command = new Command();
+		String[] commandLines = new String[1];
+		commandLines[0] = "dir";
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("/home/");
+		command.setSetWorkingPath(true);
+		command.setGetOutput(true);
+
+		
+		// execute command to create destination folder
+		try {
+			linuxUserName = RunCommandsV3.executeCommands(command, false);
+			System.out.println("Found username = "+linuxUserName);
+			return linuxUserName;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static String checkForNonRoot() {
 		String linuxUserName = null;
 		Command command = new Command();
 		String[] commandLines = new String[1];
@@ -203,6 +232,7 @@ public class hardCoded {
 		// execute command to create destination folder
 		try {
 			linuxUserName = RunCommandsV3.executeCommands(command, false);
+			return linuxUserName;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
