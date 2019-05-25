@@ -66,7 +66,7 @@ public class Main {
 		String uuid = null;
 		String command = null;
 		String status = "recurring";
-		
+		System.out.println("Assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
 		for (int i =0;i<sortedTaskList.size();i++) {
 			uuid=sortedTaskList.get(i).getUuid();
 			
@@ -83,6 +83,7 @@ public class Main {
 				RunCommandsExpectYes.runCommands(command);
 			}
 		}
+		System.out.println("Finished assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
 	}
 
 	/**
