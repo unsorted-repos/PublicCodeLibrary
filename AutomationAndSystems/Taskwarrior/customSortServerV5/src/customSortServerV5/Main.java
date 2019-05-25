@@ -33,7 +33,7 @@ public class Main {
 		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
-			System.out.println(sortedTaskList.get(i).getId()+" and cSort="+sortedTaskList.get(i).getCustomSort()+" "+unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
+			System.out.println(sortedTaskList.get(i).getId()+" and cSort First="+sortedTaskList.get(i).getCustomSort()+" "+unSortedTaskList.get(i).getDescription()+" and task uuid = "+unSortedTaskList.get(i).getUuid());
 		}
 
 		//Get urgency and add it to tasks
@@ -44,7 +44,7 @@ public class Main {
 
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<sortedTaskList.size();i++) {
-			System.out.println(sortedTaskList.get(i).getId()+" and cSort="+sortedTaskList.get(i).getCustomSort()+" "+sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
+			System.out.println(sortedTaskList.get(i).getId()+" and cSort second="+sortedTaskList.get(i).getCustomSort()+" "+sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
 		assignCustomSortToTw(sortedTaskList);
 
@@ -101,7 +101,7 @@ public class Main {
 		String command=null;
 		double urgency;
 		ArrayList<ArrayList<String>> commandOutput = new ArrayList<ArrayList<String>>();
-
+		System.out.println("Absorbing the urgency to the internal temporary task database");
 		//Loop through taskList
 		for (int i = 0;i<taskList.size();i++) {
 			
@@ -120,6 +120,7 @@ public class Main {
 			//store urgency in task
 			taskList.get(i).setUrgency(urgency);
 		}
+		System.out.println("Finished absorbing the urgency to the internal temporary task database");
 	}
 
 	/**
