@@ -82,9 +82,6 @@ public class Main {
 		// Run gCalSync installation shell
 		RunShell.runShellWithSudo(installData.getBackupScriptDestination(), installData.getgCalSyncInstallScriptName());
 		
-		// Run final task sync init command to initialize first sync before reboot.
-		GenerateCommandsV3.finalSyncInitCommand();
-		
 		AskUserInput.promptReboot(installData);
 		System.exit(0);
 	}
