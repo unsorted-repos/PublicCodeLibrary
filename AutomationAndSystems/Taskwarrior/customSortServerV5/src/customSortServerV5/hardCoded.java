@@ -187,7 +187,8 @@ public class hardCoded {
 	}
 	
 	public static String getLinuxUserName() {
-		if (checkForNonRoot() != null && checkForNonRoot() != "root") {
+		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
+		if (checkForNonRoot() != null && !checkForNonRoot().equals("root")) {
 			System.out.println("Returning nonRoot username ="+checkForNonRoot());
 			return checkForNonRoot();
 		}
