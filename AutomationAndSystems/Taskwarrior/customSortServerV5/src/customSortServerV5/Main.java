@@ -55,6 +55,87 @@ public class Main {
 	}
 
 	/**
+	 * Documentation on recurrence in context of JavaServerSort:
+	 * Terminology: 
+	 * Parent recurrent task: "Do dishes recurs every week"
+	 * Child recurrent task: "Do dishes friday at 14:00"  
+	 * 
+	 * Before sorting, all child recurrent tasks have the same cSort value as their parents. 
+	 * E.g. 115 Parent task is:
+	 * -1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 9a69a841-0acb-4611-8bf2-8e2149cbdd3c
+	 *  And 115 child tasks are:
+	 *  -1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 7d474b06-ee9c-438d-81fd-0a2af26509fb
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 16a1ae55-33c5-4078-93f6-ef2d9a18af0d
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 8a64bf39-cde1-4692-99fa-3bfb6655de73
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 32200115-bc48-4d42-8c2f-eec867cc268d
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 06a28ea9-5363-49fa-aa63-26117347b86a
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = b2e6ac54-b0b3-483c-9844-2bb511b8a3da
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 2d88cfdd-22d0-4737-8ee9-a1ed1b94b42d
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = abab6499-d07f-460a-b915-b20bbecb01b3
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = d3526d89-5a1b-4196-bf10-fb2163623d08
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 17bcdc50-3f7d-417b-b414-1f46158c1a4e
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 6b6bc57e-d881-4c17-9b00-ea9ac93cb56e
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 66449d2c-5ccc-4313-a020-784bc2e1158a
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 3d0f5aef-9440-4e9e-a293-44a1b6705943
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 2783cc95-6319-4d4b-bb9e-56c3cbf74345
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 99df7cbc-e20d-497c-b78f-74bb4391dc7a
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = be050172-07bb-455f-8809-4dd1a598d96e
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 6ee0a7f3-81b2-4707-8099-bdb099d7bf38
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = aba5b2dd-725e-4a61-80d1-8520b8a0d66d
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 6c1d7486-b0e5-4748-829c-64cbafac8542
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = a5e0073e-68f1-48c6-b566-7ce6d0cee7fe
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = d52d52bd-0e5c-4086-8d2c-f1b76e06ecd4
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = b28e755f-dd8e-408c-8eff-6da7bcd8b134
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = f0de72c2-bd3f-46c0-8d4e-ef7b40d3ee2c
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = b74726cb-5748-4bd5-ba0b-c72bcf5c362f
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = ba3cf444-2c19-4c9a-9b59-61e685f26f71
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 2b7657b6-9fc1-4b1d-93c0-127ba8a6fa14
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 1f1980b5-9b76-4c08-b5d1-829dde2b10f9
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 95a6b8ab-710d-493e-89b8-45c77710faf2
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 76f8d140-64f6-4a2c-8129-af46256977c7
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = d63cb586-001f-4c5a-a8e4-e2d86bf913c7
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = b29616f6-fe2a-4aa7-aa99-67c62b6db76b
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 8b559ab5-c6ae-46dc-a434-f29eb06a34e6
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 7ce836dc-2bbe-45f8-90fb-cdc267c543a4
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 02180283-5391-4fbe-ab50-c11f08fa2c6b
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = a95ab810-37f0-4204-82e7-f3c5f3a06e7a
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 2c9f9d1b-fd94-49e4-84e3-627c11da65de
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = c1907a57-e770-4cad-bc20-58679e39b56c
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 5c3120c6-0142-4888-932c-02b989f0f17a
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 3c2138dc-79c8-431e-8223-6bf8b738b979
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 5ea1b2bc-a9f5-48de-8c48-9a9a9e859d7e
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = abb07130-d786-4151-bb64-c95918d314ea
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = a2e66c00-6e70-4284-b1e8-0f2b19e27b29
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = cffa30f7-6f9a-4a95-aeb6-2588334eb14b
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 3ac8c2b7-87b1-4f53-afd9-73f4081fed44
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 605014b1-3225-4ea8-9747-0de9ad24a4b1
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 88e1181f-37cb-42b1-a198-c2000d110d04
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 9cc3d9c7-3c87-475d-a69a-a3e2c4ecda13
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 9393513a-1d7d-4228-90ae-10b829b06af4
+-1.0 and cSort First=115 Prepare clothes for next day, Daily. and task uuid = 26065615-e5ad-4207-862d-8800690e672a
+
+	 *
+	 * 0. improvement could be to skip the child-recurring tasks alltogether in the sorting procedure, and afterwards assign them all
+	 * the same cSort value as their parent recurring task.
+	 * 1. Count the nr of child-recurring tasks per parent-recurring task, and keep this amount of spots open in the cSort order, 
+	 * ignore the child-recurring tasks for the remainder of the sorting procedure, and then sort them separately on date, and then
+	 * assign them the gapped cSort values accordingly. E.g. normal task 1 has csort=10 parent-recurring task 2 has 5 childs and cSort =11
+	 * then normal task 3 has cSort 17, and the 5 extra are filled in after the overal sorting has been completed.
+	 * 
+	 * PROBLEM STATEMENT: with blowing up the backlog/modification file might be explained by the "yes | " that is answered automatically to
+	 * every question of "do you really want to modify this task?" Because for a recurrent task it asks: 
+	 * "This is a recurring task.  Do you want to modify all pending recurrences of this same task? (yes/no)". Then it automatically says yes
+	 * and then instead of modifying just one task, it modifies 50 or so. And it PROBABLY does that for all child-recurring tasks (It does not go in 
+	 * task-id order). An example is "Modifying recurring task 607" which is modified when task 609 is modified and when task 608 is modified.  
+	 * 
+	 * SOLUTION STATEMENTS
+	 * 1. detect if a task is a child-recurrent task, check if the sort script/tw also asks "modify all recurrent tasks?" for these child-tasks, 
+	 * and answering "no" accordingly. (Verify that the child-task itself DOES get modified.
+	 * 2. detect if a task is a child-recurrent task and ignore it all together. Verify whether it gets modified if the parent task is modified, by the 
+	 * question "modify all recurent tasks?". 
+	 */
+	
+	/**
 	 * This method assigns the customSortValue
 	 * 
 	 * TODO: ensure the customSort is not set for the recurrent template.parent tasks
