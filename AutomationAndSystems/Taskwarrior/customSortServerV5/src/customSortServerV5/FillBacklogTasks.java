@@ -9,12 +9,17 @@ public class FillBacklogTasks {
 		ArrayList<String> lines = new ArrayList<>();
 		String backlogPath = hardCoded.getUbuntuFilePath();
 		String backlogFileName = hardCoded.getBacklogFileName();
-		BacklogTaskCatalog catalog = null;
+		
+		ArrayList<BacklogTask> backlogTaskList = new ArrayList<BacklogTask>();
+		BacklogTaskMultiples multiple = new BacklogTaskMultiples(backlogTaskList);
+		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
+		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
 
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
 			lines = readLines(backlogPath, backlogFileName);
 			for (int i = 1; i < lines.size(); i++) { // 1 to skip the first line containing the tw uuid.
-				createBacklogTask(lines.get(i));
+				
+				catalog = generateCatalog(catalog,createBacklogTask(lines.get(i)));
 			}
 		}
 
@@ -34,7 +39,29 @@ public class FillBacklogTasks {
 	 * @return
 	 */
 	public static BacklogTaskCatalog generateCatalog(BacklogTaskCatalog catalog, BacklogTask backlogTask) {
-
+		ArrayList<BacklogTask> backlogTaskList = new ArrayList<BacklogTask>();
+		BacklogTaskMultiples multiple = new BacklogTaskMultiples(backlogTaskList);
+		boolean taskAllocated = false;
+		if (catalog == null || catalog.getMultiples().size()== 0) {
+			backlogTaskList.add(backlogTask);
+			multiple.setMultiples(backlogTaskList);
+			catalog.getMultiples().add(multiple);
+			taskAllocated = true;
+			System.out.println("First new multiple");
+		}else {
+			for (int i = 0; i < catalog.getMultiples().size(); i++) {
+				if (catalog.getMultiples().get(i).getMultiples().get(0).getTwUUID().equals(backlogTask.getTwUUID())) {
+					catalog.getMultiples().get(i).getMultiples().add(backlogTask);
+					taskAllocated = true;
+					System.out.println("Added to existing multiple.");
+				}
+			}
+			if (!taskAllocated) {
+				System.out.println("Creating new multiple");
+				catalog.getMultiples().add(multiple);
+				catalog.getMultiples().get(catalog.getMultiples().size()-1).getMultiples().add(backlogTask);
+			}
+		}
 		return catalog;
 	}
 
