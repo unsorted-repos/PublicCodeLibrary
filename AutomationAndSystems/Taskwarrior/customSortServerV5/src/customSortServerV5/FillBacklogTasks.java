@@ -1,7 +1,8 @@
 package customSortServerV5;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class FillBacklogTasks {
 
@@ -20,16 +21,34 @@ public class FillBacklogTasks {
 		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
 		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
 
+		BacklogTaskCatalog filteredCatalog;
+		
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
 			lines = readLines(backlogPath, backlogFileName);
 			for (int i = 1; i < lines.size(); i++) { // 1 to skip the first line containing the tw uuid.
 				
-				catalog = generateCatalog(catalog,createBacklogTask(lines.get(i)));
+				catalog = generateCatalog(catalog,createBacklogTask(lines.get(i),i));
 			}
 		}
 
-		return catalog;
+		filteredCatalog = filterBacklogCatalog(catalog);
+		
+		
+		return filteredCatalog;
 	}
+	
+	public static BacklogTaskCatalog orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
+		BacklogTask[] taskList = new BacklogTask[nrOfLines];
+		int taskLineNr;
+		for (int i = 0; i < filteredCatalog.getMultiples().size(); i++) {
+			taskLineNr =filteredCatalog.getMultiples().get(i).getMultiples().get(0).getLineNr(); 
+			taskList[taskLineNr] = filteredCatalog.getMultiples().get(i).getMultiples().get(0);
+		}
+		
+		return filteredCatalog;
+	}
+	
+	
 	
 	/**
 	 * Generates a new catalog that contains all multiples with just the last entry/task of each multiple in it. 
@@ -102,7 +121,7 @@ public class FillBacklogTasks {
 		return lines;
 	}
 
-	public static BacklogTask createBacklogTask(String line) {
+	public static BacklogTask createBacklogTask(String line, int lineNr) {
 		String twUuid = findTaskUuid(line, false);
 		String parentTwUuid = null;
 
@@ -112,7 +131,7 @@ public class FillBacklogTasks {
 			parentTwUuid = findTaskUuid(line, true);
 		}
 
-		BacklogTask backlogTask = new BacklogTask(twUuid, parentTwUuid, line, recurring);
+		BacklogTask backlogTask = new BacklogTask(twUuid, parentTwUuid, line, recurring, lineNr);
 //		String twUuid, String parentUuid, String textLine
 		return backlogTask;
 	}
@@ -187,4 +206,14 @@ public class FillBacklogTasks {
 		}
 	}
 
+	
+	/**
+	 * Removes null values from an array of BacklogTask objects.
+	 * @param taskList
+	 * @return
+	 */
+	public static BacklogTask[] removeNullValues(BacklogTask[] taskList) {
+		taskList = Arrays.stream(taskList).filter(Objects::nonNull).toArray(BacklogTask[]::new);	    
+		return taskList;
+	}
 }

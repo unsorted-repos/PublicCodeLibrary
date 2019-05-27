@@ -44,7 +44,7 @@ class FillBacklogTasksTest {
 		recurring[5] = false;
 		
 		for (int i= 0;i<nrOFTestTask ;i++) {
-			task[i] = new BacklogTask(twUuid[i], parentUuid[i], textLine[i], recurring[i]);
+			task[i] = new BacklogTask(twUuid[i], parentUuid[i], textLine[i], recurring[i],i);
 		}
 	}
 	
@@ -144,5 +144,92 @@ class FillBacklogTasksTest {
 	void testFindSubstring() {
 		fail("Not yet implemented");
 	}
+	
+	
+	/**
+	 * Test removes null at start of array.
+	 */
+	@Test
+	void removeNullValuesAtStart() {
+		BacklogTask[] taskListWithNulls = new BacklogTask[4];
+		for (int i= 0;i<4;i++) {
+			taskListWithNulls[i]=task[i];
+		}
+		taskListWithNulls[0]= null;
+		
+		taskListWithNulls = FillBacklogTasks.removeNullValues(taskListWithNulls);
+		
+		assertFalse(taskListWithNulls[0]==null);
+		assertTrue(taskListWithNulls.length==3);
+	}
+	
+	/**
+	 * Test removes null at end of array.
+	 */
+	@Test
+	void removeNullValuesAtEnd() {
+		BacklogTask[] taskListWithNulls = new BacklogTask[4];
+		for (int i= 0;i<4;i++) {
+			taskListWithNulls[i]=task[i];
+		}
+		taskListWithNulls[3]= null;
+		
+		taskListWithNulls = FillBacklogTasks.removeNullValues(taskListWithNulls);
+		
+		assertFalse(taskListWithNulls[2]==null);
+		assertTrue(taskListWithNulls.length==3);
+	}
+	
+	/**
+	 * Test removes null at middle of array.
+	 */
+	@Test
+	void removeNullValuesAtMiddle() {
+		BacklogTask[] taskListWithNulls = new BacklogTask[5];
+		for (int i= 0;i<5;i++) {
+			taskListWithNulls[i]=task[i];
+		}
+		taskListWithNulls[3]= null;
+		
+		taskListWithNulls = FillBacklogTasks.removeNullValues(taskListWithNulls);
+		
+		assertFalse(taskListWithNulls[3]==null);
+		assertTrue(taskListWithNulls.length==4);
+	}
+	
+	/**
+	 * Test removes multiple adjacent nulls at middle of array.
+	 */
+	@Test
+	void removeNullValuesMultNullsMiddle() {
+		BacklogTask[] taskListWithNulls = new BacklogTask[4];
+		for (int i= 0;i<4;i++) {
+			taskListWithNulls[i]=task[i];
+		}
+		taskListWithNulls[1]= null;
+		taskListWithNulls[2]= null;
+		
+		taskListWithNulls = FillBacklogTasks.removeNullValues(taskListWithNulls);
+		
+		assertFalse(taskListWithNulls[1]==null);
+		assertTrue(taskListWithNulls.length==2);
+	}
 
+	/**
+	 * Test removes separated  nulls at middle of array.
+	 */
+	@Test
+	void removeNullValuesSeparated() {
+		BacklogTask[] taskListWithNulls = new BacklogTask[5];
+		for (int i= 0;i<5;i++) {
+			taskListWithNulls[i]=task[i];
+		}
+		taskListWithNulls[2]= null;
+		taskListWithNulls[4]= null;
+		
+		taskListWithNulls = FillBacklogTasks.removeNullValues(taskListWithNulls);
+		
+		assertFalse(taskListWithNulls[2]==null);
+		assertTrue(taskListWithNulls.length==3);
+	}
 }

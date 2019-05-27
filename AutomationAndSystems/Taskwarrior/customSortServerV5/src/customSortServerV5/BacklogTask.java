@@ -6,6 +6,7 @@ public class BacklogTask {
 	private boolean hasParent;
 	private String parentUuid;
 	private String textLine;
+	private int lineNr;
 	
 	/**
 	 * If it is a recurring task it has a parent or not, else it has no parent.
@@ -16,7 +17,7 @@ public class BacklogTask {
 	 * @param parentUuid
 	 * @param textLine
 	 */
-	BacklogTask(String twUuid, String parentUuid, String textLine, boolean recurring){
+	BacklogTask(String twUuid, String parentUuid, String textLine, boolean recurring, int lineNr){
 		if (recurring) {
 			if (parentUuid != null) {
 				this.parentUuid =parentUuid;
@@ -29,11 +30,26 @@ public class BacklogTask {
 		}
 		this.twUUID = twUuid;
 		this.textLine = textLine;
+		this.lineNr = lineNr;
 	}
 	
 	
 	
 	
+	public int getLineNr() {
+		return lineNr;
+	}
+
+
+
+
+	public void setLineNr(int lineNr) {
+		this.lineNr = lineNr;
+	}
+
+
+
+
 	public boolean isRecurring() {
 		return recurring;
 	}
