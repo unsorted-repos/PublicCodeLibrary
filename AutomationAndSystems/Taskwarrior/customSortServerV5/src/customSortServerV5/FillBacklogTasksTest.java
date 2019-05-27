@@ -67,7 +67,7 @@ class FillBacklogTasksTest {
 		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
 		
 		for (int i= 0;i<nrOFTestTask ;i++) {
-			FillBacklogTasks.generateCatalog(catalog, task[i]);
+			catalog = FillBacklogTasks.generateCatalog(catalog, task[i]);
 		}
 		
 		assertTrue(1==1);
@@ -90,6 +90,31 @@ class FillBacklogTasksTest {
 		assertFalse(catalog.getMultiples().get(3).getMultiples().size()==2);
 	}
 
+	
+	/**
+	 * expect the total nr of multiples to equal 4. with indices 0 to 3 and sizes 1.
+	 */
+	@Test
+	void testFilterBacklogCatalog() {
+		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
+		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
+		
+		for (int i= 0;i<nrOFTestTask ;i++) {
+			catalog = FillBacklogTasks.generateCatalog(catalog, task[i]);
+		}
+		
+		BacklogTaskCatalog newCatalog = FillBacklogTasks.filterBacklogCatalog(catalog);
+		
+		assertTrue(newCatalog.getMultiples().get(0).getMultiples().size()==1);
+		assertTrue(newCatalog.getMultiples().get(1).getMultiples().size()==1);
+		assertTrue(newCatalog.getMultiples().get(2).getMultiples().size()==1);
+		assertTrue(newCatalog.getMultiples().get(3).getMultiples().size()==1);
+		
+		// verify multiple 3 does not have size 2
+		assertFalse(newCatalog.getMultiples().get(1).getMultiples().size()==2);
+		
+	}
+	
 	@Test
 	void testReadLines() {
 		fail("Not yet implemented");

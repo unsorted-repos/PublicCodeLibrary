@@ -42,10 +42,15 @@ public class FillBacklogTasks {
 		ArrayList<BacklogTaskMultiples> multiples =  new ArrayList<BacklogTaskMultiples>();
 		BacklogTaskCatalog filteredCatalog = new BacklogTaskCatalog(multiples);
 		
+		BacklogTaskMultiples filteredMultipleBacklog; 
+		
 		for (int i = 0; i < catalog.getMultiples().size();i++) {
+			filteredMultiple.clear();
 			originalMultiple = catalog.getMultiples().get(i).getMultiples(); // store original multiple
 			filteredMultiple.add(originalMultiple.get(originalMultiple.size()-1)); // create new multiple with last task of original multiple
-			BacklogTaskMultiples filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple); // create new backlog multiple object with single task multiple
+			System.out.println("adding task:"+originalMultiple.get(originalMultiple.size()-1).getTwUUID());
+			filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple); // create new backlog multiple object with single task multiple
+			System.out.println("Size1="+filteredMultipleBacklog.getMultiples().size());
 			filteredCatalog.getMultiples().add(filteredMultipleBacklog); // add the single task multiple
 		}
 		
