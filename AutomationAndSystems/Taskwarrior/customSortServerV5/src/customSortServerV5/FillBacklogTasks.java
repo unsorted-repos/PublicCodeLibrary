@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class FillBacklogTasks {
 
+	/**
+	 * TODO: Implement interface, extends etc and merge the Task and BacklogTask object like two different types of houses in JAVA assignment.
+	 * 
+	 * @return
+	 */
 	public static BacklogTaskCatalog manageBacklogFilling() {
 		ArrayList<String> lines = new ArrayList<>();
 		String backlogPath = hardCoded.getUbuntuFilePath();
@@ -24,6 +29,27 @@ public class FillBacklogTasks {
 		}
 
 		return catalog;
+	}
+	
+	/**
+	 * Generates a new catalog that contains all multiples with just the last entry/task of each multiple in it. 
+	 * @param catalog
+	 */
+	public static BacklogTaskCatalog filterBacklogCatalog(BacklogTaskCatalog catalog) {
+		ArrayList<BacklogTask> originalMultiple = new ArrayList<BacklogTask>();
+		ArrayList<BacklogTask> filteredMultiple = new ArrayList<BacklogTask>();
+		
+		ArrayList<BacklogTaskMultiples> multiples =  new ArrayList<BacklogTaskMultiples>();
+		BacklogTaskCatalog filteredCatalog = new BacklogTaskCatalog(multiples);
+		
+		for (int i = 0; i < catalog.getMultiples().size();i++) {
+			originalMultiple = catalog.getMultiples().get(i).getMultiples(); // store original multiple
+			filteredMultiple.add(originalMultiple.get(originalMultiple.size()-1)); // create new multiple with last task of original multiple
+			BacklogTaskMultiples filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple); // create new backlog multiple object with single task multiple
+			filteredCatalog.getMultiples().add(filteredMultipleBacklog); // add the single task multiple
+		}
+		
+		return filteredCatalog;
 	}
 
 	/**
