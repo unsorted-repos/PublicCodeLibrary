@@ -22,6 +22,8 @@ public class FillBacklogTasks {
 		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
 
 		BacklogTaskCatalog filteredCatalog;
+		BacklogTaskCatalog orderedFilteredCatalog;
+		BacklogTask[] orderedFilteredTaskList;
 		
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
 			lines = readLines(backlogPath, backlogFileName);
@@ -32,9 +34,24 @@ public class FillBacklogTasks {
 		}
 
 		filteredCatalog = filterBacklogCatalog(catalog);
+		orderedFilteredCatalog = orderCatalog(filteredCatalog,lines.size()-1); //-1 to remove the entry of the first line
+		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
 		
-		
+		CreateFiles.writeFileContent("/home/"+hardCoded.getLinuxUserName()+"/.task/","backlogCopy.data", orderedFilteredTaskList);
 		return filteredCatalog;
+	}
+	
+	private static void writeCatalogToFile(String filePath, String fileName, BacklogTask[] taskList) {
+		
+	}
+	
+	public static BacklogTask[] catalogToTaskArray(BacklogTaskCatalog filteredOrderedCatalog) {
+		int catalogSize = filteredOrderedCatalog.getMultiples().size();
+		BacklogTask[] taskList= new BacklogTask[catalogSize];
+		for (int i = 0; i < catalogSize; i++) {
+			taskList[i] = filteredOrderedCatalog.getMultiples().get(i).getMultiples().get(0);
+		}
+		return taskList;
 	}
 	
 	public static BacklogTaskCatalog orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
