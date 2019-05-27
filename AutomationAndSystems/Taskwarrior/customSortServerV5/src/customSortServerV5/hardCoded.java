@@ -19,6 +19,16 @@ public class hardCoded {
 	private static String customReportName="nice0";
 	private static double urgencyThreshold = 11.5;
 	private static String sudo = "sudo ";
+	private static String backlogFileName = "backlog.data";
+	
+	public static String getBacklogFileName() {
+		return backlogFileName;
+	}
+
+	public static void setBacklogFileName(String backlogFileName) {
+		hardCoded.backlogFileName = backlogFileName;
+	}
+
 	/**
 	 * @return the udaName
 	 */

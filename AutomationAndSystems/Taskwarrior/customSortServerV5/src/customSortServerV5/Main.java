@@ -23,6 +23,9 @@ public class Main {
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
 
+		// Read backlog file
+		FillBacklogTasks.manageBacklogFilling();
+		System.exit(0);
 		//Create customSortUDA cSort in tw:
 		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
 		//Create UDA estimate in tw:
@@ -132,8 +135,29 @@ public class Main {
 	 * 1. detect if a task is a child-recurrent task, check if the sort script/tw also asks "modify all recurrent tasks?" for these child-tasks, 
 	 * and answering "no" accordingly. (Verify that the child-task itself DOES get modified.
 	 * 2. detect if a task is a child-recurrent task and ignore it all together. Verify whether it gets modified if the parent task is modified, by the 
-	 * question "modify all recurent tasks?". 
+	 * question "modify all recurent tasks?".
+	 * 3. Quick fix: Scan backlog.data for cSort modifications and delete those lines immediately after sorting. Problem: The backlog does not 
+	 * store any modifications, it just stores new versions of tasks in their respective order of occurence, (old ones first, new ones later).
+	 * So you could only delete duplicate tasks, and then only if the only difference is their value in the value of the customSort UDA
+	 * 
+	 *  Recur example parent: [customSort:"126.000000" description:"Saturdays Bike to gym." due:"1554531000" entry:"1554033797" mask:"-" modified:"1554042539" project:"rout" recur:"weekly" scheduled:"1554530100" status:"recurring" uuid:"e8576b9b-da0c-47f1-86dd-941d46aa6cde"]
+	 *  Recur example child: [customSort:"126.000000" description:"Saturdays Bike to gym." due:"1554531000" entry:"1554034229" imask:"0.000000" modified:"1554042539" parent:"e8576b9b-da0c-47f1-86dd-941d46aa6cde" project:"rout" recur:"weekly" scheduled:"1554530100" status:"pending" uuid:"181d9c90-8818-484b-abc6-0075d4b55df3"]
 	 */
+	
+	/**
+	 * Locates backlogTest.data
+	 * reads all lines and searches per line for duplicates of tw UUID's. If it finds duplicate twUuid it removes ONLY the lines that ONLY contain a change in
+	 * the customSort value. (It removes the top line of the two). (Possibly scan entire file at once for that TW UUID to eliminate all but last.).
+	 * removes those lines that concern customsort modification. 
+	 * Stores the resulting modified backlog.
+	 * 
+	 * Create Arraylist of objects that contain: the uuid, line, line number. Put them all in an array list, and 
+	 * create an array list of those objects per uuid. so create an arraylist of uuids, and then per uuid create a list
+	 * that contains the line and line number. Once all lines are processed, just write the line of the last object in that arraylist of an uuid.
+	 */
+	public static void scanBacklog() {
+	
+	}
 	
 	/**
 	 * This method assigns the customSortValue

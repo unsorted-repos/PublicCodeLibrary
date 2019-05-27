@@ -27,6 +27,7 @@ public class Task {
 	 double urgency =-1;
 	 String uuid=null; 
 	 String wait =null; //date
+	 
 	
 	//User defined attributes (UDA's)
 	int customSort =-1;

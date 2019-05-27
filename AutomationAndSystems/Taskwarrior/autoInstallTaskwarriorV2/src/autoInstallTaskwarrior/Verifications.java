@@ -186,6 +186,7 @@ public class Verifications {
 	/**
 	 * Sorting efficiency:
 	 */
+	//TODO: Rewrite absorbing taskdata from using taskwarrior commands, to using the json backlog.data/pending.data files directly.
 	//TODO: Test whether blows up the backlog or undo.data when server in multi-device on desktop with a sync from client:
 	//TODO: Test whether blows up the backlog or undo.data when server in single-device on desktop:
 	//TODO: Test whether blows up the backlog or undo.data when server in single-device on laptop:
