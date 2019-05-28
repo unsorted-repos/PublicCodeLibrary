@@ -33,9 +33,15 @@ public class FillBacklogTasks {
 		}
 
 		filteredCatalog = filterBacklogCatalog(catalog);
-		orderedFilteredCatalog = orderCatalog(filteredCatalog, lines.size() - 1); // -1 to remove the entry of the first
+//		orderedFilteredCatalog = orderCatalog(filteredCatalog, lines.size() - 1); // -1 to remove the entry of the first
 																					// line
-		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
+		
+		orderedFilteredTaskList = orderCatalog(filteredCatalog,lines.size());
+		
+		//remove zeros
+		orderedFilteredTaskList = removeNullValues(orderedFilteredTaskList);
+		
+//		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
 
 		CreateFiles.writeFileContent("/home/" + hardCoded.getLinuxUserName() + "/.task/", "backlogCopy.data",
 				orderedFilteredTaskList);
@@ -84,7 +90,7 @@ public class FillBacklogTasks {
 	 * @param nrOfLines
 	 * @return
 	 */
-	private static BacklogTaskCatalog orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
+	private static BacklogTask[] orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
 		BacklogTask[] taskList = new BacklogTask[nrOfLines + 1];
 		int taskLineNr;
 		for (int i = 0; i < filteredCatalog.getMultiples().size(); i++) {
@@ -92,7 +98,8 @@ public class FillBacklogTasks {
 			taskList[taskLineNr] = filteredCatalog.getMultiples().get(i).getMultiples().get(0);
 		}
 
-		return filteredCatalog;
+//		return filteredCatalog;
+		return taskList;
 	}
 
 	/**
