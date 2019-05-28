@@ -159,7 +159,7 @@ public class FillBacklogTasks {
 	 * @param taskList
 	 * @return
 	 */
-	private static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
+	public static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
 		BacklogTask[] returnList = new BacklogTask[taskList.size()];
 		for (int i = 0;i <taskList.size()-2;i++) {
 			for (int diff = i+1;diff<taskList.size()-1;diff++) {
@@ -176,37 +176,21 @@ public class FillBacklogTasks {
 				}
 			}
 		}
-		return null;
+		
+		return backlogTaskArrayToArrayList(returnList);
 	}
 	
-	/**
-	 * 
-	 * @param line1
-	 * @param line2
-	 * @return
-	 */
-	public static boolean cSortValueIsOnlyDifference(String line1, String line2) {
-		return false;
+	public static ArrayList<BacklogTask> backlogTaskArrayToArrayList(BacklogTask[] returnList){
+		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
+		for (int i = 0; i < returnList.length; i++) {
+			returnArrayList.add(returnList[i]);
+		}
+		return returnArrayList;
 	}
-	
+
 	/**
-	 * If they both contain the cSort parameter:
-	 * 		Check if left and right of both cSort parameters equal
-	 * 			if yes: keep line1, remove line2
-	 * 			if no: keep line1, keep line2
-	 * 
-	 * if line1 does contain cSort and line 2 doesn't contain cSort
-	 * 		Check if left of Csort parameter, and right of cSort parameter equal the line2
-	 * 			if yes: keep line1 keep line2
-	 * 			if no:  keep line1 keep line2
-	 * 
-	 * if line1 doesnt contain cSort and line 2 does contain cSort
-	 * 		Check if left of Csort parameter, and right of cSort parameter equal the line1
-	 * 			if yes: remove line2
-	 * 			if no:  keep line1 keep line2
-	 * 
-	 * If neither contain the cSort parameter, return false
-	 * 
+	 * Determines which task modifications lead to task removal and not.
+	 * All task line combinations tested except null lines, which should not occur.
 	 * 
 	 * @param line1
 	 * @param line2
@@ -271,10 +255,10 @@ public class FillBacklogTasks {
 			
 			String leftOfCSort = line.substring(0,startIndex);
 			String rightOfCSort = line.substring(endIndex,line.length());
-			System.out.println("returning with CSort="+leftOfCSort+rightOfCSort);
+//			System.out.println("returning with CSort="+leftOfCSort+rightOfCSort);
 			return leftOfCSort+rightOfCSort;
 		}else {
-			System.out.println("returning"+line);
+//			System.out.println("returning"+line);
 			return line;
 		}
 	}

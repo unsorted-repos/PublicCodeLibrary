@@ -264,9 +264,9 @@ class FillBacklogTasksTest {
 		String before = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
 		String after = "(asdgasd"+quotation+"description";
 		
-		System.out.println(before);
-		System.out.println(FillBacklogTasks.removeCSortInfoFromLine(before));
-		System.out.println(after);
+//		System.out.println(before);
+//		System.out.println(FillBacklogTasks.removeCSortInfoFromLine(before));
+//		System.out.println(after);
 		String testStringFalseNull = null;
 		assertTrue(after.equals(FillBacklogTasks.removeCSortInfoFromLine(before)));
 	}
@@ -375,5 +375,70 @@ class FillBacklogTasksTest {
 		// more differences
 		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortDifferent)[0]);
 		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortDifferent)[1]);
+	}
+	
+	
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications0() {
+		ArrayList<BacklogTask> taskList = generateTaskList1();
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(0).getLineNr()==0);
+
+	}
+	
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications1() {
+		ArrayList<BacklogTask> taskList = generateTaskList1();
+		System.out.println("tasklist.length="+taskList.size());
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(1).getLineNr()==2);
+
+	}
+
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications2() {
+		ArrayList<BacklogTask> taskList = generateTaskList1();
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(2).getLineNr()==3);
+	}
+
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications3() {
+		ArrayList<BacklogTask> taskList = generateTaskList1();
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(3).getLineNr()==4);
+	}
+
+	
+	private static ArrayList<BacklogTask> generateTaskList1() {
+		String[] t = new String[5];
+		char quotation = (char) 34;
+		t[0] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"3,"+quotation+"ab";
+		t[1] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ab";
+		t[2] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ac";
+		t[3] = "(asdgasd,"+quotation+"ac";
+		t[4] = "(asdgasd,"+quotation+"ab";
+		BacklogTask[] backlogTask = new BacklogTask[5];
+//		BacklogTask(String twUuid, String parentUuid, String textLine, boolean recurring, int lineNr){
+		backlogTask[0] = new BacklogTask("uuid","parentUuid",t[0],false,0);
+		backlogTask[1] = new BacklogTask("uuid","parentUuid",t[1],false,1);
+		backlogTask[2] = new BacklogTask("uuid","parentUuid",t[2],false,2);
+		backlogTask[3] = new BacklogTask("uuid","parentUuid",t[3],false,3);
+		backlogTask[4] = new BacklogTask("uuid","parentUuid",t[4],false,4);
+		ArrayList<BacklogTask> taskList = new ArrayList<BacklogTask>();
+		taskList.add(backlogTask[0]);
+		taskList.add(backlogTask[1]);
+		taskList.add(backlogTask[2]);
+		taskList.add(backlogTask[3]);
+		taskList.add(backlogTask[4]);
+		return taskList;
 	}
 }
