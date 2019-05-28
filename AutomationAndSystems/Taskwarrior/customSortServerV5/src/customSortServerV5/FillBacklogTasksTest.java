@@ -15,19 +15,25 @@ class FillBacklogTasksTest {
 	public boolean[] recurring = new boolean[nrOFTestTask ];
 	public BacklogTask[] task = new BacklogTask[nrOFTestTask ];
 	
+	char quotation = (char) 34;
+	
+	String line0ContainsCSort = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
+	String line1ContainsCSortSame = "(asdgasd,"+quotation+"customSort"+quotation+":"+"344,"+quotation+"description";
+	String line1ContainsCSortDifferent = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descriptionDIFFERENT";
+	
+	String line0NotContainsCSort = "(asdgasd,"+quotation+"description";
+	String line1NotContainsCSortSame = "(asdgasd,"+quotation+"description";
+	String line1NotContainsCSortDifferent = "(asdgasd,"+quotation+"descriptionDIFFERENT";
+	
 	@BeforeEach
 	public void initEach() {
-		
-		System.out.println("Ran before each test");
-		
-		
+//		System.out.println("Ran before each test");
 		twUuid[0] = "aaa";
 		twUuid[1] = "bbb";
 		twUuid[2] = "ccc";
 		twUuid[3] = "ddd";
 		twUuid[4] = "bbb";
 		twUuid[5] = "ccc";
-		
 		
 		textLine[0] = "0aaa1";
 		textLine[1] = "0bbb1";
@@ -273,7 +279,7 @@ class FillBacklogTasksTest {
 		char quotation = (char) 34;
 		String line0 = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
 		String line1True = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
-		String line1False = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
+		String line1False = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descriptionDIFFERENT";
 		
 		assertTrue(FillBacklogTasks.onlyDifferenceIsCSort(line0,line1True));
 		assertFalse(FillBacklogTasks.onlyDifferenceIsCSort(line0,line1False));
@@ -281,38 +287,93 @@ class FillBacklogTasksTest {
 	
 	
 	/**
-	 * 
+	 * passed 
 	 */
 	@Test
-	void testKeepLines() {
-		char quotation = (char) 34;
-		
-		String line0ContainsCSort = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
-		String line1line0ContainsCSortSame = "(asdgasd,"+quotation+"customSort"+quotation+":"+"344,"+quotation+"description";
-		String line1ContainsCSortDifferent = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
-		
-		String line0ContainsCSortNot = "(asdgasd,"+",description";
-		String line1line0ContainsCSortNotSame = "(asdgasd,"+"description";
-		String line1ContainsCSortNotDifferent = "(asdgasd."+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
-		
+	void testKeepLinesSame11() {
 		// both contain cSort
-			// cSort is only difference
-		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[0]);
-		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[1]);
+		// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1ContainsCSortSame)[0]);
+		assertFalse(FillBacklogTasks.keepLines(line0ContainsCSort,line1ContainsCSortSame)[1]);
+	}
+	
+	/**
+	 * passed 
+	 */
+	@Test
+	void testKeepLinesDifferent11() {
+		// both contain cSort
 			// more differences
-		
+			assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1ContainsCSortDifferent)[0]);
+			assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1ContainsCSortDifferent)[1]);
+	}
+
+	/**
+	 * passed
+	 */
+	@Test
+	void testKeepLinesSame10() {
 		//First contains cSort second does not
-			// cSort is only difference
-		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[0]);
-		assertFalse(FillBacklogTasks.keepLines(line0,line1False)[1]);
-			// more differences
-		
+		// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1NotContainsCSortSame)[0]);
+		// user actively deleted customSort data from task so keep it
+		assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1NotContainsCSortSame)[1]); 		
+	}
+	
+	/**
+	 * passed
+	 */
+	@Test
+	void testKeepLinesDifferent10() {
+		//First contains cSort second does not
+		// more differences
+		assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1NotContainsCSortDifferent)[0]);
+		assertTrue(FillBacklogTasks.keepLines(line0ContainsCSort,line1NotContainsCSortDifferent)[1]);
+	}
+			
+	/**
+	 * passed
+	 */
+	@Test
+	void testKeepLinesSame01() {
 		//First does not contain cSort, second does
-			// cSort is only difference
-			// more differences
+		// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1ContainsCSortSame)[0]);
+		assertFalse(FillBacklogTasks.keepLines(line0NotContainsCSort,line1ContainsCSortSame)[1]);
+	}
+	
+	/**
+	 * passed 
+	 */
+	@Test
+	void testKeepLinesDifferent01() {			
+		//First does not contain cSort, second does
+		// more differences
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1ContainsCSortDifferent)[0]);
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1ContainsCSortDifferent)[1]);
+	}
 		
+	/**
+	 * passed
+	 */
+	@Test
+	void testKeepLinesSame00() {
 		//neither contain cSort
-			// cSort is only difference
-			// more differences
+		// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortSame)[0]);
+		// I can currently not think of a scenario where taskwarrior would add the exact same task twice 
+		// without a CSort modification, but if it does, just keep it as a fail safe (and assertTrue).
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortSame)[1]);
+	}
+	
+	/**
+	 * pass 
+	 */
+	@Test
+	void testKeepLinesDifferent00() {
+		//neither contain cSort
+		// more differences
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortDifferent)[0]);
+		assertTrue(FillBacklogTasks.keepLines(line0NotContainsCSort,line1NotContainsCSortDifferent)[1]);
 	}
 }

@@ -213,6 +213,8 @@ public class FillBacklogTasks {
 	 * @return index0: represents line0, index[1] represents line1 false = remove, true = keep
 	 */
 	public static boolean[] keepLines(String line0, String line1) {
+		System.out.println("line0="+line0);
+		System.out.println("line1="+line1);
 		boolean[] returnArray = new boolean[2];
 		if (containsCSort(line0) && containsCSort(line1)) {
 			if (onlyDifferenceIsCSort(line0,line1)) {
@@ -265,13 +267,14 @@ public class FillBacklogTasks {
 			String searchSubString = quotation+"customSort"+quotation+":";
 			
 			int startIndex = line.indexOf(searchSubString);
-			System.out.println("Findingfirstcommain="+line.substring(startIndex));
 			int endIndex =startIndex+ line.substring(startIndex).indexOf(",")+1;
 			
 			String leftOfCSort = line.substring(0,startIndex);
 			String rightOfCSort = line.substring(endIndex,line.length());
+			System.out.println("returning with CSort="+leftOfCSort+rightOfCSort);
 			return leftOfCSort+rightOfCSort;
 		}else {
+			System.out.println("returning"+line);
 			return line;
 		}
 	}
