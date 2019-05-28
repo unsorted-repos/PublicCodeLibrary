@@ -382,7 +382,7 @@ class FillBacklogTasksTest {
 	 * pass 
 	 */
 	@Test
-	void testOnlyRemoveCSortModifications0() {
+	void testOnlyRemoveCSortModifications1_0() {
 		ArrayList<BacklogTask> taskList = generateTaskList1();
 		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(0).getLineNr()==0);
 
@@ -392,7 +392,7 @@ class FillBacklogTasksTest {
 	 * pass 
 	 */
 	@Test
-	void testOnlyRemoveCSortModifications1() {
+	void testOnlyRemoveCSortModifications1_1() {
 		ArrayList<BacklogTask> taskList = generateTaskList1();
 		System.out.println("tasklist.length="+taskList.size());
 		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(1).getLineNr()==2);
@@ -403,22 +403,23 @@ class FillBacklogTasksTest {
 	 * pass 
 	 */
 	@Test
-	void testOnlyRemoveCSortModifications2() {
+	void testOnlyRemoveCSortModifications1_2() {
 		ArrayList<BacklogTask> taskList = generateTaskList1();
 		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(2).getLineNr()==3);
 	}
 
 	/**
-	 * pass 
+	 * fail
 	 */
 	@Test
-	void testOnlyRemoveCSortModifications3() {
+	void testOnlyRemoveCSortModifications1_3() {
 		ArrayList<BacklogTask> taskList = generateTaskList1();
 		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(3).getLineNr()==4);
 	}
 
 	
 	private static ArrayList<BacklogTask> generateTaskList1() {
+		System.out.println("generator1");
 		String[] t = new String[5];
 		char quotation = (char) 34;
 		t[0] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"3,"+quotation+"ab";
@@ -426,6 +427,60 @@ class FillBacklogTasksTest {
 		t[2] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ac";
 		t[3] = "(asdgasd,"+quotation+"ac";
 		t[4] = "(asdgasd,"+quotation+"ab";
+		BacklogTask[] backlogTask = new BacklogTask[5];
+//		BacklogTask(String twUuid, String parentUuid, String textLine, boolean recurring, int lineNr){
+		backlogTask[0] = new BacklogTask("uuid","parentUuid",t[0],false,0);
+		backlogTask[1] = new BacklogTask("uuid","parentUuid",t[1],false,1);
+		backlogTask[2] = new BacklogTask("uuid","parentUuid",t[2],false,2);
+		backlogTask[3] = new BacklogTask("uuid","parentUuid",t[3],false,3);
+		backlogTask[4] = new BacklogTask("uuid","parentUuid",t[4],false,4);
+		ArrayList<BacklogTask> taskList = new ArrayList<BacklogTask>();
+		taskList.add(backlogTask[0]);
+		taskList.add(backlogTask[1]);
+		taskList.add(backlogTask[2]);
+		taskList.add(backlogTask[3]);
+		taskList.add(backlogTask[4]);
+		return taskList;
+	}
+	
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications2_1() {
+		ArrayList<BacklogTask> taskList = generateTaskList2();
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(0).getLineNr()==0);
+	}
+
+	/**
+	 * Error it keeps task 1 when it should delete task 1,2 and keep task 3
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications2_2() {
+		ArrayList<BacklogTask> taskList = generateTaskList2();
+		int indicator =FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(1).getLineNr();
+		System.out.println("Indicator="+indicator); //1
+		assertTrue(indicator==3);
+	}
+	
+	/**
+	 * pass 
+	 */
+	@Test
+	void testOnlyRemoveCSortModifications2_3() {
+		ArrayList<BacklogTask> taskList = generateTaskList2();
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(2)==null);
+	}
+	
+	private static ArrayList<BacklogTask> generateTaskList2() {
+		System.out.println("generator2");
+		String[] t = new String[5];
+		char quotation = (char) 34;
+		t[0] = "(asdgasd,"+","+quotation+"ab";
+		t[1] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"3,"+quotation+"ab";
+		t[2] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ab";
+		t[3] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ac";
+		t[4] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"3,"+quotation+"ac";
 		BacklogTask[] backlogTask = new BacklogTask[5];
 //		BacklogTask(String twUuid, String parentUuid, String textLine, boolean recurring, int lineNr){
 		backlogTask[0] = new BacklogTask("uuid","parentUuid",t[0],false,0);

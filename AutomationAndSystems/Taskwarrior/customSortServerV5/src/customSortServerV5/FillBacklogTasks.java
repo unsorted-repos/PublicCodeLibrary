@@ -160,15 +160,16 @@ public class FillBacklogTasks {
 	 * @return
 	 */
 	public static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
-		BacklogTask[] returnList = new BacklogTask[taskList.size()];
+		BacklogTask[] returnArray = new BacklogTask[taskList.size()];
+		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
 		for (int i = 0;i <taskList.size()-2;i++) {
 			for (int diff = i+1;diff<taskList.size()-1;diff++) {
 				if (!keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]) { 
 					//discard task[diff] and scan for next task(diff+1) to compare with i.
-					returnList[i] = taskList.get(i);
+					returnArray[i] = taskList.get(i);
 				}else {
-					returnList[i] = taskList.get(i);
-					returnList[diff] = taskList.get(diff);
+					returnArray[i] = taskList.get(i);
+					returnArray[diff] = taskList.get(diff);
 					i = diff-1; // start comparing in the next iteration at i.
 					// TODO: Verify counter indeed goes from i=2 and diff = 5 to i=5 and diff = 6 in this if condition.
 					// TODO: Verify counter indeed goes from i=2 and diff = 3 to i=3 and diff = 4 in this if condition.
@@ -177,9 +178,36 @@ public class FillBacklogTasks {
 			}
 		}
 		
-		return backlogTaskArrayToArrayList(returnList);
+		System.out.println("before removal");
+		printReturnArray(returnArray);
+		returnArray =removeNullValues(returnArray);
+		System.out.println("after removal");
+		printReturnArray(returnArray);
+		returnArrayList =backlogTaskArrayToArrayList(returnArray);
+//		printReturnArrayList(returnArrayList);
+		return returnArrayList;
+//		return backlogTaskArrayToArrayList(returnList);
 	}
 	
+	public static void printReturnArray(BacklogTask[] returnArray) {
+		for (int i = 0; i < returnArray.length; i++) {
+			if (returnArray[i] !=null) {
+				System.out.println("arrayi="+i+" and="+returnArray[i].getLineNr());
+			}else {
+				System.out.println("null");
+			}
+		}
+	}
+	
+	public static void printReturnArrayList(ArrayList<BacklogTask> returnArrayList) {
+		for (int i = 0; i < returnArrayList.size(); i++) {
+			if (returnArrayList.get(i) !=null) {
+				System.out.println("arraylisti="+i+" and="+returnArrayList.get(i).getLineNr());
+			}else {
+				System.out.println("null");
+			}
+		}
+	}
 	public static ArrayList<BacklogTask> backlogTaskArrayToArrayList(BacklogTask[] returnList){
 		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
 		for (int i = 0; i < returnList.length; i++) {
@@ -197,8 +225,8 @@ public class FillBacklogTasks {
 	 * @return index0: represents line0, index[1] represents line1 false = remove, true = keep
 	 */
 	public static boolean[] keepLines(String line0, String line1) {
-		System.out.println("line0="+line0);
-		System.out.println("line1="+line1);
+//		System.out.println("line0="+line0);
+//		System.out.println("line1="+line1);
 		boolean[] returnArray = new boolean[2];
 		if (containsCSort(line0) && containsCSort(line1)) {
 			if (onlyDifferenceIsCSort(line0,line1)) {
