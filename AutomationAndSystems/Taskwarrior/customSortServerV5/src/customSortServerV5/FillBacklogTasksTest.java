@@ -150,7 +150,7 @@ class FillBacklogTasksTest {
 	 * Test removes null at start of array.
 	 */
 	@Test
-	void removeNullValuesAtStart() {
+	void testRemoveNullValuesAtStart() {
 		BacklogTask[] taskListWithNulls = new BacklogTask[4];
 		for (int i= 0;i<4;i++) {
 			taskListWithNulls[i]=task[i];
@@ -167,7 +167,7 @@ class FillBacklogTasksTest {
 	 * Test removes null at end of array.
 	 */
 	@Test
-	void removeNullValuesAtEnd() {
+	void testRemoveNullValuesAtEnd() {
 		BacklogTask[] taskListWithNulls = new BacklogTask[4];
 		for (int i= 0;i<4;i++) {
 			taskListWithNulls[i]=task[i];
@@ -184,7 +184,7 @@ class FillBacklogTasksTest {
 	 * Test removes null at middle of array.
 	 */
 	@Test
-	void removeNullValuesAtMiddle() {
+	void tesRemoveNullValuesAtMiddle() {
 		BacklogTask[] taskListWithNulls = new BacklogTask[5];
 		for (int i= 0;i<5;i++) {
 			taskListWithNulls[i]=task[i];
@@ -201,7 +201,7 @@ class FillBacklogTasksTest {
 	 * Test removes multiple adjacent nulls at middle of array.
 	 */
 	@Test
-	void removeNullValuesMultNullsMiddle() {
+	void testRemoveNullValuesMultNullsMiddle() {
 		BacklogTask[] taskListWithNulls = new BacklogTask[4];
 		for (int i= 0;i<4;i++) {
 			taskListWithNulls[i]=task[i];
@@ -219,7 +219,7 @@ class FillBacklogTasksTest {
 	 * Test removes separated  nulls at middle of array.
 	 */
 	@Test
-	void removeNullValuesSeparated() {
+	void testRemoveNullValuesSeparated() {
 		BacklogTask[] taskListWithNulls = new BacklogTask[5];
 		for (int i= 0;i<5;i++) {
 			taskListWithNulls[i]=task[i];
@@ -231,5 +231,88 @@ class FillBacklogTasksTest {
 		
 		assertFalse(taskListWithNulls[2]==null);
 		assertTrue(taskListWithNulls.length==3);
+	}
+	
+	
+	/**
+	 * test whether A string contanis CSort 
+	 */
+	@Test
+	void testContainsCSort() {
+		char quotation = (char) 34;
+		String testStringTrue = "asdgasd"+quotation+"customSort"+quotation+":"+"342";
+		String testStringFalse = "asdf";
+		String testStringFalseNull = null;
+		assertTrue(FillBacklogTasks.containsCSort(testStringTrue));
+		assertFalse(FillBacklogTasks.containsCSort(testStringFalse));
+		assertFalse(FillBacklogTasks.containsCSort(testStringFalseNull));
+	}
+	
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testRemoveCSortInfoFromLine() {
+		char quotation = (char) 34;
+		String before = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
+		String after = "(asdgasd"+quotation+"description";
+		
+		System.out.println(before);
+		System.out.println(FillBacklogTasks.removeCSortInfoFromLine(before));
+		System.out.println(after);
+		String testStringFalseNull = null;
+		assertTrue(after.equals(FillBacklogTasks.removeCSortInfoFromLine(before)));
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testOnlyDifferenceIsCSort() {
+		char quotation = (char) 34;
+		String line0 = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
+		String line1True = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
+		String line1False = "(asdgasd"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
+		
+		assertTrue(FillBacklogTasks.onlyDifferenceIsCSort(line0,line1True));
+		assertFalse(FillBacklogTasks.onlyDifferenceIsCSort(line0,line1False));
+	}
+	
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testKeepLines() {
+		char quotation = (char) 34;
+		
+		String line0ContainsCSort = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"description";
+		String line1line0ContainsCSortSame = "(asdgasd,"+quotation+"customSort"+quotation+":"+"344,"+quotation+"description";
+		String line1ContainsCSortDifferent = "(asdgasd,"+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
+		
+		String line0ContainsCSortNot = "(asdgasd,"+",description";
+		String line1line0ContainsCSortNotSame = "(asdgasd,"+"description";
+		String line1ContainsCSortNotDifferent = "(asdgasd."+quotation+"customSort"+quotation+":"+"342,"+quotation+"descripton";
+		
+		// both contain cSort
+			// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[0]);
+		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[1]);
+			// more differences
+		
+		//First contains cSort second does not
+			// cSort is only difference
+		assertTrue(FillBacklogTasks.keepLines(line0,line1True)[0]);
+		assertFalse(FillBacklogTasks.keepLines(line0,line1False)[1]);
+			// more differences
+		
+		//First does not contain cSort, second does
+			// cSort is only difference
+			// more differences
+		
+		//neither contain cSort
+			// cSort is only difference
+			// more differences
 	}
 }

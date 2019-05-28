@@ -22,7 +22,7 @@ public class FillBacklogTasks {
 		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
 
 		BacklogTaskCatalog filteredCatalog;
-		BacklogTaskCatalog orderedFilteredCatalog;
+//		BacklogTaskCatalog orderedFilteredCatalog;
 		BacklogTask[] orderedFilteredTaskList;
 
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
@@ -35,10 +35,10 @@ public class FillBacklogTasks {
 		filteredCatalog = filterBacklogCatalog(catalog);
 //		orderedFilteredCatalog = orderCatalog(filteredCatalog, lines.size() - 1); // -1 to remove the entry of the first
 																					// line
-		
+		// converting the catalog into an array of BacklogTask objects that has the size nr of lines.
 		orderedFilteredTaskList = orderCatalog(filteredCatalog,lines.size());
 		
-		//remove zeros
+		// remove all null entries for the tasks of the lines that were removed.
 		orderedFilteredTaskList = removeNullValues(orderedFilteredTaskList);
 		
 //		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
@@ -48,6 +48,17 @@ public class FillBacklogTasks {
 		return filteredCatalog;
 	}
 
+	
+	/**
+	 * TODO: Verify that if a customSort is changed, that the only thing that is changed in the backlog line is the value of cSort, 
+	 * and not also some time of modification or anything else.
+	 * TODO: Instead of only taking last, evaluate all tasks in multiple, if the only difference between the lines of the same task
+	 * is the value of the cSort parameter, then remove the 2nd task of the comparison. 
+	 * Then put that list of multiples back instead of just putting the last task of a multiple back
+	 * Then check where you convert those multiples into a array of BacklogTask objects, that you not only take the last task/single task
+	 * of a multiple, but all the remaining tasks in the multiple
+	 */
+	
 //	/**
 //	 * prints the line numbers if needed
 //	 * @param filteredCatalog
@@ -61,20 +72,20 @@ public class FillBacklogTasks {
 //
 //	}
 
-	/**
-	 *  Converts the catalog to a convenient array of tasks to facilitate writing the catalog
-	 *  back to backlog.data.
-	 * @param filteredOrderedCatalog
-	 * @return
-	 */
-	private static BacklogTask[] catalogToTaskArray(BacklogTaskCatalog filteredOrderedCatalog) {
-		int catalogSize = filteredOrderedCatalog.getMultiples().size();
-		BacklogTask[] taskList = new BacklogTask[catalogSize];
-		for (int i = 0; i < catalogSize; i++) {
-			taskList[i] = filteredOrderedCatalog.getMultiples().get(i).getMultiples().get(0);
-		}
-		return taskList;
-	}
+//	/**
+//	 *  Converts the catalog to a convenient array of tasks to facilitate writing the catalog
+//	 *  back to backlog.data.
+//	 * @param filteredOrderedCatalog
+//	 * @return
+//	 */
+//	private static BacklogTask[] catalogToTaskArray(BacklogTaskCatalog filteredOrderedCatalog) {
+//		int catalogSize = filteredOrderedCatalog.getMultiples().size();
+//		BacklogTask[] taskList = new BacklogTask[catalogSize];
+//		for (int i = 0; i < catalogSize; i++) {
+//			taskList[i] = filteredOrderedCatalog.getMultiples().get(i).getMultiples().get(0);
+//		}
+//		return taskList;
+//	}
 
 	/**
 	 * This should: 
@@ -127,6 +138,7 @@ public class FillBacklogTasks {
 
 			// create new backlog multiple object with single task multiple
 			filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple);
+			// TODO: Check here whether filteredMultipleBacklog's ArrayList contains multiple tasks
 
 			// add the single task multiple
 			filteredCatalog.getMultiples().add(filteredMultipleBacklog);
@@ -134,6 +146,136 @@ public class FillBacklogTasks {
 		return filteredCatalog;
 	}
 
+	/**
+	 * This method compares the line of task i with that of task i+a (with a = 1<size of taskList) for all tasks in a multiple
+	 * If the only difference is the change of value of the cSort parameter, 
+	 * 		then task i is kept, 
+	 * 		task i+a is removed/set to null
+	 * 		a is incremented
+	 * If there are more differences betweeen the lines of task i and i+a then
+	 * 		both task i is kept, 
+	 * 		and task i+a is kept, 
+	 * 		i is set to a (so that task a is compared with task a+1 at first, which then again is the i+a with a=1)
+	 * @param taskList
+	 * @return
+	 */
+	private static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
+		BacklogTask[] returnList = new BacklogTask[taskList.size()];
+		for (int i = 0;i <taskList.size()-2;i++) {
+			for (int diff = i+1;diff<taskList.size()-1;diff++) {
+				if (!keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]) { 
+					//discard task[diff] and scan for next task(diff+1) to compare with i.
+					returnList[i] = taskList.get(i);
+				}else {
+					returnList[i] = taskList.get(i);
+					returnList[diff] = taskList.get(diff);
+					i = diff-1; // start comparing in the next iteration at i.
+					// TODO: Verify counter indeed goes from i=2 and diff = 5 to i=5 and diff = 6 in this if condition.
+					// TODO: Verify counter indeed goes from i=2 and diff = 3 to i=3 and diff = 4 in this if condition.
+					diff = taskList.size()+1; // get out of dif loop to go to next i iteration. 
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param line1
+	 * @param line2
+	 * @return
+	 */
+	public static boolean cSortValueIsOnlyDifference(String line1, String line2) {
+		return false;
+	}
+	
+	/**
+	 * If they both contain the cSort parameter:
+	 * 		Check if left and right of both cSort parameters equal
+	 * 			if yes: keep line1, remove line2
+	 * 			if no: keep line1, keep line2
+	 * 
+	 * if line1 does contain cSort and line 2 doesn't contain cSort
+	 * 		Check if left of Csort parameter, and right of cSort parameter equal the line2
+	 * 			if yes: keep line1 keep line2
+	 * 			if no:  keep line1 keep line2
+	 * 
+	 * if line1 doesnt contain cSort and line 2 does contain cSort
+	 * 		Check if left of Csort parameter, and right of cSort parameter equal the line1
+	 * 			if yes: remove line2
+	 * 			if no:  keep line1 keep line2
+	 * 
+	 * If neither contain the cSort parameter, return false
+	 * 
+	 * 
+	 * @param line1
+	 * @param line2
+	 * @return index0: represents line0, index[1] represents line1 false = remove, true = keep
+	 */
+	public static boolean[] keepLines(String line0, String line1) {
+		boolean[] returnArray = new boolean[2];
+		if (containsCSort(line0) && containsCSort(line1)) {
+			if (onlyDifferenceIsCSort(line0,line1)) {
+				returnArray[0] = true;
+				returnArray[1] = false;
+			}else {
+				returnArray[0] = true;
+				returnArray[1] = true;
+			}
+		}
+		if (containsCSort(line0) && !containsCSort(line1)) { //user actively removed the cSort from the task in this modification, keep it.
+			returnArray[0] = true;
+			returnArray[1] = true;
+		}
+		if (!containsCSort(line0) && containsCSort(line1)) {
+			if (onlyDifferenceIsCSort(line0,line1)) {
+				returnArray[0] = true;
+				returnArray[1] = false; // remove the modification induced by the Csort
+			}else {
+				returnArray[0] = true;
+				returnArray[1] = true;
+			}
+		}
+		if (!containsCSort(line0) && !containsCSort(line1)) {
+			returnArray[0] = true;
+			returnArray[1] = true;
+		}
+		return returnArray;
+	}
+	
+	public static boolean containsCSort(String line) {
+		char quotation = (char) 34;
+		String searchSubString = quotation+"customSort"+quotation+":";
+		if (line!=null && line.contains(searchSubString)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean onlyDifferenceIsCSort(String line0, String line1) {
+		if (removeCSortInfoFromLine(line0).equals(removeCSortInfoFromLine(line1))) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static String removeCSortInfoFromLine(String line) {
+		if (containsCSort(line)) {
+			char quotation = (char) 34;
+			String searchSubString = quotation+"customSort"+quotation+":";
+			
+			int startIndex = line.indexOf(searchSubString);
+			System.out.println("Findingfirstcommain="+line.substring(startIndex));
+			int endIndex =startIndex+ line.substring(startIndex).indexOf(",")+1;
+			
+			String leftOfCSort = line.substring(0,startIndex);
+			String rightOfCSort = line.substring(endIndex,line.length());
+			return leftOfCSort+rightOfCSort;
+		}else {
+			return line;
+		}
+	}
+	
 	/**
 	 * if no multiples exist, create the first one, and add the task to it. If
 	 * multiples exist, check the uuid of the first task in the multiple, it is the
