@@ -19,10 +19,14 @@ public class BacklogTaskCatalog {
 	}
 
 	public ArrayList<BacklogTaskMultiples> getMultiples() {
-		return multiples;
+		return this.multiples;
 	}
 
 	public void setMultiples(ArrayList<BacklogTaskMultiples> multiples) {
 		this.multiples = multiples;
+	}
+	
+	public void add(BacklogTaskMultiples backlogTaskMultiple) {
+		this.multiples.add(backlogTaskMultiple);
 	}
 }

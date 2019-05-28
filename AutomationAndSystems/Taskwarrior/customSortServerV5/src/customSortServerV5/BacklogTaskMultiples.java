@@ -15,7 +15,7 @@ public class BacklogTaskMultiples {
 		this.multiples = BacklogTasks;
 	}
 	public ArrayList<BacklogTask> getMultiples() {
-		return multiples;
+		return this.multiples;
 	}
 
 	public void setMultiples(ArrayList<BacklogTask> multiples) {
