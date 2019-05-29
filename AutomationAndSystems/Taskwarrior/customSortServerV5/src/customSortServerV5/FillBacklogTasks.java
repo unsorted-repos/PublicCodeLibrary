@@ -160,17 +160,33 @@ public class FillBacklogTasks {
 	 * @return
 	 */
 	public static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
+		System.out.println("Incoming:");
+		incommingArrayList(taskList);
 		BacklogTask[] returnArray = new BacklogTask[taskList.size()];
 		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
-		for (int i = 0;i <taskList.size()-2;i++) {
+		for (int i = 0;i <taskList.size();i++) {
+			System.out.println("I="+i+" wrt size-1="+(taskList.size()-1));
+			System.out.println("Comparing true="+(i==4)+"or:"+(i==(taskList.size())-1));
+			
+			if (java.util.Objects.equals((taskList.size()-1), i)) {
+//			if (i.equals(taskList.size()-1)) {
+				returnArray = compareFinalTask(i,taskList,returnArray);
+			}
 			for (int diff = i+1;diff<taskList.size()-1;diff++) {
+				System.out.println("keep i="+i+" and diff ="+diff+" is:"
+						+keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[0]
+						+keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]);		
 				if (!keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]) { 
 					//discard task[diff] and scan for next task(diff+1) to compare with i.
 					returnArray[i] = taskList.get(i);
+					System.out.println("Saving (secondFalse):"+taskList.get(i).getLineNr());
 				}else {
 					returnArray[i] = taskList.get(i);
 					returnArray[diff] = taskList.get(diff);
+					System.out.println("Saving (secondTrue)i:"+taskList.get(i).getLineNr());
+					System.out.println("Saving (secondTrue)diff:"+taskList.get(diff).getLineNr());
 					i = diff-1; // start comparing in the next iteration at i.
+					System.out.println("i set to:"+i+" with diff="+diff);
 					// TODO: Verify counter indeed goes from i=2 and diff = 5 to i=5 and diff = 6 in this if condition.
 					// TODO: Verify counter indeed goes from i=2 and diff = 3 to i=3 and diff = 4 in this if condition.
 					diff = taskList.size()+1; // get out of dif loop to go to next i iteration. 
@@ -189,10 +205,30 @@ public class FillBacklogTasks {
 //		return backlogTaskArrayToArrayList(returnList);
 	}
 	
+	public static BacklogTask[] compareFinalTask(int i, ArrayList<BacklogTask> taskList, BacklogTask[] returnArray) {
+		System.out.println("Final Check");
+		if (keepLines(taskList.get(i-1).getTextLine(),taskList.get(i).getTextLine())[1]) {
+			System.out.println("ADDED for i="+i);
+			returnArray[i] = taskList.get(i);
+		}
+		return returnArray;
+	}
+	
+	public static void incommingArrayList(ArrayList<BacklogTask> incomingArrayList) {
+		for (int i = 0; i < incomingArrayList.size(); i++) {
+			if (incomingArrayList.get(i) !=null) {
+				System.out.println("arrayi="+i+" and="+incomingArrayList.get(i).getLineNr()+" line="+incomingArrayList.get(i).getTextLine());
+			}else {
+				System.out.println("null");
+			}
+		}
+	}
+	
+	
 	public static void printReturnArray(BacklogTask[] returnArray) {
 		for (int i = 0; i < returnArray.length; i++) {
 			if (returnArray[i] !=null) {
-				System.out.println("arrayi="+i+" and="+returnArray[i].getLineNr());
+				System.out.println("arrayi="+i+" and="+returnArray[i].getLineNr()+" line="+returnArray[i].getTextLine());
 			}else {
 				System.out.println("null");
 			}
@@ -202,7 +238,7 @@ public class FillBacklogTasks {
 	public static void printReturnArrayList(ArrayList<BacklogTask> returnArrayList) {
 		for (int i = 0; i < returnArrayList.size(); i++) {
 			if (returnArrayList.get(i) !=null) {
-				System.out.println("arraylisti="+i+" and="+returnArrayList.get(i).getLineNr());
+				System.out.println("arrayi="+i+" and="+returnArrayList.get(i).getLineNr()+" line="+returnArrayList.get(i).getTextLine());
 			}else {
 				System.out.println("null");
 			}

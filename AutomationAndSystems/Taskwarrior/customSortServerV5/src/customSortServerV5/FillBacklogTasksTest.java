@@ -54,10 +54,7 @@ class FillBacklogTasksTest {
 		}
 	}
 	
-	@Test
-	void testManageBacklogFilling() {
-		fail("Not yet implemented");
-	}
+
 
 	
 	/**
@@ -122,6 +119,11 @@ class FillBacklogTasksTest {
 	}
 	
 	@Test
+	void testManageBacklogFilling() {
+		fail("Not yet implemented");
+	}	
+	
+	@Test
 	void testReadLines() {
 		fail("Not yet implemented");
 	}
@@ -150,7 +152,6 @@ class FillBacklogTasksTest {
 	void testFindSubstring() {
 		fail("Not yet implemented");
 	}
-	
 	
 	/**
 	 * Test removes null at start of array.
@@ -409,7 +410,7 @@ class FillBacklogTasksTest {
 	}
 
 	/**
-	 * fail
+	 * pass
 	 */
 	@Test
 	void testOnlyRemoveCSortModifications1_3() {
@@ -453,7 +454,7 @@ class FillBacklogTasksTest {
 	}
 
 	/**
-	 * Error it keeps task 1 when it should delete task 1,2 and keep task 3
+	 * Pass
 	 */
 	@Test
 	void testOnlyRemoveCSortModifications2_2() {
@@ -469,14 +470,14 @@ class FillBacklogTasksTest {
 	@Test
 	void testOnlyRemoveCSortModifications2_3() {
 		ArrayList<BacklogTask> taskList = generateTaskList2();
-		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).get(2)==null);
+		assertTrue(FillBacklogTasks.onlyRemoveCSortModifications(taskList).size()==2);
 	}
 	
 	private static ArrayList<BacklogTask> generateTaskList2() {
 		System.out.println("generator2");
 		String[] t = new String[5];
 		char quotation = (char) 34;
-		t[0] = "(asdgasd,"+","+quotation+"ab";
+		t[0] = "(asdgasd,"+quotation+"ab";
 		t[1] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"3,"+quotation+"ab";
 		t[2] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ab";
 		t[3] = "(asdgasd,"+quotation+"customSort"+quotation+":"+"4,"+quotation+"ac";
