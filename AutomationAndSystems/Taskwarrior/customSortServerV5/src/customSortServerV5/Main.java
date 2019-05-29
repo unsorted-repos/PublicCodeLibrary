@@ -23,9 +23,7 @@ public class Main {
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
 
-		// Read backlog file
-		FillBacklogTasks.manageBacklogFilling();
-		System.exit(0);
+		
 		//Create customSortUDA cSort in tw:
 		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
 		//Create UDA estimate in tw:
@@ -52,6 +50,10 @@ public class Main {
 		assignCustomSortToTw(sortedTaskList);
 
 		// Set the customSort values of the recurring parent/template tasks to 0:
+		
+		// Read backlog file
+		FillBacklogTasks.manageBacklogFilling();
+		System.exit(0);
 		
 		//Print command output and return urgency
 		RunCommands.runCommands("task sync", true);
