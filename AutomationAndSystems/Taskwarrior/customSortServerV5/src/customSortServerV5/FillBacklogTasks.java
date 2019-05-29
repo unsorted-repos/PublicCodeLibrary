@@ -58,58 +58,66 @@ public class FillBacklogTasks {
 	 * Then check where you convert those multiples into a array of BacklogTask objects, that you not only take the last task/single task
 	 * of a multiple, but all the remaining tasks in the multiple
 	 */
-	
-//	/**
-//	 * prints the line numbers if needed
-//	 * @param filteredCatalog
-//	 */
-//	private static void printLineNrs(BacklogTaskCatalog filteredCatalog) {
-//		int size = filteredCatalog.getMultiples().size();
-//		System.out.println("Size=" + size);
-//		for (int i = 0; i < size; i++) {
-////			System.out.println("linenrsChanging="+filteredCatalog.getMultiples().get(i).getMultiples().get(0).getLineNr());
-//		}
-//
-//	}
 
 //	/**
-//	 *  Converts the catalog to a convenient array of tasks to facilitate writing the catalog
-//	 *  back to backlog.data.
-//	 * @param filteredOrderedCatalog
+//	 * This should: 
+//	 * Create a new array of BacklogTask[] with the size nr of lines in the backlog.data
+//	 * Take the un-ordered filteredCatalog (that only contains 1 task per multiple/line)
+//	 * and put the task of every multiple back into the array index of the line number of that task.
+//	 * Then it should return the array of tasks with their order (e.g. in index 1 a task, then in 4 then in 9 or 
+//	 * whichever lines remain after the filtering procedure.
+//	 * 
+//	 * TODO: Find out how the code works when it returns the unmodified filteredCatalog, instead of this taskList.
+//	 * 
+//	 * @param filteredCatalog
+//	 * @param nrOfLines
 //	 * @return
 //	 */
-//	private static BacklogTask[] catalogToTaskArray(BacklogTaskCatalog filteredOrderedCatalog) {
-//		int catalogSize = filteredOrderedCatalog.getMultiples().size();
-//		BacklogTask[] taskList = new BacklogTask[catalogSize];
-//		for (int i = 0; i < catalogSize; i++) {
-//			taskList[i] = filteredOrderedCatalog.getMultiples().get(i).getMultiples().get(0);
+//	private static BacklogTask[] orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
+//		BacklogTask[] taskList = new BacklogTask[nrOfLines + 1];
+//		int taskLineNr;
+//		
+//		for (int i = 0; i < filteredCatalog.getMultiples().size(); i++) {
+//			System.out.println("i="+i+" and size= "+filteredCatalog.getMultiples().size());
+//			taskLineNr = filteredCatalog.getMultiples().get(i).getMultiples().get(0).getLineNr();
+//			taskList[taskLineNr] = filteredCatalog.getMultiples().get(i).getMultiples().get(0);
 //		}
 //		return taskList;
 //	}
-
+	
 	/**
-	 * This should: 
-	 * Create a new array of BacklogTask[] with the size nr of lines in the backlog.data
-	 * Take the un-ordered filteredCatalog (that only contains 1 task per multiple/line)
-	 * and put the task of every multiple back into the array index of the line number of that task.
-	 * Then it should return the array of tasks with their order (e.g. in index 1 a task, then in 4 then in 9 or 
-	 * whichever lines remain after the filtering procedure.
-	 * 
-	 * TODO: Find out how the code works when it returns the unmodified filteredCatalog, instead of this taskList.
-	 * 
+	 * Take all the tasks from the orderCatalog and put them into an array of type BacklogTask
+	 * that has size nrOfLines+1. 
 	 * @param filteredCatalog
 	 * @param nrOfLines
 	 * @return
 	 */
 	private static BacklogTask[] orderCatalog(BacklogTaskCatalog filteredCatalog, int nrOfLines) {
 		BacklogTask[] taskList = new BacklogTask[nrOfLines + 1];
-		int taskLineNr;
+		
+		
 		for (int i = 0; i < filteredCatalog.getMultiples().size(); i++) {
-			taskLineNr = filteredCatalog.getMultiples().get(i).getMultiples().get(0).getLineNr();
-			taskList[taskLineNr] = filteredCatalog.getMultiples().get(i).getMultiples().get(0);
+			System.out.println("i="+i+" and size= "+filteredCatalog.getMultiples().size());
+			if (filteredCatalog.getMultiples().get(i).getMultiples().size()>0) {
+				absorbRemainingMultiple(filteredCatalog.getMultiples().get(i).getMultiples(), taskList);
+			}
 		}
-
-//		return filteredCatalog;
+		return taskList;
+	}
+	
+	/**
+	 * Absorbs all the tasks of a multiple and puts them back into an array.
+	 * The tasks are put into the array index that is their line-nr. 
+	 * @param multiple
+	 * @param taskList
+	 * @return
+	 */
+	private static BacklogTask[] absorbRemainingMultiple(ArrayList<BacklogTask> multiple, BacklogTask[] taskList) {
+		int taskLineNr;
+		for (int i = 0; i < multiple.size(); i++) {
+			taskLineNr = multiple.get(i).getLineNr();
+			taskList[taskLineNr] = multiple.get(i);
+		}
 		return taskList;
 	}
 
@@ -121,6 +129,7 @@ public class FillBacklogTasks {
 	 */
 	public static BacklogTaskCatalog filterBacklogCatalog(BacklogTaskCatalog catalog) {
 		ArrayList<BacklogTask> originalMultiple = new ArrayList<BacklogTask>();
+		ArrayList<BacklogTask> tempFiltered = new ArrayList<BacklogTask>();
 		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
 		BacklogTaskCatalog filteredCatalog = new BacklogTaskCatalog(multiples);
 
@@ -134,11 +143,15 @@ public class FillBacklogTasks {
 			originalMultiple = catalog.getMultiples().get(i).getMultiples();
 
 			// create new multiple with last task of original multiple
-			filteredMultiple.add(originalMultiple.get(originalMultiple.size() - 1));
-
+//			filteredMultiple.add(originalMultiple.get(originalMultiple.size() - 1));
+			tempFiltered = onlyRemoveCSortModifications(originalMultiple);
+			
+			
 			// create new backlog multiple object with single task multiple
-			filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple);
 			// TODO: Check here whether filteredMultipleBacklog's ArrayList contains multiple tasks
+//			filteredMultipleBacklog = new BacklogTaskMultiples(filteredMultiple);
+			filteredMultipleBacklog = new BacklogTaskMultiples(tempFiltered); // only remove customSort modifications, iso just keep last task.
+			
 
 			// add the single task multiple
 			filteredCatalog.getMultiples().add(filteredMultipleBacklog);
@@ -160,49 +173,29 @@ public class FillBacklogTasks {
 	 * @return
 	 */
 	public static ArrayList<BacklogTask> onlyRemoveCSortModifications(ArrayList<BacklogTask> taskList){
-		System.out.println("Incoming:");
 		incommingArrayList(taskList);
 		BacklogTask[] returnArray = new BacklogTask[taskList.size()];
 		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
 		for (int i = 0;i <taskList.size();i++) {
-			System.out.println("I="+i+" wrt size-1="+(taskList.size()-1));
-			System.out.println("Comparing true="+(i==4)+"or:"+(i==(taskList.size())-1));
-			
-			if (java.util.Objects.equals((taskList.size()-1), i)) {
-//			if (i.equals(taskList.size()-1)) {
+			if (i > 0 && java.util.Objects.equals((taskList.size()-1), i)) {
 				returnArray = compareFinalTask(i,taskList,returnArray);
 			}
 			for (int diff = i+1;diff<taskList.size()-1;diff++) {
-				System.out.println("keep i="+i+" and diff ="+diff+" is:"
-						+keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[0]
-						+keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]);		
 				if (!keepLines(taskList.get(i).getTextLine(),taskList.get(diff).getTextLine())[1]) { 
-					//discard task[diff] and scan for next task(diff+1) to compare with i.
 					returnArray[i] = taskList.get(i);
 					System.out.println("Saving (secondFalse):"+taskList.get(i).getLineNr());
 				}else {
 					returnArray[i] = taskList.get(i);
 					returnArray[diff] = taskList.get(diff);
-					System.out.println("Saving (secondTrue)i:"+taskList.get(i).getLineNr());
-					System.out.println("Saving (secondTrue)diff:"+taskList.get(diff).getLineNr());
 					i = diff-1; // start comparing in the next iteration at i.
-					System.out.println("i set to:"+i+" with diff="+diff);
-					// TODO: Verify counter indeed goes from i=2 and diff = 5 to i=5 and diff = 6 in this if condition.
-					// TODO: Verify counter indeed goes from i=2 and diff = 3 to i=3 and diff = 4 in this if condition.
 					diff = taskList.size()+1; // get out of dif loop to go to next i iteration. 
 				}
 			}
 		}
 		
-		System.out.println("before removal");
-		printReturnArray(returnArray);
 		returnArray =removeNullValues(returnArray);
-		System.out.println("after removal");
-		printReturnArray(returnArray);
 		returnArrayList =backlogTaskArrayToArrayList(returnArray);
-//		printReturnArrayList(returnArrayList);
 		return returnArrayList;
-//		return backlogTaskArrayToArrayList(returnList);
 	}
 	
 	public static BacklogTask[] compareFinalTask(int i, ArrayList<BacklogTask> taskList, BacklogTask[] returnArray) {
@@ -225,25 +218,6 @@ public class FillBacklogTasks {
 	}
 	
 	
-	public static void printReturnArray(BacklogTask[] returnArray) {
-		for (int i = 0; i < returnArray.length; i++) {
-			if (returnArray[i] !=null) {
-				System.out.println("arrayi="+i+" and="+returnArray[i].getLineNr()+" line="+returnArray[i].getTextLine());
-			}else {
-				System.out.println("null");
-			}
-		}
-	}
-	
-	public static void printReturnArrayList(ArrayList<BacklogTask> returnArrayList) {
-		for (int i = 0; i < returnArrayList.size(); i++) {
-			if (returnArrayList.get(i) !=null) {
-				System.out.println("arrayi="+i+" and="+returnArrayList.get(i).getLineNr()+" line="+returnArrayList.get(i).getTextLine());
-			}else {
-				System.out.println("null");
-			}
-		}
-	}
 	public static ArrayList<BacklogTask> backlogTaskArrayToArrayList(BacklogTask[] returnList){
 		ArrayList<BacklogTask> returnArrayList = new ArrayList<BacklogTask>();
 		for (int i = 0; i < returnList.length; i++) {
@@ -303,10 +277,31 @@ public class FillBacklogTasks {
 	}
 	
 	public static boolean onlyDifferenceIsCSort(String line0, String line1) {
+		line0 = removeModifiedInfoFromLine(line0);
+		line1 = removeModifiedInfoFromLine(line1);
 		if (removeCSortInfoFromLine(line0).equals(removeCSortInfoFromLine(line1))) {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	public static String removeModifiedInfoFromLine(String line) {
+		if (containsCSort(line)) {
+			char quotation = (char) 34;
+			String searchSubString = quotation+"modified"+quotation+":";
+			
+			int startIndex = line.indexOf(searchSubString);
+			int endIndex =startIndex+ line.substring(startIndex).indexOf(",")+1;
+			
+			String leftOfCSort = line.substring(0,startIndex);
+			String rightOfCSort = line.substring(endIndex,line.length());
+//			System.out.println("returning with CSort="+leftOfCSort+rightOfCSort);
+			return leftOfCSort+rightOfCSort;
+		}else {
+//			System.out.println("returning"+line);
+			return line;
+		}
 	}
 	
 	public static String removeCSortInfoFromLine(String line) {

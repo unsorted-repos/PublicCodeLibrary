@@ -92,9 +92,11 @@ class FillBacklogTasksTest {
 		// verify multiple 3 does not have size 2
 		assertFalse(catalog.getMultiples().get(3).getMultiples().size()==2);
 	}
-
 	
 	/**
+	 * This test is only valid in case all but the last entry of a task in backlog is modified.
+	 * It will be invalid if only cSort modifications are removed (since every multiple contains
+	 * more than 1 task that does not consist of a cSort modification).
 	 * expect the total nr of multiples to equal 4. with indices 0 to 3 and sizes 1.
 	 */
 	@Test
