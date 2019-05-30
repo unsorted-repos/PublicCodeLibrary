@@ -270,6 +270,16 @@ public class FillBacklogTasks {
 	public static boolean containsCSort(String line) {
 		char quotation = (char) 34;
 		String searchSubString = quotation+"customSort"+quotation+":";
+		return containsSubstring(line, searchSubString);
+	}
+	
+	public static boolean containsModified(String line) {
+		char quotation = (char) 34;
+		String searchSubString = quotation+"modified"+quotation+":";
+		return containsSubstring(line, searchSubString);
+	}
+	
+	public static boolean containsSubstring(String line, String searchSubString) {
 		if (line!=null && line.contains(searchSubString)) {
 			return true;
 		}
@@ -287,7 +297,7 @@ public class FillBacklogTasks {
 	
 	
 	public static String removeModifiedInfoFromLine(String line) {
-		if (containsCSort(line)) {
+		if (containsModified(line)) {
 			char quotation = (char) 34;
 			String searchSubString = quotation+"modified"+quotation+":";
 			
