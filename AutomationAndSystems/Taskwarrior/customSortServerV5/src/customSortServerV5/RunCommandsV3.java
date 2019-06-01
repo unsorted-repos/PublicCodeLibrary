@@ -43,7 +43,7 @@ public class RunCommandsV3 {
 		 * @param ansYes
 		 * @throws Exception 
 		 */
-		public static String executeCommands(Command command,Boolean ansYes) throws Exception {
+		public static String executeCommands(Command command,Boolean ansYes){
 			String capturedCommandOutput = null;
 			File workingDirectory = new File(command.getWorkingDirectory());
 
@@ -90,6 +90,9 @@ public class RunCommandsV3 {
 				System.out.println("Return code = " + returnCode);
 			} catch (IOException e1) {
 				e1.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			// return output if required:

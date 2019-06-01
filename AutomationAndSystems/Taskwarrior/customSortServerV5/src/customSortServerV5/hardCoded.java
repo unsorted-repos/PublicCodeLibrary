@@ -9,7 +9,7 @@ public class hardCoded {
 
 	private static String eclipseFilePath="input/";
 	private static String eclipseFileName="pendingPublic.data";
-	private static String ubuntuFileName="pending.data";
+	private static String pendingFileName="pending.data";
 	private static String ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
 	private static String nameOfCustomSortParameterLabel="cSort";
 	private static String customSortDataType="numeric";
@@ -20,7 +20,18 @@ public class hardCoded {
 	private static double urgencyThreshold = 11.5;
 	private static String sudo = "sudo ";
 	private static String backlogFileName = "backlog.data";
+	private static String testDataFolder = "testData";
+
 	
+	
+	public static String getTestDataFolder() {
+		return testDataFolder;
+	}
+
+	public static void setTestDataFolder(String testDataFolder) {
+		hardCoded.testDataFolder = testDataFolder;
+	}
+
 	public static String getBacklogFileName() {
 		return backlogFileName;
 	}
@@ -172,12 +183,12 @@ public class hardCoded {
 		hardCoded.urgencyThreshold = urgencyThreshold;
 	}
 
-	public static String getUbuntuFileName() {
-		return ubuntuFileName;
+	public static String getPendingFileName() {
+		return pendingFileName;
 	}
 
-	public static void setUbuntuFileName(String ubuntuFileName) {
-		hardCoded.ubuntuFileName = ubuntuFileName;
+	public static void setPendingFileName(String ubuntuFileName) {
+		hardCoded.pendingFileName = ubuntuFileName;
 	}
 
 	public static String getEclipseFilePath() {

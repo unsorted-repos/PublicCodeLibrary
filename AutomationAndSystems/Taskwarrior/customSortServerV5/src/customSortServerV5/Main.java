@@ -16,12 +16,17 @@ public class Main {
 	static boolean testingInWindows=false; //BEFORE COMPILING TO JAR:Switch to false before execution in Ubuntu.
 
 	public static void main(String[] args) {
+		MoveTestFiles.startWSL();
+		System.exit(0);
+		
 
 		// TODO Auto-generated method stub
 		String filepath=ReadTasks.getFilePath(testingInWindows);
 		ArrayList<String> lines=ReadTasks.readFile(filepath);
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
+
+//		MoveTestFiles moveTestFiles = new MoveTestFiles();
 
 		
 		//Create customSortUDA cSort in tw:

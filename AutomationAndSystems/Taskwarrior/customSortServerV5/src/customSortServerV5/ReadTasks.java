@@ -67,8 +67,8 @@ public class ReadTasks {
 	 */
 	public static String readJsonLocation() {
 		//check if files exist
-		if (findTwFiles(readTwPath(),hardCoded.getUbuntuFileName())) {
-			return readTwPath()+hardCoded.getUbuntuFileName();
+		if (findTwFiles(readTwPath(),hardCoded.getPendingFileName())) {
+			return readTwPath()+hardCoded.getPendingFileName();
 		}				
 
 		//TODO: Throw exception instead of returning null.
