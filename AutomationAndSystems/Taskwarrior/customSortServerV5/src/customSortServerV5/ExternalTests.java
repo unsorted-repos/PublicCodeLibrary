@@ -30,7 +30,8 @@ class ExternalTests {
 	 * Test A: Test that has a single task in the tasklist without any backlog.
 	 * Expect A: Expect the task to be placed in the backlog since the first task is always stored.
 	 * Test B: Repeat with all non-recurrent
-	 * Expect B:
+	 * Expect B: That task is not placed in the backlog!!
+	 * Result B: That task was added to the backlog.
 	 * Test C: Repeat with all recurrent parent
 	 * Expect C:
 	 * Test D: Repeat with all recurrent child
@@ -69,7 +70,8 @@ class ExternalTests {
 	 * Test D: Repeat with all recurrent child
 	 * Expect D:
 	 */
-
+	
+	
 	/**
 	 * ID:2
 	 * Test A: that has two tasks in the tasklist without any backlog

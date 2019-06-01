@@ -33,6 +33,7 @@ public class FillBacklogTasks {
 		}
 
 		filteredCatalog = filterBacklogCatalog(catalog);
+		System.out.println("filteredCatalog="+filteredCatalog.getMultiples().get(0).getMultiples().get(0).getTwUUID());
 //		orderedFilteredCatalog = orderCatalog(filteredCatalog, lines.size() - 1); // -1 to remove the entry of the first
 																					// line
 		// converting the catalog into an array of BacklogTask objects that has the size nr of lines.
