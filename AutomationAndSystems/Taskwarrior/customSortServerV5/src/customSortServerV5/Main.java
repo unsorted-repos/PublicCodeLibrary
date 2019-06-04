@@ -1,5 +1,7 @@
 package customSortServerV5;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
@@ -17,9 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 //		MoveTestFiles.startWSL();
-//		System.exit(0);
-		
-
+	
 		// TODO Auto-generated method stub
 		String filepath=ReadTasks.getFilePath(testingInWindows);
 		ArrayList<String> lines=ReadTasks.readFile(filepath);
@@ -30,12 +30,12 @@ public class Main {
 
 		
 		//Create customSortUDA cSort in tw:
-		createUDA(hardCoded.getNameOfCustomSortParameter(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
+		createUDA(HardCoded.getNameOfCustomSortParameter(), HardCoded.getNameOfCustomSortParameterLabel(),HardCoded.getCustomSortDataType());
 		//Create UDA estimate in tw:
-		createUDA(hardCoded.getUdaName(), hardCoded.getUdaLabel(),hardCoded.getUdaDataType());
+		createUDA(HardCoded.getUdaName(), HardCoded.getUdaLabel(),HardCoded.getUdaDataType());
 		
 		//create customReport
-		createCustomReport(hardCoded.getCustomReportName());
+		createCustomReport(HardCoded.getCustomReportName());
 		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
@@ -178,7 +178,7 @@ public class Main {
 		String uuid = null;
 		String command = null;
 		String status = "recurring";
-		System.out.println("Assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
+//		System.out.println("Assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
 		for (int i =0;i<sortedTaskList.size();i++) {
 			uuid=sortedTaskList.get(i).getUuid();
 			
@@ -186,16 +186,16 @@ public class Main {
 			if (status.equals(sortedTaskList.get(i).getStatus())) {
 				
 				// clear the customSort UDA of the recurrent parent/template task 
-				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameter()+":";
+				command = HardCoded.getSudo()+"task "+uuid+" modify "+HardCoded.getNameOfCustomSortParameter()+":";
 				RunCommandsExpectYes.runCommands(command);
 			}else {
 				
 				// assign the customSort UDA of the recurrent child/actual task
-				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameter()+":"+i;
+				command = HardCoded.getSudo()+"task "+uuid+" modify "+HardCoded.getNameOfCustomSortParameter()+":"+i;
 				RunCommandsExpectYes.runCommands(command);
 			}
 		}
-		System.out.println("Finished assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
+//		System.out.println("Finished assigning the custom sort values to"+hardCoded.getNameOfCustomSortParameter()+ " for all tasks.");
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class Main {
 			uuid=taskList.get(i).getUuid();
 			
 			//create command
-			command = hardCoded.getSudo()+"task "+uuid;
+			command = HardCoded.getSudo()+"task "+uuid;
 			
 			//run command
 			commandOutput=RunCommands.runCommands(command,false);
@@ -260,7 +260,7 @@ public class Main {
 			uuid=taskList.get(i).getUuid();
 			
 			//create command
-			command = hardCoded.getSudo()+"task "+uuid;
+			command = HardCoded.getSudo()+"task "+uuid;
 			System.out.println("Running command:"+command);
 			
 			//run command

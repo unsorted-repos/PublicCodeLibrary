@@ -29,9 +29,9 @@ public class MoveTestFiles {
 	 * internally.
 	 */
 	public void importOriginalBacklog() {
-		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
+		System.out.println("absorbing:"+HardCoded.getUbuntuFilePath() + HardCoded.getBacklogFileName());
 //		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
-		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
+		this.backlogOriginal = new File(HardCoded.getUbuntuFilePath() + HardCoded.getBacklogFileName());
 		System.out.println("originalBacklogImported="+this.backlogOriginal);
 
 	}
@@ -41,7 +41,7 @@ public class MoveTestFiles {
 	 * internally.
 	 */
 	public void importOriginalPending() {
-		this.pendingOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getPendingFileName());
+		this.pendingOriginal = new File(HardCoded.getUbuntuFilePath() + HardCoded.getPendingFileName());
 	}
 
 	/*
@@ -49,8 +49,8 @@ public class MoveTestFiles {
 	 * to ~/.task/backlog.data
 	 */
 	public void restoreOriginalBacklog() {
-		String destinationPath =hardCoded.getUbuntuFilePath() ;
-		String destinationFileName = hardCoded.getBacklogFileName();
+		String destinationPath =HardCoded.getUbuntuFilePath() ;
+		String destinationFileName = HardCoded.getBacklogFileName();
 		exportResource(this.backlogOriginal,destinationPath,destinationFileName,false);
 	}
 
@@ -59,8 +59,8 @@ public class MoveTestFiles {
 	 * to ~/.task/pending.data
 	 */
 	public void restoreOriginalPending() {
-		String destinationPath =hardCoded.getUbuntuFilePath() ;
-		String destinationFileName = hardCoded.getPendingFileName();
+		String destinationPath =HardCoded.getUbuntuFilePath() ;
+		String destinationFileName = HardCoded.getPendingFileName();
 		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
@@ -68,7 +68,7 @@ public class MoveTestFiles {
 	 * exports the custom created test file.
 	 */
 	public void exportTestFile(File mockTestFile, String destinationFileName) {
-		String destinationPath = hardCoded.getUbuntuFilePath() ;
+		String destinationPath = HardCoded.getUbuntuFilePath() ;
 		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 

@@ -83,7 +83,7 @@ public class CreateSorts{
 		 * The second argument passes the "method" sortProject in which the project comparator is called.
 		 * The third argument passes the "method sortUrgency in which the urgency comparator is called. 
 		 */
-		Comparator<Task> mainComparator = new ConditionalComparator<Task>(task -> task.getUrgency() < hardCoded.getUrgencyThreshold(), projectComparator, urgencyComparator);
+		Comparator<Task> mainComparator = new ConditionalComparator<Task>(task -> task.getUrgency() < HardCoded.getUrgencyThreshold(), projectComparator, urgencyComparator);
 
 		//Call the actual mainComparator with a tasklist:
 		Collections.sort(taskList, mainComparator);

@@ -67,7 +67,7 @@ public class RunCommandsV3 {
 				    StringJoiner sj = new StringJoiner(System.getProperty("line.separator"));
 					reader.lines().iterator().forEachRemaining(sj::add);
 					capturedCommandOutput = sj.toString();
-					System.out.println("The output of this command ="+ capturedCommandOutput);
+//					System.out.println("The output of this command ="+ capturedCommandOutput);
 				}
 				 
 				 // here you connect the output of your command to any new input, e.g. if you get prompted for `yes`

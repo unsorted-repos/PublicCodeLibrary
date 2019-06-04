@@ -42,6 +42,7 @@ public class ReadFiles {
                 //sb.append(line).append("\n");
 //            	System.out.println("Adding line:"+line);
                 lines.add(line);
+                System.out.println("Adding line ="+line);
             }
 
         } catch (IOException e) {

@@ -7,16 +7,35 @@ import java.util.Objects;
 public class FillBacklogTasks {
 
 	/**
+	 * TIPS: System tutorial c equivalent https://www.tutorialspoint.com/c_standard_library/c_function_system.htm
+	 * Tips: Use the processbuilder in Java Eclipse instead of the compiled .jar file in ubuntu, to just launch and hold the WSL 
+	 * process to force it commands. (Such as enter the name).
+	 * TIPS: in CMD enter:wsl echo hello
+	 * 		to execute the command echo hello in wsl.
+	 * 
+	 * TODO: Check if you can enter a username in wsl from cmd.
+	 * TODO: lxrun with /y and /update Source: https://www.ctrl.blog/entry/lxss-lxrun.html
+	 * lxrun /install
+	 * Verify: This method reads the backlog data after the sorting procedure has added it's tasks.
+	 * Hence it should be able to spot those differences.
+	 * 
+	 * The lines that are added after sorting need to be read in and absorbed to various task objects. 
+	 * 
+	 * Then those task objects are filtered but 
+	 * Verify: the start of the filtering process at "ADDING LINE AFTER SORT"
+	 * AND contains a single (logically the uuid is skipped).
+	 * but this task is not absorbed correctly to a task object.
+	 * 
 	 * TODO: Implement interface, extends etc and merge the Task and BacklogTask
 	 * object like two different types of houses in JAVA assignment.
 	 * 
 	 * @return
 	 */
-	public static BacklogTaskCatalog manageBacklogFilling() {
+	public static void manageBacklogFilling() {
 		ArrayList<String> lines = new ArrayList<>();
-		String backlogPath = hardCoded.getUbuntuFilePath();
-		String backlogFileName = hardCoded.getBacklogFileName();
-
+		String backlogPath = HardCoded.getUbuntuFilePath();
+		String backlogFileName = HardCoded.getBacklogFileName();
+		String[] filteredOrderedBacklogLines;
 
 		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
 		BacklogTaskCatalog catalog = new BacklogTaskCatalog(multiples);
@@ -27,13 +46,14 @@ public class FillBacklogTasks {
 
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
 			lines = readLines(backlogPath, backlogFileName);
+			System.out.println("PROBLEM LINES.SIZE="+lines.size());
 			for (int i = 1; i < lines.size(); i++) { // 1 to skip the first line containing the tw uuid.
 				catalog = generateCatalog(catalog, createBacklogTask(lines.get(i), i));
+				System.out.println("ADDING LINE AFTER SORT="+lines.get(i));
 			}
-		}
-
+		}else {System.out.println("BACKLOG FILE DID NOT EXIST!!");}
 		filteredCatalog = filterBacklogCatalog(catalog);
-		System.out.println("filteredCatalog="+filteredCatalog.getMultiples().get(0).getMultiples().get(0).getTwUUID());
+//		System.out.println("filteredCatalog="+filteredCatalog.getMultiples().get(0).getMultiples().get(0).getTwUUID());
 //		orderedFilteredCatalog = orderCatalog(filteredCatalog, lines.size() - 1); // -1 to remove the entry of the first
 																					// line
 		// converting the catalog into an array of BacklogTask objects that has the size nr of lines.
@@ -44,9 +64,12 @@ public class FillBacklogTasks {
 		
 //		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
 
-		CreateFiles.writeFileContent("/home/" + hardCoded.getLinuxUserName() + "/.task/", "backlogCopy.data",
-				orderedFilteredTaskList);
-		return filteredCatalog;
+		filteredOrderedBacklogLines = CreateFiles.backlogTaskArrayToStringArray(orderedFilteredTaskList);
+		
+		// create backlog file.
+		CreateFiles.writeFileContent("/home/" + HardCoded.getLinuxUserName() + "/.task/", HardCoded.getBacklogFileName(),
+				filteredOrderedBacklogLines);
+//		return filteredCatalog;
 	}
 
 	
@@ -370,6 +393,7 @@ public class FillBacklogTasks {
 	}
 
 	public static ArrayList<String> readLines(String backlogPath, String backlogFileName) {
+		System.out.println("Problem reading incoming file:"+backlogPath+backlogFileName);
 		ArrayList<String> lines = new ArrayList<String>();
 		lines = ReadFiles.readFiles(backlogPath + backlogFileName);
 		return lines;
@@ -456,6 +480,14 @@ public class FillBacklogTasks {
 	 * @return
 	 */
 	public static BacklogTask[] removeNullValues(BacklogTask[] taskList) {
+		if (taskList !=null) {
+		System.out.println("taskList size ="+taskList.length);
+			for (int i = 0; i< taskList.length;i++) {
+				if (taskList[i]!=null) {
+					System.out.println("i="+i+"Task description before removal of nulls="+taskList[i].getTwUUID());
+				}else {System.out.println("i="+i+"HAs no twUUID but taskList size ="+taskList.length);}
+			}
+		}else {System.out.println("Incoming tasklist is null");}
 		taskList = Arrays.stream(taskList).filter(Objects::nonNull).toArray(BacklogTask[]::new);
 		return taskList;
 	}

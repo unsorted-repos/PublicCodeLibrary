@@ -1,6 +1,5 @@
 package customSortServerV5;
-
-public class hardCoded {
+public class HardCoded {
 
 	//Assumptions: 
 	//0. Method generatePropertyList assumes the (user defined) attributes of
@@ -21,15 +20,53 @@ public class hardCoded {
 	private static String sudo = "sudo ";
 	private static String backlogFileName = "backlog.data";
 	private static String testDataFolder = "testData";
+	private static String windowsPath =GetThisPath.getWindowsPath();
+	private static String linuxPath = GetThisPath.getLinuxPath();
+	private static String testWslLauncherScripts = "wslLaunchers";
+//	private static String relativeCompiledJarPath = 
+	private static String compiledJarName = "JavaServerSort.jar";
+	
+	
+	
+	
+	public static String getLinuxPath() {
+		return linuxPath;
+	}
 
-	
-	
+	public static void setLinuxPath(String linuxPath) {
+		HardCoded.linuxPath = linuxPath;
+	}
+
+	public static String getCompiledJarName() {
+		return compiledJarName;
+	}
+
+	public static void setCompiledJarName(String compiledJarName) {
+		HardCoded.compiledJarName = compiledJarName;
+	}
+
+	public static String getTestWslLauncherScripts() {
+		return testWslLauncherScripts;
+	}
+
+	public static void setTestWslLauncherScripts(String testWslLauncherScripts) {
+		HardCoded.testWslLauncherScripts = testWslLauncherScripts;
+	}
+
+	public static String getWindowsPath() {
+		return windowsPath;
+	}
+
+	public static void setWindowsPath(String windowsPath) {
+		HardCoded.windowsPath = windowsPath;
+	}
+
 	public static String getTestDataFolder() {
 		return testDataFolder;
 	}
 
 	public static void setTestDataFolder(String testDataFolder) {
-		hardCoded.testDataFolder = testDataFolder;
+		HardCoded.testDataFolder = testDataFolder;
 	}
 
 	public static String getBacklogFileName() {
@@ -37,7 +74,7 @@ public class hardCoded {
 	}
 
 	public static void setBacklogFileName(String backlogFileName) {
-		hardCoded.backlogFileName = backlogFileName;
+		HardCoded.backlogFileName = backlogFileName;
 	}
 
 	/**
@@ -51,7 +88,7 @@ public class hardCoded {
 	 * @param udaName the udaName to set
 	 */
 	public static void setUdaName(String udaName) {
-		hardCoded.udaName = udaName;
+		HardCoded.udaName = udaName;
 	}
 
 	/**
@@ -65,7 +102,7 @@ public class hardCoded {
 	 * @param udaLabel the udaLabel to set
 	 */
 	public static void setUdaLabel(String udaLabel) {
-		hardCoded.udaLabel = udaLabel;
+		HardCoded.udaLabel = udaLabel;
 	}
 
 	/**
@@ -79,7 +116,7 @@ public class hardCoded {
 	 * @param udaDataType the udaDataType to set
 	 */
 	public static void setUdaDataType(String udaDataType) {
-		hardCoded.udaDataType = udaDataType;
+		HardCoded.udaDataType = udaDataType;
 	}
 
 	private static String nameOfCustomSortParameter="customSort";
@@ -95,7 +132,7 @@ public class hardCoded {
 	 * @param nameOfCustomSortParameter the nameOfCustomSortParameter to set
 	 */
 	public static void setNameOfCustomSortParameter(String nameOfCustomSortParameter) {
-		hardCoded.nameOfCustomSortParameter = nameOfCustomSortParameter;
+		HardCoded.nameOfCustomSortParameter = nameOfCustomSortParameter;
 	}
 
 	/**
@@ -109,7 +146,7 @@ public class hardCoded {
 	 * @param nameOfCustomSortParameterLabel the nameOfCustomSortParameterLabel to set
 	 */
 	public static void setNameOfCustomSortParameterLabel(String nameOfCustomSortParameterLabel) {
-		hardCoded.nameOfCustomSortParameterLabel = nameOfCustomSortParameterLabel;
+		HardCoded.nameOfCustomSortParameterLabel = nameOfCustomSortParameterLabel;
 	}
 
 	/**
@@ -123,7 +160,7 @@ public class hardCoded {
 	 * @param customSortDataType the customSortDataType to set
 	 */
 	public static void setCustomSortDataType(String customSortDataType) {
-		hardCoded.customSortDataType = customSortDataType;
+		HardCoded.customSortDataType = customSortDataType;
 	}
 
 	/**
@@ -138,7 +175,7 @@ public class hardCoded {
 	 * @param customReportName the customReportName to set
 	 */
 	public static void setCustomReportName(String customReportName) {
-		hardCoded.customReportName = customReportName;
+		HardCoded.customReportName = customReportName;
 	}
 	
 	/**
@@ -152,7 +189,7 @@ public class hardCoded {
 	 * @param ubuntuFilePath the ubuntuFilePath to set
 	 */
 	public static void setUbuntuFilePath(String ubuntuFilePath) {
-		hardCoded.ubuntuFilePath = ubuntuFilePath;
+		HardCoded.ubuntuFilePath = ubuntuFilePath;
 	}
 
 	/**
@@ -166,7 +203,7 @@ public class hardCoded {
 	 * @param sudo the sudo to set
 	 */
 	public static void setSudo(String sudo) {
-		hardCoded.sudo = sudo;
+		HardCoded.sudo = sudo;
 	}
 
 	/**
@@ -180,7 +217,7 @@ public class hardCoded {
 	 * @param urgencyThreshold the urgencyThreshold to set
 	 */
 	public static void setUrgencyThreshold(double urgencyThreshold) {
-		hardCoded.urgencyThreshold = urgencyThreshold;
+		HardCoded.urgencyThreshold = urgencyThreshold;
 	}
 
 	public static String getPendingFileName() {
@@ -188,7 +225,7 @@ public class hardCoded {
 	}
 
 	public static void setPendingFileName(String ubuntuFileName) {
-		hardCoded.pendingFileName = ubuntuFileName;
+		HardCoded.pendingFileName = ubuntuFileName;
 	}
 
 	public static String getEclipseFilePath() {
@@ -196,7 +233,7 @@ public class hardCoded {
 	}
 
 	public static void setEclipseFilePath(String eclipseFilePath) {
-		hardCoded.eclipseFilePath = eclipseFilePath;
+		HardCoded.eclipseFilePath = eclipseFilePath;
 	}
 
 	public static String getEclipseFileName() {
@@ -204,13 +241,13 @@ public class hardCoded {
 	}
 
 	public static void setEclipseFileName(String eclipseFileName) {
-		hardCoded.eclipseFileName = eclipseFileName;
+		HardCoded.eclipseFileName = eclipseFileName;
 	}
 	
 	public static String getLinuxUserName() {
-		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
+//		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
 		if (checkForNonRoot() != null && !checkForNonRoot().equals("root")) {
-			System.out.println("Returning nonRoot username ="+checkForNonRoot());
+//			System.out.println("Returning nonRoot username ="+checkForNonRoot());
 			return checkForNonRoot();
 		}
 		String linuxUserName = null;
@@ -228,7 +265,7 @@ public class hardCoded {
 		// execute command to create destination folder
 		try {
 			linuxUserName = RunCommandsV3.executeCommands(command, false);
-			System.out.println("Found username = "+linuxUserName);
+//			System.out.println("Found username = "+linuxUserName);
 			return linuxUserName;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

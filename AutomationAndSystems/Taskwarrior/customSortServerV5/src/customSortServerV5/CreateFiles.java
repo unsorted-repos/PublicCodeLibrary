@@ -9,18 +9,31 @@ import java.io.UnsupportedEncodingException;
 
 public class CreateFiles {
 
+	/**
+	 * Loops through the task array and copies the lines of the tasks into a string array and returns it.
+	 * @param taskList
+	 * @return
+	 */
+	public static String[] backlogTaskArrayToStringArray(BacklogTask[] taskList) {
+		String[] lines = new String[taskList.length];
+		for (int i = 0; i < taskList.length; i++) {
+			lines[i]=taskList[i].getTextLine();
+		}
+		return null;
+	}
 	
 	/**
 	 * This method writes the content of the vars file.
 	 * 
 	 * @param installData
 	 */
-	public static void writeFileContent(String filePathName, String fileName, BacklogTask[] taskList) {
+//	public static void writeFileContent(String filePathName, String fileName, BacklogTask[] taskList) {
+	public static void writeFileContent(String filePathName, String fileName, String[] lines) {
 
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
-			writer = writeLinesBacklog(writer,taskList);
+			writer = writeLinesBacklog(writer, lines);
 			writer.close();
 			System.out.println("JUST WROTE CONTENT of " + fileName + " FILE! To path:"+filePathName);
 		} catch (FileNotFoundException e) {
@@ -91,12 +104,19 @@ public class CreateFiles {
 	}
 	
 
-	public static PrintWriter writeLinesBacklog(PrintWriter writer, BacklogTask[] taskList) {
-		char quotation = (char) 34; // quotation mark "
-		for (int i = 0; i < taskList.length;i++) {
-			writer.println(taskList[i].getTextLine());
+	/**
+	 * Used to accept BacklogTask[] instead of String[]
+	 * @param writer
+	 * @param taskList
+	 * @return
+	 */
+//	public static PrintWriter writeLinesBacklog(PrintWriter writer, BacklogTask[] taskList) {
+	public static PrintWriter writeLinesBacklog(PrintWriter writer, String[] lines) {	
+		// Start with writing on a new line.
+		writer.println('\n');
+		for (int i = 0; i < lines.length;i++) {
+			writer.println(lines[i]);
 		}
 		return writer;
 	}
-
 }

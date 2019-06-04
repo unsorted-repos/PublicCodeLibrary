@@ -170,9 +170,7 @@ public class Verifications {
 	 * taskwarrior organisation:testOrg
 	 * taskwarrior username:testtwname 
 	 */
-	
-	
-	
+		
 	/**
 	 * Sorting checks.
 	 */
@@ -238,6 +236,9 @@ public class Verifications {
 	/**
 	 * Automation
 	 */
+	//TODO: Make a script that runs from cmd and uses command lxrun /install /y /update to install and update the entire WSL automatically.
+	//TODO: Pull, compile and run the .jar file within the wsl automatically from the cmd script.
+	//TODO: Include the initial questions of for the user, that ask about the setup; server, phone etc.
 	//TODO: make bash/exe that completely automatically installs everything, including wsl.
 	//TODO: Setup auto encrypted ftp for certificates
 	//TODO: Auto detect linux username, if there is only one folder in /home/

@@ -45,7 +45,7 @@ public class ReadTasks {
 	 * @return
 	 */
 	public static String readTwPath() {
-		return hardCoded.getUbuntuFilePath();
+		return HardCoded.getUbuntuFilePath();
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class ReadTasks {
 	 */
 	public static String readJsonLocation() {
 		//check if files exist
-		if (findTwFiles(readTwPath(),hardCoded.getPendingFileName())) {
-			return readTwPath()+hardCoded.getPendingFileName();
+		if (findTwFiles(readTwPath(),HardCoded.getPendingFileName())) {
+			return readTwPath()+HardCoded.getPendingFileName();
 		}				
 
 		//TODO: Throw exception instead of returning null.
@@ -86,7 +86,7 @@ public class ReadTasks {
 	 */
 	public static String getFilePath(boolean testing) {
 		if (testing) {
-			String filepath=hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName();
+			String filepath=HardCoded.getEclipseFilePath()+HardCoded.getEclipseFileName();
 			return filepath;
 		}else {
 			return readJsonLocation();

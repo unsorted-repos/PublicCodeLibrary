@@ -144,7 +144,7 @@ class ReadTasksTest {
 	@Test
 	public void testGetFilePath(){
 		boolean testing = true;
-		assertEquals(hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName(),ReadTasks.getFilePath(testing));
+		assertEquals(HardCoded.getEclipseFilePath()+HardCoded.getEclipseFileName(),ReadTasks.getFilePath(testing));
 	}
 
 	/**
