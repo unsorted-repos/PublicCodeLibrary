@@ -53,7 +53,7 @@ public class CreateSorts{
 	//		return null;
 	//	};
 
-	public static ArrayList<Task> mainSort(ArrayList<Task> taskList) {	
+	public static ArrayList<Task> mainSort(HardCoded hardCoded, ArrayList<Task> taskList) {	
 		//A normal sort on Project:
 		Comparator<Task> projectComparator = (object1, object2) -> {
 			if (object1.getProject()==null && object2.getProject()!=null){
@@ -83,7 +83,7 @@ public class CreateSorts{
 		 * The second argument passes the "method" sortProject in which the project comparator is called.
 		 * The third argument passes the "method sortUrgency in which the urgency comparator is called. 
 		 */
-		Comparator<Task> mainComparator = new ConditionalComparator<Task>(task -> task.getUrgency() < HardCoded.getUrgencyThreshold(), projectComparator, urgencyComparator);
+		Comparator<Task> mainComparator = new ConditionalComparator<Task>(task -> task.getUrgency() < hardCoded.getUrgencyThreshold(), projectComparator, urgencyComparator);
 
 		//Call the actual mainComparator with a tasklist:
 		Collections.sort(taskList, mainComparator);

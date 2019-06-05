@@ -42,10 +42,10 @@ public class FillBacklogTasks {
 	 * 
 	 * @return
 	 */
-	public static void manageBacklogFilling() {
+	public static void manageBacklogFilling(HardCoded hardCoded) {
 		ArrayList<String> lines = new ArrayList<>();
-		String backlogPath = HardCoded.getUbuntuFilePath();
-		String backlogFileName = HardCoded.getBacklogFileName();
+		String backlogPath = hardCoded.getUbuntuFilePath();
+		String backlogFileName = hardCoded.getBacklogFileName();
 		String[] filteredOrderedBacklogLines;
 
 		ArrayList<BacklogTaskMultiples> multiples = new ArrayList<BacklogTaskMultiples>();
@@ -76,8 +76,8 @@ public class FillBacklogTasks {
 		filteredOrderedBacklogLines = CreateFiles.backlogTaskArrayToStringArray(orderedFilteredTaskList);
 		
 		// create backlog file.
-		System.out.println("Creating backlogFile in:"+"/home/" + HardCoded.getLinuxUserName() + "/.task/"+ HardCoded.getBacklogFileName());
-		CreateFiles.writeFileContent("/home/" + HardCoded.getLinuxUserName() + "/.task/", HardCoded.getBacklogFileName(),
+		System.out.println("Creating backlogFile in:"+"/home/" + hardCoded.getLinuxUsername() + "/.task/"+ hardCoded.getBacklogFileName());
+		CreateFiles.writeFileContent("/home/" + hardCoded.getLinuxUsername() + "/.task/", hardCoded.getBacklogFileName(),
 				filteredOrderedBacklogLines);
 //		return filteredCatalog;
 	}

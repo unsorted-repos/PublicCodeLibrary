@@ -20,8 +20,11 @@ public class Main {
 	public static void main(String[] args) {
 //		MoveTestFiles.startWSL();
 	
+		// create hardcoded object
+		HardCoded hardCoded = new HardCoded();
+		
 		// TODO Auto-generated method stub
-		String filepath=ReadTasks.getFilePath(testingInWindows);
+		String filepath=ReadTasks.getFilePath(hardCoded,testingInWindows);
 		ArrayList<String> lines=ReadTasks.readFile(filepath);
 		ArrayList<Task> unSortedTaskList = ReadTasks.separarateLines(lines);
 		ArrayList<Task> sortedTaskList = ReadTasks.separarateLines(lines);
@@ -30,12 +33,12 @@ public class Main {
 
 		
 		//Create customSortUDA cSort in tw:
-		createUDA(HardCoded.getNameOfCustomSortParameter(), HardCoded.getNameOfCustomSortParameterLabel(),HardCoded.getCustomSortDataType());
+		createUDA(hardCoded.getNameOfCustomSortParameterLabel(), hardCoded.getNameOfCustomSortParameterLabel(),hardCoded.getCustomSortDataType());
 		//Create UDA estimate in tw:
-		createUDA(HardCoded.getUdaName(), HardCoded.getUdaLabel(),HardCoded.getUdaDataType());
+		createUDA(hardCoded.getUdaName(), hardCoded.getUdaLabel(),hardCoded.getUdaDataType());
 		
 		//create customReport
-		createCustomReport(HardCoded.getCustomReportName());
+		createCustomReport(hardCoded.getCustomReportName());
 		
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<unSortedTaskList.size();i++) {
@@ -43,21 +46,21 @@ public class Main {
 		}
 
 		//Get urgency and add it to tasks
-		addUrgency(unSortedTaskList);
+		addUrgency(hardCoded, unSortedTaskList);
 
 		//Sort taskList:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 
 		//Print description and uuids of unsorted tasklist:
 		for (int i=0;i<sortedTaskList.size();i++) {
 			System.out.println(sortedTaskList.get(i).getId()+" and cSort second="+sortedTaskList.get(i).getCustomSort()+" "+sortedTaskList.get(i).getDescription()+" and task uuid = "+sortedTaskList.get(i).getUuid());
 		}
-		assignCustomSortToTw(sortedTaskList);
+		assignCustomSortToTw(hardCoded, sortedTaskList);
 
 		// Set the customSort values of the recurring parent/template tasks to 0:
 		
 		// Read backlog file
-		FillBacklogTasks.manageBacklogFilling();
+		FillBacklogTasks.manageBacklogFilling(hardCoded);
 		System.exit(0);
 		
 		//Print command output and return urgency
@@ -173,7 +176,7 @@ public class Main {
 	 * 
 	 * @param sortedTaskList
 	 */
-	private static void assignCustomSortToTw(ArrayList<Task> sortedTaskList) {
+	private static void assignCustomSortToTw(HardCoded hardCoded, ArrayList<Task> sortedTaskList) {
 		// TODO Auto-generated method stub
 		String uuid = null;
 		String command = null;
@@ -186,12 +189,12 @@ public class Main {
 			if (status.equals(sortedTaskList.get(i).getStatus())) {
 				
 				// clear the customSort UDA of the recurrent parent/template task 
-				command = HardCoded.getSudo()+"task "+uuid+" modify "+HardCoded.getNameOfCustomSortParameter()+":";
+				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameterLabel()+":";
 				RunCommandsExpectYes.runCommands(command);
 			}else {
 				
 				// assign the customSort UDA of the recurrent child/actual task
-				command = HardCoded.getSudo()+"task "+uuid+" modify "+HardCoded.getNameOfCustomSortParameter()+":"+i;
+				command = hardCoded.getSudo()+"task "+uuid+" modify "+hardCoded.getNameOfCustomSortParameterLabel()+":"+i;
 				RunCommandsExpectYes.runCommands(command);
 			}
 		}
@@ -209,7 +212,7 @@ public class Main {
 	 * 6. Stores the urgency to that task.
 	 * @param unSortedTaskList
 	 */
-	private static void addUrgency(ArrayList<Task> taskList) {
+	private static void addUrgency(HardCoded hardCoded, ArrayList<Task> taskList) {
 		String uuid=null;
 		String command=null;
 		double urgency;
@@ -222,7 +225,7 @@ public class Main {
 			uuid=taskList.get(i).getUuid();
 			
 			//create command
-			command = HardCoded.getSudo()+"task "+uuid;
+			command = hardCoded.getSudo()+"task "+uuid;
 			
 			//run command
 			commandOutput=RunCommands.runCommands(command,false);
@@ -247,7 +250,7 @@ public class Main {
 	 * 6. Stores the urgency to that task.
 	 * @param unSortedTaskList
 	 */
-	private static void getUrgency(ArrayList<Task> taskList) {
+	private static void getUrgency(HardCoded hardCoded, ArrayList<Task> taskList) {
 		String uuid=null;
 		String command=null;
 		double urgency;
@@ -260,7 +263,7 @@ public class Main {
 			uuid=taskList.get(i).getUuid();
 			
 			//create command
-			command = HardCoded.getSudo()+"task "+uuid;
+			command = hardCoded.getSudo()+"task "+uuid;
 			System.out.println("Running command:"+command);
 			
 			//run command

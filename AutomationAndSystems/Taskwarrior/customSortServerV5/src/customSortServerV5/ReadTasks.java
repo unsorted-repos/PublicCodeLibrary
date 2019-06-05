@@ -44,8 +44,8 @@ public class ReadTasks {
 	 *     external variable that the user could easily change.
 	 * @return
 	 */
-	public static String readTwPath() {
-		return HardCoded.getUbuntuFilePath();
+	public static String readTwPath(HardCoded hardCoded) {
+		return hardCoded.getUbuntuFilePath();
 	}
 
 	/**
@@ -62,10 +62,10 @@ public class ReadTasks {
 	 * This method reads the location of the JSON file that contains all the pending taskdata.
 	 * @return contains the string of the path to the JSON file including the JSON file.
 	 */
-	public static String readJsonLocation() {
+	public static String readJsonLocation(HardCoded hardCoded) {
 		//check if files exist
-		if (findTwFiles(readTwPath(),HardCoded.getPendingFileName())) {
-			return readTwPath()+HardCoded.getPendingFileName();
+		if (findTwFiles(readTwPath(hardCoded),hardCoded.getPendingFileName())) {
+			return readTwPath(hardCoded)+hardCoded.getPendingFileName();
 		}				
 
 		//TODO: Throw exception instead of returning null.
@@ -81,12 +81,12 @@ public class ReadTasks {
 	 * and functioning in Ubuntu.
 	 * @return the string containing the path to an input file. 
 	 */
-	public static String getFilePath(boolean testing) {
+	public static String getFilePath(HardCoded hardCoded, boolean testing) {
 		if (testing) {
-			String filepath=HardCoded.getEclipseFilePath()+HardCoded.getEclipseFileName();
+			String filepath=hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName();
 			return filepath;
 		}else {
-			return readJsonLocation();
+			return readJsonLocation(hardCoded);
 		}
 	}
 

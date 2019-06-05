@@ -14,17 +14,17 @@ import org.junit.jupiter.api.Test;
 
 class ExternalTests {
 
-
+	private HardCoded hardCoded; 
 	
 	/**
 	 * creates the powershell script that launches the wsl with the command that launches
 	 * the JavaServerSort.jar 
 	 */
 	@BeforeAll
-	public static void createPowershellScript() {
-		
-		CreateFiles.createPowershellLauncherScript();
-		CreateFiles.createPowershellWhoamiScript();
+	public static void createPowershellScript(HardCoded hardCoded) {
+		hardCoded = new HardCoded();
+		CreateFiles.createPowershellLauncherScript(hardCoded);
+		CreateFiles.createPowershellWhoamiScript(hardCoded);
 	}
 	
 
@@ -51,19 +51,19 @@ class ExternalTests {
 	@Test
 	public void testMainSort2() {
 		// absorb original backlog.data and pending.data files for safekeeping
-		MoveTestFiles moveTestFiles = new MoveTestFiles();
+		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
 
 		// copy backlog0.data to home
-		String sourcePath = HardCoded.getTestDataFolder();
+		String sourcePath = hardCoded.getTestDataFolder();
 		String sourceFileName = "backlog0.data";
-		String destinationPath = HardCoded.getUbuntuFilePath();
-		String destinationFileName = HardCoded.getBacklogFileName();
+		String destinationPath = hardCoded.getUbuntuFilePath();
+		String destinationFileName = hardCoded.getBacklogFileName();
 		File mockTestFile = new File(sourcePath + sourceFileName);
 		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
 
 		// run main.
 		System.out.println("Running the main!");
-		RunPowershell.runPowershell(RunPowershell.powershellCommand(),false);
+		RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded),false);
 
 		// read backlog.data
 

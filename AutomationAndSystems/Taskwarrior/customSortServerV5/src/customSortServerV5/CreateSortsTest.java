@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -46,8 +47,13 @@ class CreateSortsTest {
 	private String testTxtLine2= "[description:\"Automate emulator controller installation\" entry:\"1535050399\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"31\" status:\"pending\" uuid:\"5d0e0cbb-173f-4ef4-a603-0dffd4caaa97\"]";
 	private ArrayList<String> taskAttributes =new ArrayList<>();
 	private ArrayList<String> taskAttributeSetMethods =new ArrayList<>();
-
-
+	private HardCoded hardCoded;
+	
+	@BeforeAll
+	public void createHardCoded() {
+		hardCoded = new HardCoded();
+	}
+	
 	/**
 	 * Create a test that inputs a tasklist with urg 3, project order z,c,a
 	 * Expect return order of the task, indicated by their projects: a,c,z
@@ -88,7 +94,7 @@ class CreateSortsTest {
 		assertTrue("a".equals(unSortedTaskList.get(2).getProject()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 
 		//verify order before sorting:
 		assertTrue("a".equals(sortedTaskList.get(0).getProject()));
@@ -128,7 +134,7 @@ class CreateSortsTest {
 		assertTrue("c".equals(unSortedTaskList.get(2).getProject()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 		assertTrue("a".equals(sortedTaskList.get(0).getProject()));
 		assertTrue("c".equals(sortedTaskList.get(1).getProject()));
@@ -168,7 +174,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 1 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -213,7 +219,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 2 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -257,7 +263,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 3 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -302,7 +308,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 4 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -347,7 +353,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 5 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -391,7 +397,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 6 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -435,7 +441,7 @@ class CreateSortsTest {
 		assertTrue("description3".equals(unSortedTaskList.get(2).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 //		System.out.println("Test 7 order:");
 //		System.out.println(sortedTaskList.get(0).getDescription());
@@ -482,7 +488,7 @@ class CreateSortsTest {
 		assertTrue("Hang clothes to dry.4".equals(unSortedTaskList.get(3).getDescription()));
 
 		//Sort Tasklist:
-		sortedTaskList =CreateSorts.mainSort(unSortedTaskList);
+		sortedTaskList =CreateSorts.mainSort(hardCoded, unSortedTaskList);
 		//verify order before sorting:
 		System.out.println("Test recurrence order:");
 		System.out.println(sortedTaskList.get(0).getDescription());

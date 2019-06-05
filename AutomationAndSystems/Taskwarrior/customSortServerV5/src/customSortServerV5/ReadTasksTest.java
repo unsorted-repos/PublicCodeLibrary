@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,13 @@ class ReadTasksTest {
 	private String testTxtLine2= "[description:\"Automate emulator controller installation\" entry:\"1535050399\" modified:\"1548757876\" priority:\"L\" project:\"Automation\" secretSort:\"31\" status:\"pending\" uuid:\"5d0e0cbb-173f-4ef4-a603-0dffd4caaa97\"]";
 	private ArrayList<String> taskAttributes =new ArrayList<>();
 	private ArrayList<String> taskAttributeSetMethods =new ArrayList<>();
-
+	private HardCoded hardCoded;
+	
+	@BeforeAll
+	public void createHardCoded() {
+		hardCoded = new HardCoded();
+	}
+	
 	/**
 	 * This fills an ArrayList of strings with the names of the Task Attributes.
 	 * the names of the Task Attributes are the names of the fields of object Task.
@@ -144,7 +151,7 @@ class ReadTasksTest {
 	@Test
 	public void testGetFilePath(){
 		boolean testing = true;
-		assertEquals(HardCoded.getEclipseFilePath()+HardCoded.getEclipseFileName(),ReadTasks.getFilePath(testing));
+		assertEquals(hardCoded.getEclipseFilePath()+hardCoded.getEclipseFileName(),ReadTasks.getFilePath(hardCoded, testing));
 	}
 
 	/**
@@ -156,7 +163,7 @@ class ReadTasksTest {
 	void testReadFile() {
 		ArrayList<String> expectedLines = new ArrayList<>();
 		ArrayList<String> returnedLines = new ArrayList<>();
-		returnedLines =ReadTasks.readFile(ReadTasks.getFilePath(true)); 
+		returnedLines =ReadTasks.readFile(ReadTasks.getFilePath(hardCoded, true)); 
 		expectedLines.add(testTxtLine0);
 		expectedLines.add(testTxtLine1);
 		expectedLines.add(testTxtLine2);

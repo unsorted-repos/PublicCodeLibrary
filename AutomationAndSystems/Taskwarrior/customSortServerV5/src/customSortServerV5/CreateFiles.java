@@ -133,10 +133,10 @@ public class CreateFiles {
 	 * Writes the powershell scripts that that launch wsl commands.
 	 * @throws IOException
 	 */
-	public static void createTestLaunchers(String testFileName, String[] lines){
-//		String linuxTestFilePath = HardCoded.getLinuxPath();
+	public static void createTestLaunchers(HardCoded hardCoded, String testFileName, String[] lines){
+//		String linuxTestFilePath = hardCoded.getLinuxPath();
 		
-		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
 		
 		// auto create wslLaunchers folder in testData folder
@@ -173,20 +173,20 @@ public class CreateFiles {
 	 * the JavaServerSort.jar 
 	 */
 	
-	public static void createPowershellLauncherScript() {
+	public static void createPowershellLauncherScript(HardCoded hardCoded) {
 		char quotation = (char) 34; // quotation mark "		
-		String linuxJarPath = HardCoded.getLinuxPath();
+		String linuxJarPath = hardCoded.getLinuxPath();
 		String[] lines = new String[1];
-		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
-		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
+		lines[0] = "wsl java -jar "+quotation+linuxJarPath+hardCoded.getCompiledJarName()+quotation;
+		CreateFiles.createTestLaunchers(hardCoded, hardCoded.getWslLauncherScriptName(),lines);
 	}
 	
-	public static void createPowershellWhoamiScript() {
+	public static void createPowershellWhoamiScript(HardCoded hardCoded ) {
 		System.out.println("Creating whoami");
 		char quotation = (char) 34; // quotation mark "		
-		String linuxJarPath = HardCoded.getLinuxPath();
+		String linuxJarPath = hardCoded.getLinuxPath();
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
-		CreateFiles.createTestLaunchers(HardCoded.getWslWhoamiScriptName(),lines);
+		CreateFiles.createTestLaunchers(hardCoded, hardCoded.getWslWhoamiScriptName(),lines);
 	}
 }

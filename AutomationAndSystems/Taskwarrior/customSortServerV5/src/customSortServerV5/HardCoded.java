@@ -6,35 +6,36 @@ public class HardCoded {
 	//a task have the exact same name in the JSON pending.data file as they
 	//have as fields of Object Task.
 
-	private String eclipseFilePath="input/";
-	private String eclipseFileName="pendingPublic.data";
-	private String pendingFileName="pending.data";
-	private String ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
-	private String nameOfCustomSortParameterLabel="cSort";
-	private String customSortDataType="numeric";
-	private String udaName="estimate";
-	private String udaLabel="est";
-	private String udaDataType="duration";
-	private String customReportName="nice0";
-	private double urgencyThreshold = 11.5;
-	private String sudo = "sudo ";
-	private String backlogFileName = "backlog.data";
-	private String testDataFolder = "testData";
+	private String eclipseFilePath;
+	private String eclipseFileName;
+	private String pendingFileName;
+	private String ubuntuFilePath;
+	private String nameOfCustomSortParameterLabel;
+	private String customSortDataType;
+	private String udaName;
+	private String udaLabel;
+	private String udaDataType;
+	private String customReportName;
+	private double urgencyThreshold;
+	private String sudo;
+	private String backlogFileName;
+	private String testDataFolder;
 	private String windowsPath;
 	private String linuxPath;
-	private String testWslLaunchersFolder = "wslLaunchers";
+	private String testWslLaunchersFolder;
 //	private String relativeCompiledJarPath = 
-	private String compiledJarName = "JavaServerSort.jar";
-	private String wslLauncherScriptName = "wslLauncher8.ps1";
-	private String wslWhoamiScriptName = "wslWhoami.ps1";
-	private String linuxUsernameFromWindows;
+	private String compiledJarName;
+	private String wslLauncherScriptName;
+	private String wslWhoamiScriptName;
+//	private String linuxUsernameFromWindows;
+	private String linuxUsername;
 	
 	
 	public HardCoded() {
 		 this.eclipseFilePath="input/";
 		 this.eclipseFileName="pendingPublic.data";
 		 this.pendingFileName="pending.data";
-		 this.ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
+		 this.ubuntuFilePath="/home/"+getLinuxUsername()+"/.task/";
 		 this.nameOfCustomSortParameterLabel="cSort";
 		 this.customSortDataType="numeric";
 		 this.udaName="estimate";
@@ -52,251 +53,315 @@ public class HardCoded {
 		 this.compiledJarName = "JavaServerSort.jar";
 		 this.wslLauncherScriptName = "wslLauncher8.ps1";
 		 this.wslWhoamiScriptName = "wslWhoami.ps1";
-		 this.linuxUsernameFromWindows = absorbLinuxUsernameFromWindows();
+//		 this.linuxUsernameFromWindows = getLinuxUserName();
+		 this.linuxUsername = getLinuxUsername();
 	}
 	
-	public static String getLinuxUsernameFromWindows() {
-		return linuxUsernameFromWindows;
-	}
-
-	public static String getWslWhoamiScriptName() {
-		return wslWhoamiScriptName;
-	}
-
-	public static void setWslWhoamiScriptName(String wslWhoamiScriptName) {
-		HardCoded.wslWhoamiScriptName = wslWhoamiScriptName;
-	}
-
-	public static String getWslLauncherScriptName() {
-		return wslLauncherScriptName;
-	}
-
-	public static void setWslLauncherScriptName(String wslLauncherScriptName) {
-		HardCoded.wslLauncherScriptName = wslLauncherScriptName;
-	}
-
-	public static String getTestWslLaunchersFolder() {
-		return testWslLaunchersFolder;
-	}
-
-	public static void setTestWslLaunchersFolder(String testWslLaunchersFolder) {
-		HardCoded.testWslLaunchersFolder = testWslLaunchersFolder;
-	}
-
-	public static String getLinuxPath() {
-		return linuxPath;
-	}
-
-	public static void setLinuxPath(String linuxPath) {
-		HardCoded.linuxPath = linuxPath;
-	}
-
-	public static String getCompiledJarName() {
-		return compiledJarName;
-	}
-
-	public static void setCompiledJarName(String compiledJarName) {
-		HardCoded.compiledJarName = compiledJarName;
-	}
-
-	public static String getWindowsPath() {
-		
-		System.out.println("WindwsPathReturned="+windowsPath);
-		return windowsPath;
-	}
-
-//	public static void setWindowsPath(String windowsPath) {
-//		HardCoded.windowsPath = windowsPath;
-//	}
-
-	public static String getTestDataFolder() {
-		return testDataFolder;
-	}
-
-	public static void setTestDataFolder(String testDataFolder) {
-		HardCoded.testDataFolder = testDataFolder;
-	}
-
-	public static String getBacklogFileName() {
-		return backlogFileName;
-	}
-
-	public static void setBacklogFileName(String backlogFileName) {
-		HardCoded.backlogFileName = backlogFileName;
-	}
-
-	/**
-	 * @return the udaName
-	 */
-	public static String getUdaName() {
-		return udaName;
-	}
-
-	/**
-	 * @param udaName the udaName to set
-	 */
-	public static void setUdaName(String udaName) {
-		HardCoded.udaName = udaName;
-	}
-
-	/**
-	 * @return the udaLabel
-	 */
-	public static String getUdaLabel() {
-		return udaLabel;
-	}
-
-	/**
-	 * @param udaLabel the udaLabel to set
-	 */
-	public static void setUdaLabel(String udaLabel) {
-		HardCoded.udaLabel = udaLabel;
-	}
-
-	/**
-	 * @return the udaDataType
-	 */
-	public static String getUdaDataType() {
-		return udaDataType;
-	}
-
-	/**
-	 * @param udaDataType the udaDataType to set
-	 */
-	public static void setUdaDataType(String udaDataType) {
-		HardCoded.udaDataType = udaDataType;
-	}
-
-	private static String nameOfCustomSortParameter="customSort";
-	
-	/**
-	 * @return the nameOfCustomSortParameter
-	 */
-	public static String getNameOfCustomSortParameter() {
-		return nameOfCustomSortParameter;
-	}
-
-	/**
-	 * @param nameOfCustomSortParameter the nameOfCustomSortParameter to set
-	 */
-	public static void setNameOfCustomSortParameter(String nameOfCustomSortParameter) {
-		HardCoded.nameOfCustomSortParameter = nameOfCustomSortParameter;
-	}
-
-	/**
-	 * @return the nameOfCustomSortParameterLabel
-	 */
-	public static String getNameOfCustomSortParameterLabel() {
-		return nameOfCustomSortParameterLabel;
-	}
-
-	/**
-	 * @param nameOfCustomSortParameterLabel the nameOfCustomSortParameterLabel to set
-	 */
-	public static void setNameOfCustomSortParameterLabel(String nameOfCustomSortParameterLabel) {
-		HardCoded.nameOfCustomSortParameterLabel = nameOfCustomSortParameterLabel;
-	}
-
-	/**
-	 * @return the customSortDataType
-	 */
-	public static String getCustomSortDataType() {
-		return customSortDataType;
-	}
-
-	/**
-	 * @param customSortDataType the customSortDataType to set
-	 */
-	public static void setCustomSortDataType(String customSortDataType) {
-		HardCoded.customSortDataType = customSortDataType;
-	}
-
-	/**
-	 * @return the customReportName
-	 */
-	public static String getCustomReportName() {
-		return customReportName;
-	}
 
 	
-	/**
-	 * @param customReportName the customReportName to set
-	 */
-	public static void setCustomReportName(String customReportName) {
-		HardCoded.customReportName = customReportName;
-	}
 	
-	/**
-	 * @return the ubuntuFilePath
-	 */
-	public static String getUbuntuFilePath() {
-		return ubuntuFilePath;
+
+
+
+	public String getLinuxUsername() {
+		linuxUsername = absorbLinuxUserName();	
+		return linuxUsername;
 	}
 
-	/**
-	 * @param ubuntuFilePath the ubuntuFilePath to set
-	 */
-	public static void setUbuntuFilePath(String ubuntuFilePath) {
-		HardCoded.ubuntuFilePath = ubuntuFilePath;
+
+
+
+
+	public void setLinuxUsername(String linuxUsername) {
+		this.linuxUsername = linuxUsername;
 	}
 
-	/**
-	 * @return the sudo
-	 */
-	public static String getSudo() {
-		return sudo;
-	}
 
-	/**
-	 * @param sudo the sudo to set
-	 */
-	public static void setSudo(String sudo) {
-		HardCoded.sudo = sudo;
-	}
 
-	/**
-	 * @return the urgencyThreshold
-	 */
-	public static double getUrgencyThreshold() {
-		return urgencyThreshold;
-	}
 
-	/**
-	 * @param urgencyThreshold the urgencyThreshold to set
-	 */
-	public static void setUrgencyThreshold(double urgencyThreshold) {
-		HardCoded.urgencyThreshold = urgencyThreshold;
-	}
 
-	public static String getPendingFileName() {
-		return pendingFileName;
-	}
-
-	public static void setPendingFileName(String ubuntuFileName) {
-		HardCoded.pendingFileName = ubuntuFileName;
-	}
-
-	public static String getEclipseFilePath() {
+	public String getEclipseFilePath() {
 		return eclipseFilePath;
 	}
 
-	public static void setEclipseFilePath(String eclipseFilePath) {
-		HardCoded.eclipseFilePath = eclipseFilePath;
+
+
+
+	public void setEclipseFilePath(String eclipseFilePath) {
+		this.eclipseFilePath = eclipseFilePath;
 	}
 
-	public static String getEclipseFileName() {
+
+
+
+	public String getEclipseFileName() {
 		return eclipseFileName;
 	}
 
-	public static void setEclipseFileName(String eclipseFileName) {
-		HardCoded.eclipseFileName = eclipseFileName;
+
+
+
+	public void setEclipseFileName(String eclipseFileName) {
+		this.eclipseFileName = eclipseFileName;
 	}
-	
-	public static String getLinuxUserName() {
+
+
+
+
+	public String getPendingFileName() {
+		return pendingFileName;
+	}
+
+
+
+
+	public void setPendingFileName(String pendingFileName) {
+		this.pendingFileName = pendingFileName;
+	}
+
+
+
+
+	public String getUbuntuFilePath() {
+		return ubuntuFilePath;
+	}
+
+
+
+
+	public void setUbuntuFilePath(String ubuntuFilePath) {
+		this.ubuntuFilePath = ubuntuFilePath;
+	}
+
+
+
+
+	public String getNameOfCustomSortParameterLabel() {
+		return nameOfCustomSortParameterLabel;
+	}
+
+
+
+
+	public void setNameOfCustomSortParameterLabel(String nameOfCustomSortParameterLabel) {
+		this.nameOfCustomSortParameterLabel = nameOfCustomSortParameterLabel;
+	}
+
+
+
+
+	public String getCustomSortDataType() {
+		return customSortDataType;
+	}
+
+
+
+
+	public void setCustomSortDataType(String customSortDataType) {
+		this.customSortDataType = customSortDataType;
+	}
+
+
+
+
+	public String getUdaName() {
+		return udaName;
+	}
+
+
+
+
+	public void setUdaName(String udaName) {
+		this.udaName = udaName;
+	}
+
+
+
+
+	public String getUdaLabel() {
+		return udaLabel;
+	}
+
+
+
+
+	public void setUdaLabel(String udaLabel) {
+		this.udaLabel = udaLabel;
+	}
+
+
+
+
+	public String getUdaDataType() {
+		return udaDataType;
+	}
+
+
+
+
+	public void setUdaDataType(String udaDataType) {
+		this.udaDataType = udaDataType;
+	}
+
+
+
+
+	public String getCustomReportName() {
+		return customReportName;
+	}
+
+
+
+
+	public void setCustomReportName(String customReportName) {
+		this.customReportName = customReportName;
+	}
+
+
+
+
+	public double getUrgencyThreshold() {
+		return urgencyThreshold;
+	}
+
+
+
+
+	public void setUrgencyThreshold(double urgencyThreshold) {
+		this.urgencyThreshold = urgencyThreshold;
+	}
+
+
+
+
+	public String getSudo() {
+		return sudo;
+	}
+
+
+
+
+	public void setSudo(String sudo) {
+		this.sudo = sudo;
+	}
+
+
+
+
+	public String getBacklogFileName() {
+		return backlogFileName;
+	}
+
+
+
+
+	public void setBacklogFileName(String backlogFileName) {
+		this.backlogFileName = backlogFileName;
+	}
+
+
+
+
+	public String getTestDataFolder() {
+		return testDataFolder;
+	}
+
+
+
+
+	public void setTestDataFolder(String testDataFolder) {
+		this.testDataFolder = testDataFolder;
+	}
+
+
+
+
+	public String getWindowsPath() {
+		return windowsPath;
+	}
+
+
+
+
+	public void setWindowsPath(String windowsPath) {
+		this.windowsPath = windowsPath;
+	}
+
+
+
+
+	public String getLinuxPath() {
+		return linuxPath;
+	}
+
+
+
+
+	public void setLinuxPath(String linuxPath) {
+		this.linuxPath = linuxPath;
+	}
+
+
+
+
+	public String getTestWslLaunchersFolder() {
+		return testWslLaunchersFolder;
+	}
+
+
+
+
+	public void setTestWslLaunchersFolder(String testWslLaunchersFolder) {
+		this.testWslLaunchersFolder = testWslLaunchersFolder;
+	}
+
+
+
+
+	public String getCompiledJarName() {
+		return compiledJarName;
+	}
+
+
+
+
+	public void setCompiledJarName(String compiledJarName) {
+		this.compiledJarName = compiledJarName;
+	}
+
+
+
+
+	public String getWslLauncherScriptName() {
+		return wslLauncherScriptName;
+	}
+
+
+
+
+	public void setWslLauncherScriptName(String wslLauncherScriptName) {
+		this.wslLauncherScriptName = wslLauncherScriptName;
+	}
+
+
+
+
+	public String getWslWhoamiScriptName() {
+		return wslWhoamiScriptName;
+	}
+
+
+
+
+	public void setWslWhoamiScriptName(String wslWhoamiScriptName) {
+		this.wslWhoamiScriptName = wslWhoamiScriptName;
+	}
+
+	private String absorbLinuxUserName() {
 		String linuxUserName = null;
 		if (OSValidator.returnOS().equals("windows")) {
 			System.out.println("RUNNING IN WINDOWS");
-			return setLinuxUsernameFromWindows();
+			return absorbLinuxUsernameFromWindows();
 		}
 		
 		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
@@ -357,11 +422,12 @@ public class HardCoded {
 		return null;
 	}
 	
-	private static String absorbLinuxUsernameFromWindows() {
+	private String absorbLinuxUsernameFromWindows() {
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
-		CreateFiles.createTestLaunchers(HardCoded.getWslWhoamiScriptName(),lines);
-		String linuxUsername = RunPowershell.runPowershell(RunPowershell.storeWhoami(),false);
+		CreateFiles.createTestLaunchers(this, this.getWslWhoamiScriptName(),lines);
+		//TODO: INVESTIGATE WHETHER THIS RECURSION "THIS" causes nulls
+		String linuxUsername = RunPowershell.runPowershell(RunPowershell.storeWhoami(this),false);
 		System.out.println("username="+linuxUsername);
 		return linuxUsername;
 	}

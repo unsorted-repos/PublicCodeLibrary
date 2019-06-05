@@ -19,19 +19,19 @@ public class MoveTestFiles {
 	 * Constructor to be able to pass the MoveTestFiles object with it's
 	 * accompanying files.
 	 */
-	MoveTestFiles() {
-		importOriginalBacklog();
-		importOriginalPending();
+	MoveTestFiles(HardCoded hardCoded) {
+		importOriginalBacklog(hardCoded);
+		importOriginalPending(hardCoded);
 	}
 
 	/**
 	 * Imports the original/current backlog.data file of taskwarrior and stores it
 	 * internally.
 	 */
-	public void importOriginalBacklog() {
-		System.out.println("absorbing:"+HardCoded.getUbuntuFilePath() + HardCoded.getBacklogFileName());
+	public void importOriginalBacklog(HardCoded hardCoded) {
+		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 //		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
-		this.backlogOriginal = new File(HardCoded.getUbuntuFilePath() + HardCoded.getBacklogFileName());
+		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 		System.out.println("originalBacklogImported="+this.backlogOriginal);
 
 	}
@@ -40,17 +40,17 @@ public class MoveTestFiles {
 	 * Imports the original/current pending.data file of taskwarrior and stores it
 	 * internally.
 	 */
-	public void importOriginalPending() {
-		this.pendingOriginal = new File(HardCoded.getUbuntuFilePath() + HardCoded.getPendingFileName());
+	public void importOriginalPending(HardCoded hardCoded) {
+		this.pendingOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getPendingFileName());
 	}
 
 	/*
 	 * restores the original backlog.data once testing is completed by exporting it
 	 * to ~/.task/backlog.data
 	 */
-	public void restoreOriginalBacklog() {
-		String destinationPath =HardCoded.getUbuntuFilePath() ;
-		String destinationFileName = HardCoded.getBacklogFileName();
+	public void restoreOriginalBacklog(HardCoded hardCoded) {
+		String destinationPath =hardCoded.getUbuntuFilePath() ;
+		String destinationFileName = hardCoded.getBacklogFileName();
 		exportResource(this.backlogOriginal,destinationPath,destinationFileName,false);
 	}
 
@@ -58,17 +58,17 @@ public class MoveTestFiles {
 	 * restores the original pending.data once testing is completed by exporting it
 	 * to ~/.task/pending.data
 	 */
-	public void restoreOriginalPending() {
-		String destinationPath =HardCoded.getUbuntuFilePath() ;
-		String destinationFileName = HardCoded.getPendingFileName();
+	public void restoreOriginalPending(HardCoded hardCoded) {
+		String destinationPath =hardCoded.getUbuntuFilePath() ;
+		String destinationFileName = hardCoded.getPendingFileName();
 		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
 	 * exports the custom created test file.
 	 */
-	public void exportTestFile(File mockTestFile, String destinationFileName) {
-		String destinationPath = HardCoded.getUbuntuFilePath() ;
+	public void exportTestFile(HardCoded hardCoded, File mockTestFile, String destinationFileName) {
+		String destinationPath = hardCoded.getUbuntuFilePath() ;
 		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 

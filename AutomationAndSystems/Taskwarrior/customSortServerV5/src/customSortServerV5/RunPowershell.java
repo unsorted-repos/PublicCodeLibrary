@@ -45,10 +45,10 @@ public class RunPowershell {
 
 	}
 	 
-	public static String powershellCommand() {
-		String launcherPath = HardCoded.getWindowsPath()+"/src/"+ HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+	public static String powershellCommand(HardCoded hardCoded ) {
+		String launcherPath = hardCoded.getWindowsPath()+"/src/"+ hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		launcherPath = swapSlashes(launcherPath);
-		String launcherName = HardCoded.getWslLauncherScriptName();		
+		String launcherName = hardCoded.getWslLauncherScriptName();		
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
 		System.out.println("Launcher command ="+command1);
 		return command1;
@@ -58,17 +58,17 @@ public class RunPowershell {
 	 * TODO: FInd out why hardcoded.getWindowsPath() returns null!
 	 * @return
 	 */
-	public static String storeWhoami() {
+	public static String storeWhoami(HardCoded hardCoded ) {
 		System.out.println("Getting windows path of launcher folder");
-		String launcherPath = HardCoded.getWindowsPath()+"/src/"+ HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		String launcherPath = hardCoded.getWindowsPath()+"/src/"+ hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		
 		System.out.println("NonNull0="+launcherPath);
-		System.out.println("NonNull1="+HardCoded.getTestDataFolder());
-		System.out.println("NonNull2="+HardCoded.getTestWslLaunchersFolder());
+		System.out.println("NonNull1="+hardCoded.getTestDataFolder());
+		System.out.println("NonNull2="+hardCoded.getTestWslLaunchersFolder());
 		
 		launcherPath = swapSlashes(launcherPath);
 		System.out.println("NonNull3="+launcherPath);
-		String launcherName = HardCoded.getWslWhoamiScriptName();
+		String launcherName = hardCoded.getWslWhoamiScriptName();
 		System.out.println("NonNull4="+launcherName);
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
 		System.out.println("whoami command ="+command1);
