@@ -42,13 +42,15 @@ class ExternalTests {
 	 */
 	@Test
 	void test() {
+		RunPowershell.runPowershell();
+		System.exit(0);
 		char quotation = (char) 34; // quotation mark "
 		String linuxJarPath = HardCoded.getLinuxPath();
 
 		System.out.println("JarPath = "+linuxJarPath+HardCoded.getCompiledJarName());
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
-		createTestLaunchers("wslLauncher0.sh",lines);
+		createTestLaunchers("wslLauncher7.ps1",lines);
 		System.out.println("Created test file");
 		fail("Not yet implemented");
 	}

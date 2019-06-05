@@ -15,7 +15,18 @@ public class FillBacklogTasks {
 	 * 
 	 * TODO: Check if you can enter a username in wsl from cmd.
 	 * TODO: lxrun with /y and /update Source: https://www.ctrl.blog/entry/lxss-lxrun.html
-	 * lxrun /install
+	 * lxrun /install /y
+	 * lxrun /setdefaultuser exampleUsername
+	 * Then you are prompted to enter the password twice. when the new user is created you can run:
+	 * wsl sudo apt update 
+	 * you are again prompted for the password. enter it, then run:
+	 * wsl apt install default-jre
+	 * You are again prompted for password.
+	 * and then you are prompted for yes.
+	 * Then you can run the test file.
+	 *  
+	 * lxrun /install /y /update /setdefaultuser testautoname
+	 * lxrun /install /setdefaultuser testautoname /y
 	 * Verify: This method reads the backlog data after the sorting procedure has added it's tasks.
 	 * Hence it should be able to spot those differences.
 	 * 
