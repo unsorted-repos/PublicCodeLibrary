@@ -69,6 +69,8 @@ class ExternalTests {
 		String destinationPath = hardCoded.getUbuntuFilePath();
 		String destinationFileName = hardCoded.getBacklogFileName();
 		File mockTestFile = new File(sourcePath + sourceFileName);
+		
+		//TODO: Switch copy method from linux with sudo to windows!
 		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
 
 		// run main.
