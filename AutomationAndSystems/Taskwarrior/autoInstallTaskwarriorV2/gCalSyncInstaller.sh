@@ -23,19 +23,19 @@ source /usr/local/bin/virtualenvwrapper.sh
 echo 11
 python3 -V
 echo 12
-cd "$(/home/testlinuxname/maintenance/ "$0")"
+cd "$(/home/exampleUser/maintenance/ "$0")"
 echo 13
 git clone https://github.com/bergercookie/taskw_gcal_sync.git
 echo 14
 cd taskw_gcal_sync
 echo 15
-cd "$(/home/testlinuxname/maintenance/taskw_gcal_sync "$0")"
+cd "$(/home/exampleUser/maintenance/taskw_gcal_sync "$0")"
 echo 16
 pip3 install --user --upgrade requirements.txt
 echo 17
 pip3 install --user --upgrade taskw_gcal_sync
 echo 18
-/home/testlinuxname/maintenance/taskw_gcal_sync/tw_gcal_sync --help
+/home/exampleUser/maintenance/taskw_gcal_sync/tw_gcal_sync --help
 echo 19
 tw_gcal_sync --help
 echo 20
@@ -46,5 +46,5 @@ task add due:2019-06-01T13:01 tag:remindme testtask
 echo 23
 ./tw_gcal_sync -c "TW Reminders" -t remindme
 echo 24
-python3 /home/testlinuxname/taskw_gcal_sync/tw_gcal_sync -c "TW Reminders" -t remindme
+python3 /home/exampleUser/taskw_gcal_sync/tw_gcal_sync -c "TW Reminders" -t remindme
 echo 25

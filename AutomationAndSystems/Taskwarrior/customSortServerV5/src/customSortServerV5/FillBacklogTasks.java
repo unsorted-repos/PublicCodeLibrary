@@ -57,10 +57,8 @@ public class FillBacklogTasks {
 
 		if (ReadFiles.checkIfFileExist(backlogPath, backlogFileName)) {
 			lines = readLines(backlogPath, backlogFileName);
-			System.out.println("PROBLEM LINES.SIZE="+lines.size());
 			for (int i = 1; i < lines.size(); i++) { // 1 to skip the first line containing the tw uuid.
 				catalog = generateCatalog(catalog, createBacklogTask(lines.get(i), i));
-				System.out.println("ADDING LINE AFTER SORT="+lines.get(i));
 			}
 		}else {System.out.println("BACKLOG FILE DID NOT EXIST!!");}
 		filteredCatalog = filterBacklogCatalog(catalog);
@@ -78,6 +76,7 @@ public class FillBacklogTasks {
 		filteredOrderedBacklogLines = CreateFiles.backlogTaskArrayToStringArray(orderedFilteredTaskList);
 		
 		// create backlog file.
+		System.out.println("Creating backlogFile in:"+"/home/" + HardCoded.getLinuxUserName() + "/.task/"+ HardCoded.getBacklogFileName());
 		CreateFiles.writeFileContent("/home/" + HardCoded.getLinuxUserName() + "/.task/", HardCoded.getBacklogFileName(),
 				filteredOrderedBacklogLines);
 //		return filteredCatalog;
@@ -404,7 +403,6 @@ public class FillBacklogTasks {
 	}
 
 	public static ArrayList<String> readLines(String backlogPath, String backlogFileName) {
-		System.out.println("Problem reading incoming file:"+backlogPath+backlogFileName);
 		ArrayList<String> lines = new ArrayList<String>();
 		lines = ReadFiles.readFiles(backlogPath + backlogFileName);
 		return lines;

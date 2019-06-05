@@ -22,13 +22,10 @@ class ExternalTests {
 		
 		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
 		
-		//TODO: Auto create wslLaunchers folder in testData folder
+		// auto create wslLaunchers folder in testData folder
 		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
 
-		
-		System.out.println("Creating testfile:" + windowsTestFilePath );
-
-		// First delete the file in case an old version existed.
+		// first delete the file in case an old version existed.
 		deleteFile(windowsTestFilePath + testFileName);
 
 		// create a file called vars with content "content"
@@ -43,15 +40,12 @@ class ExternalTests {
 	 */
 	@Test
 	void test() {
-		
+		System.out.println("Started test");
 		char quotation = (char) 34; // quotation mark "		
 		String linuxJarPath = HardCoded.getLinuxPath();
-		
-		System.out.println("JarPath = "+linuxJarPath+HardCoded.getCompiledJarName());
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
 		createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
-		System.out.println("Created test file");
 		RunPowershell.runPowershell();
 		fail("Not yet implemented");
 	}
@@ -159,9 +153,6 @@ class ExternalTests {
 	public static void createFile2(String linuxPath, String fileName) {
 		{
 			try {
-
-				// File file = new File("c:\\vars.txt");
-				System.out.println("Creating new file0:" + linuxPath + fileName);
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {

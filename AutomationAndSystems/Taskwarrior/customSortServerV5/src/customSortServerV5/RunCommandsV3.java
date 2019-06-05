@@ -77,7 +77,7 @@ public class RunCommandsV3 {
 				
 				//This is not necessary but can be used to answer yes to being prompted
 				if (ansYes) {
-					System.out.println("WITH YES!");
+//					System.out.println("WITH YES!");
 				stdin.println("yes");
 				}
 				

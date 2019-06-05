@@ -63,7 +63,6 @@ public class GetThisPath {
 		String path=null;	
 		try {
 			path = new File(".").getCanonicalPath()+"/";
-			System.out.println("THIS PATH IS WHAT U NEED!"+path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

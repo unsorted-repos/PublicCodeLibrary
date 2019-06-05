@@ -55,9 +55,6 @@ public class ReadTasks {
 	 * false if not all files listed in "hardCoded" are found in the location predicted by getTwPath().
 	 */
 	public static boolean findTwFiles(String twPath,String pendingFilename) {
-		
-		System.out.println("Checking filepath:"+twPath+pendingFilename);
-		System.out.println("returning the file is found:"+new File(twPath+pendingFilename).isFile());
 		return new File(twPath+pendingFilename).isFile();
 	}
 

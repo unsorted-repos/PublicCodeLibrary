@@ -27,7 +27,7 @@ class FillBacklogTasksTest {
 	
 	@BeforeEach
 	public void initEach() {
-//		System.out.println("Ran before each test");
+		System.out.println("Ran before each test FillBacklog");
 		twUuid[0] = "aaa";
 		twUuid[1] = "bbb";
 		twUuid[2] = "ccc";

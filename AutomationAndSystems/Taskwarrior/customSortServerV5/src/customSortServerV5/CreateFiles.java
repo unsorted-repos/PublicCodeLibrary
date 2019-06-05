@@ -35,7 +35,6 @@ public class CreateFiles {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
 			writer = writeLines(writer, lines);
 			writer.close();
-			System.out.println("JUST WROTE CONTENT of " + fileName + " FILE! To path:"+filePathName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,9 +54,6 @@ public class CreateFiles {
 	public static void createFile2(String linuxPath, String fileName) {
 		{
 			try {
-
-				// File file = new File("c:\\vars.txt");
-				System.out.println("Creating new file0:" + linuxPath + fileName);
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {
@@ -115,7 +111,6 @@ public class CreateFiles {
 		// Start with writing on a new line.
 		
 		for (int i = 0; i < lines.length;i++) {
-			System.out.println("Writing="+lines[i]);
 			writer.println(lines[i]);
 		}
 		return writer;
