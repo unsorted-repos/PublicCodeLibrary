@@ -14,17 +14,18 @@ import org.junit.jupiter.api.Test;
 class ExternalTests {
 
 	/**
-	 * This creates the sudoers.sh file required in command 8 TODO: Change linuxPath
-	 * to Windows path since the testing will occur in windows. TODO: Apply the
-	 * linuxPath for execution of the javaServerSort.
-	 * 
-	 * @param serverName
+	 * Writes the wslLauncherX.ps1 with X = natural number.
 	 * @throws IOException
 	 */
 	public void createTestLaunchers(String testFileName, String[] lines){
 //		String linuxTestFilePath = HardCoded.getLinuxPath();
-		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLauncherScripts()+"/";
+		
+		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		
+		//TODO: Auto create wslLaunchers folder in testData folder
+		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
 
+		
 		System.out.println("Creating testfile:" + windowsTestFilePath );
 
 		// First delete the file in case an old version existed.
@@ -42,16 +43,16 @@ class ExternalTests {
 	 */
 	@Test
 	void test() {
-		RunPowershell.runPowershell();
-		System.exit(0);
-		char quotation = (char) 34; // quotation mark "
+		
+		char quotation = (char) 34; // quotation mark "		
 		String linuxJarPath = HardCoded.getLinuxPath();
-
+		
 		System.out.println("JarPath = "+linuxJarPath+HardCoded.getCompiledJarName());
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
-		createTestLaunchers("wslLauncher7.ps1",lines);
+		createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
 		System.out.println("Created test file");
+		RunPowershell.runPowershell();
 		fail("Not yet implemented");
 	}
 

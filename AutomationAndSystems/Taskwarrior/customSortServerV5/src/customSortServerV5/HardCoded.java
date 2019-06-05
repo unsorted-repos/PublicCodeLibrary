@@ -22,13 +22,31 @@ public class HardCoded {
 	private static String testDataFolder = "testData";
 	private static String windowsPath =GetThisPath.getWindowsPath();
 	private static String linuxPath = GetThisPath.getLinuxPath();
-	private static String testWslLauncherScripts = "wslLaunchers";
+	private static String testWslLaunchersFolder = "wslLaunchers";
 //	private static String relativeCompiledJarPath = 
 	private static String compiledJarName = "JavaServerSort.jar";
+	private static String wslLauncherScriptName = "wslLauncher8.ps1";
+	
+
 	
 	
 	
-	
+	public static String getWslLauncherScriptName() {
+		return wslLauncherScriptName;
+	}
+
+	public static void setWslLauncherScriptName(String wslLauncherScriptName) {
+		HardCoded.wslLauncherScriptName = wslLauncherScriptName;
+	}
+
+	public static String getTestWslLaunchersFolder() {
+		return testWslLaunchersFolder;
+	}
+
+	public static void setTestWslLaunchersFolder(String testWslLaunchersFolder) {
+		HardCoded.testWslLaunchersFolder = testWslLaunchersFolder;
+	}
+
 	public static String getLinuxPath() {
 		return linuxPath;
 	}
@@ -43,14 +61,6 @@ public class HardCoded {
 
 	public static void setCompiledJarName(String compiledJarName) {
 		HardCoded.compiledJarName = compiledJarName;
-	}
-
-	public static String getTestWslLauncherScripts() {
-		return testWslLauncherScripts;
-	}
-
-	public static void setTestWslLauncherScripts(String testWslLauncherScripts) {
-		HardCoded.testWslLauncherScripts = testWslLauncherScripts;
 	}
 
 	public static String getWindowsPath() {

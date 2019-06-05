@@ -33,7 +33,7 @@ public class CreateFiles {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
-			writer = writeLinesBacklog(writer, lines);
+			writer = writeLines(writer, lines);
 			writer.close();
 			System.out.println("JUST WROTE CONTENT of " + fileName + " FILE! To path:"+filePathName);
 		} catch (FileNotFoundException e) {
@@ -111,10 +111,11 @@ public class CreateFiles {
 	 * @return
 	 */
 //	public static PrintWriter writeLinesBacklog(PrintWriter writer, BacklogTask[] taskList) {
-	public static PrintWriter writeLinesBacklog(PrintWriter writer, String[] lines) {	
+	public static PrintWriter writeLines(PrintWriter writer, String[] lines) {	
 		// Start with writing on a new line.
-		writer.println('\n');
+		
 		for (int i = 0; i < lines.length;i++) {
+			System.out.println("Writing="+lines[i]);
 			writer.println(lines[i]);
 		}
 		return writer;

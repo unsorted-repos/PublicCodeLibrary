@@ -45,7 +45,32 @@ public class RunPowershell {
 	}
 	 
 	public static String powershellCommand() {
-		String command = "powershell.exe  \"C:\\wslLauncher2.ps1\" ";
-		return command;
+//		char AND = (char) 38; // and &
+//		char quotation = (char) 34; // quotation mark "
+//		String command = "powershell.exe  \"C:\\wslLauncher2.ps1\" "; // Verified
+//		String command0 = "powershell.exe  \"C:/wslLauncher2.ps1\" "; // Verified
+//		String command2 = "powershell.exe  \"E:/wslLauncher2.ps1\" "; // Verified
+//		String command3 = "powershell.exe  \"E:/testFolder/wslLauncher2.ps1\" "; // Verified
+//		String command4 = "powershell.exe  \"E:/test Folder/wslLauncher2.ps1\" "; // Verified
+		String launcherPath = HardCoded.getWindowsPath()+"/src/"+ HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		launcherPath = swapSlashes(launcherPath);
+		String launcherName = HardCoded.getWslLauncherScriptName();
+		
+//		String command1 = "powershell.exe  \""+launcherPath+launcherName+"\""; //
+		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
+		
+		
+		System.out.println("Running:"+command1);
+//		System.out.println("1:"+command1);
+//		System.out.println("2:"+command2);
+//		System.out.println("3:"+command3);
+//		System.out.println("4:"+command4);
+		return command1;
+	}
+	
+	public static String swapSlashes(String line) {
+		// swap backwards slashes to forward slashes
+		line = line.replace("\\", "/");
+		return line;
 	}
 }
