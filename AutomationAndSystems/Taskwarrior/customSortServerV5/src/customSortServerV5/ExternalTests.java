@@ -14,15 +14,22 @@ import org.junit.jupiter.api.Test;
 
 class ExternalTests {
 
-	private HardCoded hardCoded; 
+
+//	private HardCoded hardCoded;
+//
+//	
+//	public void createHardCoded() {
+//		hardCoded  = new HardCoded();
+//	}
+
 	
 	/**
 	 * creates the powershell script that launches the wsl with the command that launches
 	 * the JavaServerSort.jar 
 	 */
 	@BeforeAll
-	public static void createPowershellScript(HardCoded hardCoded) {
-		hardCoded = new HardCoded();
+	public static void createPowershellScript() {
+		HardCoded hardCoded = new HardCoded();
 		CreateFiles.createPowershellLauncherScript(hardCoded);
 		CreateFiles.createPowershellWhoamiScript(hardCoded);
 	}
@@ -50,6 +57,7 @@ class ExternalTests {
 	 */
 	@Test
 	public void testMainSort2() {
+		HardCoded hardCoded = new HardCoded();
 		// absorb original backlog.data and pending.data files for safekeeping
 		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
 
