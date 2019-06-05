@@ -11,21 +11,21 @@ public class OSValidator {
      */
     public static String returnOS() {
 
-        System.out.println(OS);
+//        System.out.println(OS);
 
         if (isWindows()) {
-            System.out.println("This is Windows");
+//            System.out.println("This is Windows");
             return "windows";
         } else if (isMac()) {
-            System.out.println("This is Mac");
+//            System.out.println("This is Mac");
             return null;
         } else if (isUnix()) {
-            System.out.println("This is Unix or Linux");
+//            System.out.println("This is Unix or Linux");
             return "ubuntu";
         } else if (isSolaris()) {
-            System.out.println("This is Solaris");
+//            System.out.println("This is Solaris");
         } else {
-            System.out.println("Your OS is not support!!");
+//            System.out.println("Your OS is not support!!");
             return null;
         }
         return null;

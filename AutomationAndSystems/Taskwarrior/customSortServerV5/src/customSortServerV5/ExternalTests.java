@@ -30,6 +30,7 @@ class ExternalTests {
 	@BeforeAll
 	public static void createPowershellScript() {
 		HardCoded hardCoded = new HardCoded();
+//		System.out.println("CreatedHardCODED");
 		CreateFiles.createPowershellLauncherScript(hardCoded);
 		CreateFiles.createPowershellWhoamiScript(hardCoded);
 	}
@@ -58,6 +59,7 @@ class ExternalTests {
 	@Test
 	public void testMainSort2() {
 		HardCoded hardCoded = new HardCoded();
+//		System.out.println("SHOULDV PRINTED THIS TESTFOLDER");
 		// absorb original backlog.data and pending.data files for safekeeping
 		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
 

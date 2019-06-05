@@ -47,7 +47,7 @@ public class GetThisPath {
 	
 	public static String getWindowsPath() {
 		String windowsPath =getPath(); 
-		System.out.println("ReturningWINDOWSPATH="+windowsPath);
+//		System.out.println("ReturningWINDOWSPATH="+windowsPath);
 		return windowsPath;
 	}
 	
@@ -68,7 +68,7 @@ public class GetThisPath {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Found path = "+path);
+//		System.out.println("Found path = "+path);
 		return path;
 	}
 //	

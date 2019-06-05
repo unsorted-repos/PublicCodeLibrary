@@ -19,7 +19,7 @@ public class CreateFiles {
 	 */
 	public static String[] backlogTaskArrayToStringArray(BacklogTask[] taskList) {
 		String[] lines = new String[taskList.length];
-		System.out.println("Creating lines=");
+//		System.out.println("Creating lines=");
 		for (int i = 0; i < taskList.length; i++) {
 			lines[i]=taskList[i].getTextLine();
 			System.out.println(lines[i]);
@@ -34,7 +34,7 @@ public class CreateFiles {
 	 */
 //	public static void writeFileContent(String filePathName, String fileName, BacklogTask[] taskList) {
 	public static void writeFileContent(String filePathName, String fileName, String[] lines) {
-		printLines(lines);
+//		printLines(lines);
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
@@ -62,7 +62,7 @@ public class CreateFiles {
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {
-					System.out.println("File is created! in path:"+linuxPath);
+//					System.out.println("File is created! in path:"+linuxPath);
 				} else {
 					System.out.println("File already exists.");
 				}
@@ -123,7 +123,7 @@ public class CreateFiles {
 	
 	public static void printLines(String[] lines) {	
 		// Start with writing on a new line.
-		System.out.println("Writing lines=");
+//		System.out.println("Writing lines=");
 		for (int i = 0; i < lines.length;i++) {
 			System.out.println(lines[i]);
 		}
@@ -137,12 +137,13 @@ public class CreateFiles {
 //		String linuxTestFilePath = hardCoded.getLinuxPath();
 		
 		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
-		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
+//		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
 		
 		// auto create wslLaunchers folder in testData folder
 		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
 
 		// first delete the file in case an old version existed.
+//		System.out.println("Deleting filename="+testFileName);
 		deleteFile(windowsTestFilePath + testFileName);
 
 		// create a file called vars with content "content"
@@ -161,6 +162,7 @@ public class CreateFiles {
 	public static void deleteFile(String fileName) {
 		File file = new File(fileName);
 		try {
+//			System.out.println("While deleting"+fileName+"This path is not empty:"+file.toPath());
 			boolean result = Files.deleteIfExists(file.toPath());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -182,7 +184,7 @@ public class CreateFiles {
 	}
 	
 	public static void createPowershellWhoamiScript(HardCoded hardCoded ) {
-		System.out.println("Creating whoami");
+//		System.out.println("Creating whoami");
 		char quotation = (char) 34; // quotation mark "		
 		String linuxJarPath = hardCoded.getLinuxPath();
 		String[] lines = new String[1];
