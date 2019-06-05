@@ -6,30 +6,54 @@ public class HardCoded {
 	//a task have the exact same name in the JSON pending.data file as they
 	//have as fields of Object Task.
 
-	private static String eclipseFilePath="input/";
-	private static String eclipseFileName="pendingPublic.data";
-	private static String pendingFileName="pending.data";
-	private static String ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
-	private static String nameOfCustomSortParameterLabel="cSort";
-	private static String customSortDataType="numeric";
-	private static String udaName="estimate";
-	private static String udaLabel="est";
-	private static String udaDataType="duration";
-	private static String customReportName="nice0";
-	private static double urgencyThreshold = 11.5;
-	private static String sudo = "sudo ";
-	private static String backlogFileName = "backlog.data";
-	private static String testDataFolder = "testData";
-	private static String windowsPath =GetThisPath.getWindowsPath();
-	private static String linuxPath = GetThisPath.getLinuxPath();
-	private static String testWslLaunchersFolder = "wslLaunchers";
-//	private static String relativeCompiledJarPath = 
-	private static String compiledJarName = "JavaServerSort.jar";
-	private static String wslLauncherScriptName = "wslLauncher8.ps1";
-	private static String wslWhoamiScriptName = "wslWhoami.ps1";
-	private static String linuxUsernameFromWindows = setLinuxUsernameFromWindows();
+	private String eclipseFilePath="input/";
+	private String eclipseFileName="pendingPublic.data";
+	private String pendingFileName="pending.data";
+	private String ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
+	private String nameOfCustomSortParameterLabel="cSort";
+	private String customSortDataType="numeric";
+	private String udaName="estimate";
+	private String udaLabel="est";
+	private String udaDataType="duration";
+	private String customReportName="nice0";
+	private double urgencyThreshold = 11.5;
+	private String sudo = "sudo ";
+	private String backlogFileName = "backlog.data";
+	private String testDataFolder = "testData";
+	private String windowsPath;
+	private String linuxPath;
+	private String testWslLaunchersFolder = "wslLaunchers";
+//	private String relativeCompiledJarPath = 
+	private String compiledJarName = "JavaServerSort.jar";
+	private String wslLauncherScriptName = "wslLauncher8.ps1";
+	private String wslWhoamiScriptName = "wslWhoami.ps1";
+	private String linuxUsernameFromWindows;
 	
 	
+	public HardCoded() {
+		 this.eclipseFilePath="input/";
+		 this.eclipseFileName="pendingPublic.data";
+		 this.pendingFileName="pending.data";
+		 this.ubuntuFilePath="/home/"+getLinuxUserName()+"/.task/";
+		 this.nameOfCustomSortParameterLabel="cSort";
+		 this.customSortDataType="numeric";
+		 this.udaName="estimate";
+		 this.udaLabel="est";
+		 this.udaDataType="duration";
+		 this.customReportName="nice0";
+		 this.urgencyThreshold = 11.5;
+		 this.sudo = "sudo ";
+		 this.backlogFileName = "backlog.data";
+		 this.testDataFolder = "testData";
+		 this.windowsPath = GetThisPath.getWindowsPath();
+		 this.linuxPath = GetThisPath.getLinuxPath();
+		 this.testWslLaunchersFolder = "wslLaunchers";
+//		 this.relativeCompiledJarPath = 
+		 this.compiledJarName = "JavaServerSort.jar";
+		 this.wslLauncherScriptName = "wslLauncher8.ps1";
+		 this.wslWhoamiScriptName = "wslWhoami.ps1";
+		 this.linuxUsernameFromWindows = absorbLinuxUsernameFromWindows();
+	}
 	
 	public static String getLinuxUsernameFromWindows() {
 		return linuxUsernameFromWindows;
@@ -76,12 +100,14 @@ public class HardCoded {
 	}
 
 	public static String getWindowsPath() {
+		
+		System.out.println("WindwsPathReturned="+windowsPath);
 		return windowsPath;
 	}
 
-	public static void setWindowsPath(String windowsPath) {
-		HardCoded.windowsPath = windowsPath;
-	}
+//	public static void setWindowsPath(String windowsPath) {
+//		HardCoded.windowsPath = windowsPath;
+//	}
 
 	public static String getTestDataFolder() {
 		return testDataFolder;
@@ -267,22 +293,19 @@ public class HardCoded {
 	}
 	
 	public static String getLinuxUserName() {
+		String linuxUserName = null;
+		if (OSValidator.returnOS().equals("windows")) {
+			System.out.println("RUNNING IN WINDOWS");
+			return setLinuxUsernameFromWindows();
+		}
+		
 		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
 		if (checkForNonRoot() != null && !checkForNonRoot().equals("root")) {
 //			System.out.println("Returning nonRoot username ="+checkForNonRoot());
 			return checkForNonRoot();
 		}
-		String linuxUserName = null;
-		Command command = new Command();
-		String[] commandLines = new String[1];
-		commandLines[0] = "dir";
-		command.setCommandLines(commandLines);
-		command.setEnvVarContent("/var/taskd");
-		command.setEnvVarName("TASKDDATA");
-		command.setWorkingPath("/home/");
-		command.setSetWorkingPath(true);
-		command.setGetOutput(true);
-
+		
+		Command command = buildGetLinuxUserNameCommand();
 		
 		// execute command to create destination folder
 		try {
@@ -294,6 +317,19 @@ public class HardCoded {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private static Command buildGetLinuxUserNameCommand() {
+		Command command = new Command();
+		String[] commandLines = new String[1];
+		commandLines[0] = "dir";
+		command.setCommandLines(commandLines);
+		command.setEnvVarContent("/var/taskd");
+		command.setEnvVarName("TASKDDATA");
+		command.setWorkingPath("/home/");
+		command.setSetWorkingPath(true);
+		command.setGetOutput(true);
+		return command;
 	}
 	
 	public static String checkForNonRoot() {
@@ -321,14 +357,11 @@ public class HardCoded {
 		return null;
 	}
 	
-	public static String setLinuxUsernameFromWindows() {
-		System.out.println("Started test");
-		char quotation = (char) 34; // quotation mark "		
-		String linuxJarPath = HardCoded.getLinuxPath();
+	private static String absorbLinuxUsernameFromWindows() {
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
-		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
-		String linuxUsername = RunPowershell.runPowershell(RunPowershell.powershellCommand(),true);
+		CreateFiles.createTestLaunchers(HardCoded.getWslWhoamiScriptName(),lines);
+		String linuxUsername = RunPowershell.runPowershell(RunPowershell.storeWhoami(),false);
 		System.out.println("username="+linuxUsername);
 		return linuxUsername;
 	}

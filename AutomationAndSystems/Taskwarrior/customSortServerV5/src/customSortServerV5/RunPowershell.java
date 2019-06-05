@@ -50,14 +50,28 @@ public class RunPowershell {
 		launcherPath = swapSlashes(launcherPath);
 		String launcherName = HardCoded.getWslLauncherScriptName();		
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
+		System.out.println("Launcher command ="+command1);
 		return command1;
 	}
 	
+	/**
+	 * TODO: FInd out why hardcoded.getWindowsPath() returns null!
+	 * @return
+	 */
 	public static String storeWhoami() {
+		System.out.println("Getting windows path of launcher folder");
 		String launcherPath = HardCoded.getWindowsPath()+"/src/"+ HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		
+		System.out.println("NonNull0="+launcherPath);
+		System.out.println("NonNull1="+HardCoded.getTestDataFolder());
+		System.out.println("NonNull2="+HardCoded.getTestWslLaunchersFolder());
+		
 		launcherPath = swapSlashes(launcherPath);
+		System.out.println("NonNull3="+launcherPath);
 		String launcherName = HardCoded.getWslWhoamiScriptName();
+		System.out.println("NonNull4="+launcherName);
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
+		System.out.println("whoami command ="+command1);
 		return command1;
 	}
 	

@@ -46,8 +46,9 @@ public class GetThisPath {
 	}
 	
 	public static String getWindowsPath() {
-		
-		return getPath();
+		String windowsPath =getPath(); 
+		System.out.println("ReturningWINDOWSPATH="+windowsPath);
+		return windowsPath;
 	}
 	
 	public static String getLinuxPath() {
@@ -67,7 +68,7 @@ public class GetThisPath {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Found path = "+path);
 		return path;
 	}
 //	

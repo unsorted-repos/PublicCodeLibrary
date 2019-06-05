@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 
+import org.junit.jupiter.api.BeforeEach;
+
 
 public class CreateFiles {
 
@@ -60,7 +62,7 @@ public class CreateFiles {
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {
-					System.out.println("File is created!");
+					System.out.println("File is created! in path:"+linuxPath);
 				} else {
 					System.out.println("File already exists.");
 				}
@@ -135,6 +137,7 @@ public class CreateFiles {
 //		String linuxTestFilePath = HardCoded.getLinuxPath();
 		
 		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
 		
 		// auto create wslLaunchers folder in testData folder
 		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
@@ -163,5 +166,27 @@ public class CreateFiles {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // surround it in try catch block
+	}
+	
+	/**
+	 * creates the powershell script that launches the wsl with the command that launches
+	 * the JavaServerSort.jar 
+	 */
+	
+	public static void createPowershellLauncherScript() {
+		char quotation = (char) 34; // quotation mark "		
+		String linuxJarPath = HardCoded.getLinuxPath();
+		String[] lines = new String[1];
+		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
+		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
+	}
+	
+	public static void createPowershellWhoamiScript() {
+		System.out.println("Creating whoami");
+		char quotation = (char) 34; // quotation mark "		
+		String linuxJarPath = HardCoded.getLinuxPath();
+		String[] lines = new String[1];
+		lines[0] = "wsl whoami";
+		CreateFiles.createTestLaunchers(HardCoded.getWslWhoamiScriptName(),lines);
 	}
 }

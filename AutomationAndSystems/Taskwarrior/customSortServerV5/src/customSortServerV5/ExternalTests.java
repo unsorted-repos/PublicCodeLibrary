@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,14 +20,11 @@ class ExternalTests {
 	 * creates the powershell script that launches the wsl with the command that launches
 	 * the JavaServerSort.jar 
 	 */
-	@BeforeEach
-	void createPowershellScript() {
-		System.out.println("Started test");
-		char quotation = (char) 34; // quotation mark "		
-		String linuxJarPath = HardCoded.getLinuxPath();
-		String[] lines = new String[1];
-		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
-		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
+	@BeforeAll
+	public static void createPowershellScript() {
+		
+		CreateFiles.createPowershellLauncherScript();
+		CreateFiles.createPowershellWhoamiScript();
 	}
 	
 
@@ -64,6 +62,7 @@ class ExternalTests {
 		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
 
 		// run main.
+		System.out.println("Running the main!");
 		RunPowershell.runPowershell(RunPowershell.powershellCommand(),false);
 
 		// read backlog.data
@@ -124,7 +123,7 @@ class ExternalTests {
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {
-					System.out.println("File is created!");
+					System.out.println("File is created! in Linuxpath"+linuxPath);
 				} else {
 					System.out.println("File already exists.");
 				}
