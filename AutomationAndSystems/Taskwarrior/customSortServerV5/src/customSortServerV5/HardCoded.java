@@ -26,11 +26,23 @@ public class HardCoded {
 //	private static String relativeCompiledJarPath = 
 	private static String compiledJarName = "JavaServerSort.jar";
 	private static String wslLauncherScriptName = "wslLauncher8.ps1";
+	private static String wslWhoamiScriptName = "wslWhoami.ps1";
+	private static String linuxUsernameFromWindows = setLinuxUsernameFromWindows();
 	
+	
+	
+	public static String getLinuxUsernameFromWindows() {
+		return linuxUsernameFromWindows;
+	}
 
-	
-	
-	
+	public static String getWslWhoamiScriptName() {
+		return wslWhoamiScriptName;
+	}
+
+	public static void setWslWhoamiScriptName(String wslWhoamiScriptName) {
+		HardCoded.wslWhoamiScriptName = wslWhoamiScriptName;
+	}
+
 	public static String getWslLauncherScriptName() {
 		return wslLauncherScriptName;
 	}
@@ -255,7 +267,7 @@ public class HardCoded {
 	}
 	
 	public static String getLinuxUserName() {
-//		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
+		System.out.println("Incoming nonRoot username ="+checkForNonRoot());
 		if (checkForNonRoot() != null && !checkForNonRoot().equals("root")) {
 //			System.out.println("Returning nonRoot username ="+checkForNonRoot());
 			return checkForNonRoot();
@@ -307,5 +319,17 @@ public class HardCoded {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String setLinuxUsernameFromWindows() {
+		System.out.println("Started test");
+		char quotation = (char) 34; // quotation mark "		
+		String linuxJarPath = HardCoded.getLinuxPath();
+		String[] lines = new String[1];
+		lines[0] = "wsl whoami";
+		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
+		String linuxUsername = RunPowershell.runPowershell(RunPowershell.powershellCommand(),true);
+		System.out.println("username="+linuxUsername);
+		return linuxUsername;
 	}
 }

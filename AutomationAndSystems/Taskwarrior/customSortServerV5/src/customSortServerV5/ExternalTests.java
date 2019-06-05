@@ -13,42 +13,23 @@ import org.junit.jupiter.api.Test;
 
 class ExternalTests {
 
-	/**
-	 * Writes the wslLauncherX.ps1 with X = natural number.
-	 * @throws IOException
-	 */
-	public void createTestLaunchers(String testFileName, String[] lines){
-//		String linuxTestFilePath = HardCoded.getLinuxPath();
-		
-		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
-		
-		// auto create wslLaunchers folder in testData folder
-		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
 
-		// first delete the file in case an old version existed.
-		deleteFile(windowsTestFilePath + testFileName);
-
-		// create a file called vars with content "content"
-		createFile2(windowsTestFilePath, testFileName);
-
-		// write content of test file
-		CreateFiles.writeFileContent(windowsTestFilePath, testFileName, lines);
-	}
 	
 	/**
-	 * TODO: Remove additional paths from getLinuxSRCPath
+	 * creates the powershell script that launches the wsl with the command that launches
+	 * the JavaServerSort.jar 
 	 */
-	@Test
-	void test() {
+	@BeforeEach
+	void createPowershellScript() {
 		System.out.println("Started test");
 		char quotation = (char) 34; // quotation mark "		
 		String linuxJarPath = HardCoded.getLinuxPath();
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+linuxJarPath+HardCoded.getCompiledJarName()+quotation;
-		createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
-		RunPowershell.runPowershell();
-		fail("Not yet implemented");
+		CreateFiles.createTestLaunchers(HardCoded.getWslLauncherScriptName(),lines);
 	}
+	
+
 
 	/**
 	 * This method uses MoveTestFiles to temporarily absorb (copy to internal
@@ -69,27 +50,28 @@ class ExternalTests {
 	 * Test C: Repeat with all recurrent parent Expect C: Test D: Repeat with all
 	 * recurrent child Expect D:
 	 */
-//	@Test
-//	public void testMainSort2() {
-//		// absorb original backlog.data and pending.data files for safekeeping
-//		MoveTestFiles moveTestFiles = new MoveTestFiles();
-//
-//		// copy backlog0.data to home
-//		String sourcePath = HardCoded.getTestDataFolder();
-//		String sourceFileName = "backlog0.data";
-//		String destinationPath = HardCoded.getUbuntuFilePath();
-//		String destinationFileName = HardCoded.getBacklogFileName();
-//		File mockTestFile = new File(sourcePath + sourceFileName);
-//		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
-//
-//		// run main.
-//
-//		// read backlog.data
-//
-//		// restore original backlog.data and pending.data files.
-//
-//		assertTrue(false);
-//	}
+	@Test
+	public void testMainSort2() {
+		// absorb original backlog.data and pending.data files for safekeeping
+		MoveTestFiles moveTestFiles = new MoveTestFiles();
+
+		// copy backlog0.data to home
+		String sourcePath = HardCoded.getTestDataFolder();
+		String sourceFileName = "backlog0.data";
+		String destinationPath = HardCoded.getUbuntuFilePath();
+		String destinationFileName = HardCoded.getBacklogFileName();
+		File mockTestFile = new File(sourcePath + sourceFileName);
+		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
+
+		// run main.
+		RunPowershell.runPowershell(RunPowershell.powershellCommand(),false);
+
+		// read backlog.data
+
+		// restore original backlog.data and pending.data files.
+
+		assertTrue(false);
+	}
 
 	/**
 	 * ID:1 Test A: that has a single task in the tasklist with that same task in
@@ -129,21 +111,7 @@ class ExternalTests {
 
 
 
-	/**
-	 * Delete a file that is located in the same folder as the src folder of this
-	 * project is located.
-	 * 
-	 * @param fileName
-	 */
-	public static void deleteFile(String fileName) {
-		File file = new File(fileName);
-		try {
-			boolean result = Files.deleteIfExists(file.toPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // surround it in try catch block
-	}
+
 
 	/**
 	 * create a file in c.

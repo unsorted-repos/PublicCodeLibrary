@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 
 
 public class CreateFiles {
@@ -16,8 +17,10 @@ public class CreateFiles {
 	 */
 	public static String[] backlogTaskArrayToStringArray(BacklogTask[] taskList) {
 		String[] lines = new String[taskList.length];
+		System.out.println("Creating lines=");
 		for (int i = 0; i < taskList.length; i++) {
 			lines[i]=taskList[i].getTextLine();
+			System.out.println(lines[i]);
 		}
 		return null;
 	}
@@ -29,7 +32,7 @@ public class CreateFiles {
 	 */
 //	public static void writeFileContent(String filePathName, String fileName, BacklogTask[] taskList) {
 	public static void writeFileContent(String filePathName, String fileName, String[] lines) {
-
+		printLines(lines);
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
@@ -114,5 +117,51 @@ public class CreateFiles {
 			writer.println(lines[i]);
 		}
 		return writer;
+	}
+	
+	public static void printLines(String[] lines) {	
+		// Start with writing on a new line.
+		System.out.println("Writing lines=");
+		for (int i = 0; i < lines.length;i++) {
+			System.out.println(lines[i]);
+		}
+	}
+	
+	/**
+	 * Writes the powershell scripts that that launch wsl commands.
+	 * @throws IOException
+	 */
+	public static void createTestLaunchers(String testFileName, String[] lines){
+//		String linuxTestFilePath = HardCoded.getLinuxPath();
+		
+		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+HardCoded.getTestDataFolder()+"/"+HardCoded.getTestWslLaunchersFolder()+"/";
+		
+		// auto create wslLaunchers folder in testData folder
+		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
+
+		// first delete the file in case an old version existed.
+		deleteFile(windowsTestFilePath + testFileName);
+
+		// create a file called vars with content "content"
+		createFile2(windowsTestFilePath, testFileName);
+
+		// write content of test file
+		CreateFiles.writeFileContent(windowsTestFilePath, testFileName, lines);
+	}
+	
+	/**
+	 * Delete a file that is located in the same folder as the src folder of this
+	 * project is located.
+	 * 
+	 * @param fileName
+	 */
+	public static void deleteFile(String fileName) {
+		File file = new File(fileName);
+		try {
+			boolean result = Files.deleteIfExists(file.toPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // surround it in try catch block
 	}
 }
