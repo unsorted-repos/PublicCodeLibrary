@@ -46,11 +46,11 @@ public class RunPowershell {
 	}
 	 
 	public static String powershellCommand(HardCoded hardCoded ) {
-		String launcherPath = hardCoded.getWindowsPath()+"/src/"+ hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
+		String launcherPath = hardCoded.getWindowsPath()+"src/"+ hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		launcherPath = hardCoded.swapSlashes(launcherPath);
 		String launcherName = hardCoded.getWslLauncherScriptName();		
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
-//		System.out.println("Launcher command ="+command1);
+		System.out.println("Launcher command ="+command1);
 		return command1;
 	}
 	
