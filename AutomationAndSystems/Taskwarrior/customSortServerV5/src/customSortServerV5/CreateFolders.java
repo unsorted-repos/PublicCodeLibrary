@@ -46,6 +46,7 @@ public class CreateFolders {
 	}
 	
 	public static boolean createFolderWithEclipse(String path) {
+		System.out.println("Making dir:"+path);
         File files = new File(path);
         if (!files.exists()) {
             if (files.mkdirs()) {

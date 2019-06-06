@@ -152,7 +152,7 @@ public class MoveTestFiles {
 		String[] copyCommand = new String[1];
 		copyCommand[0] = "echo hello";
 		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
-		System.exit(0);
+//		System.exit(0);
 //		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
 	}
 	

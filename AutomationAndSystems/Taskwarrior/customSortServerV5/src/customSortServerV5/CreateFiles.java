@@ -136,21 +136,22 @@ public class CreateFiles {
 	public static void managePowershellSciptCreation(HardCoded hardCoded,String commandPath, String testFileName, String[] lines){
 //		String linuxTestFilePath = hardCoded.getLinuxPath();
 		
-		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+testFileName+"/";
+//		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/";
 //		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
 		
 		// auto create wslLaunchers folder in testData folder
-		CreateFolders.createFolderWithEclipse(windowsTestFilePath);
+		CreateFolders.createFolderWithEclipse(commandPath);
 
 		// first delete the file in case an old version existed.
 //		System.out.println("Deleting filename="+testFileName);
-		deleteFile(windowsTestFilePath + testFileName);
+		deleteFile(commandPath+ testFileName);
 
 		// create a file called vars with content "content"
-		createFile2(windowsTestFilePath, testFileName);
+		System.out.println("Creating file:"+testFileName);
+		createFile2(commandPath, testFileName);
 
 		// write content of test file
-		CreateFiles.writeFileContent(windowsTestFilePath, testFileName, lines);
+		CreateFiles.writeFileContent(commandPath, testFileName, lines);
 	}
 	
 	/**
@@ -177,10 +178,12 @@ public class CreateFiles {
 	
 	public static void createPowershellLauncherScript(HardCoded hardCoded) {
 		char quotation = (char) 34; // quotation mark "		
-		String linuxJarPath = hardCoded.getLinuxPath();
+		String launchCustomSortShellPath= hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
+		
 		String[] lines = new String[1];
-		lines[0] = "wsl java -jar "+quotation+linuxJarPath+hardCoded.getCompiledJarName()+quotation;
-		CreateFiles.managePowershellSciptCreation(hardCoded, linuxJarPath, hardCoded.getWslLauncherScriptName(),lines);
+		lines[0] = "wsl java -jar "+quotation+launchCustomSortShellPath+hardCoded.getCompiledJarName()+quotation;
+		System.out.println("CREATING LAUNCHER");
+		CreateFiles.managePowershellSciptCreation(hardCoded, launchCustomSortShellPath, hardCoded.getWslLauncherScriptName(),lines);
 	}
 	
 	public static void createPowershellWhoamiScript(HardCoded hardCoded ) {

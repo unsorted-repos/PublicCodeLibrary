@@ -51,10 +51,10 @@ public class HardCoded {
 		this.testWslLaunchersFolder = "wslLaunchers";
 //		 this.relativeCompiledJarPath = 
 		this.compiledJarName = "JavaServerSort.jar";
-		this.wslLauncherScriptName = "wslLauncher8.ps1";
+		this.wslLauncherScriptName = "wslLauncher.ps1";
 		this.wslWhoamiScriptName = "wslWhoami.ps1";
 		this.tempCommandScriptFolder="tempCommandScripts";
-		this.tempCommandFileName = "tempCommandFileName";
+		this.tempCommandFileName = "tempCommandFileName.ps1";
 //		 this.linuxUsernameFromWindows = getLinuxUserName();
 		this.windowsPath = GetThisPath.getWindowsPath();
 		this.linuxPath = GetThisPath.getLinuxPath();
@@ -325,13 +325,13 @@ public class HardCoded {
 	private String absorbLinuxUsernameFromWindows(HardCoded hardCoded) {
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
-		System.out.println("wsWhoamiScriptName=" + this.wslWhoamiScriptName);
-		String pathOfWslWhoamiScript = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"+hardCoded.getTestWslLaunchersFolder();
+//		System.out.println("wsWhoamiScriptName=" + this.wslWhoamiScriptName);
+		String pathOfWslWhoamiScript = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		pathOfWslWhoamiScript  = hardCoded.swapSlashes(pathOfWslWhoamiScript );
 		CreateFiles.managePowershellSciptCreation(this,pathOfWslWhoamiScript , this.wslWhoamiScriptName, lines);
 		// TODO: INVESTIGATE WHETHER THIS RECURSION "THIS" causes nulls
-		String linuxUsername = RunPowershell.runPowershell(storeWhoami(), true);
-		System.out.println("username="+linuxUsername);
+		String linuxUsername = RunPowershell.runPowershell(storeWhoami(pathOfWslWhoamiScript), true);
+//		System.out.println("username="+linuxUsername);
 		return linuxUsername;
 	}
 
@@ -340,20 +340,20 @@ public class HardCoded {
 	 * 
 	 * @return
 	 */
-	private String storeWhoami() {
+	private String storeWhoami(String pathOfWslWhoamiScript) {
 //		System.out.println("Getting windows path of launcher folder");
-		String launcherPath = this.getWindowsPath() + "/src/" + this.getTestDataFolder() + "/"
-				+ this.getTestWslLaunchersFolder() + "/";
+//		String launcherPath = this.getWindowsPath() + "/src/" + this.getTestDataFolder() + "/"
+//				+ this.getTestWslLaunchersFolder() + "/";
 
 //		System.out.println("NonNull0="+launcherPath);
 //		System.out.println("NonNull1="+this.getTestDataFolder());
 //		System.out.println("NonNull2="+this.getTestWslLaunchersFolder());
 
-		launcherPath = swapSlashes(launcherPath);
+		pathOfWslWhoamiScript= swapSlashes(pathOfWslWhoamiScript);
 //		System.out.println("NonNull3="+launcherPath);
 		String launcherName = this.getWslWhoamiScriptName();
 //		System.out.println("NonNull4="+launcherName);
-		String command1 = "powershell.exe & '" + launcherPath + launcherName + "' "; //
+		String command1 = "powershell.exe & '" + pathOfWslWhoamiScript + launcherName + "' "; //
 //		System.out.println("whoami command ="+command1);
 		return command1;
 	}
