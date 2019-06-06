@@ -75,8 +75,7 @@ class ExternalTests {
 
 		// run main.
 		System.out.println("Running the main!");
-		//TODO: Include execution bypass  
-		//TODO: Remove /testfolder from JavaServerSort.jar path in wslLauncher.ps1
+		// Including execution bypass is NOT necessary.
 		String output =		RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded),true);
 		System.out.println("output="+output);
 		// read backlog.data

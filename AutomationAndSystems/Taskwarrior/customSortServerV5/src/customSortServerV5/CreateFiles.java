@@ -181,7 +181,7 @@ public class CreateFiles {
 		String launchCustomSortShellPath= hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
 		
 		String[] lines = new String[1];
-		lines[0] = "wsl java -jar "+quotation+hardCoded.getWindowsPath()+hardCoded.getCompiledJarName()+quotation;
+		lines[0] = "wsl java -jar "+quotation+hardCoded.getLinuxPath()+hardCoded.getCompiledJarName()+quotation;
 		System.out.println("CREATING LAUNCHER");
 		CreateFiles.managePowershellSciptCreation(hardCoded, launchCustomSortShellPath, hardCoded.getWslLauncherScriptName(),lines);
 	}
