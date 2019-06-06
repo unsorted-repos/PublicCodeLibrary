@@ -262,7 +262,7 @@ public class HardCoded {
 		String linuxUserName = null;
 		if (OSValidator.returnOS().equals("windows")) {
 //			System.out.println("RUNNING IN WINDOWS");
-			return absorbLinuxUsernameFromWindows();
+			return absorbLinuxUsernameFromWindows(this);
 		}
 
 		System.out.println("Incoming nonRoot username =" + checkForNonRoot());
@@ -322,11 +322,13 @@ public class HardCoded {
 		return null;
 	}
 
-	private String absorbLinuxUsernameFromWindows() {
+	private String absorbLinuxUsernameFromWindows(HardCoded hardCoded) {
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
 		System.out.println("wsWhoamiScriptName=" + this.wslWhoamiScriptName);
-		CreateFiles.createTestLaunchers(this, this.wslWhoamiScriptName, lines);
+		String pathOfWslWhoamiScript = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"+hardCoded.getTestWslLaunchersFolder();
+		pathOfWslWhoamiScript  = hardCoded.swapSlashes(pathOfWslWhoamiScript );
+		CreateFiles.managePowershellSciptCreation(this,pathOfWslWhoamiScript , this.wslWhoamiScriptName, lines);
 		// TODO: INVESTIGATE WHETHER THIS RECURSION "THIS" causes nulls
 		String linuxUsername = RunPowershell.runPowershell(storeWhoami(), true);
 		System.out.println("username="+linuxUsername);

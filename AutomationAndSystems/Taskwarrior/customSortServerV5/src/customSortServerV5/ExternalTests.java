@@ -71,7 +71,7 @@ class ExternalTests {
 		File mockTestFile = new File(sourcePath + sourceFileName);
 		
 		//TODO: Switch copy method from linux with sudo to windows!
-		MoveTestFiles.exportResource(mockTestFile, destinationPath, destinationFileName, false);
+		MoveTestFiles.exportResource(hardCoded, mockTestFile, destinationPath, destinationFileName, false);
 
 		// run main.
 		System.out.println("Running the main!");

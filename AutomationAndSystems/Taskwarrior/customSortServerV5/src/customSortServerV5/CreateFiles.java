@@ -133,10 +133,10 @@ public class CreateFiles {
 	 * Writes the powershell scripts that that launch wsl commands.
 	 * @throws IOException
 	 */
-	public static void createTestLaunchers(HardCoded hardCoded, String testFileName, String[] lines){
+	public static void managePowershellSciptCreation(HardCoded hardCoded,String commandPath, String testFileName, String[] lines){
 //		String linuxTestFilePath = hardCoded.getLinuxPath();
 		
-		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
+		String windowsTestFilePath = GetThisPath.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+testFileName+"/";
 //		System.out.println("windowsTestFilePath ="+windowsTestFilePath);
 		
 		// auto create wslLaunchers folder in testData folder
@@ -180,7 +180,7 @@ public class CreateFiles {
 		String linuxJarPath = hardCoded.getLinuxPath();
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+linuxJarPath+hardCoded.getCompiledJarName()+quotation;
-		CreateFiles.createTestLaunchers(hardCoded, hardCoded.getWslLauncherScriptName(),lines);
+		CreateFiles.managePowershellSciptCreation(hardCoded, linuxJarPath, hardCoded.getWslLauncherScriptName(),lines);
 	}
 	
 	public static void createPowershellWhoamiScript(HardCoded hardCoded ) {
@@ -189,6 +189,6 @@ public class CreateFiles {
 		String linuxJarPath = hardCoded.getLinuxPath();
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
-		CreateFiles.createTestLaunchers(hardCoded, hardCoded.getWslWhoamiScriptName(),lines);
+		CreateFiles.managePowershellSciptCreation(hardCoded, linuxJarPath, hardCoded.getWslWhoamiScriptName(),lines);
 	}
 }

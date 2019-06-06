@@ -51,7 +51,7 @@ public class MoveTestFiles {
 	public void restoreOriginalBacklog(HardCoded hardCoded) {
 		String destinationPath =hardCoded.getUbuntuFilePath() ;
 		String destinationFileName = hardCoded.getBacklogFileName();
-		exportResource(this.backlogOriginal,destinationPath,destinationFileName,false);
+		exportResource(hardCoded, this.backlogOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -61,7 +61,7 @@ public class MoveTestFiles {
 	public void restoreOriginalPending(HardCoded hardCoded) {
 		String destinationPath =hardCoded.getUbuntuFilePath() ;
 		String destinationFileName = hardCoded.getPendingFileName();
-		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
+		exportResource(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -69,7 +69,7 @@ public class MoveTestFiles {
 	 */
 	public void exportTestFile(HardCoded hardCoded, File mockTestFile, String destinationFileName) {
 		String destinationPath = hardCoded.getUbuntuFilePath() ;
-		exportResource(this.pendingOriginal,destinationPath,destinationFileName,false);
+		exportResource(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -138,7 +138,7 @@ public class MoveTestFiles {
 	 * @param fileName
 	 * @throws Exception
 	 */
-	public static void exportResource(File internalFile, String destinationPath, String destinationFileName, boolean runnable){
+	public static void exportResource(HardCoded hardCoded,File internalFile, String destinationPath, String destinationFileName, boolean runnable){
 		// declare copy and paste locations
 //		System.out.println("Exporting file=" + destinationFileName);
 //		System.out.println("internalFile"+internalFile);
@@ -149,7 +149,11 @@ public class MoveTestFiles {
 		System.out.println("Moving from:"+sourcePath+sourceFileName);
 		System.out.println("Moving to:"+destinationPath+destinationFileName);
 		//TODO: add nullcheck
-		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
+		String[] copyCommand = new String[1];
+		copyCommand[0] = "echo hello";
+		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
+		System.exit(0);
+//		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
 	}
 	
 	public static void startWSL() {
