@@ -140,12 +140,14 @@ public class MoveTestFiles {
 	 */
 	public static void exportResource(File internalFile, String destinationPath, String destinationFileName, boolean runnable){
 		// declare copy and paste locations
-		System.out.println("Exporting file=" + destinationFileName);
-		System.out.println("internalFile"+internalFile);
+//		System.out.println("Exporting file=" + destinationFileName);
+//		System.out.println("internalFile"+internalFile);
 		String sourceFileName = internalFile.getName();
 		String sourcePath = internalFile.getPath().substring(0,
 				internalFile.getPath().length() - sourceFileName.length());
 		
+		System.out.println("Moving from:"+sourcePath+sourceFileName);
+		System.out.println("Moving to:"+destinationPath+destinationFileName);
 		//TODO: add nullcheck
 		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
 	}
