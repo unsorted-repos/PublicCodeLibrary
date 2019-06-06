@@ -143,15 +143,18 @@ public class MoveTestFiles {
 //		System.out.println("Exporting file=" + destinationFileName);
 //		System.out.println("internalFile"+internalFile);
 		String sourceFileName = internalFile.getName();
+		System.out.println("NOTNULL="+internalFile.getPath());
 		String sourcePath = internalFile.getPath().substring(0,
 				internalFile.getPath().length() - sourceFileName.length());
 		
 		System.out.println("Moving from:"+sourcePath+sourceFileName);
 		System.out.println("Moving to:"+destinationPath+destinationFileName);
 		//TODO: add nullcheck
+		// TODO: write actual copy command
 		String[] copyCommand = new String[1];
-		copyCommand[0] = "echo hello";
+		copyCommand[0] = "cp "+sourcePath+sourceFileName+ " "+ destinationPath+destinationFileName;
 		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
+		System.out.println(copyCommand[0]);
 //		System.exit(0);
 //		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
 	}

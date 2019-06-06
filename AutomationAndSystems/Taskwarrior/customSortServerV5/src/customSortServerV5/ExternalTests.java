@@ -11,9 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class ExternalTests {
-
 
 //	private HardCoded hardCoded;
 //
@@ -22,10 +20,9 @@ class ExternalTests {
 //		hardCoded  = new HardCoded();
 //	}
 
-	
 	/**
-	 * creates the powershell script that launches the wsl with the command that launches
-	 * the JavaServerSort.jar 
+	 * creates the powershell script that launches the wsl with the command that
+	 * launches the JavaServerSort.jar
 	 */
 	@BeforeAll
 	public static void createPowershellScript() {
@@ -34,8 +31,6 @@ class ExternalTests {
 		CreateFiles.createPowershellLauncherScript(hardCoded);
 		CreateFiles.createPowershellWhoamiScript(hardCoded);
 	}
-	
-
 
 	/**
 	 * This method uses MoveTestFiles to temporarily absorb (copy to internal
@@ -59,30 +54,43 @@ class ExternalTests {
 	@Test
 	public void testMainSort2() {
 		HardCoded hardCoded = new HardCoded();
-//		System.out.println("SHOULDV PRINTED THIS TESTFOLDER");
+
 		// absorb original backlog.data and pending.data files for safekeeping
 		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
 
-		// copy backlog0.data to home
-		String sourcePath = hardCoded.getTestDataFolder();
-		String sourceFileName = "backlog0.data";
-		String destinationPath = hardCoded.getUbuntuFilePath();
-		String destinationFileName = hardCoded.getBacklogFileName();
-		File mockTestFile = new File(sourcePath + sourceFileName);
-		
-		//TODO: Switch copy method from linux with sudo to windows!
-		MoveTestFiles.exportResource(hardCoded, mockTestFile, destinationPath, destinationFileName, false);
+		// TODO: Automatically update the backlog0.data test file with the tw uuid (of
+		// the original backlog).
 
-		// run main.
+		// copy the testfile backlog0.data to home
+		String testBacklogFileName = "backlog0.data";
+		String testPendingFileName = "pending0.data";
+		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
+
+		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
-		// Including execution bypass is NOT necessary.
-		String output =		RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded),true);
-		System.out.println("output="+output);
-		// read backlog.data
+		String output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
+		System.out.println("output=" + output);
+
+		// copy backlog.data back from wsl to testData/testOutput
+			// create testOutput folder
+		
+		// read 2nd line of backlog
 
 		// restore original backlog.data and pending.data files.
 
 		assertTrue(false);
+	}
+
+	public void copyBacklogAndPendingMockFiles(HardCoded hardCoded, String backlogFileName, String pendingFileName) {
+		String sourcePath = hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/";
+		String destinationPath = hardCoded.getUbuntuFilePath();
+		String destinationFileName = hardCoded.getBacklogFileName();
+
+		File mockBacklogFile = new File(sourcePath + backlogFileName);
+		MoveTestFiles.exportResource(hardCoded, mockBacklogFile, destinationPath, destinationFileName, false);
+
+		File mockPendingFile = new File(sourcePath + pendingFileName);
+		MoveTestFiles.exportResource(hardCoded, mockPendingFile, destinationPath, destinationFileName, false);
 	}
 
 	/**
@@ -121,10 +129,6 @@ class ExternalTests {
 	 * with all recurrent child Expect D:
 	 */
 
-
-
-
-
 	/**
 	 * create a file in c.
 	 * 
@@ -136,7 +140,7 @@ class ExternalTests {
 				File file = new File(linuxPath + fileName);
 
 				if (file.createNewFile()) {
-					System.out.println("File is created! in Linuxpath"+linuxPath);
+					System.out.println("File is created! in Linuxpath" + linuxPath);
 				} else {
 					System.out.println("File already exists.");
 				}
