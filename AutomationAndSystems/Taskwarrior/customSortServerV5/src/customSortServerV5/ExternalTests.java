@@ -75,13 +75,15 @@ class ExternalTests {
 
 		// run main.
 		System.out.println("Running the main!");
-		RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded),false);
-
+		//TODO: Include execution bypass  
+		//TODO: Remove /testfolder from JavaServerSort.jar path in wslLauncher.ps1
+		String output =		RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded),true);
+		System.out.println("output="+output);
 		// read backlog.data
 
 		// restore original backlog.data and pending.data files.
 
-//		assertTrue(false);
+		assertTrue(false);
 	}
 
 	/**
