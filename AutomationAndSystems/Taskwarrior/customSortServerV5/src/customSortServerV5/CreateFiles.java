@@ -147,7 +147,7 @@ public class CreateFiles {
 		deleteFile(commandPath+ testFileName);
 
 		// create a file called vars with content "content"
-		System.out.println("Creating file:"+testFileName);
+//		System.out.println("Creating file:"+testFileName);
 		createFile2(commandPath, testFileName);
 
 		// write content of test file

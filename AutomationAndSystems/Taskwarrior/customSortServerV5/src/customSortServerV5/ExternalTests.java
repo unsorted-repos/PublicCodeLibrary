@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,34 +66,52 @@ class ExternalTests {
 		String testBacklogFileName = "backlog0.data";
 		String testPendingFileName = "pending0.data";
 		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
-
+//		System.exit(0);
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
-		String output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
-		System.out.println("output=" + output);
+		ArrayList<String> output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
+		printLines(output);
 
+		
+		// create testOutput folder
+		CreateFolders.createFolderWithEclipse(hardCoded.getWindowsPath()+"src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestDataOutputFolderName() + "/");
+		
 		// copy backlog.data back from wsl to testData/testOutput
-			// create testOutput folder
+		copyModifiedBacklogToOutput(hardCoded);
 		
 		// read 2nd line of backlog
-
+		//TODO: Correct pending0.data test file to correct format as written by taskwarrior.
+		
 		// restore original backlog.data and pending.data files.
 
 		assertTrue(false);
 	}
 
+	
+	
 	public void copyBacklogAndPendingMockFiles(HardCoded hardCoded, String backlogFileName, String pendingFileName) {
-		String sourcePath = hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/";
+		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/";
 		String destinationPath = hardCoded.getUbuntuFilePath();
-		String destinationFileName = hardCoded.getBacklogFileName();
-
+		
+		String destinationBacklogFileName = hardCoded.getBacklogFileName();
 		File mockBacklogFile = new File(sourcePath + backlogFileName);
-		MoveTestFiles.exportResource(hardCoded, mockBacklogFile, destinationPath, destinationFileName, false);
+		MoveTestFiles.exportResource(hardCoded, mockBacklogFile, destinationPath, destinationBacklogFileName, false);
 
+		String destinationPendingFileName = hardCoded.getPendingFileName();
 		File mockPendingFile = new File(sourcePath + pendingFileName);
-		MoveTestFiles.exportResource(hardCoded, mockPendingFile, destinationPath, destinationFileName, false);
+		MoveTestFiles.exportResource(hardCoded, mockPendingFile, destinationPath, destinationPendingFileName, false);
 	}
 
+	public void copyModifiedBacklogToOutput(HardCoded hardCoded) {
+		String sourcePath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
+		System.out.println("SOURCEPATH="+sourcePath);
+		String backlogFileName = "backlog.data";
+		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/" + hardCoded.getTestDataOutputFolderName()+"/";
+		String destinationFileName = hardCoded.getBacklogFileName();
+		MoveTestFiles.importResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
+	}
+	
 	/**
 	 * ID:1 Test A: that has a single task in the tasklist with that same task in
 	 * backlog. Expect A: Expect the task to NOT be placed in the backlog since the
@@ -147,6 +166,14 @@ class ExternalTests {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public static void printLines(ArrayList<String> lines) {	
+		// Start with writing on a new line.
+//		System.out.println("Writing lines=");
+		for (int i = 0; i < lines.size();i++) {
+			System.out.println(lines.get(i));
 		}
 	}
 }

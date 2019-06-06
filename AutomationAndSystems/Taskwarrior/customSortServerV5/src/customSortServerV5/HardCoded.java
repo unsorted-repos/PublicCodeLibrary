@@ -12,6 +12,7 @@ public class HardCoded {
 	private String pendingFileName;
 	private String tempCommandScriptFolder;
 	private String tempCommandFileName;
+	private String testDataOutputFolderName;
 	private String nameOfCustomSortParameterLabel;
 	private String customSortDataType;
 	private String udaName;
@@ -32,7 +33,6 @@ public class HardCoded {
 //	private String linuxUsernameFromWindows;
 	private String linuxUsername;
 	private String ubuntuFilePath;
-	
 
 	public HardCoded() {
 		this.eclipseFilePath = "input/";
@@ -48,12 +48,13 @@ public class HardCoded {
 		this.sudo = "sudo ";
 		this.backlogFileName = "backlog.data";
 		this.testDataFolder = "testData";
+		this.testDataOutputFolderName = "testDataOutput";
 		this.testWslLaunchersFolder = "wslLaunchers";
 //		 this.relativeCompiledJarPath = 
 		this.compiledJarName = "JavaServerSort.jar";
 		this.wslLauncherScriptName = "wslLauncher.ps1";
 		this.wslWhoamiScriptName = "wslWhoami.ps1";
-		this.tempCommandScriptFolder="tempCommandScripts";
+		this.tempCommandScriptFolder = "tempCommandScripts";
 		this.tempCommandFileName = "tempCommandFileName.ps1";
 //		 this.linuxUsernameFromWindows = getLinuxUserName();
 		this.windowsPath = GetThisPath.getWindowsPath();
@@ -62,31 +63,29 @@ public class HardCoded {
 		this.ubuntuFilePath = "/home/" + getLinuxUsername() + "/.task/";
 	}
 
-	
-	
+	public String getTestDataOutputFolderName() {
+		return testDataOutputFolderName;
+	}
+
+	public void setTestDataOutputFolderName(String testDataOutputFolderName) {
+		this.testDataOutputFolderName = testDataOutputFolderName;
+	}
+
 	public String getTempCommandFileName() {
 		return tempCommandFileName;
 	}
-
-
 
 	public void setTempCommandFileName(String tempCommandFileName) {
 		this.tempCommandFileName = tempCommandFileName;
 	}
 
-
-
 	public String getTempCommandScriptFolder() {
 		return tempCommandScriptFolder;
 	}
 
-
-
 	public void setTempCommandScriptFolder(String tempCommandScriptFolder) {
 		this.tempCommandScriptFolder = tempCommandScriptFolder;
 	}
-
-
 
 	public String getLinuxUsername() {
 		linuxUsername = absorbLinuxUserName();
@@ -326,11 +325,12 @@ public class HardCoded {
 		String[] lines = new String[1];
 		lines[0] = "wsl whoami";
 //		System.out.println("wsWhoamiScriptName=" + this.wslWhoamiScriptName);
-		String pathOfWslWhoamiScript = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"+hardCoded.getTestWslLaunchersFolder()+"/";
-		pathOfWslWhoamiScript  = hardCoded.swapSlashes(pathOfWslWhoamiScript );
-		CreateFiles.managePowershellSciptCreation(this,pathOfWslWhoamiScript , this.wslWhoamiScriptName, lines);
+		String pathOfWslWhoamiScript = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestWslLaunchersFolder() + "/";
+		pathOfWslWhoamiScript = hardCoded.slashDirToRight(pathOfWslWhoamiScript);
+		CreateFiles.managePowershellSciptCreation(this, pathOfWslWhoamiScript, this.wslWhoamiScriptName, lines);
 		// TODO: INVESTIGATE WHETHER THIS RECURSION "THIS" causes nulls
-		String linuxUsername = RunPowershell.runPowershell(storeWhoami(pathOfWslWhoamiScript), true);
+		String linuxUsername = RunPowershell.runPowershell(storeWhoami(pathOfWslWhoamiScript), true).get(0);
 //		System.out.println("username="+linuxUsername);
 		return linuxUsername;
 	}
@@ -349,7 +349,7 @@ public class HardCoded {
 //		System.out.println("NonNull1="+this.getTestDataFolder());
 //		System.out.println("NonNull2="+this.getTestWslLaunchersFolder());
 
-		pathOfWslWhoamiScript= swapSlashes(pathOfWslWhoamiScript);
+		pathOfWslWhoamiScript = slashDirToRight(pathOfWslWhoamiScript);
 //		System.out.println("NonNull3="+launcherPath);
 		String launcherName = this.getWslWhoamiScriptName();
 //		System.out.println("NonNull4="+launcherName);
@@ -358,9 +358,10 @@ public class HardCoded {
 		return command1;
 	}
 
-	public String swapSlashes(String line) {
+	public String slashDirToRight(String line) {
 		// swap backwards slashes to forward slashes
 		line = line.replace("\\", "/");
 		return line;
 	}
+	
 }

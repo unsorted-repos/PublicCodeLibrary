@@ -1,5 +1,7 @@
 package customSortServerV5;
 
+import java.util.ArrayList;
+
 public class RunLinuxCommandsFromWin {
 	/**
 	 * Pass a command that needs to be executed in wsl ubuntu. Then it creates a
@@ -12,11 +14,11 @@ public class RunLinuxCommandsFromWin {
 	 * @param command
 	 * @return
 	 */
-	public static String runLinuxCommandFromWindows(HardCoded hardCoded, String[] commands) {
+	public static ArrayList<String> runLinuxCommandFromWindows(HardCoded hardCoded, String[] commands) {
 		commands = prependWSL(commands);
 		String commandPath = hardCoded.getWindowsPath() + "src/" + hardCoded.getTempCommandScriptFolder() + "/";
 		
-		commandPath = hardCoded.swapSlashes(commandPath);
+		commandPath = hardCoded.slashDirToRight(commandPath);
 //		System.out.println("CommandPath="+commandPath);
 		CreateFiles.managePowershellSciptCreation(hardCoded,commandPath, hardCoded.getTempCommandFileName(), commands);
 //		

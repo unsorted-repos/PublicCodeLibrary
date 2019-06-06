@@ -2,13 +2,15 @@ package customSortServerV5;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 public class RunPowershell {
 	
 
-	 public static String runPowershell(String command, boolean getOutput){
+	 public static ArrayList<String> runPowershell(String command, boolean getOutput){
 		 StringBuilder sb = new StringBuilder();
+		 ArrayList<String> output = new ArrayList<String>();
 		 
 	  // Executing the command
 	  Process powerShellProcess;
@@ -24,7 +26,8 @@ public class RunPowershell {
 		  while ((line = stdout.readLine()) != null) {
 //		   System.out.println(line);
 		   if (getOutput) {
-			   sb.append(line);
+//			   sb.append(line+'\n');
+			   output.add(line);
 		   }
 		  }
 		  stdout.close();
@@ -41,13 +44,13 @@ public class RunPowershell {
 		}
 //		  System.out.println("Done");
 		
-		return sb.toString();
+		return output;
 
 	}
 	 
 	public static String powershellCommand(HardCoded hardCoded ) {
 		String launcherPath = hardCoded.getWindowsPath()+"src/"+ hardCoded.getTestDataFolder()+"/"+hardCoded.getTestWslLaunchersFolder()+"/";
-		launcherPath = hardCoded.swapSlashes(launcherPath);
+		launcherPath = hardCoded.slashDirToRight(launcherPath);
 		String launcherName = hardCoded.getWslLauncherScriptName();		
 		String command1 = "powershell.exe & '"+launcherPath+launcherName+"' "; //
 		System.out.println("Launcher command ="+command1);

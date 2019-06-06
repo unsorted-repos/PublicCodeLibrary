@@ -139,23 +139,43 @@ public class MoveTestFiles {
 	 * @throws Exception
 	 */
 	public static void exportResource(HardCoded hardCoded,File internalFile, String destinationPath, String destinationFileName, boolean runnable){
+		char quotation = (char) 34; // quotation mark "
 		// declare copy and paste locations
-//		System.out.println("Exporting file=" + destinationFileName);
-//		System.out.println("internalFile"+internalFile);
 		String sourceFileName = internalFile.getName();
-		System.out.println("NOTNULL="+internalFile.getPath());
 		String sourcePath = internalFile.getPath().substring(0,
 				internalFile.getPath().length() - sourceFileName.length());
 		
-		System.out.println("Moving from:"+sourcePath+sourceFileName);
-		System.out.println("Moving to:"+destinationPath+destinationFileName);
+		// first remove target file before copying
+		removeTargetFile(hardCoded,destinationPath+destinationFileName);
+		
 		//TODO: add nullcheck
-		// TODO: write actual copy command
 		String[] copyCommand = new String[1];
-		copyCommand[0] = "cp "+sourcePath+sourceFileName+ " "+ destinationPath+destinationFileName;
+
+		copyCommand[0] = "cp "+quotation+sourcePath+sourceFileName+quotation+" "+destinationPath+destinationFileName;
+		copyCommand[0] = hardCoded.slashDirToRight(copyCommand[0]);
+		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
+		
+		System.out.println("RAN:"+copyCommand[0]);
+		}
+	
+	public static void removeTargetFile(HardCoded hardCoded,String targetPathWithFileName) {
+		char quotation = (char) 34; // quotation mark "
+		String[] copyCommand = new String[1];
+		copyCommand[0] = "rm "+quotation+targetPathWithFileName+quotation;
+		copyCommand[0] = hardCoded.slashDirToRight(copyCommand[0]);
+		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
+		System.out.println("RAN:"+copyCommand[0]);
+	}
+	public static void importResource(HardCoded hardCoded,String sourcePath,String sourceFileName, String destinationPath, String destinationFileName, boolean runnable){
+		char quotation = (char) 34; // quotation mark "
+		//TODO: add nullcheck
+		
+		// first remove target file before copying
+		removeTargetFile(hardCoded,destinationPath+destinationFileName);
+		String[] copyCommand = new String[1];
+		copyCommand[0] = "cp "+quotation+sourcePath+sourceFileName+quotation+" "+quotation+destinationPath+destinationFileName+quotation;
 		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
 		System.out.println(copyCommand[0]);
-//		System.exit(0);
 //		copyFileWithSudo(sourcePath, sourceFileName, destinationPath, destinationFileName);
 	}
 	
