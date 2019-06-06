@@ -10,7 +10,8 @@ public class HardCoded {
 	private String eclipseFilePath;
 	private String eclipseFileName;
 	private String pendingFileName;
-	
+	private String tempCommandScriptFolder;
+	private String tempCommandFileName;
 	private String nameOfCustomSortParameterLabel;
 	private String customSortDataType;
 	private String udaName;
@@ -31,6 +32,7 @@ public class HardCoded {
 //	private String linuxUsernameFromWindows;
 	private String linuxUsername;
 	private String ubuntuFilePath;
+	
 
 	public HardCoded() {
 		this.eclipseFilePath = "input/";
@@ -51,12 +53,40 @@ public class HardCoded {
 		this.compiledJarName = "JavaServerSort.jar";
 		this.wslLauncherScriptName = "wslLauncher8.ps1";
 		this.wslWhoamiScriptName = "wslWhoami.ps1";
+		this.tempCommandScriptFolder="tempCommandScripts";
+		this.tempCommandFileName = "tempCommandFileName";
 //		 this.linuxUsernameFromWindows = getLinuxUserName();
 		this.windowsPath = GetThisPath.getWindowsPath();
 		this.linuxPath = GetThisPath.getLinuxPath();
 		this.linuxUsername = getLinuxUsername();
 		this.ubuntuFilePath = "/home/" + getLinuxUsername() + "/.task/";
 	}
+
+	
+	
+	public String getTempCommandFileName() {
+		return tempCommandFileName;
+	}
+
+
+
+	public void setTempCommandFileName(String tempCommandFileName) {
+		this.tempCommandFileName = tempCommandFileName;
+	}
+
+
+
+	public String getTempCommandScriptFolder() {
+		return tempCommandScriptFolder;
+	}
+
+
+
+	public void setTempCommandScriptFolder(String tempCommandScriptFolder) {
+		this.tempCommandScriptFolder = tempCommandScriptFolder;
+	}
+
+
 
 	public String getLinuxUsername() {
 		linuxUsername = absorbLinuxUserName();

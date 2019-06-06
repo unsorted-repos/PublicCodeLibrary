@@ -129,22 +129,6 @@ public class RunCommandsV3 {
 		 
 		 return processBuilder;
 	}
-	
-
-	/**
-	 * Pass a command that needs to be executed in wsl ubuntu.
-	 * Then it creates a powershell file that contanis wsl+that command
-	 * Then it executes the command.
-	 * Once the command is finished, it should delete the powershell again.
-	 * 
-	 * Should check if command contains sudo, if yes it should throw error.
-	 * TODO: Replace return null with return the output of the command.
-	 * @param command
-	 * @return
-	 */
-	public static String runLinuxCommandFromWindows(Command command) {
-		return null;
-	}
 }
 
 
