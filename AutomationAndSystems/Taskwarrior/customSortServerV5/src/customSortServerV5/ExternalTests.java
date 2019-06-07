@@ -69,7 +69,7 @@ class ExternalTests {
 		printLines(originalBacklogLines);
 		
 		//TODO: Copy the current tw uuid to the testFiles
-		
+		copyOriginalTwUuidToTestBacklogs(hardCoded);
 		
 		System.exit(0);
 
@@ -109,7 +109,29 @@ class ExternalTests {
 	/*
 	 * Copy the tw uuid from the testDataOriginals backlog.data file first line
 	 * to all the backlogX.data files.
+	 * 
 	 */
+	private void copyOriginalTwUuidToTestBacklogs(HardCoded hardCoded) {
+		String originalBacklogPath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestOriginalDataFolderName()+"/";
+		String originalFilename = hardCoded.getBacklogFileName();
+		
+		File originalBacklogFile = new File(originalBacklogPath+originalFilename);
+		
+		// read first line of orignal backlog
+		ArrayList<String> lines = ReadFiles.readFiles(originalBacklogPath+originalFilename);
+		
+		
+		//copy first line to all other test backlogs
+		//read tw uuid
+		ArrayList<String> twUuid = new ArrayList<String>();
+		twUuid.add(ReadFiles.readFiles(originalBacklogPath+originalFilename).get(0));
+		
+		//remove first line
+		ModifyFiles.removeFirstNLines(originalBacklogPath,originalFilename, 1);
+		
+		//prepend
+		ModifyFiles.prependText(originalBacklogFile, twUuid);
+	}
 	
 	public void promptUserInputPause() {
 		Scanner reader = new Scanner(System.in);  // Reading from System.in
