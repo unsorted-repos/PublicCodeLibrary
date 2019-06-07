@@ -14,7 +14,32 @@ public class MoveTestFiles {
 	private String internalTestPendingFilePath;
 	private File backlogOriginal;
 	private File pendingOriginal;
-
+	private File tempInternalBacklogOriginal;
+	
+	
+	public File returnTempBacklogFile(HardCoded hardCoded) {
+		String beforeDot = splitFilenameOnDot(hardCoded.getBacklogFileName())[0];
+		String dotAndExtension = splitFilenameOnDot(hardCoded.getBacklogFileName())[1];
+		File tempFile;
+		try {
+			tempFile = File.createTempFile(beforeDot,dotAndExtension);
+			return tempFile;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//File tempFile = File.createTempFile("MyAppName-", ".tmp");
+//		tempFile.deleteOnExit();
+		return null;
+	}
+	
+	public String[] splitFilenameOnDot(String filename) {
+		String[] splittedFilename = new String[2];
+		splittedFilename[0]=filename.substring(0, filename.indexOf("."));
+		splittedFilename[1]=filename.substring(filename.indexOf("."),filename.length());
+		return splittedFilename;
+	}
+	
 	/**
 	 * Constructor to be able to pass the MoveTestFiles object with it's
 	 * accompanying files.
@@ -23,8 +48,10 @@ public class MoveTestFiles {
 		importOriginalBacklog(hardCoded);
 		importOriginalPending(hardCoded);
 	}
-
+	
+	
 	/**
+	 * TODO: change backlog importation from linux path without 
 	 * Imports the original/current backlog.data file of taskwarrior and stores it
 	 * internally.
 	 */
@@ -32,11 +59,26 @@ public class MoveTestFiles {
 		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 //		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
+		
+		String sourcePath = hardCoded.getUbuntuFilePath();
+		String sourceFilename = hardCoded.getBacklogFileName();
+		String destinationPath = hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestDataOutputFolderName()+"/";
+		String destinationFilename = hardCoded.getBacklogFileName();
+		
+		System.out.println("Backlog source:"+hardCoded.getUbuntuFilePath()+hardCoded.getBacklogFileName());
+		System.out.println("Backlog destination linux:"+hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestDataOutputFolderName()+"/");
+
+		//actually copy using powershell
+		copyFilesFromWinInLinux(hardCoded,sourcePath,sourceFilename, destinationPath, destinationFilename, false);
+		System.out.println("IMPORTED BACKLOG!-");
+		System.exit(0);
+		//Command copy in wsl
 		System.out.println("originalBacklogImported="+this.backlogOriginal);
 
 	}
 
 	/**
+	 * TODO: change like backlog to win in linux commmand.
 	 * Imports the original/current pending.data file of taskwarrior and stores it
 	 * internally.
 	 */
@@ -51,7 +93,7 @@ public class MoveTestFiles {
 	public void restoreOriginalBacklog(HardCoded hardCoded) {
 		String destinationPath =hardCoded.getUbuntuFilePath() ;
 		String destinationFileName = hardCoded.getBacklogFileName();
-		exportResource(hardCoded, this.backlogOriginal,destinationPath,destinationFileName,false);
+		manageCopyFilesFromWinInLinux(hardCoded, this.backlogOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -61,7 +103,7 @@ public class MoveTestFiles {
 	public void restoreOriginalPending(HardCoded hardCoded) {
 		String destinationPath =hardCoded.getUbuntuFilePath() ;
 		String destinationFileName = hardCoded.getPendingFileName();
-		exportResource(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
+		manageCopyFilesFromWinInLinux(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -69,7 +111,7 @@ public class MoveTestFiles {
 	 */
 	public void exportTestFile(HardCoded hardCoded, File mockTestFile, String destinationFileName) {
 		String destinationPath = hardCoded.getUbuntuFilePath() ;
-		exportResource(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
+		manageCopyFilesFromWinInLinux(hardCoded,this.pendingOriginal,destinationPath,destinationFileName,false);
 	}
 
 	/*
@@ -138,20 +180,25 @@ public class MoveTestFiles {
 	 * @param fileName
 	 * @throws Exception
 	 */
-	public static void exportResource(HardCoded hardCoded,File internalFile, String destinationPath, String destinationFileName, boolean runnable){
+	public static void manageCopyFilesFromWinInLinux(HardCoded hardCoded,File internalFile, String destinationPath, String destinationFilename, boolean runnable){
 		char quotation = (char) 34; // quotation mark "
 		// declare copy and paste locations
-		String sourceFileName = internalFile.getName();
+		String sourceFilename = internalFile.getName();
 		String sourcePath = internalFile.getPath().substring(0,
-				internalFile.getPath().length() - sourceFileName.length());
-		
+				internalFile.getPath().length() - sourceFilename.length());
+		copyFilesFromWinInLinux(hardCoded,sourcePath,sourceFilename,destinationPath,destinationFilename, runnable);
+		}
+	
+	public static void copyFilesFromWinInLinux(HardCoded hardCoded,String sourcePath,String sourceFilename, String destinationPath, String destinationFileName, boolean runnable){
+		char quotation = (char) 34; // quotation mark "
 		// first remove target file before copying
 		removeTargetFile(hardCoded,destinationPath+destinationFileName);
 		
 		//TODO: add nullcheck
 		String[] copyCommand = new String[1];
 
-		copyCommand[0] = "cp "+quotation+sourcePath+sourceFileName+quotation+" "+destinationPath+destinationFileName;
+//		copyCommand[0] = "cp "+quotation+sourcePath+sourceFilename+quotation+" "+destinationPath+destinationFileName;
+		copyCommand[0] = "cp "+quotation+sourcePath+sourceFilename+quotation+" "+quotation+destinationPath+destinationFileName+quotation;
 		copyCommand[0] = hardCoded.slashDirToRight(copyCommand[0]);
 		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
 		
@@ -195,4 +242,6 @@ public class MoveTestFiles {
 			e.printStackTrace();
 		}	
 	}
+	
+	
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +59,16 @@ class ExternalTests {
 
 		// absorb original backlog.data and pending.data files for safekeeping
 		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
+		
+		// get tw uuid from backlog
+		System.out.println("InternalBacklog location="+moveTestFiles.returnTempBacklogFile(hardCoded).getPath());
+		
+		ArrayList<String> originalBacklogLines = ReadFiles.readFiles(moveTestFiles.returnTempBacklogFile(hardCoded).getPath());
+		System.out.println("Linenrs="+originalBacklogLines.size());
+		// print lines of backlog
+		printLines(originalBacklogLines);
+		
+		System.exit(0);
 
 		// TODO: Automatically update the backlog0.data test file with the tw uuid (of
 		// the original backlog).
@@ -66,7 +77,11 @@ class ExternalTests {
 		String testBacklogFileName = "backlog0.data";
 		String testPendingFileName = "pending0.data";
 		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
-//		System.exit(0);
+
+		promptUserInputPause();
+
+		
+		
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
 		ArrayList<String> output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
@@ -83,11 +98,18 @@ class ExternalTests {
 		// read 2nd line of backlog
 		//TODO: Correct pending0.data test file to correct format as written by taskwarrior.
 		
+		
 		// restore original backlog.data and pending.data files.
-
 		assertTrue(false);
 	}
 
+	public void promptUserInputPause() {
+		Scanner reader = new Scanner(System.in);  // Reading from System.in
+	    System.out.println("Enter a number: ");
+	    int n = reader.nextInt(); // Scans the next token of the input as an int.
+	    //once finished
+	    System.out.println(n);
+	}
 	
 	
 	public void copyBacklogAndPendingMockFiles(HardCoded hardCoded, String backlogFileName, String pendingFileName) {
@@ -96,11 +118,11 @@ class ExternalTests {
 		
 		String destinationBacklogFileName = hardCoded.getBacklogFileName();
 		File mockBacklogFile = new File(sourcePath + backlogFileName);
-		MoveTestFiles.exportResource(hardCoded, mockBacklogFile, destinationPath, destinationBacklogFileName, false);
+		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockBacklogFile, destinationPath, destinationBacklogFileName, false);
 
 		String destinationPendingFileName = hardCoded.getPendingFileName();
 		File mockPendingFile = new File(sourcePath + pendingFileName);
-		MoveTestFiles.exportResource(hardCoded, mockPendingFile, destinationPath, destinationPendingFileName, false);
+		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockPendingFile, destinationPath, destinationPendingFileName, false);
 	}
 
 	public void copyModifiedBacklogToOutput(HardCoded hardCoded) {
@@ -173,7 +195,7 @@ class ExternalTests {
 		// Start with writing on a new line.
 //		System.out.println("Writing lines=");
 		for (int i = 0; i < lines.size();i++) {
-			System.out.println(lines.get(i));
+			System.out.println("print:"+lines.get(i));
 		}
 	}
 }

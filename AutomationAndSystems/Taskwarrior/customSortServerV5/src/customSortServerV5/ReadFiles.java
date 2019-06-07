@@ -31,10 +31,10 @@ public class ReadFiles {
 		}
 	}
 	
-	public static ArrayList<String> readFiles(String fileName) {
+	public static ArrayList<String> readFiles(String filePathAndName) {
 		ArrayList<String> lines = new ArrayList<String>();
-
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
+		
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(filePathAndName))) {
 
             // read line by line
             String line;
@@ -44,12 +44,12 @@ public class ReadFiles {
                 lines.add(line);
                 System.out.println("Adding line ="+line);
             }
-
+            System.out.println("Test");
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
 
-        //System.out.println(sb);
+        // System.out.println(sb);
         
         return lines;
     }
