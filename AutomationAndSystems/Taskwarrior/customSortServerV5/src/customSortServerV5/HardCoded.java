@@ -26,6 +26,7 @@ public class HardCoded {
 	private String windowsPath;
 	private String linuxPath;
 	private String testWslLaunchersFolder;
+	private String testOriginalDataFolderName;
 //	private String relativeCompiledJarPath = 
 	private String compiledJarName;
 	private String wslLauncherScriptName;
@@ -50,17 +51,26 @@ public class HardCoded {
 		this.testDataFolder = "testData";
 		this.testDataOutputFolderName = "testDataOutput";
 		this.testWslLaunchersFolder = "wslLaunchers";
+		this.testOriginalDataFolderName = "originalDataFolder";
 //		 this.relativeCompiledJarPath = 
 		this.compiledJarName = "JavaServerSort.jar";
 		this.wslLauncherScriptName = "wslLauncher.ps1";
 		this.wslWhoamiScriptName = "wslWhoami.ps1";
 		this.tempCommandScriptFolder = "tempCommandScripts";
 		this.tempCommandFileName = "tempCommandFileName.ps1";
-//		 this.linuxUsernameFromWindows = getLinuxUserName();
+//		 this.linuxUsernameFromWindows = getLinuxUserName();701378
 		this.windowsPath = GetThisPath.getWindowsPath();
 		this.linuxPath = GetThisPath.getLinuxPath();
 		this.linuxUsername = getLinuxUsername();
 		this.ubuntuFilePath = "/home/" + getLinuxUsername() + "/.task/";
+	}
+
+	public String getTestOriginalDataFolderName() {
+		return testOriginalDataFolderName;
+	}
+
+	public void setTestOriginalDataFolderName(String testOriginalDataFolderName) {
+		this.testOriginalDataFolderName = testOriginalDataFolderName;
 	}
 
 	public String getTestDataOutputFolderName() {
@@ -363,5 +373,5 @@ public class HardCoded {
 		line = line.replace("\\", "/");
 		return line;
 	}
-	
+
 }

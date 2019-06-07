@@ -1,1 +1,1 @@
-wsl cp "/home/exampleUser/.task/backlog.data" "/mnt/e/18-09-19 Document structure/personal/Programming/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV5/src/testData/testDataOutput/backlog.data"
+wsl cp "/home/exampleUser/.task/pending.data" "/mnt/e/18-09-19 Document structure/personal/Programming/PublicCodeLibrary/AutomationAndSystems/Taskwarrior/customSortServerV5/src/testData/originalDataFolder/pending.data"

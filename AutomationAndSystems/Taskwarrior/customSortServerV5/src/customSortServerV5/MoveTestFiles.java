@@ -49,32 +49,9 @@ public class MoveTestFiles {
 		importOriginalPending(hardCoded);
 	}
 	
-	
-	/**
-	 * TODO: change backlog importation from linux path without 
-	 * Imports the original/current backlog.data file of taskwarrior and stores it
-	 * internally.
-	 */
 	public void importOriginalBacklog(HardCoded hardCoded) {
-		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
-//		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
-		
-		String sourcePath = hardCoded.getUbuntuFilePath();
-		String sourceFilename = hardCoded.getBacklogFileName();
-		String destinationPath = hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestDataOutputFolderName()+"/";
-		String destinationFilename = hardCoded.getBacklogFileName();
-		
-		System.out.println("Backlog source:"+hardCoded.getUbuntuFilePath()+hardCoded.getBacklogFileName());
-		System.out.println("Backlog destination linux:"+hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestDataOutputFolderName()+"/");
-
-		//actually copy using powershell
-		copyFilesFromWinInLinux(hardCoded,sourcePath,sourceFilename, destinationPath, destinationFilename, false);
-		System.out.println("IMPORTED BACKLOG!-");
-		System.exit(0);
-		//Command copy in wsl
-		System.out.println("originalBacklogImported="+this.backlogOriginal);
-
+		importOriginalDataFiles(hardCoded,hardCoded.getBacklogFileName());
 	}
 
 	/**
@@ -84,7 +61,33 @@ public class MoveTestFiles {
 	 */
 	public void importOriginalPending(HardCoded hardCoded) {
 		this.pendingOriginal = new File(hardCoded.getUbuntuFilePath() + hardCoded.getPendingFileName());
+		importOriginalDataFiles(hardCoded,hardCoded.getPendingFileName());
 	}
+		
+	/**
+	 * TODO: change backlog importation from linux path without 
+	 * Imports the original/current backlog.data file of taskwarrior and stores it
+	 * internally.
+	 */
+	public void importOriginalDataFiles(HardCoded hardCoded, String dataFilename) {
+		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
+//		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
+		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + dataFilename);
+		
+		String sourcePath = hardCoded.getUbuntuFilePath();
+		String sourceFilename = dataFilename;
+		String destinationPath = hardCoded.getLinuxPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestOriginalDataFolderName()+"/";
+		String destinationFilename = dataFilename;
+		
+		// create originalDataFiles
+		CreateFolders.createFolderWithEclipse(hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestOriginalDataFolderName()+"/");
+		
+		// copy backlog from wsl to this project in win using powershell
+		copyFilesFromWinInLinux(hardCoded,sourcePath,sourceFilename, destinationPath, destinationFilename, false);
+		System.out.println("IMPORTED BACKLOG!-");
+	}
+
+
 
 	/*
 	 * restores the original backlog.data once testing is completed by exporting it

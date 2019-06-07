@@ -68,6 +68,9 @@ class ExternalTests {
 		// print lines of backlog
 		printLines(originalBacklogLines);
 		
+		//TODO: Copy the current tw uuid to the testFiles
+		
+		
 		System.exit(0);
 
 		// TODO: Automatically update the backlog0.data test file with the tw uuid (of
@@ -103,6 +106,11 @@ class ExternalTests {
 		assertTrue(false);
 	}
 
+	/*
+	 * Copy the tw uuid from the testDataOriginals backlog.data file first line
+	 * to all the backlogX.data files.
+	 */
+	
 	public void promptUserInputPause() {
 		Scanner reader = new Scanner(System.in);  // Reading from System.in
 	    System.out.println("Enter a number: ");
