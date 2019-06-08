@@ -76,8 +76,6 @@ class ExternalTests {
 		String testPendingFileName = "pending0.data";
 		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
 
-		promptUserInputPause();
-
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
 		ArrayList<String> output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
@@ -91,16 +89,28 @@ class ExternalTests {
 		copyModifiedBacklogToOutput(hardCoded);
 
 		// read 2nd line of backlog
-		// TODO: Correct pending0.data test file to correct format as written by
-		// taskwarrior.
-
+		ArrayList<String> outputBacklogLines = readOutputBacklogLines(hardCoded);
+		printLines(outputBacklogLines);
+		
 		// restore original backlog.data and pending.data files.
 		restoreOriginalBacklog(hardCoded);
+		restoreOriginalPending(hardCoded);
 
 		// test the imported backlog with the expected backlog.
 		assertTrue(false);
 	}
 
+	/**
+	 * Absorbs the lines from the backlog that is modified by execution of the main sorting script.
+	 * @param hardCoded
+	 * @return the lines of the backlog.data file that is put in the output folder of testing.
+	 */
+	private ArrayList<String> readOutputBacklogLines(HardCoded hardCoded){
+		String outputBacklogFilePath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestDataOutputFolderName()+"/";
+		String outputBacklogFilename = hardCoded.getBacklogFileName();
+		return ReadFiles.readFiles(outputBacklogFilePath+outputBacklogFilename);
+	}
+	
 	/*
 	 * Copy the tw uuid from the testDataOriginals backlog.data file first line to
 	 * all the backlogX.data files.
@@ -178,6 +188,16 @@ class ExternalTests {
 		String sourceFileName = hardCoded.getBacklogFileName();
 		String destinationPath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
 		String destinationFileName = hardCoded.getBacklogFileName();
+
+		MoveTestFiles.copyResource(hardCoded, sourcePath, sourceFileName, destinationPath, destinationFileName, false);
+	}
+
+	public void restoreOriginalPending(HardCoded hardCoded) {
+		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestOriginalDataFolderName() + "/";
+		String sourceFileName = hardCoded.getPendingFileName();
+		String destinationPath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
+		String destinationFileName = hardCoded.getPendingFileName();
 
 		MoveTestFiles.copyResource(hardCoded, sourcePath, sourceFileName, destinationPath, destinationFileName, false);
 	}
