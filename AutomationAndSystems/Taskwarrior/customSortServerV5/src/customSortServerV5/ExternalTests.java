@@ -59,15 +59,15 @@ class ExternalTests {
 
 		// absorb original backlog.data and pending.data files for safekeeping
 		MoveTestFiles moveTestFiles = new MoveTestFiles(hardCoded);
-		
+
 		// get tw uuid from backlog
-		System.out.println("InternalBacklog location="+moveTestFiles.returnTempBacklogFile(hardCoded).getPath());
-		
-		ArrayList<String> originalBacklogLines = ReadFiles.readFiles(moveTestFiles.returnTempBacklogFile(hardCoded).getPath());
-		System.out.println("Linenrs="+originalBacklogLines.size());
+		ArrayList<String> originalBacklogLines = ReadFiles
+				.readFiles(moveTestFiles.returnTempBacklogFile(hardCoded).getPath());
+		System.out.println("Linenrs=" + originalBacklogLines.size());
+
 		// print lines of backlog
-		printLines(originalBacklogLines);
-		
+//		printLines(originalBacklogLines);
+
 		// Copy the current tw uuid to the testFiles
 		copyOriginalTwUuidToTestBacklogs(hardCoded);
 
@@ -77,107 +77,111 @@ class ExternalTests {
 		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
 
 		promptUserInputPause();
-		
+
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
 		ArrayList<String> output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
 		printLines(output);
-		
+
 		// create testOutput folder
-		CreateFolders.createFolderWithEclipse(hardCoded.getWindowsPath()+"src/" + hardCoded.getTestDataFolder() + "/"
+		CreateFolders.createFolderWithEclipse(hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"
 				+ hardCoded.getTestDataOutputFolderName() + "/");
-		
+
 		// copy backlog.data back from wsl to testData/testOutput
 		copyModifiedBacklogToOutput(hardCoded);
-		
+
 		// read 2nd line of backlog
-		//TODO: Correct pending0.data test file to correct format as written by taskwarrior.
-		
+		// TODO: Correct pending0.data test file to correct format as written by
+		// taskwarrior.
+
 		// restore original backlog.data and pending.data files.
 		restoreOriginalBacklog(hardCoded);
-		
+
 		// test the imported backlog with the expected backlog.
 		assertTrue(false);
 	}
 
 	/*
-	 * Copy the tw uuid from the testDataOriginals backlog.data file first line
-	 * to all the backlogX.data files.
+	 * Copy the tw uuid from the testDataOriginals backlog.data file first line to
+	 * all the backlogX.data files.
 	 * 
 	 */
 	private void copyOriginalTwUuidToTestBacklogs(HardCoded hardCoded) {
-		String testBacklogFilePath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/";
-		String originalBacklogPath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestOriginalDataFolderName()+"/";
+		String testBacklogFilePath = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/";
+		String originalBacklogPath = hardCoded.getWindowsPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestOriginalDataFolderName() + "/";
 		String originalFilename = hardCoded.getBacklogFileName();
-	
+
 		// read first line of orignal backlog
-		ArrayList<String> lines = ReadFiles.readFiles(originalBacklogPath+originalFilename);
-		
-		//copy first line to all other test backlogs
-		//read tw uuid
+		ArrayList<String> lines = ReadFiles.readFiles(originalBacklogPath + originalFilename);
+
+		// copy first line to all other test backlogs
+		// read tw uuid
 		ArrayList<String> twUuid = new ArrayList<String>();
-		twUuid.add(ReadFiles.readFiles(originalBacklogPath+originalFilename).get(0));
-		
-		for (int i = 0;i < hardCoded.getNrOfBacklogTestFile();i++) {
+		twUuid.add(ReadFiles.readFiles(originalBacklogPath + originalFilename).get(0));
+
+		for (int i = 0; i < hardCoded.getNrOfBacklogTestFile(); i++) {
 			String[] splitTestFilename = splitFilenameOnDot(originalFilename);
-			String testFilename = splitTestFilename[0]+i+splitTestFilename[1]; 	
-			
+			String testFilename = splitTestFilename[0] + i + splitTestFilename[1];
+
 			// create file representing test backlog.data file
-			File backlogFile = new File(testBacklogFilePath+testFilename);
-			
-			//put tw uuid in first line of backlog
-			ModifyFiles.replaceFirstLine(backlogFile,twUuid.get(0));
+			File backlogFile = new File(testBacklogFilePath + testFilename);
+
+			// put tw uuid in first line of backlog
+			ModifyFiles.replaceFirstLine(backlogFile, twUuid.get(0));
 		}
 	}
-	
+
 	public String[] splitFilenameOnDot(String filename) {
 		String[] splittedFilename = new String[2];
-		splittedFilename[0]=filename.substring(0, filename.indexOf("."));
-		splittedFilename[1]=filename.substring(filename.indexOf("."),filename.length());
+		splittedFilename[0] = filename.substring(0, filename.indexOf("."));
+		splittedFilename[1] = filename.substring(filename.indexOf("."), filename.length());
 		return splittedFilename;
 	}
-	
+
 	public void promptUserInputPause() {
-		Scanner reader = new Scanner(System.in);  // Reading from System.in
-	    System.out.println("Enter a number: ");
-	    int n = reader.nextInt(); // Scans the next token of the input as an int.
-	    //once finished
-	    System.out.println(n);
+		Scanner reader = new Scanner(System.in); // Reading from System.in
+		System.out.println("Enter a number: ");
+		int n = reader.nextInt(); // Scans the next token of the input as an int.
+		// once finished
+		System.out.println(n);
 	}
-	
-	
+
 	public void copyBacklogAndPendingMockFiles(HardCoded hardCoded, String backlogFileName, String pendingFileName) {
 		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/";
 		String destinationPath = hardCoded.getUbuntuFilePath();
-		
+
 		String destinationBacklogFileName = hardCoded.getBacklogFileName();
 		File mockBacklogFile = new File(sourcePath + backlogFileName);
-		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockBacklogFile, destinationPath, destinationBacklogFileName, false);
+		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockBacklogFile, destinationPath,
+				destinationBacklogFileName, false);
 
 		String destinationPendingFileName = hardCoded.getPendingFileName();
 		File mockPendingFile = new File(sourcePath + pendingFileName);
-		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockPendingFile, destinationPath, destinationPendingFileName, false);
+		MoveTestFiles.manageCopyFilesFromWinInLinux(hardCoded, mockPendingFile, destinationPath,
+				destinationPendingFileName, false);
 	}
 
 	public void copyModifiedBacklogToOutput(HardCoded hardCoded) {
 		String sourcePath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
-		System.out.println("SOURCEPATH="+sourcePath);
+		System.out.println("SOURCEPATH=" + sourcePath);
 		String backlogFileName = hardCoded.getBacklogFileName();
-		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/" + hardCoded.getTestDataOutputFolderName()+"/";
+		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestDataOutputFolderName() + "/";
 		String destinationFileName = hardCoded.getBacklogFileName();
 		MoveTestFiles.copyResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
 	}
-	
-	
+
 	public void restoreOriginalBacklog(HardCoded hardCoded) {
-		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/" + hardCoded.getTestOriginalDataFolderName()+"/";
+		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestOriginalDataFolderName() + "/";
 		String sourceFileName = hardCoded.getBacklogFileName();
 		String destinationPath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
 		String destinationFileName = hardCoded.getBacklogFileName();
-		
+
 		MoveTestFiles.copyResource(hardCoded, sourcePath, sourceFileName, destinationPath, destinationFileName, false);
 	}
-	
+
 	/**
 	 * ID:1 Test A: that has a single task in the tasklist with that same task in
 	 * backlog. Expect A: Expect the task to NOT be placed in the backlog since the
@@ -234,12 +238,12 @@ class ExternalTests {
 			}
 		}
 	}
-	
-	public static void printLines(ArrayList<String> lines) {	
+
+	public static void printLines(ArrayList<String> lines) {
 		// Start with writing on a new line.
 //		System.out.println("Writing lines=");
-		for (int i = 0; i < lines.size();i++) {
-			System.out.println("print:"+lines.get(i));
+		for (int i = 0; i < lines.size(); i++) {
+			System.out.println("print:" + lines.get(i));
 		}
 	}
 }

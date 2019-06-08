@@ -46,11 +46,11 @@ public class CreateFolders {
 	}
 	
 	public static boolean createFolderWithEclipse(String path) {
-		System.out.println("Making dir:"+path);
+//		System.out.println("Making dir:"+path);
         File files = new File(path);
         if (!files.exists()) {
             if (files.mkdirs()) {
-                System.out.println("Multiple directories are created!");
+//                System.out.println("Multiple directories are created!");
                 return true;
             } else {
                 System.out.println("Failed to create multiple directories!");

@@ -182,7 +182,6 @@ public class CreateFiles {
 		
 		String[] lines = new String[1];
 		lines[0] = "wsl java -jar "+quotation+hardCoded.getLinuxPath()+hardCoded.getCompiledJarName()+quotation;
-		System.out.println("CREATING LAUNCHER");
 		CreateFiles.managePowershellSciptCreation(hardCoded, launchCustomSortShellPath, hardCoded.getWslLauncherScriptName(),lines);
 	}
 	

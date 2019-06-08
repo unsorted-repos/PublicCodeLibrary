@@ -70,7 +70,6 @@ public class MoveTestFiles {
 	 * internally.
 	 */
 	public void importOriginalDataFiles(HardCoded hardCoded, String dataFilename) {
-		System.out.println("absorbing:"+hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 //		this.backlogOriginal = getResourceAsFile(hardCoded.getUbuntuFilePath() + hardCoded.getBacklogFileName());
 		this.backlogOriginal = new File(hardCoded.getUbuntuFilePath() + dataFilename);
 		
@@ -84,7 +83,6 @@ public class MoveTestFiles {
 		
 		// copy backlog from wsl to this project in win using powershell
 		copyFilesFromWinInLinux(hardCoded,sourcePath,sourceFilename, destinationPath, destinationFilename, false);
-		System.out.println("IMPORTED BACKLOG!-");
 	}
 
 

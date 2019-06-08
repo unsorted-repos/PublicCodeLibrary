@@ -109,7 +109,6 @@ public class HardCoded {
 
 	public String getLinuxUsername() {
 		linuxUsername = absorbLinuxUserName();
-		System.out.println("linuxUsername = " + linuxUsername);
 		return linuxUsername;
 	}
 
