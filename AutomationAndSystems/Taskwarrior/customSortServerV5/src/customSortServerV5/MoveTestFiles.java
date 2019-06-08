@@ -33,7 +33,7 @@ public class MoveTestFiles {
 		return null;
 	}
 	
-	public String[] splitFilenameOnDot(String filename) {
+	public static String[] splitFilenameOnDot(String filename) {
 		String[] splittedFilename = new String[2];
 		splittedFilename[0]=filename.substring(0, filename.indexOf("."));
 		splittedFilename[1]=filename.substring(filename.indexOf("."),filename.length());

@@ -8,60 +8,56 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ModifyFiles {
 
-	/**
-	 * TODO: Remove hardcoded switch by restructuring fileOutputStream usage.
-	 * 
-	 * TODO: Change prepend to "modifyText" and pass a string indicating prepend or
-	 * append, and merge prepend and append as just a writing method based on
-	 * fileName.
-	 * 
-	 * TODO: Generalize method to switch based on filename. That entails renaming
-	 * methods "prependLines" and "appendLines" based on filenames.
-	 * 
-	 * @param installData
-	 * @param fileName
-	 */
-	public static void prependText(File fileName, ArrayList<String> lines) {
-	    FileOutputStream fileOutputStream =null;
 	
-	    BufferedReader br = null;
-	    FileReader fr = null;
-	    String newFileName = fileName.getAbsolutePath() + "@";
+	public static void replaceFirstLine(File backlogTestFile,String twUuidLine) {
+		try{
+		    FileReader fr = new FileReader(backlogTestFile);
+		    String s;
+		    String totalStr = "";
+		    try (BufferedReader br = new BufferedReader(fr)) {
+		    	br.readLine(); //skip first line of copying
+		    	totalStr += twUuidLine+'\n'; // add tw uuid
+		        while ((s = br.readLine()) != null) {
+		            totalStr += s+'\n';
+		        }
+		        FileWriter fw = new FileWriter(backlogTestFile);
+		    fw.write(totalStr);
+		    fw.close();
+		    }
+		}catch(Exception e){
+		    e.printStackTrace();
+		}
+	}
 	
-	    try {
-	        fileOutputStream = new FileOutputStream(newFileName);
-	        fileOutputStream = writeLines(fileOutputStream, lines);
 	
-	        fr = new FileReader(fileName);
-	        br = new BufferedReader(fr);
-	
-	        String sCurrentLine;
-	
-	        while ((sCurrentLine = br.readLine()) != null) {
-	            fileOutputStream.write(("\n"+sCurrentLine).getBytes());
-	        }
-	        fileOutputStream.flush();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            fileOutputStream.close();
-	            if (br != null)
-	                br.close();
-	
-	            if (fr != null)
-	                fr.close();
-	
-	            new File(newFileName).renameTo(new File(newFileName.replace("@", "")));
-	        } catch (IOException ex) {
-	            ex.printStackTrace();
-	        }
-	    }
+	public static boolean deleteFile(HardCoded hardCoded, File file) {
+		try
+        { 
+            Files.deleteIfExists(Paths.get(hardCoded.slashDirToRight(file.getPath()))); 
+        } 
+        catch(NoSuchFileException e) 
+        { 
+            System.out.println("No such file/directory exists"); 
+        } 
+        catch(DirectoryNotEmptyException e) 
+        { 
+            System.out.println("Directory is not empty."); 
+        } 
+        catch(IOException e) 
+        { 
+            System.out.println("Invalid permissions."); 
+        } 
+    	return false;
 	}
 
 //	public static void appendText(InstallData installData, File fileName) {
@@ -182,7 +178,9 @@ public class ModifyFiles {
 		try {
 			fileScanner = new Scanner(file);
 			for (int i = 0; i < nrOfLinesToSkip; i++) {
-				System.out.println("Skipping line:"+fileScanner.nextLine());
+				if (fileScanner.hasNext()) {
+					System.out.println("Skipping line:"+fileScanner.nextLine());
+				}
 				
 			}
 			FileWriter fileStream = new FileWriter(filePath + fileName);

@@ -68,13 +68,8 @@ class ExternalTests {
 		// print lines of backlog
 		printLines(originalBacklogLines);
 		
-		//TODO: Copy the current tw uuid to the testFiles
+		// Copy the current tw uuid to the testFiles
 		copyOriginalTwUuidToTestBacklogs(hardCoded);
-		
-		System.exit(0);
-
-		// TODO: Automatically update the backlog0.data test file with the tw uuid (of
-		// the original backlog).
 
 		// copy the testfile backlog0.data to home
 		String testBacklogFileName = "backlog0.data";
@@ -82,8 +77,6 @@ class ExternalTests {
 		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
 
 		promptUserInputPause();
-
-		
 		
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
@@ -112,25 +105,35 @@ class ExternalTests {
 	 * 
 	 */
 	private void copyOriginalTwUuidToTestBacklogs(HardCoded hardCoded) {
+		String testBacklogFilePath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/";
 		String originalBacklogPath = hardCoded.getWindowsPath()+"src/"+hardCoded.getTestDataFolder()+"/"+hardCoded.getTestOriginalDataFolderName()+"/";
 		String originalFilename = hardCoded.getBacklogFileName();
-		
-		File originalBacklogFile = new File(originalBacklogPath+originalFilename);
-		
+	
 		// read first line of orignal backlog
 		ArrayList<String> lines = ReadFiles.readFiles(originalBacklogPath+originalFilename);
-		
 		
 		//copy first line to all other test backlogs
 		//read tw uuid
 		ArrayList<String> twUuid = new ArrayList<String>();
 		twUuid.add(ReadFiles.readFiles(originalBacklogPath+originalFilename).get(0));
 		
-		//remove first line
-		ModifyFiles.removeFirstNLines(originalBacklogPath,originalFilename, 1);
-		
-		//prepend
-		ModifyFiles.prependText(originalBacklogFile, twUuid);
+		for (int i = 0;i < hardCoded.getNrOfBacklogTestFile();i++) {
+			String[] splitTestFilename = splitFilenameOnDot(originalFilename);
+			String testFilename = splitTestFilename[0]+i+splitTestFilename[1]; 	
+			
+			// create file representing test backlog.data file
+			File backlogFile = new File(testBacklogFilePath+testFilename);
+			
+			//put tw uuid in first line of backlog
+			ModifyFiles.replaceFirstLine(backlogFile,twUuid.get(0));
+		}
+	}
+	
+	public String[] splitFilenameOnDot(String filename) {
+		String[] splittedFilename = new String[2];
+		splittedFilename[0]=filename.substring(0, filename.indexOf("."));
+		splittedFilename[1]=filename.substring(filename.indexOf("."),filename.length());
+		return splittedFilename;
 	}
 	
 	public void promptUserInputPause() {

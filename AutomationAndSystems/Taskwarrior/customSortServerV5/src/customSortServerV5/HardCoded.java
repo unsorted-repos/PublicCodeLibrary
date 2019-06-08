@@ -27,6 +27,7 @@ public class HardCoded {
 	private String linuxPath;
 	private String testWslLaunchersFolder;
 	private String testOriginalDataFolderName;
+	private int nrOfBacklogTestFile;
 //	private String relativeCompiledJarPath = 
 	private String compiledJarName;
 	private String wslLauncherScriptName;
@@ -58,11 +59,20 @@ public class HardCoded {
 		this.wslWhoamiScriptName = "wslWhoami.ps1";
 		this.tempCommandScriptFolder = "tempCommandScripts";
 		this.tempCommandFileName = "tempCommandFileName.ps1";
+		this.nrOfBacklogTestFile = 6;
 //		 this.linuxUsernameFromWindows = getLinuxUserName();701378
 		this.windowsPath = GetThisPath.getWindowsPath();
 		this.linuxPath = GetThisPath.getLinuxPath();
 		this.linuxUsername = getLinuxUsername();
 		this.ubuntuFilePath = "/home/" + getLinuxUsername() + "/.task/";
+	}
+
+	public int getNrOfBacklogTestFile() {
+		return nrOfBacklogTestFile;
+	}
+
+	public void setNrOfBacklogTestFile(int nrOfBacklogTestFile) {
+		this.nrOfBacklogTestFile = nrOfBacklogTestFile;
 	}
 
 	public String getTestOriginalDataFolderName() {
