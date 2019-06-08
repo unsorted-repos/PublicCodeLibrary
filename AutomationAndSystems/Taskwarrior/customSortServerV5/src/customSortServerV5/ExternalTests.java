@@ -45,16 +45,76 @@ class ExternalTests {
 	 * recurrence and print what happens to them.
 	 */
 
-	/**
-	 * ID:0 Test A: Test that has a single task in the tasklist without any backlog.
+
+	/** ID:0 Test A: Test that has a single task in the tasklist without any backlog without customSortAttribute.
 	 * Expect A: Expect the task to be placed in the backlog since the first task is
-	 * always stored. Test B: Repeat with all non-recurrent Expect B: That task is
-	 * not placed in the backlog!! Result B: That task was added to the backlog.
+	 * always stored. 
+	 * 
+	 * Test B: Repeat with all non-recurrent Expect B: That task is
+	 * not placed in the backlog!! 
+	 * Result B: That task was added to the backlog.
+	 * 
 	 * Test C: Repeat with all recurrent parent Expect C: Test D: Repeat with all
 	 * recurrent child Expect D:
 	 */
 	@Test
-	public void testMainSort2() {
+	public void integrationTestJavaServerSort0() {
+		String testBacklogFilename = "backlog0.data";
+		String testPendingFilename = "pending0.data";
+		
+		ArrayList<String> outputBacklogDataLines = new ArrayList<String>();
+		outputBacklogDataLines.add("This is a tw uuid filler that will be skipped");
+		//{"description":"testHi","entry":"20190608T191027Z","modified":"20190608T191027Z","status":"pending","uuid":"8e7de71c-0cc3-4645-8414-59df506fa6ee"}
+		
+		manageIntegrationTestsJavaServerSort(testBacklogFilename,testPendingFilename);
+		
+		// test the imported backlog with the expected backlog.
+		assertTrue(false);
+	}
+
+	/**
+	 * ID:1 Test A: that has a single task in the tasklist with that same task in
+	 * backlog. Expect A: Expect the task to NOT be placed in the backlog since the
+	 * first task is always stored. Test B: Repeat with all non-recurrent Expect B:
+	 * Test C: Repeat with all recurrent parent Expect C: Test D: Repeat with all
+	 * recurrent child Expect D:
+	 */
+
+	/**
+	 * ID:2 Test A: that has two tasks in the tasklist without any backlog Expect A:
+	 * Expect both task to be placed in the backlog since the first task is always
+	 * stored. Test B: Repeat with all non-recurrent Expect B: Test C: Repeat with
+	 * all recurrent parent Expect C: Test D: Repeat with all recurrent child Expect
+	 * D:
+	 */
+
+	/**
+	 * ID:3 Test A: that has two tasks in the tasklist both in backlog already, but
+	 * with sole modification: they don't have customsort value (and they have a
+	 * different modified value than the new backlog tasks will have). Expect A:
+	 * Expect none of the two tasks will be added, since it is just the modification
+	 * of the customsort value (backlog remains same) Test B: Repeat with all
+	 * non-recurrent Expect B: Test C: Repeat with all recurrent parent Expect C:
+	 * Test D: Repeat with all recurrent child Expect D:
+	 */
+
+	/**
+	 * ID:4 Test A: that has two tasks in the tasklist both in backlog already, but
+	 * with some extra modification in description: value (and they have a different
+	 * modified value than the new backlog tasks will have). Expect A: Expect none
+	 * of the two tasks will be added, since it is just the modification of the
+	 * customsort value (backlog remains same) Test B: Repeat with all non-recurrent
+	 * Expect B: Test C: Repeat with all recurrent parent Expect C: Test D: Repeat
+	 * with all recurrent child Expect D:
+	 */
+
+	/**
+	 * TODO: refactor general integration test functionality to separate method.
+	 * TODO: Write actual expected backlog lines per test
+	 * TODO: Compare those actual backlog lines per test
+	 */
+	public ArrayList<String> manageIntegrationTestsJavaServerSort(String testBacklogFilename, String testPendingFilename){
+//	public void manageIntegrationTestsJavaServerSort(){
 		HardCoded hardCoded = new HardCoded();
 
 		// absorb original backlog.data and pending.data files for safekeeping
@@ -72,9 +132,7 @@ class ExternalTests {
 		copyOriginalTwUuidToTestBacklogs(hardCoded);
 
 		// copy the testfile backlog0.data to home
-		String testBacklogFileName = "backlog0.data";
-		String testPendingFileName = "pending0.data";
-		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFileName, testPendingFileName);
+		copyBacklogAndPendingMockFiles(hardCoded, testBacklogFilename, testPendingFilename);
 
 		// run main. (Including execution bypass in wslLauncher.ps1 is NOT necessary.)
 		System.out.println("Running the main!");
@@ -87,6 +145,7 @@ class ExternalTests {
 
 		// copy backlog.data back from wsl to testData/testOutput
 		copyModifiedBacklogToOutput(hardCoded);
+		copyModifiedPendingToOutput(hardCoded);
 
 		// read 2nd line of backlog
 		ArrayList<String> outputBacklogLines = readOutputBacklogLines(hardCoded);
@@ -95,11 +154,41 @@ class ExternalTests {
 		// restore original backlog.data and pending.data files.
 		restoreOriginalBacklog(hardCoded);
 		restoreOriginalPending(hardCoded);
+		
+		return outputBacklogLines;
+		
+	}
+	
+	
+	/**
+	 * create a file in c.
+	 * 
+	 * @param content
+	 */
+	public static void createFile2(String linuxPath, String fileName) {
+		{
+			try {
+				File file = new File(linuxPath + fileName);
 
-		// test the imported backlog with the expected backlog.
-		assertTrue(false);
+				if (file.createNewFile()) {
+					System.out.println("File is created! in Linuxpath" + linuxPath);
+				} else {
+					System.out.println("File already exists.");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
+	public static void printLines(ArrayList<String> lines) {
+		// Start with writing on a new line.
+//		System.out.println("Writing lines=");
+		for (int i = 0; i < lines.size(); i++) {
+			System.out.println("print:" + lines.get(i));
+		}
+	}
+	
 	/**
 	 * Absorbs the lines from the backlog that is modified by execution of the main sorting script.
 	 * @param hardCoded
@@ -111,7 +200,7 @@ class ExternalTests {
 		return ReadFiles.readFiles(outputBacklogFilePath+outputBacklogFilename);
 	}
 	
-	/*
+	/**
 	 * Copy the tw uuid from the testDataOriginals backlog.data file first line to
 	 * all the backlogX.data files.
 	 * 
@@ -174,11 +263,20 @@ class ExternalTests {
 
 	public void copyModifiedBacklogToOutput(HardCoded hardCoded) {
 		String sourcePath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
-		System.out.println("SOURCEPATH=" + sourcePath);
 		String backlogFileName = hardCoded.getBacklogFileName();
 		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/"
 				+ hardCoded.getTestDataOutputFolderName() + "/";
 		String destinationFileName = hardCoded.getBacklogFileName();
+		MoveTestFiles.copyResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
+	}
+	
+	//TODO: Remove/refactor duplicate codes.
+	public void copyModifiedPendingToOutput(HardCoded hardCoded) {
+		String sourcePath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
+		String backlogFileName = hardCoded.getPendingFileName();
+		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/"
+				+ hardCoded.getTestDataOutputFolderName() + "/";
+		String destinationFileName = hardCoded.getPendingFileName();
 		MoveTestFiles.copyResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
 	}
 
@@ -200,70 +298,5 @@ class ExternalTests {
 		String destinationFileName = hardCoded.getPendingFileName();
 
 		MoveTestFiles.copyResource(hardCoded, sourcePath, sourceFileName, destinationPath, destinationFileName, false);
-	}
-
-	/**
-	 * ID:1 Test A: that has a single task in the tasklist with that same task in
-	 * backlog. Expect A: Expect the task to NOT be placed in the backlog since the
-	 * first task is always stored. Test B: Repeat with all non-recurrent Expect B:
-	 * Test C: Repeat with all recurrent parent Expect C: Test D: Repeat with all
-	 * recurrent child Expect D:
-	 */
-
-	/**
-	 * ID:2 Test A: that has two tasks in the tasklist without any backlog Expect A:
-	 * Expect both task to be placed in the backlog since the first task is always
-	 * stored. Test B: Repeat with all non-recurrent Expect B: Test C: Repeat with
-	 * all recurrent parent Expect C: Test D: Repeat with all recurrent child Expect
-	 * D:
-	 */
-
-	/**
-	 * ID:3 Test A: that has two tasks in the tasklist both in backlog already, but
-	 * with sole modification: they don't have customsort value (and they have a
-	 * different modified value than the new backlog tasks will have). Expect A:
-	 * Expect none of the two tasks will be added, since it is just the modification
-	 * of the customsort value (backlog remains same) Test B: Repeat with all
-	 * non-recurrent Expect B: Test C: Repeat with all recurrent parent Expect C:
-	 * Test D: Repeat with all recurrent child Expect D:
-	 */
-
-	/**
-	 * ID:4 Test A: that has two tasks in the tasklist both in backlog already, but
-	 * with some extra modification in description: value (and they have a different
-	 * modified value than the new backlog tasks will have). Expect A: Expect none
-	 * of the two tasks will be added, since it is just the modification of the
-	 * customsort value (backlog remains same) Test B: Repeat with all non-recurrent
-	 * Expect B: Test C: Repeat with all recurrent parent Expect C: Test D: Repeat
-	 * with all recurrent child Expect D:
-	 */
-
-	/**
-	 * create a file in c.
-	 * 
-	 * @param content
-	 */
-	public static void createFile2(String linuxPath, String fileName) {
-		{
-			try {
-				File file = new File(linuxPath + fileName);
-
-				if (file.createNewFile()) {
-					System.out.println("File is created! in Linuxpath" + linuxPath);
-				} else {
-					System.out.println("File already exists.");
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public static void printLines(ArrayList<String> lines) {
-		// Start with writing on a new line.
-//		System.out.println("Writing lines=");
-		for (int i = 0; i < lines.size(); i++) {
-			System.out.println("print:" + lines.get(i));
-		}
 	}
 }
