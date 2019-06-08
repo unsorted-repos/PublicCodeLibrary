@@ -216,7 +216,7 @@ public class MoveTestFiles {
 		RunLinuxCommandsFromWin.runLinuxCommandFromWindows(hardCoded,copyCommand);
 		System.out.println("RAN:"+copyCommand[0]);
 	}
-	public static void importResource(HardCoded hardCoded,String sourcePath,String sourceFileName, String destinationPath, String destinationFileName, boolean runnable){
+	public static void copyResource(HardCoded hardCoded,String sourcePath,String sourceFileName, String destinationPath, String destinationFileName, boolean runnable){
 		char quotation = (char) 34; // quotation mark "
 		//TODO: add nullcheck
 		

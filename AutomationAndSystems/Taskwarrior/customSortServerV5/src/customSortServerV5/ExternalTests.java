@@ -82,7 +82,6 @@ class ExternalTests {
 		System.out.println("Running the main!");
 		ArrayList<String> output = RunPowershell.runPowershell(RunPowershell.powershellCommand(hardCoded), true);
 		printLines(output);
-
 		
 		// create testOutput folder
 		CreateFolders.createFolderWithEclipse(hardCoded.getWindowsPath()+"src/" + hardCoded.getTestDataFolder() + "/"
@@ -94,8 +93,10 @@ class ExternalTests {
 		// read 2nd line of backlog
 		//TODO: Correct pending0.data test file to correct format as written by taskwarrior.
 		
-		
 		// restore original backlog.data and pending.data files.
+		restoreOriginalBacklog(hardCoded);
+		
+		// test the imported backlog with the expected backlog.
 		assertTrue(false);
 	}
 
@@ -161,10 +162,20 @@ class ExternalTests {
 	public void copyModifiedBacklogToOutput(HardCoded hardCoded) {
 		String sourcePath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
 		System.out.println("SOURCEPATH="+sourcePath);
-		String backlogFileName = "backlog.data";
+		String backlogFileName = hardCoded.getBacklogFileName();
 		String destinationPath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/" + hardCoded.getTestDataOutputFolderName()+"/";
 		String destinationFileName = hardCoded.getBacklogFileName();
-		MoveTestFiles.importResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
+		MoveTestFiles.copyResource(hardCoded, sourcePath, backlogFileName, destinationPath, destinationFileName, false);
+	}
+	
+	
+	public void restoreOriginalBacklog(HardCoded hardCoded) {
+		String sourcePath = hardCoded.getLinuxPath() + "src/" + hardCoded.getTestDataFolder() + "/" + hardCoded.getTestOriginalDataFolderName()+"/";
+		String sourceFileName = hardCoded.getBacklogFileName();
+		String destinationPath = hardCoded.slashDirToRight(hardCoded.getUbuntuFilePath());
+		String destinationFileName = hardCoded.getBacklogFileName();
+		
+		MoveTestFiles.copyResource(hardCoded, sourcePath, sourceFileName, destinationPath, destinationFileName, false);
 	}
 	
 	/**
