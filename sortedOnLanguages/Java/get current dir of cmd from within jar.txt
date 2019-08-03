@@ -1,0 +1,5 @@
+// The working directory is the location in which the jar is called from.
+// E.g. if cmd is in c:/ and the .jar file is located in c:/test and called with: java -jar \test\myjar.jar
+// Then the working directory is c:/ and NOT c:/test
+System.out.println("Working Directory = " + System.getProperty("user.dir"));	
+		

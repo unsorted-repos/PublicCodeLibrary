@@ -1,0 +1,57 @@
+// This class RunMe of file RunMe.java has a main method.
+// In main you can fill the array SummedAveragedSteps, which is what will be printed to a .txt file
+
+
+// For printing to .txt file:
+import java.io.BufferedWriter;           
+import java.io.File;                     
+import java.io.FileWriter;               
+import java.io.IOException;              
+
+
+public class RunMe {
+	// Store steps for nr of runs, nr of trials, nr of configurations
+	private static int[][][] AveragedSteps= new int[10][11][MaxConfigurationNr];   
+	private static int[][] SummedAveragedSteps= new int[11][MaxConfigurationNr];   
+
+	public static void main(String[] args) {
+		// Todo create the data you want to print, here.
+		// Todo Store that data into a private static array. (private means only this class RunMe can read it)
+		// static I forgot. 
+
+		// Here you call the method that averages the SummedAveragedSteps and then calls the printer.
+		SendAvgToPrinter();    
+	}
+	public static void writeFile(int TrialNr, int AvgNrOfSteps, int ConfigurationNr) throws IOException{
+		if(firstFlush) {
+			FileWriter emptyWriter  = new FileWriter("./" + "\\src\\somefolder\\Output\\" + "NameOfTxtFile" + ConfigurationNr+ ".txt",false); // that last false indicates it should not add but overwrite
+			BufferedWriter emptyBufferedWriter = new BufferedWriter(emptyWriter);
+			emptyBufferedWriter.write("");
+			emptyBufferedWriter.write("This is the header" + '\n'); // write header
+			emptyBufferedWriter.flush();
+			firstFlush = false;
+		}
+		FileWriter fileWriter  = new FileWriter("./" + "\\src\\tudelft\\rl\\mysolution\\Output\\" + "Error" + ConfigurationNr+ ".txt",true);
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		String string = new String(TrialNr+"," + AvgNrOfSteps);
+		bufferedWriter.write(string);
+		bufferedWriter.newLine();
+		bufferedWriter.flush();
+		bufferedWriter.close();
+	}
+	public static void SendAvgToPrinter(){
+		//TODO write test to determine how average-ing of integer steps goes.
+		for (int ConfigurationNr = 0; ConfigurationNr < MaxConfigurationNr; ConfigurationNr++) {
+			// Reset firstFlush every time a file is printed. to overwrite in stead of add text.
+			firstFlush = true;
+			for (int TrialNr = 0; TrialNr <= MaxTrialNr; TrialNr++) {
+				try {
+					writeFile(TrialNr, SummedAveragedSteps[TrialNr][ConfigurationNr] / (MaxRunNr + 1), ConfigurationNr);
+					System.out.println(SummedAveragedSteps[TrialNr][ConfigurationNr] / (MaxRunNr + 1) + " was written to file with configurationNr" + ConfigurationNr);
+				} catch (IOException e) {
+					System.out.println("Writing to file went wrong");
+				}
+			}
+		}
+	}
+}
