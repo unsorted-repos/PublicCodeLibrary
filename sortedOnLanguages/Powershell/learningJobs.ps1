@@ -58,3 +58,56 @@ Get-Job
             #Get-Job –Name DifferentJob | Remove-Job -Force
 Write-Host "`n Show that the job `"DifferentJob`" does not exist anymore:"
 Get-Job
+
+# 5. Bonus: learn how to execute method from job. 
+# Note: To execute a method in a job, the class and object containing the method must be inside the scriptblock of the job.
+# Or you could pass the object to the scriptblock but I havent found out how that can be done yet.
+
+    # 5.1 Start job and execute a method of the object
+    Start-Job -Name ListStuffOnTable -ScriptBlock {
+        # 5.1.1 first write the class
+        class Table{
+            # Properties
+            [int] $numberOfLegs = 16
+
+            # constructor
+            Table ()
+            {
+            }
+
+            # method that lists the content of the C drive, as though they are placed on the table
+            [String] listAllObjectsOnTable(){
+                [String] $objectsOnTable = "peanut butter, jelly, watch"
+                return $objectsOnTable
+            }
+
+            # Get the information of a property of the table
+            [int] getNumberOfLegs()
+            {
+            return $this.numberOfLegs
+            }
+        }
+
+        # 5.1.2 Then create the object from the class
+        [Table] $tableOne = [Table]::new()
+
+        # 5.1.3 Execute the method of the object
+        $tableOne.listAllObjectsOnTable()
+    }
+
+    Write-Host "Created job"
+
+    # Give the job 3 seconds to create a list of entries.
+    Start-Sleep -s 3
+
+    # 5.3 Stop the job to get the data out.
+    Get-Job -Name ListStuffOnTable | Stop-Job
+
+    # 5.4 Verify it exists and functions correctly:
+    Write-Host "`n Show the first 2 entries of the items on the table:"
+    #Get-Job –Name ListStuffOnTable | Receive-Job # does not work due to error on null valued expression
+    Get-Job –Name ListStuffOnTable | Receive-Job -OutVariable theMethodOutput
+    Write-Host ("Temp: "+$theMethodOutput)
+
+    # 5.5 Delete the job for correct bookkeeping:
+    Get-Job -Name ListStuffOnTable | Remove-Job
