@@ -98,7 +98,7 @@ Get-Job
     Write-Host "Created job"
 
     # Give the job 3 seconds to create a list of entries.
-    Start-Sleep -s 3
+    Start-Sleep -Milliseconds 300
 
     # 5.3 Stop the job to get the data out.
     Get-Job -Name ListStuffOnTable | Stop-Job
