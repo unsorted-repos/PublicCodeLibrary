@@ -1,4 +1,5 @@
-Welcome to this manual on how to lock your phone to reduce temptations. 
+Welcome to this manual on how to lock your phone to reduce distractions and condition your focus.
+
 The reason for developing this system is based on the concept of ego depletion, as much as I like to believe it is better to activly decide where you spend your focus and time on, modern technologies designed to trigger hormonal responses can make that quite difficult, in my experience.
 
 I have decided I do not want x days per year on galery images, whatsapp etc. (Yes that's still 2.5 whole days (of 24 hours) every year that I spend staring at that information.) And to enable/train/condition myself on desired behavior, I disabled the option of unwanted behavior (spending more than 2,5 days per year on that data). Additionally it enforces a schedule, which aids me in achieving structure, that allows me to have more free time.
