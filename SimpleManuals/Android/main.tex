@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={175mm,265mm},
+ left=15mm,
+ top=15mm,
+ }
+\usepackage{amsmath}
+\usepackage{cleveref} %cleverref needs to stand below amsmath package.
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url} %To be able to use url in references
+\usepackage{graphicx}
+\usepackage{tabularx} % in the preamble
+\usepackage{wrapfig}
+\usepackage{comment}
+
+\usepackage[toc,page]{appendix}
+
+\title{Manual: Productivity lock your phone, lower your dependency on google, and replace Operating System and google calendar synchronisation with an opensource alternative.}
+\author{Name: ...}
+\date{18-04-2018}
+\begin{document}
+\maketitle
+\tableofcontents
+%\setcounter{chapter}{-1} 
+ \input{Chapters/introduction.tex}
+ \input{Chapters/ch1.tex}
+ \input{Chapters/ch2.tex}
+ \input{Chapters/ch3.tex}
+ \input{Chapters/ch4.tex}
+ \input{Chapters/ch5.tex}
+ \input{Chapters/ch6.tex}
+ \input{Chapters/ch7.tex}
+ \input{Chapters/ch8.tex}
+ \input{Chapters/ch9.tex}
+ \input{Chapters/ch10.tex}
+ \input{Chapters/ch11.tex}
+\input{Chapters/ch12.tex}
+\input{Chapters/ch13.tex}
+
+\input{Chapters/conclusion.tex} \newpage
+
+\begin{appendices}
+%\chapter{Tasker copy to external sd xml file}
+\end{appendices}
+\appendix
+\input{Chapters/appendixA.tex}
+\input{Chapters/appendixB.tex}
+\input{Chapters/appendixC.tex}
+\input{Chapters/appendixD.tex}
+\input{Chapters/appendixE.tex}
+\input{Chapters/appendixF.tex}
+
+\bibliographystyle{plain} %plain style
+\bibliography{references}
+\addcontentsline{toc}{chapter}{Bibliography}
+\end{document}

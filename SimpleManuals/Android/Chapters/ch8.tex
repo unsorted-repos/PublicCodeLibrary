@@ -1,0 +1,60 @@
+\section{Automatic periodic data backups. E.g.: app tasker}\label{sec:ch8}
+To create the task that automatically exports the specific data listed in \cref{subsec:mob_to_pc}, do the following:
+
+This is like a double safety data backup and data overview for convenience.
+
+\begin{enumerate}
+    \item open tasker
+    \item then in the top bar where it says "profiles.. tasks .." hold "tasks>import" then select the file named "CopyWhatsappV0.prj.xml" import that task.
+    \item You can create that file by opening a notepad and pasting the content of \cref{app:A} in it and then renaming the .txt file to a .xml file.
+    \item that copies all your whatsap data into a folder on the external storage (drive named 17EE-2356) named: WhatsAppExport
+    \item Todo: verify this method works.
+\end{enumerate}
+
+
+\subsection{Export automatic periodic backups with Tasker}
+Using tasker you can export the data manually from internal SD to External SD. To export your whatsapp media, import the tasker project=(task executed every xx [time span] listed in \cref{app:A}. \cref{app:A} contains the the xml code for the .xml file that is a tasker project (copy the text into a notepad and store it as WhatsappExport.xml). If you import this project it will automaticallly export your files every night to external SD. In \cref{app:F} a different tasker project is listed that exports all non-Whatsapp media to your external SD. %TODO: list exact files and folders, and folder types
+%TODO: Make it dynamic, so that it asks the user to select the folder locations once.
+\subsubsection{Download files from phone to laptop through USB}\label{subsec:mob_to_pc}
+\begin{enumerate}
+    \item Open 
+\begin{verbatim}
+../Minimal ADB and Fastboot_techbeasts/py_cmd.exe    
+\end{verbatim}
+
+    \item Connect Phone through USB with PC. (Verify it is connected G, by typing
+\begin{verbatim}
+"adb devices" in py_cmd.exe (should return a code for the device))    
+\end{verbatim}
+    \item Enter the following commands to copy their respective folder:
+\begin{verbatim}
+adb pull "/storage/17EE-2356/WhatsAppExport" "E:\2018-09-22 backups\Android\WhatsAppExport" 
+
+adb pull "/storage/17EE-2356/DCIM" "E:\2018-09-22 backups\Android\DCIM"
+
+adb pull "/storage/17EE-2356/call records" "E:\2018-09-22 backups\Android\call records" 
+
+adb pull "/storage/17EE-2356/Contacts" "E:\2018-09-22 backups\Android\Contacts"
+
+adb pull "/storage/17EE-2356/titanium backups" "E:\2018-09-22 backups\Android\titanium backups"    
+\end{verbatim}
+\end{enumerate}
+\subsection{List of data that is exported: (this data is only put there if you have automated the tasker backup as described in \cref{sec:tasker_auto_backup}}
+\begin{enumerate} 
+    \item WhatsAppExport
+    \item DCIM
+    \item call records
+    \item Contacts
+    \item Titanium backups
+\end{enumerate}
+\subsubsection{Create a batchscript to do the absorbing.}
+Specifications:
+\begin{enumerate}
+    \item get list of folders on phone.
+    \item get single destination folder
+    \item automatically create subdestinations in destination folder based on list of folders on phone, if the destinations do not already exist.
+    \item for all files in folder pull. (duplicate files are just overwritten)
+    \item \textbf{Todo:} for all files: if file is created a week ago, and file is on pc in destination folder, then delete on phone.
+    \item \textbf{Todo:} Structure backup location and make it dynamic.
+\end{enumerate}
+

@@ -1,0 +1,89 @@
+\section{.xml files for Tasker non-WA media}\label{app:F}
+\subsection{Auto backup pictures,screenshots,callrecords,soundrecords}
+Save code below as a .xml file and then longpress "tasks" in top bar>import and select this file. (or just install the app (from the titanium backup)). %TODO: Separate this into separate appendix (F).
+\\
+\\
+
+\begin{verbatim}
+<TaskerData sr="" dvi="1" tv="5.2.bf1">
+    <Task sr="task2">
+        <cdate>1543107233181</cdate>
+        <edate>1543764084234</edate>
+        <id>2</id>
+        <nme>CopyDCIM</nme>
+        <pri>100</pri>
+        <Action sr="act0" ve="7">
+            <code>405</code>
+            <Str sr="arg0" ve="3">DCIM/Camera/</Str>
+            <Str sr="arg1" ve="3">/storage/17EE-2356/movedToESD/DCIM/</Str>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act1" ve="7">
+            <code>408</code>
+            <Str sr="arg0" ve="3">DCIM/Camera</Str>
+            <Int sr="arg1" val="1"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act10" ve="7">
+            <code>408</code>
+            <Str sr="arg0" ve="3">Music/SoundRecords</Str>
+            <Int sr="arg1" val="1"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act11" ve="7">
+            <code>409</code>
+            <Str sr="arg0" ve="3">Music/SoundRecords</Str>
+            <Int sr="arg1" val="0"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act2" ve="7">
+            <code>409</code>
+            <Str sr="arg0" ve="3">DCIM/Camera</Str>
+            <Int sr="arg1" val="0"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act3" ve="7">
+            <code>405</code>
+            <Str sr="arg0" ve="3">Pictures/Screenshots/</Str>
+            <Str sr="arg1" ve="3">/storage/17EE-2356/movedToESD/DCIM/</Str>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act4" ve="7">
+            <code>408</code>
+            <Str sr="arg0" ve="3">Pictures/Screenshots</Str>
+            <Int sr="arg1" val="1"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act5" ve="7">
+            <code>409</code>
+            <Str sr="arg0" ve="3">Pictures/Screenshots</Str>
+            <Int sr="arg1" val="0"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act6" ve="7">
+            <code>405</code>
+            <Str sr="arg0" ve="3">CallRecorder/</Str>
+            <Str sr="arg1" ve="3">/storage/17EE-2356/movedToESD/sounds/</Str>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act7" ve="7">
+            <code>408</code>
+            <Str sr="arg0" ve="3">CallRecorder</Str>
+            <Int sr="arg1" val="1"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act8" ve="7">
+            <code>409</code>
+            <Str sr="arg0" ve="3">CallRecorder</Str>
+            <Int sr="arg1" val="0"/>
+            <Int sr="arg2" val="0"/>
+        </Action>
+        <Action sr="act9" ve="7">
+            <code>405</code>
+            <Str sr="arg0" ve="3">Music/SoundRecords/</Str>
+            <Str sr="arg1" ve="3">/storage/17EE-2356/movedToESD/sounds/</Str>
+            <Int sr="arg2" val="0"/>
+        </Action>
+    </Task>
+</TaskerData>
+\end{verbatim}
