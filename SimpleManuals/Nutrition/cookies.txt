@@ -1,0 +1,23 @@
+Ingredient	Amount[gr]
+sugar					150
+tahini					170.496
+butter					56.5
+blackstrap molasses		325
+water					59.15
+vanilla					2.1
+flour					125
+spelt flour				57.5
+baking soda				2.4
+salt					0
+chocolate 				87.5
+nuts					38.295
+
+Notes:
+
+0. To empty jar of blackstrap molasses with bit of warm water in jar.
+
+1. Mix at end(to stir easy and maintain chunkyness):
+	1.a butter
+	1.b tahini
+	1.c nuts
+	1.d chocolate
