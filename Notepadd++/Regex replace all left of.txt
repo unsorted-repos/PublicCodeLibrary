@@ -1,0 +1,14 @@
+To find and replace everything in a line that is located left of of a substring:
+0. Open the file in notepadd++
+1. Press ctrl+H to replace
+2. Example line:
+task add due:2019-09-17 priority:M proj:uni.astro exam date=2001-01-08 exercise 4-1 weight=25 topic=Inertial reference frame lect.topic=reference frames. orbital elements. coordinate systems
+3. Example substring:lect.topic=
+4. In the replace window, in "Search mode" click: "Regular Expressions" 
+5. In the search bar type:.*lect\.topic=
+5.a Meaning: I don't know what the dot means, normally it means: "Any single character"
+5.b Meaning: The star is a wildcard for: "Any (multiple) characters", but it requires the dot infront of it to mean: "any characters left of"
+5.c Meaning: The \ in lect\.topic is there to "Escape" the dot character. Escape means, do not interpret the special meaning that a regular expression gave to the dot symbol. (The dot symbol is actually a command for the regular expression search machine.)
+6. Then in the "Replace with:" bar type nothing if you just want to delete it, or something you want to replace that search with. 
+6.a (Tip, open tab marks and click mark all to see what your regular expression search term found before you do a replace.)
+7. click replace all.
