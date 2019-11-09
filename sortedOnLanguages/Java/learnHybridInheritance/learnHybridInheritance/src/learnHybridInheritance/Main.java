@@ -1,6 +1,6 @@
 package learnHybridInheritance;
 
-public class Msin {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
