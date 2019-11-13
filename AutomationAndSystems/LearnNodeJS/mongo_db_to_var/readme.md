@@ -8,4 +8,4 @@ npm install mongodb
 https://stackoverflow.com/questions/17362401/how-to-set-mongo-field-from-variable
 
 2. Create a custom database with multiple cars with name and price:
-node create_testdb1.js
+node db_to_js_var.js
