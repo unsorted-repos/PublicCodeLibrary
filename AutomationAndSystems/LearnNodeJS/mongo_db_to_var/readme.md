@@ -9,3 +9,10 @@ https://stackoverflow.com/questions/17362401/how-to-set-mongo-field-from-variabl
 
 2. Create a custom database with multiple cars with name and price:
 node db_to_js_var.js
+
+3. source
+https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
+4. Used to find, add entries(documents) from a table(collections) in a database(db)
+node db_to_js_var.js
+
+5. 
