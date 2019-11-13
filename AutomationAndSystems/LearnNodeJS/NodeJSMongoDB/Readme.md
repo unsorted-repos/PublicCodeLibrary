@@ -32,6 +32,7 @@ https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
 node demo_mongodb_insert_multiple.js
 
 7. Source:
-
+https://www.w3schools.com/nodejs/nodejs_mongodb_insert.asp
 7. You can also explicitly specify the ids as long as they are unique:
-demo_mongodb_insert_id.js
+node demo_mongodb_insert_id.js
+
