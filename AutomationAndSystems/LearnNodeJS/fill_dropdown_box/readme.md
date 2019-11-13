@@ -12,3 +12,9 @@ var month = new Array("January","February","March","April","May","June","July","
 "September","October","November","December");
 ```
 through a mongoDB query.
+
+
+5. Source:
+http://zetcode.com/javascript/mongodb/
+6. create a database with cars, which have a name and a price:
+
