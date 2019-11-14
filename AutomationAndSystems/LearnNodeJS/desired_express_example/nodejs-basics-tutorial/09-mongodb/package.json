@@ -16,7 +16,7 @@
     "hbs": "^4.0.6",
     "logger": "0.0.1",
     "mongodb": "^2.2.36",
-    "morgan": "^1.6.1",
+    "morgan": "^1.9.1",
     "serve-favicon": "^2.3.2"
   }
 }
