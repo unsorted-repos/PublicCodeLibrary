@@ -1,0 +1,92 @@
+<html>
+<head>
+<title></title>
+<META NAME="DESCRIPTION" CONTENT="">
+<META NAME="KEYWORDS" CONTENT="">
+
+
+<script language="javascript">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var dt=new Date();
+var dt_month=dt.getMonth() +1;
+//alert(dt_month);
+function addOption(selectbox,text,value )
+{
+	var optn = document.createElement("OPTION");
+	optn.text = text;
+	optn.value = value;
+	selectbox.options.add(optn);
+}
+
+function addOption_list(){
+
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var carNames;
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("testdb");
+  var myobj = [
+	{ name: 'Audi', price: '52642'},
+    { name: 'Mercedes', price: '57127'},
+    { name: 'Skoda', price: '9000'},
+    { name: 'Volvo', price: '29000'},
+    { name: 'Bentley', price: '350000'},
+  ];
+  
+  dbo.collection("cars").insertMany(myobj, function(err, res) {
+	// deal with any errors and close.
+    if (err) throw err;
+    console.log("1 document inserted");
+    //db.close();
+  });
+	
+	// function: find all cars("documents") in cars collection and ONLY LIST THEIR NAMES!
+	dbo.collection("cars").find({}, { projection: { _id: 0, name: 1} }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+	//var carNames = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+	//var carNames = new Array(result);
+	 var month = new Array(result);
+	
+});
+
+console.log(month);
+//var month = new Array("January","February","March","April","May","June","July","August",
+//"September","October","November","December");
+for (var i=0; i < month.length;++i){
+addOption(document.drop_list.Month_list, month[i], month[i]);
+if(i== dt_month){document.drop_list.Month_list.options[i].selected=true;}
+}
+}
+</script>
+</head>
+
+<body onLoad="addOption_list()";>
+You can see the view-> Source of this page. 
+<br><br>
+<FORM name="drop_list" action="yourpage.php" method="POST" >
+		
+<SELECT  NAME="Month_list">
+<Option value="" >Month list</option>
+</SELECT>
+</form>
+
+
+</body>
+</html>

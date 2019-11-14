@@ -7,6 +7,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
+var carNames;
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -36,12 +37,23 @@ MongoClient.connect(url, function(err, db) {
 		// print result
 		console.log(result);
 		console.log("As an array it is:==================");
-		console.log(result.toArray);
-		
+		console.log(result.name);
 		
 		// close the database, even though no difference is registered
 		db.close();
 	});
+	
+	
+	// function: find all cars("documents") in cars collection and ONLY LIST THEIR NAMES!
+	dbo.collection("cars").find({}, { projection: { _id: 0, name: 1} }).toArray(function(err, result) {
+    if (err) throw err;
+    console.log(result);
+	//var carNames = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+	//var carNames = new Array(result);
+	 carNames = new Array(result);
+	 return carNames;
+    db.close();
+  });
 	
 	
 	// delete all entries:
@@ -56,6 +68,5 @@ MongoClient.connect(url, function(err, db) {
 		db.close();
 	});
 	
-	
 });
-
+console.log(carNames)
