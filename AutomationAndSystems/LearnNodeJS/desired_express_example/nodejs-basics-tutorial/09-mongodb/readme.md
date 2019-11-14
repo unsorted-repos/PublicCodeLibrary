@@ -18,3 +18,11 @@ npm install hbs
 npm install mongodb
 
 npm install express-handlebars
+npm instlal debug
+
+Then:
+node app.js
+Then to actually start the service:
+npm start
+Then go to:
+http://localhost:8000/
