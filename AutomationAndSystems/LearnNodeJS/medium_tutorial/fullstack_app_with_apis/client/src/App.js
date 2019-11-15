@@ -13,7 +13,7 @@ class App extends Component {
     idToUpdate: null,
     objectToUpdate: null,
   };
-
+            
   // when component mounts, first thing it does is fetch all existing data in our db
   // then we incorporate a polling logic so that we can easily see if our db has
   // changed and implement those changes into our UI
@@ -158,7 +158,103 @@ class App extends Component {
             UPDATE
           </button>
         </div>
-      </div>
+		
+        // include dropdown: 1
+		
+        <select>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+
+        // include dropdown: 2 Fails:
+	
+        // include dropdown: 3 Fails:
+        // Source: https://stackoverflow.com/questions/26218243/dynamic-dropdown-in-node-js
+	<select id="skill_category">
+            <option value="communication">Communication</option>
+            <option value="teamwork">Team Work</option>
+            <option value="technical">Technical</option>
+	</select> 
+
+	<select class="skill" id="communciation">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+	</select> 
+	<select  class="skill" id="teamwork">
+            <option value="a">One</option>
+            <option value="b">Two</option>
+            <option value="c">Three</option>
+	</select> 
+	<select  class="skill" id="technical">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+	</select> 
+        
+        // include dropdown 4:
+        // Source: https://stackoverflow.com/questions/29623225/javascript-dependent-drop-down-list
+        // Source: https://jsfiddle.net/v917ycp6/5/
+        <form id="formname" name="formname" method="post" action="submitform.asp" >
+            <table width="50%" border="0" cellspacing="0" cellpadding="5">
+                <tr>
+                    <td width="41%" align="right" valign="middle">Category1 :</td>
+                    <td width="59%" align="left" valign="middle">
+                        <select name="category1" id="category1">
+                            <option value="">Select Category1</option>
+                            <option value="home_ware">Home Ware</option>
+                            <option value="education">Education</option>
+                            <option value="books">Books</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="middle">Category2 :</td>
+                    <td align="left" valign="middle">
+                        <select disabled="disabled" id="category2" name="category2">
+                            <option value>Select Category2</option>
+
+                            <option rel="home_ware" value="air-conditioners_coolers">Air-Conditioners/Coolers</option>
+                            <option rel="home_ware" value="audio-video">Audio/Video</option>
+                            <option rel="home_ware" value="beddings">Beddings</option>
+                            <option rel="home_ware" value="camera">Camera</option>
+                            <option rel="home_ware" value="cell-phones">Cell Phones</option>
+
+                            <option rel="Education" value="Colleges">Colleges</option>
+                            <option rel="Education" value="Institutes">Institutes</option>
+                            <option rel="Education" value="Schools">Schools</option>
+                            <option rel="Education" value="Tuitions">Tuitions</option>
+                            <option rel="Education" value="Universities">Universities</option>
+
+                            <option rel="Books" value="College Books">College Books</option>
+                            <option rel="Books" value="Engineering">Engineering</option>
+                            <option rel="Books" value="Magazines">Magazines</option>
+                            <option rel="Books" value="Medicine">Medicine</option>
+                            <option rel="Books" value="References">References</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+	</form>
+        
+        
+        // include dropdown 5:
+         <select onChange="jsFunction()" id="selectOpt1">
+          <option value="1" selected="selected">1</option>
+          <option value="2">2</option>
+        </select>
+        <select id="selectOpt2">
+          <option value="1">FIRST</option>
+        </select>
+        <select id="selectOpt3">
+          <option value="1">FIRST</option>
+        </select>
+        
+            
+        
+    </div>
     );
   }
 }

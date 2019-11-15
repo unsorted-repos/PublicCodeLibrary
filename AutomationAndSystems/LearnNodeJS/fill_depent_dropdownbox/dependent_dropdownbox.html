@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <select onChange="jsFunction()" id="selectOpt1">
+          <option value="1" selected="selected">1</option>
+          <option value="2">2</option>
+        </select>
+        <select id="selectOpt2">
+          <option value="1">FIRST</option>
+        </select>
+        <select id="selectOpt3">
+          <option value="1">FIRST</option>
+        </select>
+        <script>
+            function jsFunction(){
+              var list1 = document.getElementById("selectOpt1");
+              var myselect = list1.options[list1.selectedIndex].value;
+              var list2 = document.getElementById('selectOpt2');
+              var list3 = document.getElementById('selectOpt3');
+              for (i = 0; i < list2.options.length; i++) {
+                list2.options[i] = null;
+              }
+              for (i = 0; i < list3.options.length; i++) {
+                list3.options[i] = null;
+              }
+              if(myselect==="1"){
+                var opt = document.createElement('option');
+                opt.value = "1";
+                opt.innerHTML = "FIRST";
+                list2.appendChild(opt);
+                opt = document.createElement('option');
+                opt.value = "1";
+                opt.innerHTML = "FIRST2";
+                list3.appendChild(opt);
+              }
+              else{
+                var opt = document.createElement('option');
+                opt.value = "2";
+                opt.innerHTML = "SECOND";
+                list2.appendChild(opt);
+                opt = document.createElement('option');
+                opt.value = "1";
+                opt.innerHTML = "SECOND2";
+                list3.appendChild(opt);
+              }
+            }
+        </script>
+    </body>
+</html>
