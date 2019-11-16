@@ -10,11 +10,6 @@ const app = express();
 app.use(cors());
 const router = express.Router();
 
-// Get specific datacalls:
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
-var carNames;
-
 // this is our MongoDB database
 // const dbRoute =
 //  'mongodb://<your-db-username-here>:<your-db-password-here>@ds249583.mlab.com:49583/fullstack_app';
@@ -88,90 +83,8 @@ router.post('/putData', (req, res) => {
     });
 });
 
-// this is our get method
-// this method fetches all available data in our database
-router.get('/getCarData', (req, res) => {
-    Data.find((err, data) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true, data: data });
-    });
-});
-
-
 // append /api for our http requests
 app.use('/api', router);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
-
-function Car(model, color) {
-    this.model = model;
-    this.color = color;
-}
-var c1 = new Car('BMW', 'red');
-console.log(c1.model);
-
-
-var c1 = new Car('BMW', 'red');
-alert(c1.model);
-
-function Car(model, color) {
-    this.model = model;
-    this.color = color;
-
-    // testdb = the name of the database
-    // cars = table name
-    // name = brand of the cars
-    // price = price of the cars 
-    // the table contains 2 columns:name,price
-    // the table contains 5 rows
-
-
-    this.url = "mongodb://localhost:27017/";
-    this.carNames;
-    
-    
-}
-
-
-
-var testCar = MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("testdb");
-    var myobj = [
-	{ name: 'Audi', price: '52642'},
-        { name: 'Mercedes', price: '57127'},
-        { name: 'Skoda', price: '9000'},
-        { name: 'Volvo', price: '29000'},
-        { name: 'Bentley', price: '350000'},
-    ];
-    
-    function insertManyCars() {
-        dbo.collection("cars").insertMany(myobj, function(err, res) {
-            if (err) throw err;
-            db.close();
-        });
-    };
-    
-    // function: find all cars("documents") in cars collection and ONLY LIST THEIR NAMES!
-    function findCarNames() {
-        dbo.collection("cars").find({}, { projection: { _id: 0, name: 1} }).toArray(function(err, result) {
-            if (err) throw err;
-            console.log("New results0");
-            car_and_name = result;
-            console.log(car_and_name);
-            return car_and_name;
-            db.close();
-        });
-    };
-    
-    // delete all entries:
-    function deleteAllCars() {
-        dbo.collection("cars").deleteMany({}, function(err, result) {
-            if (err) throw err;
-            db.close();
-        });
-    };
-});
-
-testCar.insertManyCars();

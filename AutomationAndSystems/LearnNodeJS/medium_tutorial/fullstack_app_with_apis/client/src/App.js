@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 class App extends Component {
     
     // initialize our state
@@ -21,7 +22,7 @@ class App extends Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-            let interval = setInterval(this.getDataFromDb, 2000000);
+            let interval = setInterval(this.getDataFromDb, 2000);
             this.setState({ intervalIsSet: interval });
         }
     }
@@ -113,11 +114,11 @@ class App extends Component {
     addOption(){
         var inputElemAdd = document.getElementsByTagName('select');
         var selectBox = document.getElementById("dynamic-select");
-        alert("Current len="+Object.keys(inputElemAdd));
-        alert("ID props="+Object.keys(selectBox)); // returns 3 props
-        alert("ID props 2="+Object.keys(selectBox[2])); // returns 3rd array element (index 2)
+        
+        //alert("ID props="+Object.keys(selectBox)); // returns 3 props
+        //alert("ID props 2="+Object.keys(selectBox[2])); // returns 3rd array element (index 2)
         //alert("ID props 3 error="+Object.keys(selectBox[3])); // returns 3 props
-        alert("label="+ selectBox[2].label); // returns 3rd array element (index 2)
+        //alert("label="+ selectBox[2].label); // returns 3rd array element (index 2)
         
         selectBox[0].label = "Wrote 0";
         selectBox[2].label = "Wrote 2";
@@ -128,13 +129,24 @@ class App extends Component {
         var inputElem = document.getElementsByTagName('select');
         for(var i = 0; i < inputElem.length; i++) {
                inputElem[i].options[inputElem[i].selectedIndex] = null; // remove option
+           }
+    }
+    
+    // when component mounts, first thing it does is fetch all existing data in our db
+    // then we incorporate a polling logic so that we can easily see if our db has
+    // changed and implement those changes into our UI
+    queryCarDB() {
+        this.getDataFromDb();
+        if (!this.state.intervalIsSet) {
+            let interval = setInterval(this.getDataFromDb, 2000);
+            this.setState({ intervalIsSet: interval });
         }
     }
-//    
-//    removeAllOptions(){
-//        var select = document.getElementById("dynamic-select");
-//        select.options.length = 0;
-//    }
+    getCarDataFromDb = () => {
+        fetch('http://localhost:3001/api/getCarData')
+                .then((data) => data.json())
+                .then((res) => this.setState({ data: res.data }));
+    };
     
     // here is our UI
     // it is easy to understand their functions when you
@@ -225,3 +237,5 @@ class App extends Component {
 }
 
 export default App;
+    
+
