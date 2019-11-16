@@ -127,15 +127,12 @@ class App extends Component {
         }
         
         var inputElemTwo = document.getElementsByTagName('select');
-       
+        alert(inputElemTwo.length)
         for(var i = 0; i < inputElemTwo.length; i++) {
 
             inputElemTwo[i].addEventListener('click', function(){
-                // here it removes it for all indices
-                //this.options[select.selectedIndex] = null; // remove option
-                this.options[select.selectedIndex].label= i;
-                //alert("removed")
-                i = inputElemTwo.length+1
+                this.options[select.selectedIndex] = null;
+                alert("removed")
             }, false);
         }
         
