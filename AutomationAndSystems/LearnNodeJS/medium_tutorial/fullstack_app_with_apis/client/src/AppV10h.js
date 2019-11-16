@@ -121,7 +121,6 @@ class App extends Component {
         
         selectBox[0].label = "Wrote 0";
         selectBox[2].label = "Wrote 2";
-        selectBox[3] = new Option('hi, added last label', 'id0',false,false); // add option
     }
     
     removeOption(){
