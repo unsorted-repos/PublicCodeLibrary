@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class App extends Component {
-    super() {
-    this.dt=new Date();
-    this.dt_month =this.dt.getmonth()+1;
-    }
+    
     // initialize our state
     state = {
         data: [],
@@ -18,83 +15,13 @@ class App extends Component {
         objectToUpdate: null,
     };
     
-    // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
-    speak() {
-        console.log(`barks.`);
-    };
-    
-    // Source: 
-    // Include function to make dependent dropdown boxes:
-    jsFunction(){
-        console.log("CHANGING")
-        var list1 = document.getElementById("selectOpt1");
-        var myselect = list1.options[list1.selectedIndex].value;
-        var list2 = document.getElementById('selectOpt2');
-        var list3 = document.getElementById('selectOpt3');
-        var i;
-        for (i = 0; i < list2.options.length; i++) {
-            list2.options[i] = null;
-        }
-        for (i = 0; i < list3.options.length; i++) {
-            list3.options[i] = null;
-        }
-        if(myselect==="1"){
-            var opt = document.createElement('option');
-            opt.value = "1";
-            opt.innerHTML = "FIRST";
-            list2.appendChild(opt);
-            opt = document.createElement('option');
-            opt.value = "1";
-            opt.innerHTML = "FIRST2";
-            list3.appendChild(opt);
-        }
-        else{
-            var opt = document.createElement('option');
-            opt.value = "2";
-            opt.innerHTML = "SECOND";
-            list2.appendChild(opt);
-            opt = document.createElement('option');
-            opt.value = "1";
-            opt.innerHTML = "SECOND2";
-            list3.appendChild(opt);
-        }
-    }
-    
-    // try returning a function instead of a string:
-    returnFunction() {
-        return this.jsFunction();
-    }
-    
-    // Source: https://www.plus2net.com/javascript_tutorial/list-adding.php
-    //this.dt=new Date();
-    //this.dt_month=dt.getMonth() +1;
-    
-   
-    addOption(selectbox,text,value )
-    {
-        var optn = document.createElement("OPTION");
-        optn.text = text;
-        optn.value = value;
-        selectbox.options.add(optn);
-    }
-    
-    addOption_list(){
-        var month = new Array("January","February","March","April","May","June","July","August",
-        "September","October","November","December");
-        for (var i=0; i < month.length;++i){
-            this.addOption(document.drop_list.Month_list, month[i], month[i]);
-            if(i== this.dt_month){document.drop_list.Month_list.options[i].selected=true;}
-        }
-    }
-    
-    
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has
     // changed and implement those changes into our UI
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-            let interval = setInterval(this.getDataFromDb, 10009);
+            let interval = setInterval(this.getDataFromDb, 10000);
             this.setState({ intervalIsSet: interval });
         }
     }
@@ -142,7 +69,7 @@ class App extends Component {
         parseInt(idTodelete);
         let objIdToDelete = null;
         this.state.data.forEach((dat) => {
-            if (dat.id == idTodelete) {
+            if (dat.id === idTodelete) {
                 objIdToDelete = dat._id;
             }
         });
@@ -160,7 +87,7 @@ class App extends Component {
         let objIdToUpdate = null;
         parseInt(idToUpdate);
         this.state.data.forEach((dat) => {
-            if (dat.id == idToUpdate) {
+            if (dat.id === idToUpdate) {
                 objIdToUpdate = dat._id;
             }
         });
@@ -170,11 +97,61 @@ class App extends Component {
             update: { message: updateToApply },
         });
     };
+    
+    // option 9:
+//    getOption(){
+//        var select = document.getElementById("dynamic-select");
+//        console.log(select);
+//        if(document.getElementById("dynamic-select").options.length > 0) {
+//            var option = document.getElementById("dynamic-select").options[document.getElementById("dynamic-select").selectedIndex];
+//            alert("Text: " + option.text + "\nValue: " + option.value);
+//        } else {
+//            window.alert("Select box is empty");
+//        }
+//    }
+    
+//    addOption(){
+//        var select = document.getElementById("dynamic-select");
+//        select.options[select.options.length] = new Option('New Element', '0', false, false);
+//    }
+//    
+    removeOption(){
+        
+        // ensures "hello" = this.value is printed when elem input is clicked
+        var inputElem = document.getElementsByTagName('input');
+        for(var i = 0; i < inputElem.length; i++) {
 
-  // here is our UI
-  // it is easy to understand their functions when you
-  // see them render into our screen
-  render() {
+            inputElem[i].addEventListener('click', function(){
+                alert(this.value);
+            }, false);
+        }
+        
+        var inputElemTwo = document.getElementsByTagName('select');
+        alert(inputElemTwo.length)
+        for(var i = 0; i < inputElemTwo.length; i++) {
+
+            inputElemTwo[i].addEventListener('click', function(){
+                this.options[select.selectedIndex] = null;
+                alert("removed")
+            }, false);
+        }
+        
+        console.log(inputElem)
+        var select = document.getElementById("dynamic-select");
+//        select.options[select.selectedIndex] = null;
+          //select.options[select.selectedIndex] = null;
+          console.log("hi")
+    }
+//    
+//    removeAllOptions(){
+//        var select = document.getElementById("dynamic-select");
+//        select.options.length = 0;
+//    }
+    
+    // here is our UI
+    // it is easy to understand their functions when you
+    // see them render into our screen
+    render() {
     const { data } = this.state;
     return (
       <div>
@@ -188,8 +165,8 @@ class App extends Component {
                   {dat.message}
                 </li>
               ))}
-        </ul> 
-       <div style={{ padding: '10px' }}>
+        </ul>
+        <div style={{ padding: '10px' }}>
           <input
             type="text"
             onChange={(e) => this.setState({ message: e.target.value })}
@@ -231,144 +208,33 @@ class App extends Component {
           >
             UPDATE
           </button>
-        </div>
+          
+
+         // Source: https://memorynotfound.com/dynamically-add-remove-options-select-javascript<br></br>-->
 		
-        <br></br>
-        <br></br>
-        // include dropdown: 1<br></br>
-        <div>	
-            <select>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-        </div>
+        
+        <select id="dynamic-select">
+                <option value="1">one</option>
+                <option value="2">two</option>
+                <option value="3">three</option>
+        </select>
+
+        {/*<button onClick={this.getOption()}>get item</button>
+        <button onClick={this.addOption()}>add item</button>*/}
+        <button onClick={this.removeOption()}>remove item</button>
+        {/*<button onClick={this.removeAllOptions}>remove all</button>*/}
+        
         
         <br></br>
-        <br></br>
-        // include dropdown: 2 Fails:<br></br>
+        {/*//option 10
+        // source: https://stackoverflow.com/questions/27834226/add-event-listener-to-collection-of-html-elements*/}
+        <input class="inputs" type="submit" value="Hello" />
         
-	
-        <br></br>
-        <br></br>
-        // include dropdown: 3 Fails:<br></br>
-        // Source: https://stackoverflow.com/questions/26218243/dynamic-dropdown-in-node-js<br></br>
-        <div>
-            <select id="skill_category">
-                <option value="communication">Communication</option>
-                <option value="teamwork">Team Work</option>
-                <option value="technical">Technical</option>
-            </select> 
-
-            <select class="skill" id="communciation">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> 
-            <select  class="skill" id="teamwork">
-                <option value="a">One</option>
-                <option value="b">Two</option>
-                <option value="c">Three</option>
-            </select> 
-            <select  class="skill" id="technical">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> 
-        </div>
-        
-        <br></br>
-        <br></br>
-        // include dropdown 4:<br></br>
-        // Source: https://stackoverflow.com/questions/29623225/javascript-dependent-drop-down-list<br></br>
-        // Source: https://jsfiddle.net/v917ycp6/5/<br></br>
-        <div>
-            <form id="formname" name="formname" method="post" action="submitform.asp" >
-                <table width="50%" border="0" cellspacing="0" cellpadding="5">
-                    <tr>
-                        <td width="41%" align="right" valign="middle">Category1 :</td>
-                        <td width="59%" align="left" valign="middle">
-                            <select name="category1" id="category1">
-                                <option value="">Select Category1</option>
-                                <option value="home_ware">Home Ware</option>
-                                <option value="education">Education</option>
-                                <option value="books">Books</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" valign="middle">Category2 :</td>
-                        <td align="left" valign="middle">
-                            <select disabled="disabled" id="category2" name="category2">
-                                <option value>Select Category2</option>
-
-                                <option rel="home_ware" value="air-conditioners_coolers">Air-Conditioners/Coolers</option>
-                                <option rel="home_ware" value="audio-video">Audio/Video</option>
-                                <option rel="home_ware" value="beddings">Beddings</option>
-                                <option rel="home_ware" value="camera">Camera</option>
-                                <option rel="home_ware" value="cell-phones">Cell Phones</option>
-
-                                <option rel="Education" value="Colleges">Colleges</option>
-                                <option rel="Education" value="Institutes">Institutes</option>
-                                <option rel="Education" value="Schools">Schools</option>
-                                <option rel="Education" value="Tuitions">Tuitions</option>
-                                <option rel="Education" value="Universities">Universities</option>
-
-                                <option rel="Books" value="College Books">College Books</option>
-                                <option rel="Books" value="Engineering">Engineering</option>
-                                <option rel="Books" value="Magazines">Magazines</option>
-                                <option rel="Books" value="Medicine">Medicine</option>
-                                <option rel="Books" value="References">References</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        
-        <br></br>
-        <br></br>
-        // include dropdown 5:
-        <div>
-            <select onChange="this.returnFunction" id="selectOpt1">
-                <option value="1" selected="selected">1</option>
-                <option value="2">2</option>
-            </select>
-            <select id="selectOpt2">
-                 <option value="1">FIRST</option>
-            </select>
-            <select id="selectOpt3">
-                <option value="1">FIRST</option>
-            </select>
-        </div>
                 
-        <br></br>
-        <br></br>
-        // include dropdown 6:
-        <div>
-            <button onClick={() => this.addOption_list()}>
-            ADD
-          </button>
         </div>
-            
-        // include dropdown 7:
-        <div onClick="this.addOption_list()">
-            You can see the view-> Source of this page. 
-            <br></br>
-            <form name="drop_list" action="yourpage.php" method="POST" >
-                <select NAME="Month_list">
-                    <option value="" >Month list</option>
-                </select>
-            </form>
-        </div>
-    </div>
+      </div>
     );
   }
 }
-
-// Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
-//let d = new App('Mitzie');
-//d.speak();
 
 export default App;
