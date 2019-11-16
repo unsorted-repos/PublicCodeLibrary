@@ -21,7 +21,7 @@ class App extends Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-            let interval = setInterval(this.getDataFromDb, 2000000);
+            let interval = setInterval(this.getDataFromDb, 10000);
             this.setState({ intervalIsSet: interval });
         }
     }
@@ -111,19 +111,22 @@ class App extends Component {
 //    }
     
     addOption(){
-        alert("hi before len=");
-        var inputElem = document.getElementsByTagName('button');
         var inputElemAdd = document.getElementsByTagName('select');
-        alert("hi len="+inputElemAdd.length);
         for(var i = 0; i < inputElemAdd.length; i++) {
-            inputElemAdd[i].options[inputElemAdd[i].selectedIndex] = new Option('hi, added'+i, 'id0',false,false); // add option
+            inputElemAdd[i].addEventListener('click', function(){
+                // here it removes it for all indices
+               this.options[this.selectedIndex] = new Option('hi, added 0', 'id0',false,false); // add option
+            }, false);
         }
     }
     
     removeOption(){
         var inputElem = document.getElementsByTagName('select');
         for(var i = 0; i < inputElem.length; i++) {
-               inputElem[i].options[inputElem[i].selectedIndex] = null; // remove option
+            inputElem[i].addEventListener('click', function(){
+                // here it removes it for all indices
+               this.options[this.selectedIndex] = null; // remove option
+            }, false);
         }
     }
 //    
@@ -202,10 +205,9 @@ class App extends Component {
         </select>
 
         {/*<button onClick={this.getOption()}>get item</button>*/}
-        <button onClick={this.addOption}>add item</button> // remove the brackets to make it happen at onclick
-        {/*<button type="button" onClick={this.addOption}>Go</button>
+        <button onClick={this.addOption()}>add item</button>
         <button onClick={this.removeOption()}>remove item</button>
-        <button onClick={this.removeAllOptions}>remove all</button>*/}
+        {/*<button onClick={this.removeAllOptions}>remove all</button>*/}
         
         
         <br></br>

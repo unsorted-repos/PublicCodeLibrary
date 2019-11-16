@@ -21,7 +21,7 @@ class App extends Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-            let interval = setInterval(this.getDataFromDb, 2000000);
+            let interval = setInterval(this.getDataFromDb, 10000);
             this.setState({ intervalIsSet: interval });
         }
     }
@@ -110,21 +110,40 @@ class App extends Component {
 //        }
 //    }
     
-    addOption(){
-        alert("hi before len=");
-        var inputElem = document.getElementsByTagName('button');
-        var inputElemAdd = document.getElementsByTagName('select');
-        alert("hi len="+inputElemAdd.length);
-        for(var i = 0; i < inputElemAdd.length; i++) {
-            inputElemAdd[i].options[inputElemAdd[i].selectedIndex] = new Option('hi, added'+i, 'id0',false,false); // add option
-        }
-    }
-    
+//    addOption(){
+//        var select = document.getElementById("dynamic-select");
+//        select.options[select.options.length] = new Option('New Element', '0', false, false);
+//    }
+//    
     removeOption(){
-        var inputElem = document.getElementsByTagName('select');
+        
+        // ensures "hello" = this.value is printed when elem input is clicked
+        var inputElem = document.getElementsByTagName('input');
         for(var i = 0; i < inputElem.length; i++) {
-               inputElem[i].options[inputElem[i].selectedIndex] = null; // remove option
+
+            inputElem[i].addEventListener('click', function(){
+                alert(this.value);
+            }, false);
         }
+        
+        var inputElemTwo = document.getElementsByTagName('select');
+       
+        for(var i = 0; i < inputElemTwo.length; i++) {
+
+            inputElemTwo[i].addEventListener('click', function(){
+                // here it removes it for all indices
+                //this.options[select.selectedIndex] = null; // remove option
+                this.options[select.selectedIndex].label= i;
+                //alert("removed")
+                i = inputElemTwo.length+1
+            }, false);
+        }
+        
+        console.log(inputElem)
+        var select = document.getElementById("dynamic-select");
+//        select.options[select.selectedIndex] = null;
+          //select.options[select.selectedIndex] = null;
+          console.log("hi")
     }
 //    
 //    removeAllOptions(){
@@ -195,17 +214,18 @@ class App extends Component {
           
 
          // Source: https://memorynotfound.com/dynamically-add-remove-options-select-javascript<br></br>-->
+		
+        
         <select id="dynamic-select">
                 <option value="1">one</option>
                 <option value="2">two</option>
                 <option value="3">three</option>
         </select>
 
-        {/*<button onClick={this.getOption()}>get item</button>*/}
-        <button onClick={this.addOption}>add item</button> // remove the brackets to make it happen at onclick
-        {/*<button type="button" onClick={this.addOption}>Go</button>
+        {/*<button onClick={this.getOption()}>get item</button>
+        <button onClick={this.addOption()}>add item</button>*/}
         <button onClick={this.removeOption()}>remove item</button>
-        <button onClick={this.removeAllOptions}>remove all</button>*/}
+        {/*<button onClick={this.removeAllOptions}>remove all</button>*/}
         
         
         <br></br>
