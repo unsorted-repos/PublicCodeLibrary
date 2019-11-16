@@ -111,20 +111,13 @@ class App extends Component {
 //    }
     
     addOption(){
+        alert("hi before len=");
+        var inputElem = document.getElementsByTagName('button');
         var inputElemAdd = document.getElementsByTagName('select');
-        var selectBox = document.getElementById("dynamic-select");
-        alert("Current len="+Object.keys(inputElemAdd));
-        alert("ID props="+Object.keys(selectBox)); // returns 3 props
-        alert("ID props 2="+Object.keys(selectBox[2])); // returns 3rd array element (index 2)
-        //alert("ID props 3 error="+Object.keys(selectBox[3])); // returns 3 props
-        alert("label="+ selectBox[2].label); // returns 3rd array element (index 2)
-        var last = inputElemAdd.length;
-        
-        //inputElemAdd[last].options[inputElemAdd[last].selectedIndex] = new Option('hi, added'+last, 'id0',false,false); // add option
-        
-//        for(var i = 0; i < inputElemAdd.length; i++) {    
-//            inputElemAdd[i].options[inputElemAdd[i].selectedIndex] = new Option('hi, added'+i, 'id0',false,false); // add option
-//        }
+        alert("hi len="+inputElemAdd.length);
+        for(var i = 0; i < inputElemAdd.length; i++) {
+            inputElemAdd[i].options[inputElemAdd[i].selectedIndex] = new Option('hi, added'+i, 'id0',false,false); // add option
+        }
     }
     
     removeOption(){
