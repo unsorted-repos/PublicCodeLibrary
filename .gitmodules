@@ -1,0 +1,3 @@
+[submodule "AutomationAndSystems/LearnNodeJS/AutomationAndSystems/LearnNodeJS/living-lab-app-repo"]
+	path = AutomationAndSystems/LearnNodeJS/AutomationAndSystems/LearnNodeJS/living-lab-app-repo
+	url = https://github.com/a-t-0/living-lab-app-repo.git
