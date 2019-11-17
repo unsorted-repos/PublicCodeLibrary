@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 const router = express.Router();
 
+// Get specific datacalls:
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var carNames;
+
 // this is our MongoDB database
 // const dbRoute =
 //  'mongodb://<your-db-username-here>:<your-db-password-here>@ds249583.mlab.com:49583/fullstack_app';
@@ -83,39 +88,32 @@ router.post('/putData', (req, res) => {
     });
 });
 
+// this is our get method
+// this method fetches all available data in our database
 router.get('/getCarData', (req, res) => {
     Data.find((err, data) => {
-        if (err) return "hi error from server";
-        return "hi succes from server";
+        if (err) return res.json({ success: false, error: err });
+        return res.json({ success: true, data: data });
     });
 });
 
-//router.get('/getCarData1', (req, res) => {
-//  Database.db.collection('datas').find().toArray().then((result) => {
-//    res.json(result);
-//    console.log(result);
-//  })
-//})
-
-router.get('/getCarData2', (req, res) => {
-    res = async function listCars() { 
-        try{
-            db = await MongoClient.connect(url);
-            var dbo = db.db("testdb");
-            car_and_name_parent = await dbo.collection("cars").find({}, { 
-                projection: { _id: 0, name: 1} }).toArray();
-            return car_and_name_parent
-        }catch(err){
-            throw err;
-        }
-    };
-})
-        
-  
- 
+router.get('/getCarData1', (req, res) => {
+    Data.find((err, data) => {
+        if (err) return res.json({ success: false, error: err });
+        console.log("hi");
+        return "hi");
+    });
+});
 
 // append /api for our http requests
 app.use('/api', router);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+
+function Car(model, color) {
+    this.model = model;
+    this.color = color;
+}
+var c1 = new Car('BMW', 'red');
+console.log(c1.model);

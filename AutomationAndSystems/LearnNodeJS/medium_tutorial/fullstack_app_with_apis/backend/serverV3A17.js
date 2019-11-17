@@ -90,29 +90,11 @@ router.get('/getCarData', (req, res) => {
     });
 });
 
-//router.get('/getCarData1', (req, res) => {
-//  Database.db.collection('datas').find().toArray().then((result) => {
-//    res.json(result);
-//    console.log(result);
-//  })
-//})
-
-router.get('/getCarData2', (req, res) => {
-    res = async function listCars() { 
-        try{
-            db = await MongoClient.connect(url);
-            var dbo = db.db("testdb");
-            car_and_name_parent = await dbo.collection("cars").find({}, { 
-                projection: { _id: 0, name: 1} }).toArray();
-            return car_and_name_parent
-        }catch(err){
-            throw err;
-        }
-    };
+router.get('/getCarData1', (req, res) => {
+  Database.db.collection('datas').find().toArray().then((result) => {
+    res.json(result);
+  })
 })
-        
-  
- 
 
 // append /api for our http requests
 app.use('/api', router);
