@@ -1,0 +1,12 @@
+Source: https://stackoverflow.com/questions/350264/how-can-i-perform-a-reverse-string-search-in-excel-without-using-vba
+If in cell B5 you have https//www.some.com/else/then/something/THIS IS THE STRING YOU WANT.git
+and you want to retreive:THIS IS THE STRING YOU WANT (but you don't know what the string is in advance)
+you can do that by copying the text after the occurence of the last "/".
+
+
+TO get:THIS IS THE STRING YOU WANT.git enter:
+=RIGHT(B5,LEN(B5)-FIND("|",SUBSTITUTE(B5,"/","|",LEN(B5)-LEN(SUBSTITUTE(B5,"/","")))))
+
+To get: THIS IS THE STRING YOU WANT enter:
+=LEFT(RIGHT(B5,LEN(B5)-FIND("|",SUBSTITUTE(B5,"/","|",     LEN(B5)-LEN(SUBSTITUTE(B5,"/",""))))),LEN(RIGHT(B5,LEN(B5)-FIND("|",SUBSTITUTE(B5,"/","|",     LEN(B5)-LEN(SUBSTITUTE(B5,"/",""))))))-4)
+
