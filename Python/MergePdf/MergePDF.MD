@@ -20,3 +20,6 @@ Then to use the script:
 3. (The mergingpdf.py is pre-configured to folder "C:\merge") 
 
 4. The merged document is now located in the folder "C:\merge"
+
+If you get error: ..package not installed, Install and open anaconda, browse to this directory and enter:
+py -3   -m pip install PyPDF2
