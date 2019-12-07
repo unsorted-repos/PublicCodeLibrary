@@ -11,7 +11,6 @@ classdef PlotMultipleLines
             % Create vector with data series length
             for dim = 1:nr_of_dimensions
                 for line = 1:nr_of_lines_per_dim(dim)
-                    disp(length(dataSeries.get(dim-1).get(line-1)))
                     data_series_length(dim,line) =...
                         length(plotData.dataSeries.get(dim-1).get(line-1));
                 end
@@ -27,7 +26,7 @@ function createFigure(plotData)
 
     % create figure object
     f2 = figure;
-    figure(2);clf(2);
+%     figure(2);clf(2);
     hold on
 
     % plot dataseries
@@ -67,12 +66,12 @@ function createFigure(plotData)
     % set the axis labels
     if (plotData.getNrOfDimensions == 2)
         axisLabels = plotData.getAxisLabels();
-        xlabel(axisLabels(1),'Interpreter','latex')
-        ylabel(axisLabels(2),'Interpreter','latex')
+        xlabel(axisLabels(1),'Interpreter','latex');
+        ylabel(axisLabels(2),'Interpreter','latex');
     end
 
     % turn y label into object
-    ylh = get(gca,'ylabel')
+    ylh = get(gca,'ylabel');
     % set the rotation of the y-label to 0 degrees
     set(ylh, 'Rotation',0, 'VerticalAlignment','top', 'HorizontalAlignment','right');
     % if you want to also shift the positionof the y-axis label:
