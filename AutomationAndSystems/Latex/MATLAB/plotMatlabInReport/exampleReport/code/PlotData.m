@@ -14,23 +14,23 @@ classdef PlotData
         axisScales
         currentFolder
         latexDestination
+        setAxisDomain
+        axisDomains
+        setCustomScales
     end
     
     methods
         function obj = PlotData(fileName,relativePath,exportType,... 
             dataSeries,lineColours, nrOfDimensions,axisLabels,legend,...
             legendLocation, plotType,axisScales,currentFolder,...
-            latexDestination)
-            disp("HI")
-            disp(dataSeries)
-            disp("BY")
-            obj.fileName = fileName
+            latexDestination,setAxisDomain,axisDomains,setCustomScales);
+            obj.fileName = fileName;
             obj.relativePath = relativePath;
             obj.exportType  = exportType;
-            obj.nrOfLinesPerDim = zeros(1,nrOfDimensions)
+            obj.nrOfLinesPerDim = zeros(1,nrOfDimensions);
             obj.nrOfDimensions = nrOfDimensions;
             for dim = 0:obj.nrOfDimensions-1 % java
-                obj.nrOfLinesPerDim(dim+1) = dataSeries.get(dim).size() % java
+                obj.nrOfLinesPerDim(dim+1) = dataSeries.get(dim).size(); % java
             end
             obj.dataSeries = dataSeries;
             obj.lineColours = lineColours;
@@ -41,6 +41,9 @@ classdef PlotData
             obj.axisScales = axisScales;
             obj.currentFolder = currentFolder;
             obj.latexDestination =latexDestination;
+            obj.setAxisDomain = setAxisDomain;
+            obj.axisDomains = axisDomains;
+            obj.setCustomScales = setCustomScales;
         end
         
         function fileName = getFileName(obj)
@@ -50,42 +53,64 @@ classdef PlotData
         function relativePath = getRelativePath(obj)
              relativePath = obj.relativePath;
         end
+        
         function exportType = getExportType(obj)
              exportType = obj.exportType;
         end
+        
         function nrOfLinesPerDim = getNrOfLinesPerDim(obj)
              nrOfLinesPerDim = obj.nrOfLinesPerDim;
         end
+        
         function dataSeries = getDataSeries(obj)
              dataSeries = obj.dataSeries;
         end
+        
         function lineColours = getLineColours(obj)
              lineColours = obj.lineColours;
         end
+        
         function nrOfDimensions = getNrOfDimensions(obj)
              nrOfDimensions = obj.nrOfDimensions;
         end
+        
         function axisLabels = getAxisLabels(obj)
              axisLabels = obj.axisLabels;
         end
+        
         function legend = getLegend(obj)
              legend = obj.legend;
         end
+        
         function legendLocation = getLegendLocation(obj)
              legendLocation = obj.legendLocation;
         end
+        
         function plotType = getPlotType(obj)
              plotType = obj.plotType;
         end
+        
         function axisScales = getAxisScales(obj)
              axisScales = obj.axisScales;
         end
+        
         function currentFolder = getCurrentFolder(obj)
             currentFolder = obj.currentFolder;
         end
+        
         function latexDestination = getLatexDestination(obj)
             latexDestination = obj.latexDestination;
         end
-
+        
+        function setAxisDomain = getSetAxisDomain(obj)
+            setAxisDomain = obj.setAxisDomain;
+        end
+        
+        function axisDomains = getAxisDomains(obj)
+            axisDomains = obj.axisDomains;
+        end
+        function setCustomScales = getSetCustomScales(obj)
+            setCustomScales = obj.setCustomScales;
+        end
     end
 end
