@@ -1,6 +1,6 @@
 classdef PlotData
     properties
-        plotName
+        fileName
         relativePath
         exportType
         nrOfLinesPerDim
@@ -11,16 +11,20 @@ classdef PlotData
         legend
         legendLocation
         plotType
+        axisScales
+        currentFolder
+        latexDestination
     end
     
     methods
-        function obj = PlotData(plotName,relativePath,exportType,... 
+        function obj = PlotData(fileName,relativePath,exportType,... 
             dataSeries,lineColours, nrOfDimensions,axisLabels,legend,...
-            legendLocation, plotType)
+            legendLocation, plotType,axisScales,currentFolder,...
+            latexDestination)
             disp("HI")
             disp(dataSeries)
             disp("BY")
-            obj.plotName = plotName
+            obj.fileName = fileName
             obj.relativePath = relativePath;
             obj.exportType  = exportType;
             obj.nrOfLinesPerDim = zeros(1,nrOfDimensions)
@@ -34,11 +38,14 @@ classdef PlotData
             obj.legend = legend;
             obj.legendLocation = legendLocation;
             obj.plotType = plotType;
+            obj.axisScales = axisScales;
+            obj.currentFolder = currentFolder;
+            obj.latexDestination =latexDestination;
         end
         
-      function plotName = getPlotName(obj)
-         plotName = obj.plotName;
-      end
+        function fileName = getFileName(obj)
+            fileName = obj.fileName;
+        end
         
         function relativePath = getRelativePath(obj)
              relativePath = obj.relativePath;
@@ -70,7 +77,15 @@ classdef PlotData
         function plotType = getPlotType(obj)
              plotType = obj.plotType;
         end
-
+        function axisScales = getAxisScales(obj)
+             axisScales = obj.axisScales;
+        end
+        function currentFolder = getCurrentFolder(obj)
+            currentFolder = obj.currentFolder;
+        end
+        function latexDestination = getLatexDestination(obj)
+            latexDestination = obj.latexDestination;
+        end
 
     end
 end

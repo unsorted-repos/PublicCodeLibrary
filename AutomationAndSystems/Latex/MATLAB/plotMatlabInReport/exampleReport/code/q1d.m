@@ -40,28 +40,47 @@ alpha_init = [-1001; 0; 0;0];
 
 %% Create plot object
 
-% declare and initialise plot parameters
-plotName = 'plot_1d';
-relativePath = '../latex/Images/'; % the ../ goes up one folder
-exportType = 'jpeg';
-% nrOfLinesPerDimr = [1,2];
-lineColours = 'blue';
-nrOfDimensions = 2;
-axisLabels = ["example x axis label", "y axis label"];
-legend = "halo orbit path of 3rd body";
-legendLocation = 'best';
-plotType = "lines";
-
-% add actual data to be plotted
+% declare dataseries (in this case 3, can be more)
 x_series = java.util.ArrayList(); %omg can has java in matlab
 y_series = java.util.ArrayList();
 z_series = java.util.ArrayList();
 
+% declare axis scales
+axisScales = java.util.ArrayList();
+
+% declare and initialise plot parameters
+currentFolder = "/code/";
+latexDestination ="latex/images/"
+fileName = 'plot_1d';
+relativePath = '../latex/Images/'; % the ../ goes up one folder
+exportType = 'jpeg';
+lineColours = 'blue';
+nrOfDimensions = 2;
+y_axis_label = ['$\displaystyle\frac{X{g_0}}{C_{eff}^2}$','Interpreter','latex']
+axisLabels = ["example x axis label", y_axis_label];
+
+y_series1_label = "halo orbit path of 3rd body";
+y_series2_label = "another line"
+y_series3_label = "third line"
+legend = [y_series1_label;y_series2_label;y_series3_label];
+legendLocation = 'best';
+plotType = "lines";
+
+% create custom axis scales
+x_axis_scale = [0,10,-4,5];
+y_axis_scale = ['a';'b';'c'];
+z_axis_scale = [0:1:10];
+axisScales.add(x_axis_scale);
+axisScales.add(y_axis_scale);
+axisScales.add(z_axis_scale); % can also do this in loop
+
+% create x-series (can be as much as you like)
 x_series1 = [1,2,3];
 x_series2 = [2,3,4];
 x_series.add(x_series1);
 x_series.add(x_series2);
 
+% create y-series (can be as much as you like)
 y_series1 = [1,2,5];
 y_series2 = [6,7,6];
 y_series3 = [6,7,7];
@@ -69,22 +88,21 @@ y_series.add(y_series1);
 y_series.add(y_series2);
 y_series.add(y_series3);
 
+% put data series in java ArrayList() object
 dataSeries = java.util.ArrayList();
 dataSeries.add(x_series);
 dataSeries.add(y_series);
 
-disp(dataSeries.get(0))
-% dataSeries(:,:,1) = dimension1;
-% dataSeries(:,:,2) = dimension2;
-% dataSeries(2,2,2)
 
-plotData = PlotData(plotName,relativePath,exportType,...
+
+disp(dataSeries.get(0))
+
+% create plot object containing all info for plot
+plotData = PlotData(fileName,relativePath,exportType,...
         dataSeries,lineColours, nrOfDimensions,axisLabels,legend,...
-        legendLocation, plotType);
-    
-examplePlotName = getPlotName(plotData);
-nrOfDataSeries = getNrOfLinesPerDim(plotData)
-nrOfDataSeries(2)
+        legendLocation, plotType,axisScales,currentFolder,latexDestination);
+
+% plot the dataseries automatically to latex
 obj_mult = PlotMultipleLines;
 plot_altitudes(obj_mult,plotData);
 

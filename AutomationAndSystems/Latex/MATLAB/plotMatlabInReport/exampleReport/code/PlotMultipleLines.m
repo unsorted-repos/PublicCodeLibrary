@@ -16,28 +16,9 @@ classdef PlotMultipleLines
                         length(plotData.dataSeries.get(dim-1).get(line-1))
                     disp("Serieslength="+4)
                 end
-            end
-            
-            % declare dataseries
-%             for  i = 1:nr_of_lines_per_dim
-%                 x_series= zeros(nr_of_lines_per_dim,data_series_length(i,1));
-%                 y_series= zeros(nr_of_lines_per_dim,data_series_length(i,1));
-%                 z_series= zeros(nr_of_lines_per_dim,data_series_length(i,1));
-%             end
-
-            % fill x dataseries
-%             for i = 1:nr_of_lines_per_dim
-%                 x_series(i,:) = 1:data_series_length(i,1)
-%             end
-
-            % fill y dataseries
-%             y_series(1,:) = est_alt_km;
-%             y_series(2,:) = precise_alt_km;
-           
+            end            
             createFigure(plotData)
         end
-
-        
    end
 end
 
@@ -65,26 +46,25 @@ function createFigure(plotData)
             end
 
             % define axis domains and ticks
-%             axis([0 0.4 0 1.6]);
-%             set(gca, 'XTick',0:0.1:0.4);
-%             set(gca, 'XTick',[1,2,3,5,6,7,8,9,10,11]);
-            set(gca, 'XTickLabel',[1 2334 3 5 6 7 8 9 10 11]);
-%             set(gca, 'YTick',0:0.4:1.6);
-
-%             set xlabel
-%             xlabel('$\displaystyle\frac{X{g_0}}{C_{eff}^2}$','Interpreter','latex');
-            xlabel('epoch')
-            xlh = get(gca,'xlabel');
-            gyl = get(xlh);   
-            xlp = get(xlh, 'Position');
+            if (plotData.getNrOfDimensions == 2)
+                set(gca, 'XTickLabel',plotData.getAxisScales().get(0));
+                set(gca, 'YTickLabel',plotData.getAxisScales().get(1));
+            end
+            
+            if (plotData.getNrOfDimensions == 2)
+                axisLabels = plotData.getAxisLabels();
+                xlabel(axisLabels(1))
+                ylabel(axisLabels(2))
+            end
+            
 %             disable rotation of yaxis label
 %             set(xlh, 'Rotation',0, 'Position',[0.38 -0.03], 'VerticalAlignment','top', 'HorizontalAlignment','right');
 
-            ylabel('altitude [km]');
+%             ylabel('altitude [km]');
 %             turn y label into object
-            ylh = get(gca,'ylabel');
-            gyl = get(ylh);
-            ylp = get(ylh, 'Position');
+%             ylh = get(gca,'ylabel');
+%             gyl = get(ylh);
+%             ylp = get(ylh, 'Position');
 %             disable rotation of yaxis label
 %             set(ylh, 'Rotation',0, 'Position',[-0.01 1.5], 'VerticalAlignment','top', 'HorizontalAlignment','right');
 % 
@@ -101,7 +81,7 @@ function createFigure(plotData)
 %             text(0.34,1.28,'$\displaystyle\frac{M}{M_0}=0.2$','Interpreter','latex')
 % 
 %             add legend to plot
-            legend(labels(1,:));
+            legend(plotData.getLegend());
 
             hold off
 
@@ -114,13 +94,13 @@ function createFigure(plotData)
             currentFolder = pwd;
 
             % write the path from the folder that contains "Latex" to this code:
-            subtractPath = "/code/";
+            subtractPath = plotData.getCurrentFolder;
             %+2 to account for begin and end slash
             parentFolder =currentFolder(1:(length(currentFolder)-strlength(subtractPath)+2));
-            targetFolder = parentFolder+"latex/images/";
+            targetFolder = parentFolder+plotData.getLatexDestination;
 
 
-            destinationFile = targetFolder+filename
+            destinationFile = targetFolder+plotData.getFileName()
 
             figureObject;
 
