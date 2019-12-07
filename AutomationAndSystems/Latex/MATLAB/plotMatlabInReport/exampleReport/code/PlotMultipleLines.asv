@@ -54,63 +54,60 @@ function createFigure(plotData)
             if (plotData.getNrOfDimensions == 2)
                 x_series = plotData.getDataSeries().get(0) % java
                 y_series = plotData.getDataSeries().get(1) % java
-                for line = 0:plotData.getDataSeries().get(1).size()-1 % java
-                    if (line >= plotData.getDataSeries().get(0).size()-1)
-                        plot(x_series.get(plotData.getDataSeries().get...
-                            (0).size()-1),y_series.get(line)); % java
-                    else
-                        plot(x_series.get(line),y_series.get(line)); % java
-                    end
+                for line = 0:plotData.getDataSeries().get(1).size() % java
+                    if (line > plotData.getDataSeries().get(0).size()):
+                    else 
+                    plot(x_series.get(line),y_series.get(line)); % java
                 end
             end
 
             % define axis domains and ticks
-%             axis([0 0.4 0 1.6]);
-%             set(gca, 'XTick',0:0.1:0.4);
-%             set(gca, 'XTick',[1,2,3,5,6,7,8,9,10,11]);
+        %     axis([0 0.4 0 1.6]);
+        %     set(gca, 'XTick',0:0.1:0.4);
+%                 set(gca, 'XTick',[1,2,3,5,6,7,8,9,10,11]);
             set(gca, 'XTickLabel',[1 2334 3 5 6 7 8 9 10 11]);
-%             set(gca, 'YTick',0:0.4:1.6);
+        %     set(gca, 'YTick',0:0.4:1.6);
 
-%             set xlabel
-%             xlabel('$\displaystyle\frac{X{g_0}}{C_{eff}^2}$','Interpreter','latex');
+            % set xlabel
+        %     xlabel('$\displaystyle\frac{X{g_0}}{C_{eff}^2}$','Interpreter','latex');
             xlabel('epoch')
             xlh = get(gca,'xlabel');
             gyl = get(xlh);   
             xlp = get(xlh, 'Position');
-%             disable rotation of yaxis label
-%             set(xlh, 'Rotation',0, 'Position',[0.38 -0.03], 'VerticalAlignment','top', 'HorizontalAlignment','right');
+            % disable rotation of yaxis label
+        %     set(xlh, 'Rotation',0, 'Position',[0.38 -0.03], 'VerticalAlignment','top', 'HorizontalAlignment','right');
 
             ylabel('altitude [km]');
-%             turn y label into object
+            % turn y label into object
             ylh = get(gca,'ylabel');
             gyl = get(ylh);
             ylp = get(ylh, 'Position');
-%             disable rotation of yaxis label
-%             set(ylh, 'Rotation',0, 'Position',[-0.01 1.5], 'VerticalAlignment','top', 'HorizontalAlignment','right');
-% 
-%             Add arrows with text. the coordinates are fractions of the axis lengths
-%             annotation('textarrow', [0.33 0.275], [0.6 0.662],'String' , 'T=const'); 
-%             annotation('textarrow', [0.6 0.52], [0.5 0.562],'String' , '\psi=const'); 
-% 
-%             Add text at random positions in the graph
-%             text(0.001,0.49,'0.6')
-%             text(0.03,0.33,'0.6')
-%             text(0.1,0.6,'0.4')
-%             text(0.02,0.77,'0.4')
-%             text(0.11,1.4,'$\displaystyle\frac{M}{M_0}=0.2$','Interpreter','latex')
-%             text(0.34,1.28,'$\displaystyle\frac{M}{M_0}=0.2$','Interpreter','latex')
-% 
-%             add legend to plot
+            % disable rotation of yaxis label
+        %     set(ylh, 'Rotation',0, 'Position',[-0.01 1.5], 'VerticalAlignment','top', 'HorizontalAlignment','right');
+
+            % Add arrows with text. the coordinates are fractions of the axis lengths
+        %     annotation('textarrow', [0.33 0.275], [0.6 0.662],'String' , 'T=const'); 
+        %     annotation('textarrow', [0.6 0.52], [0.5 0.562],'String' , '\psi=const'); 
+
+            % Add text at random positions in the graph
+        %     text(0.001,0.49,'0.6')
+        %     text(0.03,0.33,'0.6')
+        %     text(0.1,0.6,'0.4')
+        %     text(0.02,0.77,'0.4')
+        %     text(0.11,1.4,'$\displaystyle\frac{M}{M_0}=0.2$','Interpreter','latex')
+        %     text(0.34,1.28,'$\displaystyle\frac{M}{M_0}=0.2$','Interpreter','latex')
+
+            % add legend to plot
             legend(labels(1,:));
 
             hold off
 
-            exportFigureToLatex(f2,plotData)
+            exportFigureToLatex(f2,filename)
         end
 
         % suppose you have a folder: "code" and a folder "latex" next to
         % eachother, then you can save to: "parent dir of this code">latex>images>
-        function exportFigureToLatex(figureObject,plotData)
+        function exportFigureToLatex(figureObject,filename)
             currentFolder = pwd;
 
             % write the path from the folder that contains "Latex" to this code:

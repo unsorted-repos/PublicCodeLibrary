@@ -25,11 +25,17 @@ classdef PlotData
             obj.exportType  = exportType;
             obj.nrOfLinesPerDim = zeros(1,nrOfDimensions)
             obj.nrOfDimensions = nrOfDimensions;
-            for dim = 0:obj.nrOfDimensions-1 % java
-                obj.nrOfLinesPerDim(dim+1) = dataSeries.get(dim).size() % java
+            for dim = 0:obj.nrOfDimensions-1
+                    obj.nrOfLinesPerDim(dim) = dataSeries.get(dim).size()
+                end
             end
+%             if (length(obj.nrOfLinesPerDim) ~= nrOfDimensions)
+%                 print("ERROR, number of lines per dim is not equal to"...
+%                 +" nr of dimensions")
+%             end
             obj.dataSeries = dataSeries;
             obj.lineColours = lineColours;
+            
             obj.axisLabels = axisLabels;
             obj.legend = legend;
             obj.legendLocation = legendLocation;
@@ -39,7 +45,9 @@ classdef PlotData
       function plotName = getPlotName(obj)
          plotName = obj.plotName;
       end
-        
+% function plotName = getPlotName(obj)
+%      plotName = obj.plotName;
+%  end
         function relativePath = getRelativePath(obj)
              relativePath = obj.relativePath;
         end

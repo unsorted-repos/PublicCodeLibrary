@@ -22,11 +22,11 @@ t_span = [0:1:500000];
 alpha_init = [-1001; 0; 0;0];
 
 % call differential equations with ODE45
-[t,alpha] = ode45(@(t,alpha) odefcn18_3(t,alpha,alpha_p,alpha_q,mu_p,mu_q,d_p,d_q,n), t_span, alpha_init);
+% [t,alpha] = ode45(@(t,alpha) odefcn18_3(t,alpha,alpha_p,alpha_q,mu_p,mu_q,d_p,d_q,n), t_span, alpha_init);
 
 %% plot to latex example
-dataseries_1 = alpha(:,1);
-dataseries_2 = alpha(:,3);
+% dataseries_1 = alpha(:,1);
+% dataseries_2 = alpha(:,3);
 
 % filename = "plot_g_altitudes";
 % obj_mult = PlotMultipleLines;
@@ -44,7 +44,7 @@ dataseries_2 = alpha(:,3);
 plotName = 'plot_1d';
 relativePath = '../latex/Images/'; % the ../ goes up one folder
 exportType = 'jpeg';
-nrOfLines = 1;
+% nrOfLinesPerDimr = [1,2];
 lineColours = 'blue';
 nrOfDimensions = 2;
 axisLabels = ["example x axis label", "y axis label"];
@@ -53,13 +53,40 @@ legendLocation = 'best';
 plotType = "lines";
 
 % add actual data to be plotted
-dataSeries = "example";
+x_series = java.util.ArrayList(); %omg can has java in matlab
+y_series = java.util.ArrayList();
+z_series = java.util.ArrayList();
 
-plotData = PlotData(plotName,relativePath,exportType,nrOfLines,...
+x_series1 = [1,2,3];
+x_series2 = [2,3,4];
+x_series.add(x_series1);
+x_series.add(x_series2);
+
+y_series1 = [1,2,5];
+y_series2 = [6,7,6];
+y_series3 = [6,7,7];
+y_series.add(y_series1);
+y_series.add(y_series2);
+y_series.add(y_series3);
+
+dataSeries = java.util.ArrayList();
+dataSeries.add(x_series);
+dataSeries.add(y_series);
+
+disp(dataSeries.get(0))
+% dataSeries(:,:,1) = dimension1;
+% dataSeries(:,:,2) = dimension2;
+% dataSeries(2,2,2)
+
+plotData = PlotData(plotName,relativePath,exportType,...
         dataSeries,lineColours, nrOfDimensions,axisLabels,legend,...
-        legendLocation, plotType)
+        legendLocation, plotType);
     
-examplePlotName = getPlotName(plotData)
+examplePlotName = getPlotName(plotData);
+nrOfDataSeries = getNrOfLinesPerDim(plotData)
+nrOfDataSeries(2)
+obj_mult = PlotMultipleLines;
+plot_altitudes(obj_mult,plotData);
 
     
 %% ODE equations
