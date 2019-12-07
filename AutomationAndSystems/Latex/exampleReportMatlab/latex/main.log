@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.9.5)  20 NOV 2019 13:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.9.5)  7 DEC 2019 18:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,18 +318,18 @@ Package: appendix 2009/09/02 v1.2b extra appendix facilities
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 64.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
@@ -389,46 +389,58 @@ Package caption Info: End \AtBeginDocument code.
 (e:/texlive/2018/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2018/09/02 1.7 listings language file
 )
-(./Chapters/Introduction.tex) (./Chapters/1a.tex) (./Chapters/1b.tex)
-(./Chapters/1c.tex) (./Chapters/1d.tex) (./Chapters/1e.tex) (./Chapters/1f.tex)
-(./Chapters/1g.tex) (./main.bbl
 
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
+LaTeX Warning: No \author given.
 
+(./Chapters/Introduction.tex) (./Chapters/1d.tex
+<Images/plot_1d.jpg, id=1, 562.1pt x 421.575pt>
+File: Images/plot_1d.jpg Graphic file (type jpg)
+<use Images/plot_1d.jpg>
+Package pdftex.def Info: Images/plot_1d.jpg  used on input line 6.
+(pdftex.def)             Requested size: 497.92322pt x 373.44443pt.
+Package epstopdf Info: Source file: <Images/plot_1d.eps>
+(epstopdf)                    date: 2019-12-07 18:41:12
+(epstopdf)                    size: 405447 bytes
+(epstopdf)             Output file: <Images/plot_1d-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-12-07 18:49:28
+(epstopdf)                    size: 149017 bytes
+(epstopdf)             Command: <repstopdf --outfile=Images/plot_1d-eps-convert
+ed-to.pdf Images/plot_1d.eps>
+(epstopdf)             \includegraphics on input line 12.
+Package epstopdf Info: Output file is already uptodate.
+<Images/plot_1d-eps-converted-to.pdf, id=2, 374.39874pt x 289.08pt>
+File: Images/plot_1d-eps-converted-to.pdf Graphic file (type pdf)
+<use Images/plot_1d-eps-converted-to.pdf>
+Package pdftex.def Info: Images/plot_1d-eps-converted-to.pdf  used on input lin
+e 12.
+(pdftex.def)             Requested size: 497.92322pt x 384.47597pt.
 ) [1
 
-{e:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./Appendices/AppA.tex (./Code/q1a.m
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 30.
-
-(e:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
+{e:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Images/plot_1
+d.jpg>] (./main.bbl)
+[2 <./Images/plot_1d-eps-converted-to.pdf>] (./Appendices/AppD.tex
+(../code/YourCode.m
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 12.
+ (e:/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
- [2]
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 119.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 12.
 
-
-(e:/texlive/2018/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 119.
- [3] [4])) [5]
+[3] [4])) [5]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 53.
 See the caption package documentation for explanation.
 
 (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 8399 strings out of 492642
- 132102 string characters out of 6133163
- 534123 words of memory out of 5000000
- 12158 multiletter control sequences out of 15000+600000
+ 8407 strings out of 492642
+ 132639 string characters out of 6133163
+ 527927 words of memory out of 5000000
+ 12183 multiletter control sequences out of 15000+600000
  8408 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,6n,40p,366b,2492s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,7n,40p,298b,2362s stack positions out of 5000i,500n,10000p,200000b,80000s
 <e:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12
 .pfb><e:/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><e:/
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><e:/texlive/20
@@ -436,10 +448,10 @@ texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><e:/texlive/20
 ist/fonts/type1/public/amsfonts/cm/cmr17.pfb><e:/texlive/2018/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmr5.pfb><e:/texlive/2018/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmsy10.pfb>
-Output written on main.pdf (5 pages, 96926 bytes).
+Output written on main.pdf (5 pages, 259013 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
- 33 compressed objects within 1 object stream
+ 55 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
