@@ -153,6 +153,15 @@ class App extends Component {
                 .then((res) => this.setState({ data: res.data }));
     };
     
+    getCarData2 = () => {
+        var test = fetch('http://localhost:3001/api/getCarData2')
+                .then((data) => data.json())
+                .then((res) => this.setState({ data: res.data }));
+        return test.then(cars => {
+    console.log(cars);})
+    
+    };
+    
     // here is our UI
     // it is easy to understand their functions when you
     // see them render into our screen
@@ -235,7 +244,7 @@ class App extends Component {
         <input class="inputs" type="submit" value="Hello" />
                 
         <br></br>
-        Get value from server:{this.getCarData1()}
+        Get value from server:{this.getCarData2()}=====
                 
                 
         </div>
