@@ -1,3 +1,13 @@
+**TLDR**
+
+(note difference original and origin)(Create the repo in git before you do this, don't add licence/gitignore/readme)
+https://github.com/a-t-0/CoursePlanningTemplate.git original
+cd original
+git remote set-url origin https://github.com/a-t-0/AE4890-11-Planetary-Sciences-I.git 
+git push -u origin master
+
+
+**Lengthy**
 Sometimes you want a private copy of a public repo, or just a copy of a repo, in your own account without having to create an extra organization.
 You can just copy the content, but then you lose the history of the original repo, meaning you can't pull from it because git doesn't know how to merge
 because it doesnt know of a difference with the other was is 1 new change, or 2 separate changes, 1 per repo.
