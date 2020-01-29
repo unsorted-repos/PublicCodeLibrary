@@ -12,3 +12,17 @@ The guide is still a bit unstructured, any improvements are welcome! To do so, y
 [1]: http://sitn.hms.harvard.edu/flash/2018/dopamine-smartphones-battle-time/
 
 
+# Change wifi pw:
+NOTE IF YOU MAKE A TYPO/SPACE/wrong change to the `.conf` file, you soft-brick your phone, need factory reset.
+0. Reboot into twrp (press volume up down +power>recovery mode)
+1. Click advanced>file browser, copy the `data/misc/wifi/wpa_supplicant.conf"` to a folder that does not require root, e.g.
+`/storage/17EE-2356/`
+Pull file to windows with:
+`adb pull /storage/17EE-2356/wpa_supplicant.conf`
+Or:
+`adb pull /external_sd/wpa_supplicant.conf`
+Edit the pw with notepad++ (ensure End Of Line conventions (EOL)  remain Linux)
+Restore the file:
+`adb push wpa_supplicant.conf /external_sd/wpa_supplicant.conf`
+Reboot into twrp (press volume up down +power>recovery mode)
+The file browser, copy the `data/misc/wifi/wpa_supplicant.conf"` to a folder that does not require root, e.g.
