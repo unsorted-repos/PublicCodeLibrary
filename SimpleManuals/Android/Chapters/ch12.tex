@@ -1,0 +1,54 @@
+\section{Retrieving data from a (TWRP) brick with ADB:}\label{sec:ch12}
+%\setcounter{subsection}{-1}
+\subsection{Scenario:}
+You tried to change the navigation bar, but now your phone will boot but the screen is black and phone is responsive but you cant do anything except reboot, power down and ...
+
+Luckily you can still connect with adb devices to the phone, as "adb devices" returns your device(code)
+\subsection{backing up the sdcard:}
+\begin{enumerate}
+    \item download adb devices
+    \item get the location of the sdcard with:
+\begin{verbatim}
+adb shell echo $EXTERNAL_STORAGE
+\end{verbatim}
+    \item get the location of the "internal sd card with command (sounds nice but does not work): 
+\begin{verbatim}
+adb shell echo $INTERNAL_STORAGE    
+\end{verbatim}
+    \item Copy all content of the sdcard to your pc with command:
+\begin{verbatim}
+adb pull "/sdcard/" "E:\\2018-11-20_android_sdcard_backup\\"    
+\end{verbatim}    
+\item to copy the other storage location (sdcard appears to be the internal storage):
+\item 
+\begin{verbatim}
+adb pull "/mnt/sdcard/" "E:\\2018-11-20_android_sdcard_backup\\"
+\end{verbatim}   
+\item and:
+\begin{verbatim}
+adb pull "/storage/17EE-2356" "E:\\2018-11-20_android_sdcard_backup\\"    
+\end{verbatim}
+\begin{verbatim}
+adb pull "/storage/emulated" "E:\\2018-11-20_android_sdcard_backup\\"
+\end{verbatim}
+\begin{verbatim}
+adb pull "/storage/self" "E:\\2018-11-20_android_sdcard_backup\\"
+\end{verbatim}
+\end{enumerate}
+
+\subsection{Gained knowledge}
+\begin{enumerate}
+    \item You can open a sort of Linux terminal in your phone with the command:
+\begin{verbatim}
+adb shell
+\end{verbatim}
+    \item then command "ls" lists the directories in that folder. You can change directories with cd.
+    \item Then if you completely browse up the hierarchie with "cd .." you can see where the external olders are located if you dive back into the directories smartly.
+    \item that yielded a location of: 
+\begin{verbatim}
+/storage/17EE-2356
+/storage/emulated
+/storage/self
+\end{verbatim}
+    
+\end{enumerate}

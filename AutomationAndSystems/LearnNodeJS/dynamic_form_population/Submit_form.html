@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+		<div>
+			<!-- Source: https://memorynotfound.com/dynamically-add-remove-options-select-javascript/ -->
+					
+			<select id="dynamic-select">
+				<option value="1">one</option>
+				<option value="2">two</option>
+				<option value="3">three</option>
+			</select>
+
+			<button onclick="getOption()">get item</button>
+			<button onclick="addOption()">add item</button>
+			<button onclick="removeOption()">remove item</button>
+			<button onclick="removeAllOptions()">remove all</button>
+        <script>
+			function getOption(){
+				var select = document.getElementById("dynamic-select");
+				if(select.options.length > 0) {
+					var option = select.options[select.selectedIndex];
+					alert("Text: " + option.text + "\nValue: " + option.value);
+				} else {
+					window.alert("Select box is empty");
+				}
+			}
+
+			function addOption(){
+				var select = document.getElementById("dynamic-select");
+				select.options[select.options.length] = new Option('New Element', '0', false, false);
+			}
+
+			function removeOption(){
+				var select = document.getElementById("dynamic-select");
+				select.options[select.selectedIndex] = null;
+			}
+
+			function removeAllOptions(){
+				var select = document.getElementById("dynamic-select");
+				select.options.length = 0;
+			}
+        </script>
+		</div>
+    </body>
+</html>

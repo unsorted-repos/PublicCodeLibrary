@@ -1,0 +1,12 @@
+{
+    "name": "NodeJsApplication-Classes",
+    "version": "1.0.0",
+    "keywords": ["util", "functional", "server", "client", "browser"],
+    "author": "a",
+    "contributors": [],
+    "dependencies": {},
+    "scripts": {
+        "start": "node main.js"
+    }
+    
+}

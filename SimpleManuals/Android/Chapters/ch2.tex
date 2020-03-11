@@ -1,0 +1,71 @@
+\section{How to root phone (Exampled Moto G3 Out of 2015)}\label{sec:ch2}
+\textbf{This is the manual that I followed, sorry but this is phone dependent so you'll have to look up how to do it or ask a friend.} Todo: make this in a concise short list of instructions.
+Source: \url{https://motog5.net/unlock-bootloader-install-twrp-root-moto-g3/}
+
+Pre-Requisites
+The device which you are going to root should have a decent amount of battery. We suggest your device is having at least 80\% of battery in it.
+Enable USB debugging on your smartphone. Go to Settings > About Phone and tap on build number 8 times. Return to Settings and then go to Developer Options. Enable USB debugging from here.
+If you have valuable data, create a backup of all the information which is present in your device. All your data will be erased at the stage you are going to unlock the bootloader of the device.
+Install Minimal ADB and Fastboot tools on your PC.
+Install drivers of Moto G3 on your PC.
+Extra Note: If you enjoyed android apps and games on your Moto G and wanted them on you PC, you can do so just by downloading and installing Bluestacks android emulator. Here are blue stacks system requirements to run blue stacks without error. Check now.
+
+How to unlock bootloader of Moto G 3rd gen
+To get root access on Moto G 3rd gen, the bootloader of your device should be unlocked first. Follow the guide shared below as it will help you to unlock the bootloader of Moto G 3rd gen.
+
+Power off your Motorola Moto G smartphone. Once your device is powered off, you need to switch it on in Fastboot mode. To enter the Fastboot mode of Moto G 3rd gen, you have to press Volume Up + Power key.
+Connect the smartphone to your PC. Once your device is connected, go to the folder  where you have installed Minimal ADB and Fastboot tools. You need to enter a couple of commands now. Open the command window by selecting right mouse button and Shift key. Select open command window here.
+Check if Moto G is connected in Fastboot mode with your PC by entering the command mentioned below.
+fastboot devices
+
+Now you need to get the unlock data which will help you to unlock the bootloader of your smartphone. You can enter the command shared below which will assist you in getting unlock key data.
+fastboot oem get\_unlock\_data
+
+A long string will be displayed in front you. Copy it and keep it in Notepad. Remove all the spaces which are present in the string.
+The next step is opening the Motorola website. Go to the link and open Motorola website.
+Create a new Motorola account if you are not having one. Once you are logged on the site, you have to paste the string which you have copied in notepad in Step 5.
+Copy it and then select Can my device be unlocked. Select I Agree on the option, and after that, you have to choose Request Unlock Key.
+Open your mail id which you used for logging on the Motorola website and then check the mail sent by Motorola. It will have a unlock code which will help you to unlock the bootloader of Moto G3
+Open the command window again and enter command mentioned below which will finally unlock the bootloader of Moto G3.
+fastboot OEM unlocks (insert code here)
+
+This will unlock the bootloader of Moto G 3rd generation. Now you are ready to install recovery and root your device.
+
+How to install TWRP recovery on Moto G 2015
+To install TWRP recovery, you need to download the recovery first.
+Download TWRP(2.8.7-r7.img) recovery for Moto G by opening this link. Rename the recovery to img and copy it to the directory of MinimalFastboot and ADB tools.
+Now you have to put your device in Fastboot mode again. Repeat Steps 1 and two here which you followed while unlocking the bootloader.
+Enter the command mentioned below as it will flash recovery on your device.
+fastboot flash recovery twrp.img
+
+Within a couple of minutes, recovery will be flashed on the device.
+Once TWRP recovery is flashed, you are ready to root  Moto G3.
+
+Also Read: – All about Motorola Moto G3
+
+How to root Moto G3
+Download SuperSU on your mobile by opening this link.
+Once downloaded power off your smartphone and enter the recovery by pressing Power + Volume Down button.
+Select Install button and browse Super SU file.
+Flash the file on your device.
+You will get root access on Moto g 3rd gen. This is how you can quickly unlock bootloader and root Moto G 3rd gen.
+
+How to Root Moto G on any Android Firmware
+The first thing you have to do is to go to this page.
+From the above mentioned site, you have to download the latest version of the Superboot app.
+Place the downloaded file on your PC.
+Unzip the file anywhere for example on a desktop.
+On your computer open a command prompt window (start – run – cmd).
+On the command prompt window navigate to the folder you have just unzipped (using cd commands).
+Turn off your Moto G smartphone.
+Wait a few seconds and then reboot into bootloader mode.
+For bootloader mode press and hold volume down and power buttons at the same time for a few seconds.
+Then connect your smartphone to your computer via a USB cable.
+On the cmd window type the following command: “superboot-windows.bat.”
+Wait while your Moto G is being rooted.
+In the end, unplug the USB cord and reboot your phone.
+Go to Google Play and download the Root Checker app to check the root status.
+If root checker app says, root access available then Enjoy you have rooted your Moto G.
+After Moto G rooting, you can install custom ROM’s and firmware.
+Note: – If you want to remove the unlocked bootloader message then just download this file and flash it via TWRP recovery.
+

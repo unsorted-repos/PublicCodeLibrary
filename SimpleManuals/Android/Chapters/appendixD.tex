@@ -1,0 +1,37 @@
+\newpage
+\section{WIFI network adding example file. }\label{app:D}
+Location://data/misc/wifi/wpa\_supplicant.conf
+\noindent File content(id's have been changed):
+
+\begin{verbatim}
+disable_scan_offload=1
+driver_param=use_p2p_group_interface=1
+update_config=1
+device_name=lineage_osprey
+manufacturer=Motorola
+model_name=MotoG3
+model_number=MotoG3
+serial_number=ZY222XB46P
+device_type=10-0050F204-5
+config_methods=physical_display virtual_push_button
+p2p_disabled=1
+pmf=1
+external_sim=1
+tdls_external_control=1
+
+network={
+    ssid="KPN"
+    key_mgmt=NONE
+    priority=1
+    disabled=1
+    id_str="%7B%22creatorUid%22%3A%2210033%22%2C%22configKey%22%3A%22%5C%22KPN%5C%22NONE%22%7D"
+}
+
+network={
+    ssid="WiFi in de trein"
+    key_mgmt=NONE
+    priority=2
+    disabled=1
+    id_str="%7B%22creatorUid%22%3A%2210033%22%2C%22configKey%22%3A%22%5C%22WiFi+in+de+trein%5C%22NONE%22%7D"
+}
+\end{verbatim}

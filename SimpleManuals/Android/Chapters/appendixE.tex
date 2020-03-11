@@ -1,0 +1,24 @@
+\section{Tasker V5.2.bf1 task to open wifi settings}\label{app:E}
+This contains the xml code of a task in Tasker V5.2.bf1. You can convert that task into an app using Tasker Factory V5.2.bf1 (Factory version must match Tasker version!). To do so, save code below as a .xml file and then longpress "tasks" in top bar>import and select this file. (or just install the app (from the titanium backup)) and procede with the steps described in \cref{subsec:wifi_once}.
+\\
+\\
+\begin{verbatim}
+<TaskerData sr="" dvi="1" tv="5.2.bf1">
+    <Task sr="task11">
+        <cdate>1544447061925</cdate>
+        <edate>1544447592269</edate>
+        <id>11</id>
+        <nme>OpenWifiSettings3</nme>
+        <pri>100</pri>
+        <Action sr="act0" ve="7">
+            <code>123</code>
+            <Str sr="arg0" ve="3">am start -a android.intent.action.VIEW -d "file://file:///data/misc/wifi/wpa_supplicant.conf" -t "text/plain" -f 0x13000000 -n android/com.android.internal.app.ResolverActivity</Str>
+            <Int sr="arg1" val="0"/>
+            <Int sr="arg2" val="1"/>
+            <Str sr="arg3" ve="3"/>
+            <Str sr="arg4" ve="3"/>
+            <Str sr="arg5" ve="3"/>
+        </Action>
+    </Task>
+</TaskerData>
+\end{verbatim}

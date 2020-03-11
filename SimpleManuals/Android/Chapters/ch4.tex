@@ -1,0 +1,14 @@
+\section{Install different phone OS. E.g.: linneageOS}\label{sec:ch4}
+\begin{enumerate}
+    \item download addonsu-14.1-arm-signed.zip
+    \item and download lineage-14.1-20181120-nightly-osprey-signed from: https://download.lineageos.org/osprey (for moto g3 take moto g 2015)
+    \item download adb minimal (use it by opening the file py\_cmd.exe)
+    \item copy addonsu-14.1-arm-signed.zip as "lineage.zip" into folder "Minimal ADB and Fastboot\_techbeasts".
+    \item boot in twrp
+    \item copy the .zip to the phone when booted in twrp with command:
+\begin{verbatim}
+adb push <source-path> <target-path>    
+\end{verbatim}
+
+    \item in twrp install addonsu-14.1-arm-signed.zip.
+\end{enumerate}

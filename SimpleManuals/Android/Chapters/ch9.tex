@@ -1,0 +1,25 @@
+\section{Setup automatic app and settings backup. E.g. titanium backup pro}\label{sec:tasker_auto_backup}
+There are two options, either download version titanium backup 7.4 +patch, or dld titanium backup 8.0 from Mega:  \url{Mega.co.nz}. Then instal titanium backup.
+
+\begin{enumerate}
+    \item First install supersu: by copying addonsu-14.1-arm-signed.zip to the phone with for example:
+\begin{verbatim}
+adb push <source-path> <target-path>    
+\end{verbatim}
+ 
+    \item Next download titanium 8.0. 
+    \item then install it. It will say will not work has no root permission.
+    \item So go to settings and enable developer options by tapping the android type 7 times. 
+    \item go into settings, developer options and enable root access (for apps and adb).
+    \item restart
+    \item open Titanium backup and it works.
+    
+
+\end{enumerate}
+
+\section{Restore old backup with Titanium Backup}\label{sec:restore_with_titanium_backup}
+Import a  ... file and hit "restore".
+\subsection{Limitations: Titanium backup w.r.t. Whatsapp}
+You can not merge different backups of whatsapp yet, so suppose you have a really old backup of whatsapp and you hope whattsapp automaticallyy downloads the missing messenges your number received between "now and the time of the backup", you're in tough luck. So the solution/best approach is to just maintain a consistent backup procedure and restore the latest backup as quickly as possible after a reset. That way the WA message gap is minimalised. 
+
+
