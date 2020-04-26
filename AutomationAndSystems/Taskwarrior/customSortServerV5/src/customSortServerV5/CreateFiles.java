@@ -22,7 +22,7 @@ public class CreateFiles {
 //		System.out.println("Creating lines=");
 		for (int i = 0; i < taskList.length; i++) {
 			lines[i]=taskList[i].getTextLine();
-			System.out.println(lines[i]);
+			System.out.println("TASK put into backlog="+lines[i]);
 		}
 		return null;
 	}
@@ -34,7 +34,6 @@ public class CreateFiles {
 	 */
 //	public static void writeFileContent(String filePathName, String fileName, BacklogTask[] taskList) {
 	public static void writeFileContent(String filePathName, String fileName, String[] lines) {
-//		printLines(lines);
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(filePathName + fileName, "UTF-8");
@@ -123,10 +122,11 @@ public class CreateFiles {
 	
 	public static void printLines(String[] lines) {	
 		// Start with writing on a new line.
-//		System.out.println("Writing lines=");
+		System.out.println("The lines that are put back into backlog.data are=");
 		for (int i = 0; i < lines.length;i++) {
 			System.out.println(lines[i]);
 		}
+		System.out.println("Those are the lines");
 	}
 	
 	/**

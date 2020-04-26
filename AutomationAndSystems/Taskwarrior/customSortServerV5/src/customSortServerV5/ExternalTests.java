@@ -62,14 +62,16 @@ class ExternalTests {
 		String testBacklogFilename = "backlog0.data";
 		String testPendingFilename = "pending0.data";
 		
-		ArrayList<String> outputBacklogDataLines = new ArrayList<String>();
-		outputBacklogDataLines.add("This is a tw uuid filler that will be skipped");
+		ArrayList<String> expectedBacklogLines = new ArrayList<String>();
+		expectedBacklogLines.add("This is a tw uuid filler that will be skipped");
 		//{"description":"testHi","entry":"20190608T191027Z","modified":"20190608T191027Z","status":"pending","uuid":"8e7de71c-0cc3-4645-8414-59df506fa6ee"}
+		expectedBacklogLines.add("{\"description\":\"testHi\",\"entry\":\"20190608T191027Z\",\"modified\":\"20190608T191027Z\",\"status\":\"pending\",\"uuid\":\"8e7de71c-0cc3-4645-8414-59df506fa6ee\"}");		
 		
-		manageIntegrationTestsJavaServerSort(testBacklogFilename,testPendingFilename);
+		ArrayList<String> actualBacklogLines = manageIntegrationTestsJavaServerSort(testBacklogFilename,testPendingFilename);
 		
+		assertTrue(actualBacklogLines.size()==2);
 		// test the imported backlog with the expected backlog.
-		assertTrue(false);
+		assertEquals(expectedBacklogLines.get(1),actualBacklogLines.get(1));
 	}
 
 	/**
@@ -147,7 +149,7 @@ class ExternalTests {
 		copyModifiedBacklogToOutput(hardCoded);
 		copyModifiedPendingToOutput(hardCoded);
 
-		// read 2nd line of backlog
+		// read lines of backlog starting at 2nd line
 		ArrayList<String> outputBacklogLines = readOutputBacklogLines(hardCoded);
 		printLines(outputBacklogLines);
 		
@@ -182,11 +184,17 @@ class ExternalTests {
 	}
 
 	public static void printLines(ArrayList<String> lines) {
-		// Start with writing on a new line.
-//		System.out.println("Writing lines=");
+		System.out.println("Printing taskList of lenght="+lines.size());
 		for (int i = 0; i < lines.size(); i++) {
-			System.out.println("print:" + lines.get(i));
+			System.out.println("i="+i);
+			if (lines.get(i) != null) {
+					System.out.println("line="+lines.get(i));
+			}else {
+				System.out.println("Line i="+i+" is null");
+			}
+			
 		}
+		System.out.println("Those are the lines");
 	}
 	
 	/**

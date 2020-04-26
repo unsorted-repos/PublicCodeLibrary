@@ -120,40 +120,40 @@ class FillBacklogTasksTest {
 		
 	}
 	
-	@Test
-	void testManageBacklogFilling() {
-		fail("Not yet implemented");
-	}	
-	
-	@Test
-	void testReadLines() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testCreateBacklogTask() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testAssignMultiples() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testIsRecurringTask() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testFindTaskUuid() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testFindSubstring() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testManageBacklogFilling() {
+//		fail("Not yet implemented");
+//	}	
+//	
+//	@Test
+//	void testReadLines() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testCreateBacklogTask() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testAssignMultiples() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testIsRecurringTask() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testFindTaskUuid() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	void testFindSubstring() {
+//		fail("Not yet implemented");
+//	}
 	
 	/**
 	 * Test removes null at start of array.

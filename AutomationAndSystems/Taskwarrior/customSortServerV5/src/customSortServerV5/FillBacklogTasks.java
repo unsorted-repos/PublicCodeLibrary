@@ -67,12 +67,19 @@ public class FillBacklogTasks {
 																					// line
 		// converting the catalog into an array of BacklogTask objects that has the size nr of lines.
 		orderedFilteredTaskList = orderCatalog(filteredCatalog,lines.size());
+		System.out.println("The ordredFilteredTaskList contains PART I:");
+		printTasks(orderedFilteredTaskList);
 		
 		// remove all null entries for the tasks of the lines that were removed.
 		orderedFilteredTaskList = removeNullValues(orderedFilteredTaskList);
 		
+		System.out.println("The ordredFilteredTaskList contains PART II:");
+		printTasks(orderedFilteredTaskList);
+		
 //		orderedFilteredTaskList = catalogToTaskArray(orderedFilteredCatalog);
 
+		//TODO: include twUuid to top of backlog lines.
+		
 		filteredOrderedBacklogLines = CreateFiles.backlogTaskArrayToStringArray(orderedFilteredTaskList);
 		
 		// create backlog file.
@@ -82,6 +89,27 @@ public class FillBacklogTasks {
 //		return filteredCatalog;
 	}
 
+	/**
+	 * Print the taskList
+	 * @param taskList
+	 */
+	public static void printTasks(BacklogTask[] taskList) {
+		System.out.println("Printing taskList of lenght="+taskList.length);
+		for (int i = 0; i < taskList.length; i++) {
+			System.out.println("i="+i);
+			if (taskList[i] != null) {
+				if (taskList[i].getTextLine()!=null) {
+					System.out.println("line="+taskList[i].getTextLine());
+				}else {
+					System.out.println("Task i="+i+"has no line");
+				}
+			}else {
+				System.out.println("Task i="+i+" is null");
+			}
+			
+		}
+		System.out.println("Those are the lines");
+	}
 	
 	/**
 	 * TODO: Verify that if a customSort is changed, that the only thing that is changed in the backlog line is the value of cSort, 
