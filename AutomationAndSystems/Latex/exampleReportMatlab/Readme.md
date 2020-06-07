@@ -14,6 +14,7 @@ Personally I like how the integrated system allows one to colaborate on code, an
 That's it.
 
 3. Now if you change your code, or create plots that you want in your overleaf:
+3.a Note, first time you use github with command you probably need to login, but it'll ask you to do so if you need to.
 3.a push your code to github by opening cmd, browsing to the directory of the repository with `cd` and use commands:
 ```
 git pull
