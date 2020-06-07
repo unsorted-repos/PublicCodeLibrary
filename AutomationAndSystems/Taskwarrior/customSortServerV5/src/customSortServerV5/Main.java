@@ -364,9 +364,7 @@ public class Main {
 
 	/**
 	*
-	*TODO: Create extra report to sort purely on due date:
-	*TODO: Determine why some results without due date are still shown in this filter
-	*Extra info, remove custom reports by just not specifying the data after the command.
+	* Extra info, remove custom reports by just not specifying the data after the command.
 	* add a new report by: 
 	*task config report.sortDue.description Sort on nearing due date earliest due date last
 	*task config report.sortDue.columns id,depends,due,estimate,priority,urgency,project,recur,tags,description,start
@@ -374,7 +372,7 @@ public class Main {
 	*task config report.sortDue.sort due-
 	*task config report.sortDue.filter status:pending -due:
 	*
-	*Change dateformat to include DUE TIME in due date:
+	* Change dateformat to include DUE TIME in due date:
 	* task config report.testReport.dateformat Y-M-D H:N
 	*/
 	
