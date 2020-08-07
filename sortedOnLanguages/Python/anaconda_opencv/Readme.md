@@ -18,4 +18,17 @@ conda activate py36
 ```
 conda install -c anaconda opencv
 ```
+3. Verify in anaconda prompt with a python file named `test.py` with content:
+```
+import cv2
+print(cv2.__version__)
+```
 
+4. If it says: ` import cv2" ... "ImportError: DLL load failed: The specified module could not be found.` then:
+```
+conda install -c menpo opencv
+```
+4.1 Instal Visual Studio Code from https://code.visualstudio.com/Download
+4.2 Click the Extensions view icon on the Sidebar (orCtrl+Shift+X keyboard combination).
+4.3 Search of C++. And install (the most popular/top extension named:"C/C++"
+4.6 *SOLUTION* https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads download and install visual studio 2015, 2017 and 2019
