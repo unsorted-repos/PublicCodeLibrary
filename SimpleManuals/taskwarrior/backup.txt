@@ -1,0 +1,2 @@
+mkdir -p "/mnt/c/Timewarrior/$(date +%Y-%m-%d-%H-%M)" && cp ~/.timewarrior/data/*.data "/mnt/c/Timewarrior/$(date +%Y-%m-%d-%H-%M)/"
+mkdir -p "/mnt/c/Taskwarrior/$(date +%Y-%m-%d-%H-%M)" && cp ~/.task/*.data "/mnt/c/Taskwarrior/$(date +%Y-%m-%d-%H-%M)/"
