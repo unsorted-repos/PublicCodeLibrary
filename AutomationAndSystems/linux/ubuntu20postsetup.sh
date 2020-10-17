@@ -30,7 +30,7 @@ openjdk-8-jre \
 openvpn \
 p7zip-full \
 privoxy \
-remmina \ 
+remmina \
 slack \
 texlive-xetex \
 texmaker \
@@ -63,4 +63,22 @@ myecho () {
 	
 # TODO:
 # veracrypt
+
 # EnergizedPro
+# first clone the repo
+#sudo chmod +x energized.sh
+#-p
+#-s
+
+# Source: https://askubuntu.com/questions/150135/how-to-block-specific-domains-in-hosts-file#150180
+## privoxy setup
+#sudo nano /etc/privoxy/config
+# change:
+#listen-address localhost:8118
+# to:
+#listen-adress 192:168.0.208:8118
+# restart proxy server
+#sudo /etc/init.d/privoxy restart
+
+# dnsmasq
+# sudo apt-get install dnsmasq
