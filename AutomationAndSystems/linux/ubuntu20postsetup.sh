@@ -79,6 +79,8 @@ myecho () {
 #listen-adress 192:168.0.208:8118
 # restart proxy server
 #sudo /etc/init.d/privoxy restart
+# Doesnt work with energized
 
 # dnsmasq
 # sudo apt-get install dnsmasq
+# Doesnt work with energized
