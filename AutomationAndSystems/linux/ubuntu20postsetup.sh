@@ -83,8 +83,13 @@ myecho () {
 
 # dnsmasq
 # sudo apt-get install dnsmasq
-# Doesnt work with energized
-# Block:
-# https://dan.com/search?terms=
+# Doesnt work with energized, so run `energized.sh` and type c`. Then you can use dnsmasq. 
+# sudo nano -c /etc/dnsmasq.conf 
+# add line:`port=5353` or whatever port you wanna use if `sudo dnsmasq`throws an error.
+# add line:`address=127.0.0.1` if `sudo dnsmasq`throws an error.
 # Allow:
+# https://dan.com/search?terms=
+# Block:
 # https://dan.com/users/login
+# then enter:
+address=/dan.com/users
