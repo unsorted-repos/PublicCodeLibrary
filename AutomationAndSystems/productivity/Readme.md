@@ -9,7 +9,7 @@ chmod +x *.sh
 ```
 2. Next set up your productivity block, by:
 2.0 First adding websites you want to block to: /EnergizedProtection/personal_blacklist.txt (without their domain).
-so if you want to block youtube.com, you just add: `youtube` as a separate line in your blocklist.
+so if you want to block youtube.com, you just add: `www.youtube` as a separate line in your blocklist.
 2.1 Next activate the EnergizedPro block:
 ```
 ./energized.sh
