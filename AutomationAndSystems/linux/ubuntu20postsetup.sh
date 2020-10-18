@@ -75,12 +75,21 @@ myecho () {
 #sudo nano /etc/privoxy/config
 # change:
 #listen-address localhost:8118
-# to:
-#listen-adress 192:168.0.208:8118
+# to (or whatever your local ip adress is iso 192.168.0.208):
+#listen-adress 192:168.0.208:8118 
 # restart proxy server
 #sudo /etc/init.d/privoxy restart
 # Doesnt work with energized
 
 # dnsmasq
 # sudo apt-get install dnsmasq
-# Doesnt work with energized
+# Doesnt work with energized, so run `energized.sh` and type c`. Then you can use dnsmasq. 
+# sudo nano -c /etc/dnsmasq.conf 
+# add line:`port=5353` or whatever port you wanna use if `sudo dnsmasq`throws an error.
+# add line:`address=127.0.0.1` if `sudo dnsmasq`throws an error.
+# Allow:
+# https://dan.com/search?terms=
+# Block:
+# https://dan.com/users/login
+# then enter:
+# address=/dan.com/users
