@@ -75,8 +75,8 @@ myecho () {
 #sudo nano /etc/privoxy/config
 # change:
 #listen-address localhost:8118
-# to:
-#listen-adress 192:168.0.208:8118
+# to (or whatever your local ip adress is iso 192.168.0.208):
+#listen-adress 192:168.0.208:8118 
 # restart proxy server
 #sudo /etc/init.d/privoxy restart
 # Doesnt work with energized
