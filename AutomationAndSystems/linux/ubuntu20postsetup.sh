@@ -84,3 +84,7 @@ myecho () {
 # dnsmasq
 # sudo apt-get install dnsmasq
 # Doesnt work with energized
+# Block:
+# https://dan.com/search?terms=
+# Allow:
+# https://dan.com/users/login
