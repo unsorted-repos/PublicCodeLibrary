@@ -23,3 +23,8 @@ Then to use the script:
 
 If you get error: ..package not installed, Install and open anaconda, browse to this directory and enter:
 py -3   -m pip install PyPDF2
+
+
+## Linux instructions
+pip install pypdf
+pip install pypdf2
