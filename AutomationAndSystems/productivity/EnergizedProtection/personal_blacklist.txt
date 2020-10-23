@@ -1,5 +1,4 @@
 facebook
-google
 duckduckgo
 startpage
 bing
@@ -9,3 +8,5 @@ youtube
 reddit
 dumpert
 9gag
+nos
+geenstijl
