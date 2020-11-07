@@ -93,3 +93,14 @@ myecho () {
 # https://dan.com/users/login
 # then enter:
 # address=/dan.com/users
+
+# Source: https://itsfoss.com/no-sound-libreoffice-impress/
+# ensure libreoffice is able to export impress presentations as video
+sudo apt-get install libreoffice-avmedia-backend-gstreamer
+
+
+# Source:https://askubuntu.com/questions/237027/how-to-record-screen-and-internal-audio
+# screenrecorder with audio
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
