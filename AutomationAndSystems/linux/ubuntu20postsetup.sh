@@ -104,3 +104,24 @@ sudo apt-get install libreoffice-avmedia-backend-gstreamer
 sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
 sudo apt-get update
 sudo apt-get install simplescreenrecorder
+
+# rufus equivalent for linux
+sudo add-apt-repository ppa:gezakovacs/ppa
+sudo apt-get update
+sudo apt-get install unetbootin
+
+
+# Optional: virtualbox
+sudo apt-get install virtualbox
+curl https://download.virtualbox.org/virtualbox/6.1.16/virtualbox-6.1_6.1.16-140961~Ubuntu~eoan_amd64.deb
+
+# Eclipse
+yes | sudo apt update
+yes | sudo apt install default-jre
+yes | sudo snap install --classic eclipse
+
+#  instal auto generator of python documentation docstrings
+pip install pyment
+
+# install auto generator of python html documentation based on docstrings in .py code.
+pip install pdoc3
