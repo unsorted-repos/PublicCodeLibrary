@@ -32,6 +32,7 @@ p7zip-full \
 privoxy \
 remmina \
 slack \
+searchmonkey \
 texlive-xetex \
 texmaker \
 vlc \
