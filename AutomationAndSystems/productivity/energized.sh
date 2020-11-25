@@ -229,8 +229,8 @@ sleep 2
 
 # Features & Main Parts
 # ----------------------------------------
-while true
-do
+#while true
+#do
 # Aliases, Grep, Wget Variables
 # ----------------------------------------
 HOST=/etc/hosts
@@ -610,7 +610,8 @@ sleep 0.1
 		echo ''
 		sleep 0.1
 		echo -n -e $W'[+] PROCEED?'$N $Y'[Y/N]'$N: $G"$answer"$N
-		read answer
+		#read answer
+		answer="y"
 		if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
 		  clear
 		  echo -e $Y"$divider"$N
@@ -1502,7 +1503,7 @@ sleep 0.1
 	COUNT=$((COUNT+1))
 	clear
 	reset
-done
+#done
 rm -f $TREADME
 echo "[+] Done!"
 # Script Ends
@@ -1545,3 +1546,4 @@ sleep 0.1
 echo -e $Y"$divider"$N
 echo ""
 sleep 1
+
