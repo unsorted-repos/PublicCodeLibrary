@@ -37,6 +37,7 @@ searchmonkey \
 texlive-xetex \
 texmaker \
 vlc \
+wine \
 -y
 
 
@@ -138,7 +139,6 @@ yes | sudo apt update && yes | sudo apt install signal-desktop
 # Addblock
 firefox addon-1865-latest.xpi
 
-
 ###########################
 ## ANACONDA ##
 ###########################
@@ -149,10 +149,20 @@ if [ -d $CONDADIR ]; then
 	myecho "$($GREEN)Anaconda is already installed"
 else
 	wget -nc https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh -O Anaconda.sh
+	echo "SAY YES WHEN ANACONDA ASKS IF YOU WANT TO ADD IT TO BASHRC!"
 	if [ -f $DIR/Anaconda.sh ]; then
 		chmod +x $DIR/Anaconda.sh && $DIR/Anaconda.sh
+		bash Anaconda.sh
+		export PATH=$CONDADIR/bin:$PATH
+		export PATH=/home/$(whoami)/anaconda3/bin:$PATH
+		#sudo ln -s $CONDADIR/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+		echo "conda activate" >> ~/.bashrc
+		
 	else
 		myecho "$($RED)Couldn't find Anaconda"
 	fi
 fi
-bash Anaconda.sh
+
+# DO THIS MANUALLY OR REBOOT DEVICE!
+# Activate conda terminal environment
+source ~/.bashrc
