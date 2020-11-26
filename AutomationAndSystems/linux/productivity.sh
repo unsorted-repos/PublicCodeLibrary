@@ -3,6 +3,6 @@
 # setup productivity system.
 chmod +x ../productivity/energized.sh
 cd ../productivity/
-./energized.sh p 
-./energized.sh s
-./energized.sh b
+sudo ./energized.sh p 
+sudo ./energized.sh s
+sudo ./energized.sh b

@@ -37,7 +37,6 @@ if [ -f $DREADME ]; then
   rm -f $DIRECTORY/deltaReadme
 fi
 
-
 ## Create blacklist
 echo "Parsing personal blacklist"
 
@@ -62,17 +61,22 @@ while read line; do
 		# check if output file exists
 		if ! grep -q $website $output_blacklist ; then
 			if [ -f "$output_blacklist" ]; then 
-				echo "$website" >> "$output_blacklist"
+				#echo "$website" >> "$output_blacklist"
+				# Include local ip to block
+				echo "0.0.0.0 $website" >> "$output_blacklist"
 			fi
 		fi
 		if ! grep -q $wwwWebsite $output_blacklist ; then
 			if [ -f "$output_blacklist" ]; then 
-				echo "$wwwWebsite" >> "$output_blacklist"
+				#echo "$wwwWebsite" >> "$output_blacklist"
+				# Include local ip to block
+				echo "0.0.0.0 $wwwWebsite" >> "$output_blacklist"
 			fi
 		fi
 	done < $domain_list
 done < $personal_blacklist
-echo "Done"
+echo "Done parsing personal blacklist"
+
 
 # Divider
 # ----------------------------------------
@@ -229,8 +233,8 @@ sleep 2
 
 # Features & Main Parts
 # ----------------------------------------
-#while true
-#do
+while true
+do
 # Aliases, Grep, Wget Variables
 # ----------------------------------------
 HOST=/etc/hosts
@@ -610,8 +614,7 @@ sleep 0.1
 		echo ''
 		sleep 0.1
 		echo -n -e $W'[+] PROCEED?'$N $Y'[Y/N]'$N: $G"$answer"$N
-		#read answer
-		answer="y"
+		read answer
 		if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
 		  clear
 		  echo -e $Y"$divider"$N
@@ -789,7 +792,7 @@ sleep 0.1
 				sleep 2
 		    else
 				if [ -f "$HOST" ]; then
-				 if [ ! -s $WHITELIST ]; then
+				 if [ -s $WHITELIST ]; then
 					echo -e $G'[+] Whitelist Found!'$N
 					echo -e $W'[+] Applying Whitelist'$N
 					sleep 0.3
@@ -1503,7 +1506,7 @@ sleep 0.1
 	COUNT=$((COUNT+1))
 	clear
 	reset
-#done
+done
 rm -f $TREADME
 echo "[+] Done!"
 # Script Ends
