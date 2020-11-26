@@ -33,4 +33,6 @@ b
 3. Reboot your pc.
 
 ## Note
-Running the script with an argument, e.g. `sudo ./energized.sh s`  yields an infinite loop.
+0. Running the script with an argument, e.g. `sudo ./energized.sh s`  yields an infinite loop.
+1. The blocklisting is kept a bit tedious deliberatly to lower the threshold to change the productivity settings. Ideally one would have an encryption within the OS that allows root to do everything but change these settings, where a friend/relative/unkown/etherium contract (opening up if a certain charity donation would be made) could be set up as password. *Note, most likely the definition of root is "can do everything", which would include changing the productivity settings, which is in conflict with the intention. So I would probably technically mean something else than root (but almost identical to root).
+
