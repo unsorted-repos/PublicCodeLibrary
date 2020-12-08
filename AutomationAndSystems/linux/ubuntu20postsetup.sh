@@ -115,6 +115,18 @@ sudo snap install notepad-plus-plus
 # discord
 sudo snap install discord
 
+# install audacity to be able to apply manual noise reduction
+yes | sudo snap install audacity
+sudo snap connect audacity:alsa
+# Example of noise reduction with audacity
+# https://www.techsmith.com/blog/not-late-reduce-audio-noise-recordings-free/
+# TODO: setup automatic noise reduction on calls
+
+# Skype
+#sudo snap install skyp --classic
+
+# audacity
+
 #  instal auto generator of python documentation docstrings
 pip install pyment
 
@@ -166,3 +178,7 @@ fi
 # DO THIS MANUALLY OR REBOOT DEVICE!
 # Activate conda terminal environment
 source ~/.bashrc
+
+
+# to edit videos from bash
+yes |  sudo conda install ffmpeg
