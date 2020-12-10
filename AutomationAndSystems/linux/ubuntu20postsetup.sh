@@ -18,6 +18,7 @@ sudo apt update && upgrade
 
 sudo apt install \
 anki \
+autokey-gtk \
 compiz \
 compiz-plugins \
 libreoffice \
@@ -39,6 +40,8 @@ texmaker \
 vlc \
 wine \
 -y
+
+# autokey-gtk = open source equivalent of auto hokey, to enable scrolling in terminal using keyboard
 
 
 myecho () {
@@ -182,3 +185,11 @@ source ~/.bashrc
 
 # to edit videos from bash
 yes |  sudo conda install ffmpeg
+
+# adobe reader dc to show videos in pdfs
+# Source: https://linuxconfig.org/how-to-install-adobe-acrobat-reader-dc-wine-on-ubuntu-20-04-focal-fossa-linux
+sudo snap install acrordrdc
+acrordrdc
+# MANUALLY YES at prevent launching in protective mode disabled (just pick default/pre-selected options)>yes
+# disable connection of adobe reader dc to internet.
+sudo snap disconnect acrordrdc:network
