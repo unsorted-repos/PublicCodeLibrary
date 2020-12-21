@@ -1,0 +1,19 @@
+Ps if you're reading this and consider getting your own, get an opensource keyboard instead, with a wire, the bluetooth often temporarily resets every 15-ish minutes. Also repairs are easier on those.
+https://github.com/BenRoe/awesome-mechanical-keyboard/blob/master/docs/README.md
+
+Turn your goldtouch keyboard on
+Then Switch to MAC
+press (and hold your bluetooth connect button on your goldtouch keyboard)
+open Terminal on your Ubuntu
+```
+sudo apt-get install bluez-tools
+bt-device -l
+Goldtouch Bluetooth Keyboard (08:somecode:0E)
+bt-device -c 08:somecode:0E
+```
+Connecting to: 08:somecode:0E
+Device: Goldtouch Bluetooth Keyboard (08:somecode:0E)
+Confirm pin code: 171438 (yes/no)? y
+<Here is where you manually type the code into the keyboard and press enter. Then you wait until it says:
+Done
+Then switch your keyboard back to back to PC/Windows and verify it works accordingly.
