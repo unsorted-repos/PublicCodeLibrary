@@ -14,6 +14,11 @@ CYANE='tput setaf 6'
 NC='tput sgr0'
 BOOL=true
 
+
+# show hidden files in explorer by default
+# Source: https://askubuntu.com/questions/258642/hidden-files-always-being-shown
+gsettings set org.gtk.Settings.FileChooser show-hidden true
+
 sudo apt update && upgrade
 
 sudo apt install \
