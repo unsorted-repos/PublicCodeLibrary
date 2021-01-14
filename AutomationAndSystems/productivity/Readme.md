@@ -12,7 +12,7 @@ chmod +x *.sh
 so if you want to block youtube.com, you just add: `youtube` as a separate line in your blocklist.
 2.1 Next activate the EnergizedPro block:
 ```
-./energized.sh
+sudo ./energized.sh
 ```
 and enter the options you want, may I suggest:
 ```
