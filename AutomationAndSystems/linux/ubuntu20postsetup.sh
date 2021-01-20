@@ -198,3 +198,7 @@ acrordrdc
 # MANUALLY YES at prevent launching in protective mode disabled (just pick default/pre-selected options)>yes
 # disable connection of adobe reader dc to internet.
 sudo snap disconnect acrordrdc:network
+
+# Display keystrokes (e.g. for screenrecording(casting))
+sudo add-apt-repository ppa:atareao/atareao
+sudo apt install screenkeyfk
