@@ -1,0 +1,33 @@
+# How to SSH into google cloud VM
+Idea of ssh is that you upload your public ssh key to some service, and then login with your private key. That way they know you are you.
+
+## Create your ssh key
+0. Open terminal and browse to some directory where you save your ssh keys, usually for linux it is in:
+```
+cd ~/.ssh
+```
+1. Create an ssh key for the service you want by running command:
+```
+ssh-keygen
+```
+2. This creates a private ssh key named `some_name` and a public ssh key named `some_name.pub`. The public key you can share, the private is like a password. 
+
+3. Get your complete public key (as it is) with command: 
+```
+cat some_name.pub
+```
+4. go to console.cloud.google.com > click dashboard > select project > navigate to compute engine > Select the VM> Top click Edit > "Show and edit at the bottom at ssh keys > Copy paste your public SSH key that you copied from the cat terminal output.
+5. Click on compute engine and manually start the ssh VM by pressing the start button (three dots>start).
+6. Install putty on your pc/laptop:
+```
+sudo apt install putty
+```
+7. Open putty from terminal with command
+```
+putty
+```
+8. Get the ip adress that is displayed in the google cloud window when you click `compute engine` (after you started the VM).
+9. Copy that in putty ip adress
+10. In the left tab of putty click: `ssh>auth>Browse` and open your private ssh key `some_name` from where you stored it (`~/.ssh/`).
+11. In the left tab go back up to session and press Open. 
+12. Now you should be automatically connected and the VM terminal should ask you under which pseudonym you want to log in. You can just enter gibberish there, press enter and you are in :)
