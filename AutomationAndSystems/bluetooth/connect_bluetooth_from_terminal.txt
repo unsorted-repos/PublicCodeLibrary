@@ -1,0 +1,25 @@
+https://computingforgeeks.com/connect-to-bluetooth-device-from-linux-terminal/
+If settings>bluetooth does not list any devices, and you want to connect to a bluetooth device from terminal, you can use the following steps:
+```
+sudo apt-get -y install bluetooth bluez bluez-tools rfkill\
+```
+Open some bluetooth shell with command:
+```
+bluetoothctl
+```
+(After opening that shell, you can list the adresses of the bluetooth devices with: `scan on`)
+
+To connect to a device, one should be in that `bluetoothctl` shell and type:
+```
+pair 5C:FB:7C:A4:13:C6
+```
+One could get the adress if one has a phone that does work, by connecting the intended device to the phone and removing the name like "Sony headset" from the connected device name. This will leave the adress of the device you want to connect to.
+
+Next one can connect to that paired device with:
+```
+connect 5C:FB:7C:A4:13:C6
+```
+One can safely exit that shell with:
+```
+exit
+```
