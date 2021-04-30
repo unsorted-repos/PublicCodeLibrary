@@ -1,0 +1,7 @@
+https://ubuntu.com/tutorials/how-to-sdcard-ubuntu-server-raspberry-pi#2-prepare-the-sd-card
+sudo snap install rpi-imager
+# open installed raspberry app: imager
+#Click: "Choose OS"
+# scroll down with arrows and select:"Other general purpose OS"
+# Selected: "Ubuntu Server 20.04.LTS (RPI 3/4/400) (64 bit edition).
+#  Click "Choose Storage" and select a micro sd card that you have entered into your computer.
