@@ -5,3 +5,55 @@ sudo snap install rpi-imager
 # scroll down with arrows and select:"Other general purpose OS"
 # Selected: "Ubuntu Server 20.04.LTS (RPI 3/4/400) (64 bit edition).
 #  Click "Choose Storage" and select a micro sd card that you have entered into your computer.
+
+# Selected Ubuntu Server 20.04.LTS (the second option)
+
+# If you are asked to login, wait till the server has made the user. OR:
+# Source: https://stackoverflow.com/questions/61736978/i-just-installed-ubuntu-20-04-lts-whats-the-default-password
+username=ubuntu
+password=ubuntu
+
+# Connect to wifi:
+# Source: https://linuxconfig.org/ubuntu-20-04-connect-to-wifi-from-command-line
+#0. identify wifi module name:
+ls /sys/class/net
+# outputs something like .. .. wlan0
+# 1. Find accompanying config file for your wifi module:
+ls /etc/netplan
+# It returns something like:50-cloud-init.yaml
+# 2. Now edit the yaml/network config file:
+sudo nano /etc/netplan/50-cloud-init.yaml
+# 3. At the `wlan9` or what your equivalent is, add your wifi name and password:
+IMPORTANT DONT USE TABS, USE 4 SPACES for each indentation. 
+```
+# disable cloud-init's
+# network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+network:
+    ethernets:
+        eth0:
+            dhcp4: true
+            optional: true
+    version: 2
+    wifis:
+        wlan0:
+            dhcp4: true
+            optional: true
+            access-points:
+                "some_SSID_name":
+                    password: "some_WiFi_password"
+```
+
+
+ctrl+s
+ctrl+x
+# 4. apply the changes:
+```
+sudo netplan generate
+sudo netplan apply
+```
+# 5. verify:
+```
+nslookup duckduckgo.com
+```
