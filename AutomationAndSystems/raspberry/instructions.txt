@@ -6,7 +6,7 @@ sudo snap install rpi-imager
 # Selected: "Ubuntu Server 20.04.LTS (RPI 3/4/400) (64 bit edition).
 #  Click "Choose Storage" and select a micro sd card that you have entered into your computer.
 
-# Selected Ubuntu Server 20.04.LTS (the second option)
+# Selected Ubuntu Server 20.04.LTS (the first X86/32 bits option)
 
 # If you are asked to login, wait till the server has made the user. OR:
 # Source: https://stackoverflow.com/questions/61736978/i-just-installed-ubuntu-20-04-lts-whats-the-default-password
@@ -56,4 +56,32 @@ sudo netplan apply
 # 5. verify:
 ```
 nslookup duckduckgo.com
+```
+
+6. Run script from usb stick:
+6.a find usb stick location:
+```
+lsblk
+```
+Returns `...sda1 ... part`.
+6.b Create mount point (a folder where you can access the usb drive through)
+```
+sudo mkdir /media/usbstick
+```
+6.c mount drive
+```
+sudo mount /dev/sda1 /media/usbstick
+```
+6.d If you're done, unmount with:
+```
+sudo umount /media/usbstick
+```
+7. Run first run script:
+```
+/media/usbstick/.first_run.sh
+```
+
+8. To install miniconda use:
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-armv7l.sh
 ```
