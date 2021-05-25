@@ -63,4 +63,6 @@ yes | sudo apt upgrade
 
 # install conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-armv7l.sh -O ~/miniconda.sh
-/home/$USER/./miniconda.sh
+/home/$USER/./miniconda.sh -b -p /home/$USER/miniconda
+
+echo "PATH=$PATH:$HOME/miniconda/bin" >> .bashrc
