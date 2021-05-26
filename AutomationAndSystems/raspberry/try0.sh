@@ -53,6 +53,23 @@ done
 #cd ~
 #git clone https://github.com/HiveMinds-EU/Productivity-setup.git
 
+# set timezone
+sudo cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
+timedatectl status
+read -p "Have set timezone to paris." next
+# retry
+timedatectl set–timezone Europe/London 
+read -p "Have set timezone to London again." next
+timedatectl set–ntp yes
+timedatectl status
+read -p "Have set ntp." next
+
+# https://askubuntu.com/questions/323131/setting-timezone-from-terminal
+echo "Setting TimeZone..."
+export tz=`wget -qO - http://geoip.ubuntu.com/lookup | sed -n -e 's/.*<TimeZone>\(.*\)<\/TimeZone>.*/\1/p'` &&  timedatectl set-timezone $tz
+export tz=`timedatectl status| grep Timezone | awk '{print $2}'`
+echo "TimeZone set to $tz"
+
 # update and upgrade
 yes | sudo apt update
 read -p "Update completed <type enter>" next
@@ -65,8 +82,11 @@ read -p "Second update completed <type enter>" next
 yes | sudo apt upgrade
 read -p "Second upgrade completed <type enter>" next
 
+exit
+
 # install conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-armv7l.sh -O ~/miniconda.sh
+chmod +x /home/$USER/./miniconda.sh
 /home/$USER/./miniconda.sh -b -p /home/$USER/miniconda
 read -p "Installed miniconda <type enter>" next
 
