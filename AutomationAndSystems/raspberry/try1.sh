@@ -151,7 +151,7 @@ check_output_update_command() {
 			)
 			
 		test_result=$(actual_result_has_any_allowed_result_in_tail "$update_output" "${allowed_results[@]}")
-
+		test_result=${test_result: -4}
 		echo $test_result
 	done
 }
@@ -169,7 +169,6 @@ check_output_upgrade_command() {
 		
 		#output_ending=$(tail -c 11 $upgrade_output)
 		output_ending=${upgrade_output: -10}
-		expected_output=" upgraded."
 		echo $output_ending
 	done
 }
