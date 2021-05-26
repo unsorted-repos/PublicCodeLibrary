@@ -85,44 +85,8 @@ actual_result_has_any_allowed_result_in_tail() {
 	echo $test_result
 }
 
-# A loop that checks whether the output of the update command is as expected after successfull completion.
-check_output_update_command() {
-	#test_result=false
-	while [[ $test_result != true ]]
-	do
-		update_output=$(yes | sudo apt update)
-		echo $update_output
-
-		allowed_results=("Reading package lists... Building dependency tree... Reading state information... All packages are up to date."
-				"packages can be upgraded. Run 'apt list --upgradable' to see them."
-			)
-			
-		test_result=$(actual_result_has_any_allowed_result_in_tail "$update_output" "${allowed_results[@]}")
-
-		echo $test_result
-	done
-}
-check_output_update_command "$@"
 
 
-check_output_upgrade_command() {
-	#output_ending=false
-	while [[ $output_ending != " upgraded." ]]
-	do
-		upgrade_output=$(yes | sudo apt upgrade)
-		echo $upgrade_output
-
-		
-		#output_ending=$(tail -c 11 $upgrade_output)
-		output_ending=${upgrade_output: -10}
-		expected_output=" upgraded."
-		echo $output_ending
-	done
-}
-check_output_upgrade_command "$@"
-
-
-exit
 
 # Verify internet access is available
 while [ $(ping -q -w1 -c1 google.com &>/dev/null && echo online || echo offline) == offline ]
@@ -168,40 +132,49 @@ do
 	fi
 done
 
-# get git
-#cd ~
-#git clone https://github.com/HiveMinds-EU/Productivity-setup.git
-
-# set timezone
-sudo cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
-timedatectl status
-read -p "Have set timezone to paris." next
-# retry
-timedatectl set–timezone Europe/London 
-read -p "Have set timezone to London again." next
-timedatectl set–ntp yes
-timedatectl status
-read -p "Have set ntp." next
-
 # https://askubuntu.com/questions/323131/setting-timezone-from-terminal
 echo "Setting TimeZone..."
 export tz=`wget -qO - http://geoip.ubuntu.com/lookup | sed -n -e 's/.*<TimeZone>\(.*\)<\/TimeZone>.*/\1/p'` &&  timedatectl set-timezone $tz
 export tz=`timedatectl status| grep Timezone | awk '{print $2}'`
 echo "TimeZone set to $tz"
 
-# update and upgrade
-yes | sudo apt update
-read -p "Update completed <type enter>" next
-yes | sudo apt upgrade
-read -p "Upgrade completed <type enter>" next
+# A loop that checks whether the output of the update command is as expected after successfull completion.
+check_output_update_command() {
+	#test_result=false
+	while [[ $test_result != true ]]
+	do
+		update_output=$(yes | sudo apt update)
+		echo $update_output
 
-# update and upgrade twice to allow for delays
-yes | sudo apt update
-read -p "Second update completed <type enter>" next
-yes | sudo apt upgrade
-read -p "Second upgrade completed <type enter>" next
+		allowed_results=("Reading package lists... Building dependency tree... Reading state information... All packages are up to date."
+				"packages can be upgraded. Run 'apt list --upgradable' to see them."
+			)
+			
+		test_result=$(actual_result_has_any_allowed_result_in_tail "$update_output" "${allowed_results[@]}")
 
-exit
+		echo $test_result
+	done
+}
+check_output_update_command "$@"
+read -p "Succesfully completed update command <type enter>" next
+
+# A loop that checks whether the output of the upgrade command is as expected after successfull completion.
+check_output_upgrade_command() {
+	#output_ending=false
+	while [[ $output_ending != " upgraded." ]]
+	do
+		upgrade_output=$(yes | sudo apt upgrade)
+		echo $upgrade_output
+
+		
+		#output_ending=$(tail -c 11 $upgrade_output)
+		output_ending=${upgrade_output: -10}
+		expected_output=" upgraded."
+		echo $output_ending
+	done
+}
+check_output_upgrade_command "$@"
+read -p "Succesfully completed upgrade command <type enter>" next
 
 # install conda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-armv7l.sh -O ~/miniconda.sh
