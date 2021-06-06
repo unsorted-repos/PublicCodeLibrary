@@ -1,0 +1,60 @@
+Source: https://linuxhint.com/wi-fi_connecting_issues_raspberry_pi/
+browse into the /boot/ folderr of the microsd after writing Raspberry Pi OS Lite onto it.
+```
+sudo touch wpa_supplicant.conf
+sudo touch ssh
+```
+Create a new file in `/boot/wpa_supplicant.conf` in the micro sd card, and copy the following text in it:
+```
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="yourswifisid"
+    scan_ssid=1
+    psk="yourwifipassword"
+   key_mgmt=WPA-PSK
+}
+```
+make sure to replace your own wifi ssid and password in there. Then simply put the microsd into the raspberry pi and power it up.
+To ssh into it:
+
+
+9. Enable ssh:
+```
+sudo raspi-config
+3
+P2
+YES
+Finish
+```
+10. Get the ip address over ethernet of the Raspberry Pi while you're in the raspberry by typing into the Raspberry Pi CLI:
+```
+hostname -I
+```
+Which returns something like:
+11.12.13.145
+
+11. Get the account name of the raspberry pi:
+```
+whoami
+```
+12. The default password is `raspberry`.
+
+11. Click update and install updates
+12. Reboot the device
+13. Then when the keyboard does not work anymore, ssh into it.
+```
+ssh pi@11.12.13.145
+pi@11.12.13.145's password: 
+```
+
+To get SSH over wifi:
+Source:https://penkovsky.com/homelab/raspi-ssh-over-wifi/
+14. On host pc/nonpi:
+```
+sudo apt install nmap
+nmap -sn 11.12.13.145/24
+nmap -Pn 11.12.13.145/24
+```
