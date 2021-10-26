@@ -1,0 +1,16 @@
+Source: https://superuser.com/questions/1428670/notepad-select-all-multi-line-select-at-end-of-each-line/1617635#1617635
+0. Select and copy the lines of which you want to edit the line endings
+1. Ctrl+N to create a new tab
+2. Ctrl+PageDown to switch to that tab
+3. Ctrl+V to paste the text to be edited into the new tab
+4. Ctrl+h to start replace
+5. replace:$
+6. with <the text you want> (notice you should do \n in two steps, first replace with:\ then replace with: n)
+7. Alt+P to enable the checkbox Wrap around
+8. Alt+G to enable regular expression
+9. Alt+A to replace all lines
+10. Ctrl+A, Ctrl+C to copy and select all modified lines
+2. Ctrl+PageDown to switch back to the original tab.
+12. Ctrl+V to replace the original text with the edited text.
+
+Or with mouse you could hold ctrl, click on all the lines of which you want to edit the end, then release CTRL and press End to put the carets at the end of the respective lines.
