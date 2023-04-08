@@ -116,6 +116,19 @@ dead_functions = [
 ignored_functions=[
     "collect_types_fixture",
     "pytest_sessionfinish",
+    'load_pickle',
+    'get_pure_edge_angle',
+    'pytest_collection_finish',
+    'override_with_single_run_setting',
+    'has_outputted_rand_nrs',
+    'hinted_tuple_hook',
+    'json_undirected_graph_into_nx_graph',
+    'load_pickled_boxplot_data',
+    'manually_create_lif_neuron',
+    'print_neuron_status',
+    'addTargets',
+    'to_string_wo_id',
+    'createRandomSpiker',
 ]
 remaining_dead_functions=[]
 for dead_function in dead_functions:
