@@ -1,0 +1,54 @@
+# Source: https://stackoverflow.com/questions/4039416/installing-git-with-non-root-user-account
+
+mkdir -p /home/$(whoami)/install
+cd /home/$(whoami)/install
+wget https://curl.haxx.se/download/curl-7.47.1.tar.gz
+tar -xf curl-7.47.1.tar.gz
+mkdir -p curl_install
+cd curl-7.47.1
+./configure --prefix=/home/$(whoami)/install/curl_install
+make
+make install
+
+cd /home/$(whoami)/install
+wget http://sourceforge.net/projects/expat/files/expat/2.5.0/expat-2.5.0.tar.gz
+tar -xzf expat-2.5.0.tar.gz 
+mkdir expat_install
+cd expat-2.5.0
+./configure --prefix=/home/$(whoami)/install/expat_install
+make
+make install
+
+cd /home/$(whoami)/install
+wget https://zlib.net/zlib-1.2.13.tar.gz
+tar -xf zlib-1.2.13.tar.gz
+mkdir zlib_install
+cd zlib-1.2.13
+./configure --prefix=/home/$(whoami)/install/zlib_install
+make
+make install
+# Verify zlib:
+wget http://zlib.net/zpipe.c
+gcc zpipe.c -o zpipe -lz
+
+
+cd /home/$(whoami)/install
+wget https://github.com/git/git/archive/v2.6.4.tar.gz
+tar -xf v2.6.4.tar.gz
+mkdir git_install
+cd git-2.6.4
+make configure
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat
+make
+make install
+
+# Retry I
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/zlib
+make
+make install
+
+# Retry II
+make NO_GETTEXT=Nope NO_TCLTK=Nope
+
+# TODO:
+Install zlib and then add it to path such that zlib installation can be verified. See 3rd block of code.
