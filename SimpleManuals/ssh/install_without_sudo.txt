@@ -1,3 +1,7 @@
+# Default path:
+/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+
+
 # Source: https://stackoverflow.com/questions/4039416/installing-git-with-non-root-user-account
 
 mkdir -p /home/$(whoami)/install
@@ -23,7 +27,41 @@ cd /home/$(whoami)/install
 wget https://zlib.net/zlib-1.2.13.tar.gz
 tar -xf zlib-1.2.13.tar.gz
 mkdir zlib_install
-cd zlib-1.2.13
+cd /home/$(whoami)/install/zlib-1.2.13
+./configure --prefix=/home/$(whoami)/install/zlib_install
+make
+make install
+# Verify zlib:
+wget http://zlib.net/zpipe.c
+gcc zpipe.c -o zpipe -lz
+
+# Retry I
+make -j4 (Changed something).
+make install 
+# Add zlib to path.
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+export PATH="/home/$(whoami)/install/zlib_install:$PATH"
+export PATH="/home/$(whoami)/install/zlib_install/include:$PATH"
+export PATH="/home/$(whoami)/install/zlib_install/include/zlib.h:$PATH"
+export PATH="/home/$(whoami)/install/zlib-1.2.13/:$PATH"
+
+
+
+##
+Source: https://stackoverflow.com/a/5757638/7437143
+wget https://ftp.de.debian.org/debian/pool/main/z/zlib/lib32z1-dev_1.2.13.dfsg-1_amd64.deb
+
+##
+
+
+cd /home/$(whoami)/install
+mkdir zlib_dev_install
+cd /home/$(whoami)/install/zlib_dev_install
+wget --no-check-certificate https://ftp.us.debian.org/debian/pool/main/z/zlib/zlib1g-dev_1.2.11.dfsg-2+deb11u2_amd64.deb
+dpkg -x *.deb /home/$(whoami)/install/zlib_dev_install
+export PATH="/home/$(whoami)/install/zlib_dev_install/usr/lib/x86_64-linux-gnu:$PATH"
+
+cd /home/$(whoami)/install/zlib-1.2.13
 ./configure --prefix=/home/$(whoami)/install/zlib_install
 make
 make install
@@ -32,23 +70,50 @@ wget http://zlib.net/zpipe.c
 gcc zpipe.c -o zpipe -lz
 
 
+
 cd /home/$(whoami)/install
 wget https://github.com/git/git/archive/v2.6.4.tar.gz
 tar -xf v2.6.4.tar.gz
 mkdir git_install
-cd git-2.6.4
+cd /home/$(whoami)/install/git-2.6.4
 make configure
 ./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat
 make
 make install
 
 # Retry I
+cd /home/$(whoami)/install/git-2.6.4
 ./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/zlib
+cp /home/$(whoami)/install/zlib_install/include/zlib.h zlib.h
+cp /home/$(whoami)/install/zlib-1.2.13/zconf.h zconf.h
+cp /home/$(whoami)/install/zlib-1.2.13/libz.a libz.a
+cp /home/$(whoami)/install/zlib-1.2.13/libz.so libz.so
 make
 make install
 
 # Retry II
 make NO_GETTEXT=Nope NO_TCLTK=Nope
 
-# TODO:
-Install zlib and then add it to path such that zlib installation can be verified. See 3rd block of code.
+# Retry III
+make -j4
+make install
+
+# Retry IV
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/install_zlib threads no-shared zlib no-zlib-dynamic -L/home/$(whoami)/install/zlib-1.2.13
+
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/zlib-1.2.13
+
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/install_zlib threads no-shared zlib no-zlib-dynamic
+
+# Does not Work for make
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat threads no-shared zlib no-zlib-dynamic
+make
+make test
+
+# Does not Work for make
+./configure --prefix=/home/$(whoami)/install/git_install/git --with-curl=/home/$(whoami)/install/curl --with-expat=/home/$(whoami)/install/expat --with-zlib=/home/$(whoami)/install/install_zlib threads no-shared zlib no-zlib-dynamic
+make
+
+cp /home/$(whoami)/install/zlib_install/include/zlib.h zlib.h
+cp /home/$(whoami)/install/zlib-1.2.13/zconf.h zconf.h
+make install
