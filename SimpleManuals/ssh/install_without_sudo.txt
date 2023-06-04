@@ -117,3 +117,9 @@ make
 cp /home/$(whoami)/install/zlib_install/include/zlib.h zlib.h
 cp /home/$(whoami)/install/zlib-1.2.13/zconf.h zconf.h
 make install
+
+## ANACONDa
+wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
+chmod +x *.sh
+
+
