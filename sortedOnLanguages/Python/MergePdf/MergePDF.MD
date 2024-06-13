@@ -1,3 +1,8 @@
+## Linux instructions
+pip install pypdf
+pip install pypdf2
+
+## Old unused instructions
 0. Had to install libraries from:
 https://pypi.python.org/pypi/PyPDF2/1.25.1
 0.1. Downlaod tar
@@ -25,6 +30,3 @@ If you get error: ..package not installed, Install and open anaconda, browse to 
 py -3   -m pip install PyPDF2
 
 
-## Linux instructions
-pip install pypdf
-pip install pypdf2
